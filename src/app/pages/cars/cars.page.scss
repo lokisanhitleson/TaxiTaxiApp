@@ -1,0 +1,58 @@
+:host {
+    ion-content {
+        --background: linear-gradient(-135deg, var(--ion-color-medium), var(--ion-color-light));
+    }
+    ion-datetime {
+        color: #dcbbf5;
+    }
+    .date-label {
+        color: #dcbbf5
+    }
+    .view-text {
+        color: #272983;
+        font-size: 12px;
+        text-decoration: underline;
+    }
+    .agent-name {
+        color: #272983;
+        text-decoration: underline;
+    }
+    .calendar-icon {
+        font-size: 25px;
+        color: #cfb7e2;
+    }
+    card-content-md {
+        padding: 0px!important;
+    }
+    ion-card {
+        padding: 5px;
+        margin-bottom: 5px;
+        border-left: 5px solid #0ec254;
+    }
+    .car-profile {
+        .car-avatar {
+            width: 90%;
+            max-width: 200px;
+            height: 100px;
+            margin-right: 5px;
+            img {
+                width: 100%;
+            }
+        }
+        .item-inner {
+            border-width: 0;
+        }
+        ion-icon {
+            font-size: 14px;
+        }
+        .mobnum-text {
+            margin-top: 25px;
+        }
+    }
+    ion-button {
+        text-transform: none!important;
+    }
+    ion-item {
+        border-bottom: 0px!important;
+    }
+}

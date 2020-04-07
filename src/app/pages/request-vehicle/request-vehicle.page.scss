@@ -1,0 +1,70 @@
+:host {
+    ion-content {
+        --background: linear-gradient(-135deg, var(--ion-color-medium), var(--ion-color-light));
+    }
+    ion-card-content {
+        .tripRadioGroup {
+            width: auto!important;
+            border: 1px solid #ddd;
+            text-align: center;
+            ion-radio-group {
+                ion-radio {
+                    margin: 0 0 -1px;
+                }
+                ion-label {
+                    vertical-align: middle;
+                    padding: 5px;
+                    display: table-cell;
+                    text-align: center;
+                    font-size: 16px;
+                }
+                span {
+                    line-height: 1;
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+    .date-filter {
+        ion-input.date-picker {
+            background: #fff;
+            color: #444;
+            width: 98%;
+            margin: 0 10px;
+        }
+        .calendar-icon {
+            ion-icon {
+                font-size: 30px;
+            }
+        }
+    }
+    .request-form {
+        ion-item {
+            --border-color: var(--ion-color-secondary);
+        }
+    }
+    .myCustomSelect {
+        max-width: 100% !important;
+    }
+    .grid-btns {
+        ion-col {
+            ion-item {
+                max-width: 100%;
+                background: #039e3e;
+                --color: var(--ion-color-light);
+                border-bottom-left-radius: 30px;
+                ion-label {
+                    font-size: 80%;
+                    min-width: 125px;
+                }
+                ion-icon {
+                    padding: 0px!important;
+                    font-size: 12px;
+                    color: #ffce00;
+                    position: absolute;
+                    right: 2%;
+                }
+            }
+        }
+    }
+}

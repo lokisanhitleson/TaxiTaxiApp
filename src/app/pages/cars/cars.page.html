@@ -1,0 +1,71 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Available Cars</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-toolbar color="secondary" slot="fixed">
+    <ion-item>
+        <ion-label class="date-label">Select Date :</ion-label>
+        <ion-icon name="calendar" class="calendar-icon"></ion-icon>
+        <ion-datetime [(ngModel)]="selectedDate" placeholder="24/03/2020" displayFormat="DD/MM/YYYY" min="{{today}}" max="{{nextThirty}}" value="{{today}}">
+        </ion-datetime>
+    </ion-item>
+</ion-toolbar>
+<ion-content>
+    <div class="car-profile" *ngFor="let car of cars">
+        <ion-card class="bg-white" no-margin>
+            <ion-card-content no-padding>
+                <ion-row>
+                    <ion-col>
+
+                        {{car.carname}}
+                        <ion-thumbnail class="car-avatar">
+                            <img [src]="car.img">
+                        </ion-thumbnail>
+                        <ion-text class="view-text" routerLink="/vehicle-detail">
+                            <ion-icon name="eye"></ion-icon> View Details
+                        </ion-text>
+                    </ion-col>
+                    <ion-col>
+                        <ion-label class="ion-text-end" routerLink="/agent-profile">
+                            <ion-text color="dark ion-text-end" class="agent-name">
+                                <h4><strong>{{car.agentname}}</strong></h4>
+                            </ion-text>
+                            <ion-text color="dark ion-text-end">
+                                <h3>
+                                    {{car.location}}
+                                </h3>
+                            </ion-text>
+                            <ion-text class="text-gray ion-text-end">
+                                <h5>
+                                    {{car.seater}}
+                                </h5>
+                            </ion-text>
+                            <div class="ion-text-end mobnum-text">
+                                <ion-text color="dark">
+                                    +91 {{car.mobilenumber}}
+                                </ion-text>
+                            </div>
+                        </ion-label>
+                        <div class="ion-text-end">
+                            <a href="tel:{{car.mobilenumber}}">
+                                <ion-button shape="round" size="small" color="success">
+                                    <ion-icon name="call"></ion-icon>
+                                </ion-button>
+                            </a>
+                            <a (click)="openWhatsApp()">
+                                <ion-button shape="round" size="small" color="success">
+                                    <ion-icon name="logo-whatsapp"></ion-icon>
+                                </ion-button>
+                            </a>
+                        </div>
+                    </ion-col>
+                </ion-row>
+
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>

@@ -1,0 +1,79 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button color="light"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            <ion-text color="light">
+                <ion-text color="light" class="fw700">Home</ion-text>
+            </ion-text>
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button size="small" shape="round" color="medium" (click)="notifications($event)">
+                <ion-icon name="notifications"></ion-icon>
+                <ion-badge color="danger" slot="end">2</ion-badge>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <!-- <ion-toolbar color="primary">
+        <ion-searchbar [(ngModel)]="searchKey"></ion-searchbar>
+        <ion-buttons slot="end">
+            <ion-button size="small" shape="round" color="medium" (click)="searchFilter()">
+                <ion-icon name="options"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar> -->
+</ion-header>
+<ion-card no-margin class="no-radius" slot="fixed">
+    <ion-item lines="none" color="secondary">
+        <ion-label>
+            <h2 no-margin class="fw500 no-margin">
+                <ion-text color="medium">Location : </ion-text>
+                <ion-text color="medium" class="location-text">{{yourLocation}}</ion-text>
+            </h2>
+
+            <!-- <p class="text-11x no-margin">
+
+            </p> -->
+        </ion-label>
+        <ion-button shape="round" fill="outline" size="small" color="medium" (click)="alertLocation()">
+            Change
+            <ion-icon name="locate"></ion-icon>
+        </ion-button>
+    </ion-item>
+</ion-card>
+<ion-content>
+
+    <div class="slide-container">
+        <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
+            <ion-slide *ngFor="let ad of ads">
+                <img [src]="ad.img">
+            </ion-slide>
+        </ion-slides>
+    </div>
+    <ion-title class="ion-text-center ion-padding-top">
+        <ion-text color="primary" class="fw700 ">Vehicle Availability</ion-text>
+    </ion-title>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="4" *ngFor="let count of vehicles ">
+                <div class="vehicle-card " routerLink="/cars">
+                    <ion-card class="bg-white ion-text-center ">
+                        <ion-img [src]="count.img ">
+                        </ion-img>
+                        <ion-text class="count-text" color="primary">
+                            {{count.num}}
+                        </ion-text>
+                    </ion-card>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- <ion-button margin shape="round " expand="full " color="secondary " (click)="searchFilter() ">
+        Modal 2: Search Filter
+    </ion-button> -->
+
+    <!-- <popmenu></popmenu> -->
+
+</ion-content>
+<tab-bar></tab-bar>

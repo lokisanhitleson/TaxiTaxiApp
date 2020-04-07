@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Agent Profile</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<div class="agent-title" slot="fixed">
+    <ion-item>
+        <ion-thumbnail slot="start">
+            <img src="assets/img/sunu.jpg">
+        </ion-thumbnail>
+        <ion-label>
+            <h1 class="fw500">Satheesh Kumar</h1>
+            <h2 color="light" margin-bottom>S.A. Agency Chennai</h2>
+        </ion-label>
+    </ion-item>
+
+    <ion-list-header color="light">
+        <ion-label color="primary" class="fw700"><strong>Agent Information</strong> </ion-label>
+    </ion-list-header>
+</div>
+<ion-content class="agent-profile">
+    <ion-card no-margin>
+        <ion-card class="bg-white" no-margin>
+            <ion-card-content no-padding>
+
+                <ion-item detail *ngFor="let info of vehicleInfo">
+                    <ion-label class="ion-text-wrap">
+                        <strong>{{info.label}} :</strong> {{info.value}}
+                    </ion-label>
+                </ion-item>
+            </ion-card-content>
+        </ion-card>
+
+    </ion-card>
+</ion-content>

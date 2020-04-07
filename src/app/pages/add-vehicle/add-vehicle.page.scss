@@ -1,0 +1,14 @@
+:host {
+    ion-content {
+        --background: linear-gradient(-135deg, var(--ion-color-medium), var(--ion-color-light));
+    }
+    .myCustomSelect {
+        max-width: 100% !important;
+        min-width: 90%;
+        font-weight: 600!important;
+        text-align: center!important;
+    }
+    .calendar-card {
+        border: 1px solid #28e070;
+    }
+}

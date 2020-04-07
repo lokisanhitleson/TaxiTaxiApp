@@ -1,0 +1,52 @@
+:host {
+    ion-content {
+        --background: var(--ion-color-light);
+    }
+    ion-item {
+        border-radius: 0;
+        // border-bottom: 1px dotted var(--ion-color-medium);
+    }
+    ion-card {
+        &.no-radius {
+            border-radius: 0;
+        }
+    }
+    .vehicle-card {
+        ion-card {
+            border: 1px solid #662d91;
+            ion-text.count-text {
+                font-size: 25px;
+                font-weight: 600;
+            }
+        }
+    }
+    .vehicle-card {
+        ion-img {
+            border-bottom: .4px solid #662d91;
+        }
+    }
+    .location-text {
+        font-size: 14px;
+    }
+    .slide-container {
+        height: 120px;
+        background: #fff;
+        padding-bottom: 5px;
+        border-bottom: 1px dashed #c2c1c1;
+    }
+    ion-slides {
+        height: 100%;
+    }
+    .swiper-slide {
+        display: block;
+    }
+    .swiper-slide h2 {
+        margin-top: 2.8rem;
+    }
+    .swiper-slide img {
+        width: 100%;
+        max-width: 98%;
+        margin: 10px 0 10px;
+        pointer-events: none;
+    }
+}

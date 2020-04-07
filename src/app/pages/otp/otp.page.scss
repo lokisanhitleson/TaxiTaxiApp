@@ -1,0 +1,10 @@
+:host {
+    ion-content {
+        --background: var(--ion-color-primary);
+    }
+}
+
+.paz {
+    position: relative;
+    z-index: 10;
+}

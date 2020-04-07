@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>View Request</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+    <ion-list>
+        <ion-list-header color="medium">
+            Recent Request
+        </ion-list-header>
+
+        <ion-item *ngFor="let req of request">
+            <ion-avatar slot="start">
+                <ion-icon name="{{req.icon}}" color="primary"></ion-icon>
+
+                <!-- <img [src]="req.img"> -->
+            </ion-avatar>
+            <ion-label>
+                <h4><strong>{{req.agentname}}</strong>, {{req.location}}
+                </h4>
+                <h3>{{req.carname}}</h3>
+                <p>{{req.description}}</p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+
+
+    <ion-list>
+        <ion-list-header color="medium">
+            Yesterday Request
+        </ion-list-header>
+
+        <ion-item *ngFor="let req of oldrequest">
+            <ion-avatar slot="start">
+                <ion-icon name="{{req.icon}}" color="primary"></ion-icon>
+
+                <!-- <img [src]="req.img"> -->
+            </ion-avatar>
+            <ion-label>
+                <h4><strong>{{req.agentname}}</strong>, {{req.location}}
+                </h4>
+                <h3>{{req.carname}}</h3>
+                <p>{{req.description}}</p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

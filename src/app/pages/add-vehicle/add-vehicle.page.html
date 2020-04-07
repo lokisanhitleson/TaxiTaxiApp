@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Schedule Vehicle</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card class="bg-white" no-margin>
+        <ion-card-content>
+            <ion-row>
+                <ion-col>
+                    <p>
+                        <ion-icon name="alert"></ion-icon> Select vailable dates for vehicle</p>
+                </ion-col>
+            </ion-row>
+            <ion-list class="request-form">
+                <ion-item color="success">
+                    <!-- <ion-label>&nbsp;</ion-label> -->
+                    <ion-select class="myCustomSelect ion-text-center" placeholder="--Select Available Vehicles--" ok-text="Okay" cancel-text="Dismiss">
+                        <ion-select-option *ngFor="let car of carModels">{{car}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+
+                <ion-card class="calendar-card" margin-top>
+                    <ion-card-content>
+                        <ion-calendar [(ngModel)]="range" [options]="optionsRange" [type]="type" [format]="'YYYY-MM-DD'">
+                        </ion-calendar>
+                    </ion-card-content>
+                </ion-card>
+                <!-- <ion-item>
+                    <ion-label>Vehicle Type</ion-label>
+                    <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
+                        <ion-select-option *ngFor="let type of carType">{{type}}</ion-select-option>
+                    </ion-select>
+                </ion-item> -->
+                <div margin-top>
+                    <ion-button icon-left size="medium" expand="full" routerLink="/home-results" shape="round" color="warning" tappable>
+                        <ion-icon name="paper-plane"></ion-icon>
+                        Submit
+                    </ion-button>
+                </div>
+            </ion-list>
+
+
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

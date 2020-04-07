@@ -1,0 +1,182 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Request Vehicle</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content color="light">
+    <ion-row>
+        <ion-item>
+            <p>
+                <ion-icon name="alert"></ion-icon> Please fill the requested details</p>
+        </ion-item>
+    </ion-row>
+    <div>
+        <ion-toolbar color="warning" margin-bottom>
+            <ion-segment [(ngModel)]="tripSelector" value="oneWay" (ionChange)="segmentChanged($event)">
+                <ion-segment-button value="oneWay" checked>
+                    <ion-icon name="ios-return-right"></ion-icon> One Way
+                </ion-segment-button>
+                <ion-segment-button value="roundTrip">
+                    <ion-icon name="ios-repeat"></ion-icon> Round Trip
+                </ion-segment-button>
+                <ion-segment-button value="multiCity">
+                    <ion-icon name="ios-shuffle"></ion-icon> Multi City
+                </ion-segment-button>
+            </ion-segment>
+
+        </ion-toolbar>
+        <!--Grid 1-->
+        <ion-grid *ngIf="tripSelector === 'oneWay'">
+            <ion-row class="grid-btns">
+                <ion-col size="6">
+                    <ion-item (click)="openPlacesModal()">
+                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-label class="ion-text-wrap">From:<br>
+                            <p *ngIf="!selectedCity">Select a place</p>
+                            <strong *ngIf="selectedCity">{{selectedCity}}</strong>
+                        </ion-label>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-item (click)="openPlacesModal()">
+                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-label class="ion-text-wrap">To:<br>
+                            <p *ngIf="!selectedCity">Select a place</p>
+                            <strong *ngIf="selectedCity">{{selectedCity}}</strong>
+                        </ion-label>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row class="grid-btns">
+                <ion-col size="6">
+                    <ion-item (click)="openCalendar()">
+                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-label class="ion-text-wrap">Start Date:<br>
+                            <strong>{{startDate}}</strong>
+                            <p *ngIf="!startDate">Select date</p>
+                        </ion-label>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-item (click)="openCalendar()">
+                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-label class="ion-text-wrap">End Date:<br>
+                            <!-- <ion-input type="text" [(ngModel)]="daterange" readonly></ion-input> -->
+                            <strong>{{endDate}}</strong>
+                            <p *ngIf="!endDate">No date</p>
+                        </ion-label>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row class="grid-btns">
+                <ion-col size="6">
+                    <ion-item>
+                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-label class="ion-text-wrap">Vehicle Type:<br>
+                            <strong>Prime</strong>
+                        </ion-label>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-item>
+                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-label class="ion-text-wrap">Model:<br>
+                            <strong>Tata Indica</strong>
+                        </ion-label>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <!--Grid 2-->
+        <ion-grid *ngIf="tripSelector === 'roundTrip'">
+            <ion-row class="grid-btns">
+                <ion-col size="6">
+                    <ion-item (click)="openPlacesModal()">
+                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-label class="ion-text-wrap" no-padding>From:<br>
+                            <p *ngIf="!selectedCity">Select a place</p>
+                            <strong *ngIf="selectedCity">{{selectedCity}}</strong>
+                        </ion-label>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-item (click)="openPlacesModal()">
+                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-label class="ion-text-wrap">To:<br>
+                            <p *ngIf="!selectedCity">Select a place</p>
+                            <strong *ngIf="selectedCity">{{selectedCity}}</strong>
+                        </ion-label>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row class="grid-btns">
+                <ion-col size="6">
+                    <ion-item (click)="openCalendar()">
+                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-label class="ion-text-wrap">Start Date:<br>
+                            <strong>{{startDate}}</strong>
+                            <p *ngIf="!startDate">Select date</p>
+                        </ion-label>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-item (click)="openCalendar()">
+                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-label class="ion-text-wrap">End Date:<br>
+                            <strong>{{endDate}}</strong>
+                            <p *ngIf="!endDate">Select date</p>
+                        </ion-label>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row class="grid-btns">
+                <ion-col size="6">
+                    <ion-item>
+                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-label class="ion-text-wrap">Vehicle Type:<br>
+                            <strong>Prime</strong>
+                        </ion-label>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-item>
+                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-label class="ion-text-wrap">Model:<br>
+                            <strong>Tata Indica</strong>
+                        </ion-label>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <div margin-top class="ion-text-center">
+            <ion-button (click)="goToHome()" icon-left size="medium" shape="round" color="warning" tappable>
+                Submit
+            </ion-button>
+        </div>
+    </div>
+
+    <!-- 
+    <ion-card>
+        <ion-card-content>
+            <ion-card-title>
+                <button ion-button primary (click)="stopRecord()" *ngIf="recording"><ion-icon name="mic-off"></ion-icon>&nbsp;&nbsp;Stop Record</button>
+                <button ion-button primary (click)="startRecord()" *ngIf="!recording"><ion-icon name="mic"></ion-icon>&nbsp;&nbsp;Start Record</button>
+            </ion-card-title>
+        </ion-card-content>
+    </ion-card> -->
+    <ion-list>
+        <ion-item *ngFor="let audio of audioList; index as i;">
+            <p>{{audio.filename}}</p>
+            <button ion-button clear item-end large (click)="playAudio(audio.filename, i)"><ion-icon name="play"></ion-icon></button>
+        </ion-item>
+    </ion-list>
+    <p margin-bottom padding>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum odio placeat incidunt nesciunt atque ratione quisquam, fugit omnis maxime adipisci excepturi dignissimos aliquam asperiores itaque unde sequi? Minus, quia, dolore?
+    </p>
+
+</ion-content>

@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Vehicle Overview</ion-title>
+    </ion-toolbar>
+</ion-header>
+<div class="slide-container" slot="fixed">
+    <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
+        <ion-slide *ngFor="let vehicle of vehicles">
+            <img [src]="vehicle.img">
+        </ion-slide>
+    </ion-slides>
+</div>
+<div slot="fixed" class="vehicle-title">
+    <div class="ion-text-center" no-margin>
+        <ion-text color="dark"><strong>Toyota Innova</strong></ion-text>
+    </div>
+</div>
+<ion-content>
+    <ion-card class="bg-white" no-margin>
+        <ion-card-content>
+
+            <ion-item detail *ngFor="let info of vehicleInfo">
+                <ion-label class="ion-text-wrap">
+                    <span>{{info.label}} :</span> {{info.value}}
+                </ion-label>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>
