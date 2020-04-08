@@ -17,12 +17,9 @@ export class RequestVehiclePage implements OnInit {
   toLocation = 'T.Nagar';
   selectedCity:any = "Avadi";
   public tripSelector: string ='oneWay';
-
-  recording: boolean = false;
-  filePath: string;
-  fileName: string;
-  audio: MediaObject;
-  audioList: any[] = [];
+status: String = "";
+recording:boolean = false;
+audioFile : MediaObject;
 
 
   constructor(
@@ -111,65 +108,30 @@ export class RequestVehiclePage implements OnInit {
     return await modal.present();
   }
 
+//Record Audio
+  RecordAudio(){
+    this.audioFile = this.media.create(this.file.externalRootDirectory+'/voice-note.mp3');
+    this.audioFile.startRecord();
+    this.status = "Recording...";
+    this.recording = true;
+    }
+    
+    StopRecording(){
+    this.audioFile.stopRecord();
+    this.status = "Done!"
+    this.recording = false;
+    }
+
+
+
   goToHome() {
-    this.navCtrl.navigateRoot('/home-results');
+    this.navCtrl.navigateRoot('/home/tabs/home-results');
   }
   ngOnInit() {
   }
 
   segmentChanged(ev: any) {
     console.log('Segment changed', ev);
-  }
-
-
-  ionViewWillEnter() {
-    this.getAudioList();
-  }
-
-  getAudioList() {
-    if(localStorage.getItem("audiolist")) {
-      this.audioList = JSON.parse(localStorage.getItem("audiolist"));
-      console.log(this.audioList);
-    }
-  }
-
-  startRecord() {
-    if (this.platform.is('ios')) {
-      this.fileName = 'record'+new Date().getDate()+new Date().getMonth()+new Date().getFullYear()+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.m4a';
-      this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName;
-      this.audio = this.media.create(this.filePath);
-    } else if (this.platform.is('android')) {
-      this.fileName = 'record'+new Date().getDate()+new Date().getMonth()+new Date().getFullYear()+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.3gp';
-      this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
-      this.audio = this.media.create(this.filePath);
-    }
-    this.audio.startRecord();
-    this.recording = true;
-  }
-
-  stopRecord() {
-    this.audio.stopRecord();
-    let data = { filename: this.fileName };
-    this.audioList.push(data);
-    localStorage.setItem("audiolist", JSON.stringify(this.audioList));
-    this.recording = false;
-    this.getAudioList();
-  }
-
-  // playAudio(file,idx) {
-  //   if (this.platform.is('ios')) {
-  //     this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
-  //     this.audio = this.media.create(this.filePath);
-  //   } else if (this.platform.is('android')) {
-  //     this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
-  //     this.audio = this.media.create(this.filePath);
-  //   }
-  //   this.audio.play();
-  //   this.audio.setVolume(0.8);
-  // }
-
-  stopAudio() {
-    this.audio.stop();
   }
 
 

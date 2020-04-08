@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { AutoCompleteModule } from 'ionic4-auto-complete';
 import { IonicModule } from '@ionic/angular';
 
 import { RequestVehiclePage } from './request-vehicle.page';
@@ -25,7 +24,6 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    AutoCompleteModule,
     CalendarModule,
     RouterModule.forChild(routes)
   ],

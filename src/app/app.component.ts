@@ -24,31 +24,31 @@ export class AppComponent {
     this.appPages = [
       {
         title: 'Home',
-        url: '/home-results',
+        url: '/home/tabs/home-results',
         direct: 'root',
         icon: 'home'
       },
       {
         title: 'My Vehicles',
-        url: '/my-vehicles',
+        url: '/home/tabs/my-vehicles',
         direct: 'forward',
         icon: 'information-circle-outline'
       },
       {
         title: 'Request Vehicle',
-        url: '/request-vehicle',
+        url: '/home/tabs/request-vehicle',
         direct: 'forward',
         icon: 'ios-car'
       },
       {
         title: 'View Request',
-        url: '/view-request',
+        url: '/home/tabs/view-request',
         direct: 'forward',
         icon: 'notifications-outline'
       },
       {
         title: 'App Settings',
-        url: '/home-results',
+        url: '/home/tabs/home-results',
         direct: 'forward',
         icon: 'cog'
       },

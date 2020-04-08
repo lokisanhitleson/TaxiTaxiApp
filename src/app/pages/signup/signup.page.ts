@@ -85,7 +85,7 @@ export class SignupPage implements OnInit {
     this.navCtrl.navigateRoot('/login');
   }
   goToHome() {
-    this.navCtrl.navigateRoot('/home-results');
+    this.navCtrl.navigateRoot('/home/tabs/home-results');
   }
 
 }

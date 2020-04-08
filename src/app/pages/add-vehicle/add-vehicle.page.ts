@@ -9,7 +9,7 @@ import * as moment from "moment";
   styleUrls: ['./add-vehicle.page.scss'],
 })
 export class AddVehiclePage implements OnInit {
-  daterange: string;
+  range: string;
 
   constructor( public modalCtrl: ModalController,) { }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-view-request',
   templateUrl: './view-request.page.html',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewRequestPage implements OnInit {
 
-  constructor() { }
+  constructor(private _location: Location) { }
   request =[
     {carname:"Toyota Innova",agentname:"R.Satheesh Kumar",location:"Chennai",description:"I need a 7 seater vehicle", mobilenumber:"9884420042",icon:"mail", img:"assets/img/innova.jpg"},
     {carname:"Indica v2",agentname:"S.Mahalingam",location:"Avadi",description:"Need a 5 seater vehicle urgently", mobilenumber:"8754491205",icon:"mail", img:"assets/img/indica-v2.jpg"},
@@ -28,6 +28,10 @@ export class ViewRequestPage implements OnInit {
   ];
 
   ngOnInit() {
+  }
+  previous() 
+  { 
+    this._location.back(); 
   }
 
 }
