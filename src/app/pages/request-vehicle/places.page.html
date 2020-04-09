@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar color="primary" text-center>
-        <ion-title>{{Title}}</ion-title>
+        <ion-title>{{modalTitle}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -8,7 +8,7 @@
     <div>
         <ion-item>
             <ion-label position="floating">Pickup Location</ion-label>
-            <ion-input [(ngModel)]="cityNames" [value]="Text" (ionInput)="getCities($event)"></ion-input>
+            <ion-input [(ngModel)]="cityNames" (ionInput)="getCities($event)"></ion-input>
         </ion-item>
 
         <ion-list *ngIf="isCityAvailable">

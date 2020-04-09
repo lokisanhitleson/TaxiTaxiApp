@@ -85,7 +85,7 @@ export class OtpPage implements OnInit {
     this.navCtrl.navigateRoot('/login');
   }
   goToHome() {
-    this.navCtrl.navigateRoot('/home-results');
+    this.navCtrl.navigateRoot('/home');
   }
 
 }

@@ -56,6 +56,9 @@
                 ion-label {
                     font-size: 80%;
                     min-width: 125px;
+                    .selectedText {
+                        color: #fff81f;
+                    }
                 }
                 ion-icon {
                     padding: 0px!important;
@@ -63,6 +66,22 @@
                     color: #ffce00;
                     position: absolute;
                     right: 2%;
+                }
+            }
+        }
+    }
+    ion-toolbar.tripSelect {
+        max-height: 50px!important;
+        margin-bottom: 10px;
+        ion-segment {
+            max-height: 50px!important;
+            ion-segment-button {
+                max-height: 50px!important;
+                ion-icon {
+                    margin: 0px!important;
+                }
+                span {
+                    font-size: 12px;
                 }
             }
         }

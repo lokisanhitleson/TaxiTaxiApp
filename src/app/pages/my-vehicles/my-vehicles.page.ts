@@ -37,7 +37,7 @@ swipePrev(){
 }
 
 // goToFinish() {
-//   this.navCtrl.navigateForward('home-results');
+//   this.navCtrl.navigateForward('/home/home-results');
 // } 
 
 //Calendar Picker

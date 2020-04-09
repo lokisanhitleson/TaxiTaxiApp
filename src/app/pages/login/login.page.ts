@@ -20,7 +20,7 @@ export class LoginPage implements OnInit {
   ) { }
 
   ionViewWillEnter() {
-    this.menuCtrl.enable(false);
+    this.menuCtrl.enable(true);
   }
 
   ngOnInit() {
@@ -88,7 +88,7 @@ export class LoginPage implements OnInit {
     this.navCtrl.navigateRoot('/signup');
   }
   goToHome() {
-    this.navCtrl.navigateRoot('/home-results');
+    this.navCtrl.navigateRoot('/home/tabs/home-results');
   }
 
 }

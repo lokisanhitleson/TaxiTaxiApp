@@ -26,6 +26,19 @@
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum odio placeat incidunt nesciunt atque ratione quisquam, fugit omnis maxime adipisci excepturi dignissimos aliquam asperiores itaque unde sequi? Minus, quia, dolore?
             </p>
+
+
+            <ion-card>
+                <ion-card-content>
+                    <h2>{{status}}</h2>
+                    <ion-card-title>
+                        <ion-button color="danger" (click)="StopRecording()" *ngIf="recording">
+                            <ion-icon name="mic-off"></ion-icon>&nbsp;&nbsp;Stop Record</ion-button>
+                        <ion-button color="success" (click)="RecordAudio()" *ngIf="!recording">
+                            <ion-icon name="mic"></ion-icon>&nbsp;&nbsp;Start Record</ion-button>
+                    </ion-card-title>
+                </ion-card-content>
+            </ion-card>
         </ion-card-content>
     </ion-card>
 
