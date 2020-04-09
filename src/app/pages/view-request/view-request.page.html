@@ -22,10 +22,14 @@
                 <!-- <img [src]="req.img"> -->
             </ion-avatar>
             <ion-label>
+
                 <h4><strong>{{req.agentname}}</strong>, {{req.location}}
-                </h4>
+                    <span class="time-text">{{req.time}}</span></h4>
                 <h3>{{req.carname}}</h3>
-                <p>{{req.description}}</p>
+
+                <audio *ngIf="req.voicenote" controls [src]="req.voicenote" controlsList="nodownload"></audio>
+
+                <p *ngIf="!req.voicenote">{{req.description}}</p>
             </ion-label>
         </ion-item>
     </ion-list>

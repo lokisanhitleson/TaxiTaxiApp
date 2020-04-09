@@ -1,6 +1,9 @@
 :host {
     ion-content {
         --background: linear-gradient(-135deg, var(--ion-color-medium), var(--ion-color-light));
+        p.info-text {
+            color: gray;
+        }
     }
     ion-card-content {
         .tripRadioGroup {
@@ -51,8 +54,9 @@
             ion-item {
                 max-width: 100%;
                 background: #039e3e;
+                border-bottom: 2px solid #f7f5ed;
                 --color: var(--ion-color-light);
-                border-bottom-left-radius: 30px;
+                // border-bottom-left-radius: 30px;
                 ion-label {
                     font-size: 80%;
                     min-width: 125px;
@@ -62,7 +66,7 @@
                 }
                 ion-icon {
                     padding: 0px!important;
-                    font-size: 12px;
+                    font-size: 22px;
                     color: #ffce00;
                     position: absolute;
                     right: 2%;
@@ -72,7 +76,7 @@
     }
     ion-toolbar.tripSelect {
         max-height: 50px!important;
-        margin-bottom: 10px;
+        margin-bottom: 0px;
         ion-segment {
             max-height: 50px!important;
             ion-segment-button {
@@ -84,6 +88,26 @@
                     font-size: 12px;
                 }
             }
+        }
+    }
+    ion-item-sliding {
+        margin-bottom: 2px;
+        border-bottom: 1px solid #ddd;
+        background: #ece9ef;
+    }
+    ion-grid {
+        background: #039e3e;
+        border-bottom-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+        padding-bottom: 26px;
+    }
+    ion-card.voicenote-card {
+        border: 1px solid #e3e4e6;
+        ion-icon.megaphone {
+            font-size: 26px;
+        }
+        p {
+            font-size: 16px;
         }
     }
 }
