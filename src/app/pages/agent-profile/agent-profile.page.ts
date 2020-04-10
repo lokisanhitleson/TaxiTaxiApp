@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, LoadingController, ToastController } from '@ionic/angular';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -12,7 +13,8 @@ export class AgentProfilePage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    private _location: Location
     ) { }
 
 
@@ -50,5 +52,8 @@ export class AgentProfilePage implements OnInit {
       this.navCtrl.navigateForward('/home/home-results');
     });
   }
-
+  previous() 
+  { 
+    this._location.back(); 
+  }
 }

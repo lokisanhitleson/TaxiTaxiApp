@@ -9,11 +9,11 @@ export class ViewRequestPage implements OnInit {
 
   constructor(private _location: Location) { }
   request =[
-    {carname:"Toyota Innova",agentname:"R.Satheesh Kumar",location:"Chennai",description:"I need a 7 seater vehicle", mobilenumber:"9884420042",icon:"mail", img:"assets/img/innova.jpg"},
-    {carname:"Indica v2",agentname:"S.Mahalingam",location:"Avadi",description:"Need a 5 seater vehicle urgently", mobilenumber:"8754491205",icon:"mail", img:"assets/img/indica-v2.jpg"},
-    {carname:"Xylo",agentname:"A.Paneer Selvam",location:"Tambaram",description:"Anyone have Tata Ace? ", mobilenumber:"8988756523",icon:"mail", img:"assets/img/xylo.jpg"},
-    {carname:"Ford Figo",agentname:"P.Yogaraj",location:"Porur",description:"I need a 4 seater vehicle", mobilenumber:"8798875679",icon:"mail", img:"assets/img/figo.jpg"},
-    {carname:"Hyundai i10",agentname:"M.Rajesh Kumar",location:"T.Nagar",description:"I want a honda city", mobilenumber:"998875659",icon:"mail", img:"assets/img/i10.jpg"},
+    {carname:"Voice note",agentname:"R.Satheesh Kumar",location:"Chennai",description:"Need a 7 seater vehicle urgently",voicenote:"assets/voice-note.mp3", mobilenumber:"9884420042",icon:"mail", img:"assets/img/innova.jpg", time:"10 mins ago"},
+    {carname:"Indica v2",agentname:"S.Mahalingam",location:"Avadi",description:"Need a 5 seater vehicle urgently", mobilenumber:"8754491205",icon:"mail", img:"assets/img/indica-v2.jpg",time:"20 mins ago"},
+    {carname:"Xylo",agentname:"A.Paneer Selvam",location:"Tambaram",description:"Anyone have Tata Ace? ", mobilenumber:"8988756523",icon:"mail", img:"assets/img/xylo.jpg",time:"1 hour ago"},
+    {carname:"Voice note",agentname:"P.Yogaraj",location:"Porur",description:"I need a 4 seater vehicle",voicenote:"assets/voice-note.mp3", mobilenumber:"8798875679",icon:"mail", img:"assets/img/figo.jpg",time:"1 hour ago"},
+    {carname:"Hyundai i10",agentname:"M.Rajesh Kumar",location:"T.Nagar",description:"I want a honda city", mobilenumber:"998875659",icon:"mail", img:"assets/img/i10.jpg",time:"2 hours ago"},
   ];
 
   oldrequest =[

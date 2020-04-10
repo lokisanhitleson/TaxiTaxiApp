@@ -1,7 +1,9 @@
 <ion-header>
     <ion-toolbar color="primary">
         <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+            <ion-button (click)="previous()">
+                <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
+            </ion-button>
         </ion-buttons>
         <ion-title>Available Cars</ion-title>
     </ion-toolbar>

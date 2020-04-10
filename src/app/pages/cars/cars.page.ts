@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-cars',
   templateUrl: './cars.page.html',
@@ -7,13 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarsPage implements OnInit {
   mobilenumber: any;
-  ngOnInit() {
-  }
+  
   today; 
   nextThirty; 
   selectedDate; 
 
-  constructor() {
+  constructor(private _location: Location) {
 
     this.today = new Date().toISOString();
     let now = new Date();
@@ -32,5 +31,10 @@ export class CarsPage implements OnInit {
 openWhatsApp(){
   window.open(`https://api.whatsapp.com/send?phone=${this.mobilenumber}`);
 }
-  
+ngOnInit() {
+}
+previous() 
+{ 
+  this._location.back(); 
+}
 }

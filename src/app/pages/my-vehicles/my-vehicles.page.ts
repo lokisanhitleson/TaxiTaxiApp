@@ -2,6 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { CalendarModal, CalendarModalOptions,DayConfig,CalendarResult } from 'ion2-calendar';
 import { ModalController, NavController } from '@ionic/angular';
 import { IonSlides } from '@ionic/angular/';
+import { Location } from '@angular/common';
 import * as moment from "moment";
 
 @Component({
@@ -17,7 +18,7 @@ export class MyVehiclesPage implements OnInit {
     initialSlide: 0,
     speed: 400
   };
-  constructor( public modalCtrl: ModalController,public navCtrl: NavController,) { }
+  constructor( public modalCtrl: ModalController,public navCtrl: NavController,private _location: Location) { }
 
   ngAfterViewInit() {
     this.slides.lockSwipes(true);
@@ -71,5 +72,8 @@ swipePrev(){
 
   ngOnInit() {
   }
-
+  previous() 
+  { 
+    this._location.back(); 
+  }
 }
