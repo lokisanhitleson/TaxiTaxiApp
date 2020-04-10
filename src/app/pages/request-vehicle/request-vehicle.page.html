@@ -1,18 +1,20 @@
 <ion-header>
     <ion-toolbar color="primary">
         <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+            <ion-button (click)="previous()">
+                <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
+            </ion-button>
         </ion-buttons>
         <ion-title>Request Vehicle</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content color="light">
-    <ion-row>
+    <!-- <ion-row>
         <ion-item>
-            <p>
+            <p class="info-text">
                 <ion-icon name="alert"></ion-icon> Please fill the requested details</p>
         </ion-item>
-    </ion-row>
+    </ion-row> -->
     <div>
         <ion-toolbar class="tripSelect" color="warning">
             <ion-segment [(ngModel)]="tripSelector" value="oneWay" (ionChange)="segmentChanged($event)">
@@ -36,7 +38,7 @@
             <ion-row class="grid-btns">
                 <ion-col size="6">
                     <ion-item (click)="openPlacesModal()">
-                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-icon name="ios-navigate" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">From:<br>
                             <p *ngIf="!selectedCity">Select a place</p>
                             <strong class="selectedText" *ngIf="selectedCity">{{selectedCity}}</strong>
@@ -45,7 +47,7 @@
                 </ion-col>
                 <ion-col size="6">
                     <ion-item (click)="openPlacesModal()">
-                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-icon name="ios-pin" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">To:<br>
                             <p *ngIf="!selectedCity">Select a place</p>
                             <strong class="selectedText" *ngIf="selectedCity">{{selectedCity}}</strong>
@@ -56,7 +58,7 @@
             <ion-row class="grid-btns">
                 <ion-col size="6">
                     <ion-item (click)="openCalendar()">
-                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-icon name="ios-calendar" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">Start Date:<br>
                             <strong class="selectedText">{{startDate}}</strong>
                             <p *ngIf="!startDate">Select date</p>
@@ -65,7 +67,7 @@
                 </ion-col>
                 <ion-col size="6">
                     <ion-item (click)="openCalendar()">
-                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-icon name="calendar" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">End Date:<br>
                             <strong class="selectedText">{{endDate}}</strong>
                             <p *ngIf="!endDate">No date</p>
@@ -76,7 +78,7 @@
             <ion-row class="grid-btns">
                 <ion-col size="6">
                     <ion-item>
-                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-icon name="ios-car" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">Vehicle Type:<br>
                             <strong class="selectedText">Prime</strong>
                         </ion-label>
@@ -84,7 +86,7 @@
                 </ion-col>
                 <ion-col size="6">
                     <ion-item>
-                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-icon name="car" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">Model:<br>
                             <strong class="selectedText">Tata Indica</strong>
                         </ion-label>
@@ -98,7 +100,7 @@
             <ion-row class="grid-btns">
                 <ion-col size="6">
                     <ion-item (click)="openPlacesModal()">
-                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-icon name="ios-navigate" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap" no-padding>From:<br>
                             <p *ngIf="!selectedCity">Select a place</p>
                             <strong *ngIf="selectedCity">{{selectedCity}}</strong>
@@ -107,7 +109,7 @@
                 </ion-col>
                 <ion-col size="6">
                     <ion-item (click)="openPlacesModal()">
-                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-icon name="ios-pin" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">To:<br>
                             <p *ngIf="!selectedCity">Select a place</p>
                             <strong *ngIf="selectedCity">{{selectedCity}}</strong>
@@ -118,7 +120,7 @@
             <ion-row class="grid-btns">
                 <ion-col size="6">
                     <ion-item (click)="openCalendar()">
-                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-icon name="ios-calendar" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">Start Date:<br>
                             <strong>{{startDate}}</strong>
                             <p *ngIf="!startDate">Select date</p>
@@ -127,7 +129,7 @@
                 </ion-col>
                 <ion-col size="6">
                     <ion-item (click)="openCalendar()">
-                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-icon name="calendar" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">End Date:<br>
                             <strong>{{endDate}}</strong>
                             <p *ngIf="!endDate">Select date</p>
@@ -138,7 +140,7 @@
             <ion-row class="grid-btns">
                 <ion-col size="6">
                     <ion-item>
-                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-icon name="ios-car" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">Vehicle Type:<br>
                             <strong>Prime</strong>
                         </ion-label>
@@ -146,7 +148,7 @@
                 </ion-col>
                 <ion-col size="6">
                     <ion-item>
-                        <ion-icon name="ios-arrow-down" slot="end"></ion-icon>
+                        <ion-icon name="car" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">Model:<br>
                             <strong>Tata Indica</strong>
                         </ion-label>
@@ -154,26 +156,50 @@
                 </ion-col>
             </ion-row>
         </ion-grid>
-
-        <ion-card color="medium">
+        <h5 class="ion-text-center">(OR)</h5>
+        <ion-card color="light" class="voicenote-card">
             <ion-card-content class="ion-text-center">
-                <p color="dark">You can leave a 'Voice Note' here!</p>
+                <ion-icon class="megaphone" name="megaphone"></ion-icon>
+                <p color="dark">
+                    You can leave a 'Voice Note' here!</p>
                 <ion-card-title>
-                    <ion-button size="small" color="danger" (click)="StopRecording()" *ngIf="recording">
+                    <ion-button size="small" color="danger" (click)="stopRecord()" *ngIf="recording">
                         <ion-icon name="mic-off"></ion-icon>&nbsp;&nbsp;Stop Record</ion-button>
-                    <ion-button size="small" color="light" (click)="RecordAudio()" *ngIf="!recording">
+                    <ion-button size="small" color="success" (click)="startRecord()" *ngIf="!recording">
                         <ion-icon name="mic"></ion-icon>&nbsp;&nbsp;Start Record</ion-button>
                 </ion-card-title>
 
                 <h2>{{status}}</h2>
+
             </ion-card-content>
         </ion-card>
 
-        <div margin-top class="ion-text-center">
-            <ion-button (click)="goToHome()" icon-left size="medium" shape="round" color="warning" tappable>
-                Submit
-            </ion-button>
-        </div>
+        <ion-list>
+            <ion-item-sliding *ngFor="let audio of audioList; index as i;">
+                <ion-item lines="none" class="audio-items">
+                    <p>{{audio.filename}}</p>
+                    <ion-button slot="end" large (click)="playAudio(audio.filename, i)">
+                        <ion-icon name="play"></ion-icon>
+                    </ion-button>
+                </ion-item>
+
+                <ion-item-options side="end">
+                    <ion-item-option (click)="audioList.splice(i, 1)" color="danger">
+                        <ion-icon name="trash"></ion-icon>
+                    </ion-item-option>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-list>
+
     </div>
 
 </ion-content>
+<div class="ion-text-center" margin-bottom padding-top>
+    <ion-button slot="start" (click)="goToHome()" icon-left size="medium" shape="round" color="medium" tappable>
+        Cancel
+    </ion-button>
+
+    <ion-button slot="end" (click)="goToHome()" icon-left size="medium" shape="round" color="warning" tappable>
+        Submit
+    </ion-button>
+</div>

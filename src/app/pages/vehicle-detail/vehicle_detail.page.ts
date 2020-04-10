@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-vehicle-detail',
   templateUrl: './vehicle_detail.page.html',
@@ -34,7 +35,7 @@ export class VehicleDetailPage implements OnInit {
     initialSlide: 0,
     speed: 400,
   };
-  constructor(private datePicker: DatePicker) { }
+  constructor(private datePicker: DatePicker,private _location: Location) { }
   showDatepicker(){
     this.datePicker.show({
       date: new Date(),
@@ -86,5 +87,8 @@ export class VehicleDetailPage implements OnInit {
 
   ngOnInit() {
   }
-
+  previous() 
+  { 
+    this._location.back(); 
+  }
 }

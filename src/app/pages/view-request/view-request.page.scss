@@ -8,4 +8,15 @@
             }
         }
     }
+    audio {
+        height: 30px;
+        width: 90%;
+        background: #ffd31a;
+    }
+    .time-text {
+        color: gray;
+        float: right;
+        font-size: 12px;
+        font-style: italic;
+    }
 }
