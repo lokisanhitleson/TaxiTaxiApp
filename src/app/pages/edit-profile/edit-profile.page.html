@@ -1,7 +1,9 @@
 <ion-header>
     <ion-toolbar color="primary">
         <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+            <ion-button (click)="previous()">
+                <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
+            </ion-button>
         </ion-buttons>
         <ion-title>Edit Profile</ion-title>
     </ion-toolbar>
@@ -10,10 +12,11 @@
 <ion-content class="profile">
     <ion-card no-margin>
         <ion-card-content class="bg-profile">
-            <img src="assets/img/sunu.jpg">
+            <p *ngIf="isLoading">Loading ...</p>
+            <img [src]="croppedImagepath" />
             <h1 class="fw500">Sunu Sundar</h1>
             <h2 color="light" margin-bottom>Agency</h2>
-            <ion-button icon-left color="secondary">
+            <ion-button icon-left color="primary" (click)="selectImage()">
                 <ion-icon name="photos"></ion-icon>
                 Edit / Add Picture
             </ion-button>
@@ -35,7 +38,7 @@
 
                         <ion-item>
                             <ion-label color="dark" position="stacked">Email:</ion-label>
-                            <ion-input inputmode="email" placeholder="Ex.: joe@doe.com" value="19sunu@gmail.com"></ion-input>
+                            <ion-input inputmode="email" placeholder="Ex.: june@sunu.com" value="19sunu@gmail.com"></ion-input>
                         </ion-item>
 
                         <ion-item>

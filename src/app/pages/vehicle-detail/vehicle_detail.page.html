@@ -21,12 +21,11 @@
     </div>
 </div>
 <ion-content>
-    <ion-card class="bg-white" no-margin>
+    <ion-card class="bg-white vehicle-info" no-margin>
         <ion-card-content>
-
-            <ion-item detail *ngFor="let info of vehicleInfo">
+            <ion-item *ngFor="let info of vehicleInfo">
                 <ion-label class="ion-text-wrap">
-                    <span>{{info.label}} :</span> {{info.value}}
+                    <span>{{info.label}} :</span> <span class="info">{{info.value}}</span>
                 </ion-label>
             </ion-item>
         </ion-card-content>

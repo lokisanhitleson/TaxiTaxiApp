@@ -177,7 +177,7 @@
             .logo {
                 width: 220px;
                 height: 100px;
-                margin: 80px auto 8px;
+                margin: 40% auto 0;
                 border-radius: 10%;
                 background: url("/assets/img/taxi-logo1.png") no-repeat;
                 background-size: 100%;
@@ -200,7 +200,13 @@
                     }
                     input {
                         color: var(--ion-color-light);
+                        margin: 5px 9px 5px;
                     }
+                }
+                ion-icon {
+                    font-size: 25px;
+                    margin: 0 5px -3px;
+                    color: #ffff00;
                 }
             }
         }
@@ -245,4 +251,20 @@
     .picker-button.sc-ion-picker-md,
     .picker-button.activated.sc-ion-picker-md {
         color: #7c0ad2!important;
+    }
+    
+    rating {
+        .sc-ion-buttons-md-s .button-has-icon-only.button-clear {
+            --padding-top: 12px;
+            --padding-end: 0px!important;
+            --padding-bottom: 12px;
+            --padding-start: 0px!important;
+            --border-radius: 50%;
+            margin-left: 0;
+            margin-right: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            width: 20px!important;
+            height: 20px!important;
+        }
     }

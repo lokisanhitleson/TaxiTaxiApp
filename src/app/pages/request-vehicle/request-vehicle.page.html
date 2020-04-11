@@ -79,16 +79,24 @@
                 <ion-col size="6">
                     <ion-item>
                         <ion-icon name="ios-car" slot="end"></ion-icon>
-                        <ion-label class="ion-text-wrap">Vehicle Type:<br>
+                        <!-- <ion-label class="ion-text-wrap">Vehicle Type:<br>
                             <strong class="selectedText">Prime</strong>
-                        </ion-label>
+                        </ion-label> -->
+
+                        <label class="item item-input item-select">
+                                <ion-label>Vehicle Type</ion-label>
+                            <ion-select class="myCustomSelect" placeholder="Select Vehicle Type">
+                                <ion-select-option class="selectedText" *ngFor="let type of carType">{{type}}</ion-select-option>
+                            </ion-select>
+                        </label>
                     </ion-item>
                 </ion-col>
                 <ion-col size="6">
-                    <ion-item>
+                    <ion-item (click)="openVehiclesModal()">
                         <ion-icon name="car" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">Model:<br>
-                            <strong class="selectedText">Tata Indica</strong>
+                            <p *ngIf="!selectedVehicle">Select Vehicle Model</p>
+                            <strong class="selectedText" *ngIf="selectedVehicle">{{selectedVehicle}}</strong>
                         </ion-label>
                     </ion-item>
                 </ion-col>
@@ -103,7 +111,7 @@
                         <ion-icon name="ios-navigate" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap" no-padding>From:<br>
                             <p *ngIf="!selectedCity">Select a place</p>
-                            <strong *ngIf="selectedCity">{{selectedCity}}</strong>
+                            <strong class="selectedText" *ngIf="selectedCity">{{selectedCity}}</strong>
                         </ion-label>
                     </ion-item>
                 </ion-col>
@@ -112,7 +120,7 @@
                         <ion-icon name="ios-pin" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">To:<br>
                             <p *ngIf="!selectedCity">Select a place</p>
-                            <strong *ngIf="selectedCity">{{selectedCity}}</strong>
+                            <strong class="selectedText" *ngIf="selectedCity">{{selectedCity}}</strong>
                         </ion-label>
                     </ion-item>
                 </ion-col>
@@ -122,7 +130,7 @@
                     <ion-item (click)="openCalendar()">
                         <ion-icon name="ios-calendar" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">Start Date:<br>
-                            <strong>{{startDate}}</strong>
+                            <strong class="selectedText">{{startDate}}</strong>
                             <p *ngIf="!startDate">Select date</p>
                         </ion-label>
                     </ion-item>
@@ -131,7 +139,7 @@
                     <ion-item (click)="openCalendar()">
                         <ion-icon name="calendar" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">End Date:<br>
-                            <strong>{{endDate}}</strong>
+                            <strong class="selectedText">{{endDate}}</strong>
                             <p *ngIf="!endDate">Select date</p>
                         </ion-label>
                     </ion-item>
@@ -142,15 +150,16 @@
                     <ion-item>
                         <ion-icon name="ios-car" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">Vehicle Type:<br>
-                            <strong>Prime</strong>
+                            <strong class="selectedText">Prime</strong>
                         </ion-label>
                     </ion-item>
                 </ion-col>
                 <ion-col size="6">
-                    <ion-item>
+                    <ion-item (click)="openVehiclesModal()">
                         <ion-icon name="car" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">Model:<br>
-                            <strong>Tata Indica</strong>
+                            <p *ngIf="!selectedVehicle">Select Vehicle Model</p>
+                            <strong class="selectedText" *ngIf="selectedVehicle">{{selectedVehicle}}</strong>
                         </ion-label>
                     </ion-item>
                 </ion-col>

@@ -12,7 +12,7 @@
 <div class="agent-title" slot="fixed">
     <ion-item>
         <ion-thumbnail slot="start">
-            <img src="assets/img/sunu.jpg">
+            <img src="assets/img/user-default.png">
         </ion-thumbnail>
         <ion-label>
             <h1 class="fw500">Satheesh Kumar</h1>
@@ -21,7 +21,7 @@
     </ion-item>
 
     <ion-list-header color="light">
-        <ion-label color="primary" class="fw700"><strong>Agent Information</strong> </ion-label>
+        <ion-label color="dark"><strong> <ion-icon name="information-circle"></ion-icon> Agent / Agency Information</strong> </ion-label>
     </ion-list-header>
 </div>
 <ion-content class="agent-profile">
@@ -29,9 +29,9 @@
         <ion-card class="bg-white" no-margin>
             <ion-card-content no-padding>
 
-                <ion-item detail *ngFor="let info of vehicleInfo">
+                <ion-item *ngFor="let info of agentInfo">
                     <ion-label class="ion-text-wrap">
-                        <strong>{{info.label}} :</strong> {{info.value}}
+                        <span class="info-label">{{info.label}} :</span> <span class="info">{{info.value}}</span>
                     </ion-label>
                 </ion-item>
             </ion-card-content>

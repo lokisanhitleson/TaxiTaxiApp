@@ -38,12 +38,12 @@ export class LoginPage implements OnInit {
   async forgotPass() {
     const alert = await this.alertCtrl.create({
       header: 'Forgot Password?',
-      message: 'Enter you email address to send a reset link password.',
+      message: 'Enter registered mobile number to reset password.',
       inputs: [
         {
           name: 'mobileNum',
           type: 'text',
-          placeholder: 'Enter registered Mobile Number'
+          placeholder: 'Enter Mobile Number'
         }
       ],
       buttons: [

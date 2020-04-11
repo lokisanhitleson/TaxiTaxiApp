@@ -18,7 +18,7 @@ export class AgentProfilePage implements OnInit {
     ) { }
 
 
-    vehicleInfo = [
+    agentInfo = [
       {label:"Date of Birth", value:"23-Mar-1988"},
       {label:"Address", value:"No 456, Gopalapuram,12th Street,Padi, Chennai"},
       {label:"Mobile Number", value:"+91 9956432187"},

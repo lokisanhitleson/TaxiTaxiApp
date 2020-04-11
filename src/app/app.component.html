@@ -4,15 +4,15 @@
             <ion-header>
                 <ion-toolbar color="primary" class="user-profile">
 
-                    <ion-item margin-bottom>
+                    <ion-item margin-bottom lines="none">
                         <ion-avatar slot="start" class="user-avatar">
-                            <img src="assets/img/sunu.jpg">
+                            <img src="assets/img/user-default.png">
                         </ion-avatar>
                         <ion-label>
-                            <ion-text color="medium">
-                                <h1><strong>Sunu Sundar</strong></h1>
-                            </ion-text>
                             <ion-text color="light">
+                                <h2><strong>Sunu Sundar</strong></h2>
+                            </ion-text>
+                            <ion-text color="medium">
                                 <h3>
                                     Chennai
                                 </h3>
@@ -20,17 +20,17 @@
                             <ion-menu-toggle class="mto" auto-hide="false">
                                 <a class="text08" tappable (click)="goToEditProgile()">
                                     <ion-text color="medium">
-                                        <ion-icon name="contact"></ion-icon>
-                                        <strong>edit profile</strong>
+                                        <strong>Edit profile |</strong>
+                                        <ion-icon name="create"></ion-icon>
                                     </ion-text>
                                 </a>
-                                <ion-text color="secondary"> | </ion-text>
+                                <!-- <ion-text color="secondary"> | </ion-text>
                                 <a class="text08" tappable (click)="logout()">
                                     <ion-text color="medium">
                                         <ion-icon name="log-out"></ion-icon>
                                         <strong>logout</strong>
                                     </ion-text>
-                                </a>
+                                </a> -->
                             </ion-menu-toggle>
                         </ion-label>
                     </ion-item>

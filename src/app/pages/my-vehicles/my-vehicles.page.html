@@ -10,11 +10,10 @@
 </ion-header>
 
 <ion-content color="light">
-    <ion-item lines="none">
+    <!-- <ion-item lines="none">
         <p>
             <ion-icon name="alert"></ion-icon> Please fill the requested details</p>
-    </ion-item>
-
+    </ion-item> -->
     <ion-row>
         <div class="container">
             <ul class="progressbar">
@@ -27,8 +26,20 @@
 
     <ion-slides pager="false" [options]="slideOpts" #myVehicleSlider>
         <ion-slide>
-            <!-- <h1>Slide 1</h1> -->
             <ion-list class="myvehicle-form">
+                <ion-item>
+                    <div class="img-upload-container">
+                        <div>
+                            <ion-button size="small" color="light" (click)="selectImage()">
+                                Upload Vehicle Image
+                            </ion-button>
+                        </div>
+                        <div slot="start">
+                            <p *ngIf="isLoading">Loading ...</p>
+                            <img slot="end" [src]="croppedImagepath" />
+                        </div>
+                    </div>
+                </ion-item>
                 <ion-item>
                     <ion-label>Vehicle Name</ion-label>
                     <ion-select class="myCustomSelect ion-text-center" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">

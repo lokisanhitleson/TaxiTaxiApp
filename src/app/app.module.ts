@@ -4,11 +4,13 @@ import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
-
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
+import { FileTransfer} from '@ionic-native/file-transfer/ngx';
+import { Crop } from '@ionic-native/crop/ngx';
+import { Camera } from '@ionic-native/Camera/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -42,7 +44,11 @@ import { CalendarModule } from 'ion2-calendar';
     DatePicker,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Media,
-    File
+    File,
+    ImagePicker,
+    Crop,
+    FileTransfer,
+    Camera
   ],
   bootstrap: [AppComponent]
 })

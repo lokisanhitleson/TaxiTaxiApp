@@ -6,6 +6,7 @@ import * as moment from "moment";
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { Location } from '@angular/common';
+import { VehicleModalPage } from './vehicle.model';
 
 @Component({
   selector: 'app-about',
@@ -18,6 +19,7 @@ export class RequestVehiclePage implements OnInit {
   fromLocation = 'Avadi';
   toLocation = 'T.Nagar';
   selectedCity:any = "Avadi";
+  selectedVehicle:any = "Indica";
   public tripSelector: string ='oneWay';
   status: String = "";
   recording:boolean = false;
@@ -35,15 +37,7 @@ export class RequestVehiclePage implements OnInit {
     private _location: Location
     ) { }
 
-  carModels = [
-    "Toyota Platinum Etios",
-    "Maruti Suzuki Dzire",
-    "Renault Lodgy",
-    "Mahindra Scorpio",
-    "Toyota Innova Crysta",
-    "Hyundai Xcent",
-    "Nissan Sunny"
-  ];
+  
   carType = ["Mini", "Micro", "Prime"];
 
   async openCalendar() {
@@ -105,6 +99,23 @@ export class RequestVehiclePage implements OnInit {
     modal.onDidDismiss().then((selectedCity) => {
       if (selectedCity !== null) {
         this.selectedCity = selectedCity.data;
+      }
+    });
+ 
+    return await modal.present();
+  }
+
+  async openVehiclesModal() {
+    const modal = await this.modalCtrl.create({
+      component: VehicleModalPage,
+      componentProps: {
+        "Title": "Select Vehicle"
+      }
+    });
+ 
+    modal.onDidDismiss().then((selectedVehicle) => {
+      if (selectedVehicle !== null) {
+        this.selectedVehicle = selectedVehicle.data;
       }
     });
  

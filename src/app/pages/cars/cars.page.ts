@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
 })
 export class CarsPage implements OnInit {
   mobilenumber: any;
-  
+  rate:number = 4;
   today; 
   nextThirty; 
   selectedDate; 

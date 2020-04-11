@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarModal,CalendarComponentOptions, CalendarModalOptions,DayConfig,CalendarResult } from 'ion2-calendar';
 import { ModalController } from '@ionic/angular';
+import { Location } from '@angular/common';
 import * as moment from "moment";
 
 @Component({
@@ -11,7 +12,7 @@ import * as moment from "moment";
 export class AddVehiclePage implements OnInit {
   range: string;
 
-  constructor( public modalCtrl: ModalController,) { }
+  constructor( public modalCtrl: ModalController, private _location: Location) { }
 
   dateRange: { from: string; to: string; };
   type: 'string'; // 'string' | 'js-date' | 'moment' | 'time' | 'object'
@@ -32,5 +33,10 @@ export class AddVehiclePage implements OnInit {
 
   ngOnInit() {
   }
+  
+  previous() 
+{ 
+  this._location.back(); 
+}
 
 }
