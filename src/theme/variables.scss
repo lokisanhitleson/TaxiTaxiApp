@@ -67,4 +67,80 @@
     --ion-color-dark-contrast-rgb: 255, 255, 255;
     --ion-color-dark-shade: #190e60;
     --ion-color-dark-tint: #2e256d;
+    .forgotPasswordAlert .alert-title {
+        text-align: center !important;
+        color: #fff!important;
+    }
+    .forgotPasswordAlert .alert-message {
+        text-align: center !important;
+        margin: 20px auto;
+    }
+    .forgotPasswordAlert .alert-head {
+        background: #7c0ad2!important;
+        text-align: center!important;
+        border-bottom: 2px solid #ffce00;
+    }
+    .forgotPasswordAlert button.primary {
+        background: #ffce00!important;
+        text-align: center!important;
+        color: #444;
+    }
+    .forgotPasswordAlert button.secondary {
+        background: #c2c2c1!important;
+        text-align: center!important;
+        color: #444;
+    }
+    .welcomeAlert .alert-head {
+        background: #7c0ad2!important;
+        text-align: center!important;
+        border-bottom: 2px dashed #ffce00;
+    }
+    .welcomeAlert .alert-title {
+        color: #fff!important;
+    }
+    .welcomeAlert .alert-sub-title {
+        color: #7c0ad2!important;
+        font-size: 0px;
+        background-image: url('/assets/img/taxi-logo1.png');
+        background-size: 180px 55px;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 60px;
+    }
+    .welcomeAlert .alert-button {
+        background: #ffce00 !important;
+        color: #444;
+        font-weight: bold;
+        font-size: 18px;
+        margin: 0px;
+        width: 100%;
+        text-align: center !important;
+    }
+    .welcomeAlert .alert-button-inner {
+        display: block;
+    }
+    .welcomeAlert .alert-message {
+        text-align: center!important;
+        color: #444!important;
+        font-size: 20px;
+        margin: 47px 0px;
+    }
+    .rating-modal-css .modal-wrapper {
+        transform: translate3d(0, 40px, 0);
+        opacity: .01;
+        width: 90% !important;
+        height: 30% !important;
+    }
+    .rating-modal-css rating {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        left: 0;
+    }
+    .rating-modal-css .sc-ion-buttons-md-s .button-has-icon-only.button-clear {
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 18px;
+    }
 }

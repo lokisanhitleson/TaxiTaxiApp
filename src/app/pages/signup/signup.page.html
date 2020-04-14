@@ -3,13 +3,14 @@
     <div class="auth-content">
 
         <!-- Logo -->
-        <div padding-horizontal text-center class="animated fadeInDown">
-            <div class="logo"></div>
-            <!-- <h4 no-margin>
+        <div padding-horizontal text-center class="animated fadeInDown center-content">
+            <h4 no-margin>
                 <ion-text color="light" class="fw700">
-                    Taxi-Taxi
+                    Welcome!
                 </ion-text>
-            </h4> -->
+            </h4>
+            <div class="logo"></div>
+            <p class="sub-text">Thank you for choosing us!</p>
         </div>
 
         <!-- Login form -->
@@ -17,13 +18,13 @@
             <ion-item no-padding class="animated fadeInUp">
                 <ion-label position="floating">
                     <ion-icon name="phone-portrait" item-start></ion-icon>
-                    Registered Mobile Number
+                    Enter Your Mobile Number
                 </ion-label>
-                <ion-input color="secondary" type="text" formControlName="mobileNumber"></ion-input>
+                <ion-input color="light" type="number" formControlName="mobileNumber"></ion-input>
             </ion-item>
             <p ion-text class="text08" *ngIf="onSignUpForm.get('mobileNumber').touched && onSignUpForm.get('mobileNumber').hasError('required')">
                 <ion-text color="warning">
-                    Required Field
+                    Enter valid mobile number
                 </ion-text>
             </p>
         </form>
@@ -37,7 +38,7 @@
         <div class="ion-padding-top">
             <ion-button icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToOtp()" [disabled]="!onSignUpForm.valid" tappable>
                 <ion-icon name="log-in"></ion-icon>
-                Signin
+                Signup
             </ion-button>
 
             <!-- <p text-center>

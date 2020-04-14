@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonSlides } from '@ionic/angular';
+import { IonSlides, LoadingController } from '@ionic/angular';
 import {
   NavController,
   AlertController,
@@ -32,7 +32,8 @@ export class HomeResultsPage {
     public popoverCtrl: PopoverController,
     public alertCtrl: AlertController,
     public modalCtrl: ModalController,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public loadingCtrl: LoadingController
   ) {
 
   }
@@ -129,5 +130,21 @@ export class HomeResultsPage {
     });
     return await popover.present();
   }
+
+  async presentLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
+
+  goToCars(){
+    this.presentLoading();
+        this.navCtrl.navigateRoot('/home/tabs/cars');
+      }
 
 }

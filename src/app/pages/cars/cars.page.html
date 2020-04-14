@@ -27,13 +27,13 @@
                         <ion-thumbnail class="car-avatar">
                             <img [src]="car.img">
                         </ion-thumbnail>
-                        <ion-text class="view-text" routerLink="/home/tabs/vehicle-detail">
+                        <ion-text class="view-text" (click)="toVehicleProfile()">
                             <ion-icon name="eye"></ion-icon> View Details
                         </ion-text>
                     </ion-col>
                     <ion-col>
-                        <ion-label class="ion-text-end" routerLink="/home/tabs/agent-profile">
-                            <ion-text color="dark ion-text-end" class="agent-name">
+                        <ion-label class="ion-text-end">
+                            <ion-text color="dark ion-text-end" class="agent-name" (click)="toAgentProfile()">
                                 <h4><strong>{{car.agentname}}</strong></h4>
                             </ion-text>
                             <ion-text color="dark ion-text-end">
@@ -46,9 +46,9 @@
                                     {{car.seater}}
                                 </h5>
                             </ion-text>
-                            <ion-text class="rating-star-box">
+                            <ion-text class="rating-star-box" (click)="openRating()">
                                 <ion-label>
-                                    <rating [rate]="rate" readonly="true">
+                                    <rating [rate]="givenStar" readonly="true">
                                     </rating>
                                 </ion-label>
                             </ion-text>

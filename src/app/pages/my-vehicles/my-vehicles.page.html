@@ -14,20 +14,20 @@
         <p>
             <ion-icon name="alert"></ion-icon> Please fill the requested details</p>
     </ion-item> -->
-    <ion-row>
-        <div class="container">
-            <ul class="progressbar">
-                <li class="active">Vehicle Info</li>
-                <li class="">F.C Info</li>
-                <li>Insurance</li>
-            </ul>
-        </div>
-    </ion-row>
 
     <ion-slides pager="false" [options]="slideOpts" #myVehicleSlider>
         <ion-slide>
             <ion-list class="myvehicle-form">
-                <ion-item>
+                <ion-item lines="none" class="wizard-item">
+                    <div class="container">
+                        <ul class="progressbar">
+                            <li class="active">Vehicle Info</li>
+                            <li class="">F.C Info</li>
+                            <li>Insurance</li>
+                        </ul>
+                    </div>
+                </ion-item>
+                <ion-item lines="none" class="upload-item">
                     <div class="img-upload-container">
                         <div>
                             <ion-button size="small" color="light" (click)="selectImage()">
@@ -99,6 +99,15 @@
         </ion-slide>
         <ion-slide>
             <ion-list class="myvehicle-form">
+                <ion-item lines="none" class="wizard-item">
+                    <div class="container">
+                        <ul class="progressbar">
+                            <li class="active">Vehicle Info</li>
+                            <li class="active">F.C Info</li>
+                            <li>Insurance</li>
+                        </ul>
+                    </div>
+                </ion-item>
                 <ion-item>
                     <ion-label>Vehicle Condition</ion-label>
                     <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
@@ -156,6 +165,15 @@
         </ion-slide>
         <ion-slide>
             <ion-list class="myvehicle-form">
+                <ion-item lines="none" class="wizard-item">
+                    <div class="container">
+                        <ul class="progressbar">
+                            <li class="active">Vehicle Info</li>
+                            <li class="active">F.C Info</li>
+                            <li class="active">Insurance</li>
+                        </ul>
+                    </div>
+                </ion-item>
                 <ion-item>
                     <ion-label>Insurance Company</ion-label>
                     <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
