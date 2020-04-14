@@ -2,9 +2,13 @@
     ion-content {
         --background: var(--ion-color-primary);
     }
-}
-
-.paz {
-    position: relative;
-    z-index: 10;
+    .paz {
+        position: relative;
+        z-index: 10;
+    }
+    p.sub-text {
+        color: #b1b1a9;
+        font-size: 100%;
+        padding: 5px;
+    }
 }

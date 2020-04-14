@@ -55,4 +55,13 @@
     ion-item {
         border-bottom: 0px!important;
     }
+    rating {
+        ion-icon {
+            color: gray;
+            &.filled {
+                color: #ffb400;
+            }
+        }
+        float: right;
+    }
 }

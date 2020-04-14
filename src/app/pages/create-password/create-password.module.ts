@@ -4,12 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
-import { RegisterPage } from './register.page';
+import { CreatePasswordPage } from './create-password';
 
 const routes: Routes = [
   {
     path: '',
-    component: RegisterPage
+    component: CreatePasswordPage
   }
 ];
 
@@ -21,6 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [RegisterPage]
+  declarations: [CreatePasswordPage]
 })
-export class RegisterPageModule {}
+export class CreatePasswordPageModule {}

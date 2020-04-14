@@ -7,6 +7,13 @@
     "files": {}
   },
   "installed_plugins": {
+    "cordova-plugin-camera": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "com.ionictheme.ionic4start"
+    },
+    "cordova-plugin-crop": {
+      "PACKAGE_NAME": "com.ionictheme.ionic4start"
+    },
     "cordova-plugin-datepicker": {
       "PACKAGE_NAME": "com.ionictheme.ionic4start"
     },
@@ -14,6 +21,9 @@
       "PACKAGE_NAME": "com.ionictheme.ionic4start"
     },
     "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.ionictheme.ionic4start"
+    },
+    "cordova-plugin-file-transfer": {
       "PACKAGE_NAME": "com.ionictheme.ionic4start"
     },
     "cordova-plugin-ionic-keyboard": {
@@ -30,6 +40,9 @@
       "PACKAGE_NAME": "com.ionictheme.ionic4start"
     },
     "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.ionictheme.ionic4start"
+    },
+    "cordova-plugin-telerik-imagepicker": {
       "PACKAGE_NAME": "com.ionictheme.ionic4start"
     },
     "cordova-plugin-whitelist": {

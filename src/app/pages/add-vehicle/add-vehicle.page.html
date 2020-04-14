@@ -1,7 +1,9 @@
 <ion-header>
     <ion-toolbar color="primary">
         <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+            <ion-button (click)="previous()">
+                <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
+            </ion-button>
         </ion-buttons>
         <ion-title>Schedule Vehicle</ion-title>
     </ion-toolbar>
@@ -13,7 +15,7 @@
             <ion-row>
                 <ion-col>
                     <p>
-                        <ion-icon name="alert"></ion-icon> Select vailable dates for vehicle</p>
+                        <ion-icon name="alert"></ion-icon> Select available dates for vehicle</p>
                 </ion-col>
             </ion-row>
             <ion-list class="request-form">

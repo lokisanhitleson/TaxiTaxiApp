@@ -176,11 +176,14 @@
             margin: 0 5%;
             .logo {
                 width: 220px;
-                height: 100px;
-                margin: 80px auto 8px;
+                height: 60px;
+                margin: 0 auto;
                 border-radius: 10%;
                 background: url("/assets/img/taxi-logo1.png") no-repeat;
                 background-size: 100%;
+            }
+            .center-content {
+                margin: 40% auto 0;
             }
             .list-form {
                 padding: 0;
@@ -198,9 +201,15 @@
                         font-size: 1em;
                         color: var(--ion-color-light);
                     }
-                    input {
-                        color: var(--ion-color-light);
-                    }
+                    // ion-input {
+                    //     border-bottom: 1px solid var(--ion-color-light);
+                    // }
+                }
+                ion-icon {
+                    font-size: 25px;
+                    margin: 0 -3px -2px;
+                    padding-right: 5px;
+                    color: #ffff00;
                 }
             }
         }
@@ -245,4 +254,20 @@
     .picker-button.sc-ion-picker-md,
     .picker-button.activated.sc-ion-picker-md {
         color: #7c0ad2!important;
+    }
+    
+    rating {
+        .sc-ion-buttons-md-s .button-has-icon-only.button-clear {
+            --padding-top: 12px;
+            --padding-end: 0px!important;
+            --padding-bottom: 12px;
+            --padding-start: 0px!important;
+            --border-radius: 50%;
+            margin-left: 0;
+            margin-right: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            width: 20px!important;
+            height: 20px!important;
+        }
     }

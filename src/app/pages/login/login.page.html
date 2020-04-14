@@ -3,23 +3,24 @@
     <div class="auth-content">
 
         <!-- Logo -->
-        <div padding-horizontal text-center class="animated fadeInDown">
-            <div class="logo"></div>
-            <!-- <h4 no-margin>
+        <div padding-horizontal text-center class="animated fadeInDown center-content">
+            <h4 no-margin>
                 <ion-text color="light" class="fw700">
-                    Taxi-Taxi
+                    Welcome!
                 </ion-text>
-            </h4> -->
+            </h4>
+            <div class="logo"></div>
+            <p class="sub-text">Thank you for choosing us!</p>
         </div>
 
         <!-- Login form -->
         <form [formGroup]="onLoginForm" class="list-form">
             <ion-item no-padding class="animated fadeInUp">
                 <ion-label position="floating">
-                    <ion-icon name="call" item-start></ion-icon>
+                    <ion-icon name="phone-portrait" item-start></ion-icon>
                     Mobile Number
                 </ion-label>
-                <ion-input color="secondary" type="text" formControlName="mobileNum"></ion-input>
+                <ion-input color="light" type="number" formControlName="mobileNum"></ion-input>
             </ion-item>
             <p ion-text class="text08" *ngIf="onLoginForm.get('mobileNum').touched && onLoginForm.get('mobileNum').hasError('required')">
                 <ion-text color="warning">
@@ -32,7 +33,7 @@
                     <ion-icon name="lock" item-start></ion-icon>
                     Password
                 </ion-label>
-                <ion-input color="secondary" type="password" formControlName="password"></ion-input>
+                <ion-input color="light" type="password" formControlName="password"></ion-input>
             </ion-item>
             <p ion-text color="warning" class="text08" *ngIf="onLoginForm.get('password').touched && onLoginForm.get('password').hasError('required')">
                 <ion-text color="warning">

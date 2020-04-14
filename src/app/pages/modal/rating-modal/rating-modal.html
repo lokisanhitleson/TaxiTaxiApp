@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="end">
+            <ion-button color="primary" (click)="closeModal()">
+                <ion-icon name="close" color="light"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            You Rating
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-item margin-bottom class="ion-text-start">
+        <rating [(ngModel)]="rate" readonly="false" size="default" (ngModelChange)="rateSelected(rate)">
+        </rating>
+    </ion-item>
+
+    <ion-button expand="full" color="warning" (click)="submitModal()">Rate</ion-button>
+</ion-content>

@@ -78,8 +78,8 @@ export class OtpPage implements OnInit {
   }
 
   // // //
-  goToRegister() {
-    this.navCtrl.navigateRoot('/register');
+  goToCreatePassword() {
+    this.navCtrl.navigateRoot('/create-password');
   }
   goToLogin() {
     this.navCtrl.navigateRoot('/login');

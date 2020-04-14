@@ -38,12 +38,13 @@ export class LoginPage implements OnInit {
   async forgotPass() {
     const alert = await this.alertCtrl.create({
       header: 'Forgot Password?',
-      message: 'Enter you email address to send a reset link password.',
+      message: 'Enter registered mobile number to reset password.',
+      cssClass:'forgotPasswordAlert',
       inputs: [
         {
           name: 'mobileNum',
-          type: 'text',
-          placeholder: 'Enter registered Mobile Number'
+          type: 'number',
+          placeholder: 'Enter Mobile Number'
         }
       ],
       buttons: [
@@ -56,6 +57,7 @@ export class LoginPage implements OnInit {
           }
         }, {
           text: 'Confirm',
+          cssClass: 'primary',
           handler: async () => {
             const loader = await this.loadingCtrl.create({
               duration: 2000
@@ -80,10 +82,7 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 
-  // // //
-  goToRegister() {
-    this.navCtrl.navigateRoot('/register');
-  }
+ 
   goToSignup() {
     this.navCtrl.navigateRoot('/signup');
   }

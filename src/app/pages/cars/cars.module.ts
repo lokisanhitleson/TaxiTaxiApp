@@ -2,16 +2,23 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { IonicRatingModule } from "ionic4-rating";
 
 import { IonicModule } from '@ionic/angular';
 
 import { CarsPage } from './cars.page';
+import { RatingModalPage } from '../../pages/modal/rating-modal/rating-modal';
 
 const routes: Routes = [
   {
     path: '',
     component: CarsPage
+  },
+  {
+    path: '',
+    component: RatingModalPage
   }
+
 ];
 
 @NgModule({
@@ -19,8 +26,9 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    IonicRatingModule ,
     RouterModule.forChild(routes)
   ],
-  declarations: [CarsPage]
+  declarations: [CarsPage, RatingModalPage]
 })
 export class CarsPageModule {}

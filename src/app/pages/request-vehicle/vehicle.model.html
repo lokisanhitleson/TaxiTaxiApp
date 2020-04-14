@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-toolbar color="primary" text-center>
+        <ion-title>{{modalTitle}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div>
+        <ion-item>
+            <ion-label position="floating">Vehicle Model</ion-label>
+            <ion-input [(ngModel)]="VehicleNames" (ionInput)="getVehicles($event)"></ion-input>
+        </ion-item>
+
+        <ion-list *ngIf="isVehicleAvailable">
+            <ion-item *ngFor="let car of carModels" (click)="vehicleSelected(car)">{{car}}</ion-item>
+        </ion-list>
+    </div>
+    <!-- <ion-grid slot="bottom">
+        <ion-row>
+            <ion-col text-center>
+                <ion-button color="medium" (click)="cancelModal()">Cancel</ion-button>
+            </ion-col>
+            <ion-col text-center>
+                <ion-button color="warning" (click)="submitModal()">Submit</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid> -->
+
+    <ion-footer no-shadow>
+        <ion-toolbar position="bottom">
+            <ion-row>
+                <ion-col text-center>
+                    <ion-button color="medium" (click)="cancelModal()">Cancel</ion-button>
+                </ion-col>
+                <ion-col text-center>
+                    <ion-button color="warning" (click)="submitModal()">Submit</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-toolbar>
+    </ion-footer>
+</ion-content>

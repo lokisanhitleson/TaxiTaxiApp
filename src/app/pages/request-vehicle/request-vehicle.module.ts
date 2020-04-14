@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { RequestVehiclePage } from './request-vehicle.page';
 import { PlacesModalPage } from "./places.page";
+import { VehicleModalPage } from "./vehicle.model";
 import { CalendarModule } from 'ion2-calendar';
 
 const routes: Routes = [
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'places-modal',
     component: PlacesModalPage
+  },
+  {
+    path: 'vehicle-model',
+    component: VehicleModalPage
   }
 ];
 
@@ -27,6 +32,6 @@ const routes: Routes = [
     CalendarModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [RequestVehiclePage,PlacesModalPage]
+  declarations: [RequestVehiclePage,PlacesModalPage, VehicleModalPage]
 })
 export class RequestVehiclePageModule {}
