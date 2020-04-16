@@ -14,6 +14,7 @@ const routes: Routes = [
     { path: 'agent-profile', loadChildren: '../agent-profile/agent-profile.module#AgentProfilePageModule' },
     { path: 'add-vehicle', loadChildren: '../add-vehicle/add-vehicle.module#AddVehiclePageModule' },
     { path: 'view-request', loadChildren: '../view-request/view-request.module#ViewRequestPageModule' },
+    { path: 'request-detail', loadChildren: '../view-request/detail-request.module#DetailRequestPageModule' },
     { path: 'request-vehicle', loadChildren: '../request-vehicle/request-vehicle.module#RequestVehiclePageModule' },
     { path: 'my-vehicles', loadChildren: '../my-vehicles/my-vehicles.module#MyVehiclesPageModule' }
 
