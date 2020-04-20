@@ -12,7 +12,9 @@ const routes: Routes = [
   { path: 'create-password', loadChildren: './pages/create-password/create-password.module#CreatePasswordPageModule' },
   { path: 'signup', loadChildren: './pages/signup/signup.module#SignupPageModule' },
   { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
-  { path: 'edit-profile', loadChildren: './pages/edit-profile/edit-profile.module#EditProfilePageModule' }
+  { path: 'edit-profile', loadChildren: './pages/edit-profile/edit-profile.module#EditProfilePageModule' },
+  { path: 'my-vehicles', loadChildren: './pages/my-vehicles/my-vehicles.module#MyVehiclesPageModule' },
+  { path: 'my-vehicle-list', loadChildren: './pages/my-vehicle-list/my-vehicle-list.module#MyVehicleListModule' }
 
 ];
 

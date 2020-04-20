@@ -32,6 +32,12 @@
                         Verify
                     </ion-button>
                 </div>
+                <p class="ion-text-center otp-time-text" *ngIf="timeLeft">{{timeLeft}} Seconds Left....</p>
+                <div class="ion-text-center" item-center>
+                    <p>
+                        If you didn't receive OTP <span class="resend-btn">Resend</span>
+                    </p>
+                </div>
 
                 <!-- Other links -->
                 <div text-center margin-top>

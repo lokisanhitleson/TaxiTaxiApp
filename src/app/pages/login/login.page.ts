@@ -9,7 +9,8 @@ import { NavController, MenuController, ToastController, AlertController, Loadin
 })
 export class LoginPage implements OnInit {
   public onLoginForm: FormGroup;
-
+  isTextFieldType: boolean;
+  
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -19,6 +20,9 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder
   ) { }
 
+  togglePasswordFieldType(){
+    this.isTextFieldType = !this.isTextFieldType;
+  }
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
   }
