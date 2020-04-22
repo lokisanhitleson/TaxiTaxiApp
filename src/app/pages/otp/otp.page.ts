@@ -95,8 +95,8 @@ pauseTimer() {
   clearInterval(this.interval);
 }
   // // //
-  goToCreatePassword() {
-    this.navCtrl.navigateRoot('/create-password');
+  goToRegisterAgency() {
+    this.navCtrl.navigateRoot('/register-agency');
   }
   goToLogin() {
     this.navCtrl.navigateRoot('/login');

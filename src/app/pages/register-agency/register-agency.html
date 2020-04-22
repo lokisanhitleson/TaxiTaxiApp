@@ -1,0 +1,97 @@
+<ion-content padding class="login auth-page">
+    <div id="info-img"></div>
+    <div class="auth-content">
+        <!-- Logo -->
+        <div padding-horizontal text-center class="center-content">
+            <div class="logo"></div>
+            <h3 no-margin padding>
+                <ion-text color="light" class="fw700">
+                    <ion-text color="medium">Agency Registration</ion-text>
+                </ion-text>
+            </h3>
+        </div>
+
+        <ion-card color="light" class="ion-padding ion-no-margin">
+            <ion-card-content class="ion-no-padding">
+                <!-- Create Password form -->
+                <form [formGroup]="onAgencyRegistrationForm" class="list-form">
+                    <ion-item no-padding class="animated fadeInUp">
+                        <ion-label position="floating">Agency Name</ion-label>
+                        <ion-input type="text" formControlName="agencyName"></ion-input>
+                    </ion-item>
+                    <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('agencyName').touched && onAgencyRegistrationForm.get('agencyName').hasError('required')">
+                        <ion-text color="danger">
+                            Required Field
+                        </ion-text>
+                    </p>
+
+                    <ion-item no-padding class="animated fadeInUp">
+                        <ion-label position="floating">Agency Registration Number</ion-label>
+                        <ion-input type="text" formControlName="agencyRegNum"></ion-input>
+                    </ion-item>
+                    <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('agencyRegNum').touched && onAgencyRegistrationForm.get('agencyRegNum').hasError('required')">
+                        <ion-text color="danger">
+                            Required Field
+                        </ion-text>
+                    </p>
+
+                    <ion-item no-padding class="animated fadeInUp">
+                        <ion-label position="floating">Contact Name</ion-label>
+                        <ion-input type="text" formControlName="contactName"></ion-input>
+                    </ion-item>
+                    <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('contactName').touched && onAgencyRegistrationForm.get('contactName').hasError('required')">
+                        <ion-text color="danger">
+                            Required Field
+                        </ion-text>
+                    </p>
+
+                    <ion-item no-padding class="animated fadeInUp">
+                        <ion-label position="floating">Age</ion-label>
+                        <ion-input type="text" formControlName="age"></ion-input>
+                    </ion-item>
+                    <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('age').touched && onAgencyRegistrationForm.get('age').hasError('required')">
+                        <ion-text color="danger">
+                            Required Field
+                        </ion-text>
+                    </p>
+
+                    <ion-item no-padding class="animated fadeInUp">
+                        <ion-label position="floating">E-Mail</ion-label>
+                        <ion-input type="email" formControlName="email"></ion-input>
+                    </ion-item>
+                    <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('email').touched && onAgencyRegistrationForm.get('email').hasError('required')">
+                        <ion-text color="danger">
+                            Required Field
+                        </ion-text>
+                    </p>
+
+                    <ion-item no-padding>
+                        <ion-label>Region</ion-label>
+                        <ion-select formControlName="region" class="myCustomSelect" ok-text="Okay" cancel-text="Dismiss">
+                            <ion-select-option>Chennai</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+
+                    <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('region').touched && onAgencyRegistrationForm.get('region').hasError('required')">
+                        <ion-text color="danger">
+                            Required Field
+                        </ion-text>
+                    </p>
+
+                    <div class="ion-padding-top" ion-item>
+                        <ion-label class="termsConditions">Terms and conditions</ion-label>
+                        <ion-checkbox class="checkBox" formControlName="t&c" slot="start"></ion-checkbox>
+                    </div>
+
+                </form>
+                <div margin-top>
+                    <ion-button icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToCreatePassword()" [disabled]="!onAgencyRegistrationForm.valid" tappable>
+                        <ion-icon name="log-in"></ion-icon>
+                        Submit
+                    </ion-button>
+
+                </div>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>
