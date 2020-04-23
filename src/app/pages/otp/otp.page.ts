@@ -24,7 +24,7 @@ export class OtpPage implements OnInit {
   }
 
   ngOnInit() {
-
+    this.startTimer();
     this.onLoginForm = this.formBuilder.group({
       'otp': [null, Validators.compose([
         Validators.required
@@ -76,10 +76,27 @@ export class OtpPage implements OnInit {
 
     await alert.present();
   }
+//OTP timer model
+timeLeft: number = 120;
+interval;
 
+startTimer() {
+  this.interval = setInterval(() => {
+    if(this.timeLeft > 0) {
+      this.timeLeft--;
+    } else {
+      this.timeLeft = 120;
+    }
+  },1000)
+  
+}
+
+pauseTimer() {
+  clearInterval(this.interval);
+}
   // // //
-  goToCreatePassword() {
-    this.navCtrl.navigateRoot('/create-password');
+  goToRegisterAgency() {
+    this.navCtrl.navigateRoot('/register-agency');
   }
   goToLogin() {
     this.navCtrl.navigateRoot('/login');

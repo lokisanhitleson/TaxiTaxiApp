@@ -17,7 +17,7 @@
     </ion-row> -->
     <div>
         <ion-toolbar class="tripSelect" color="warning">
-            <ion-segment [(ngModel)]="tripSelector" value="oneWay" (ionChange)="segmentChanged($event)">
+            <ion-segment [(ngModel)]="tripSelector" mode="md" value="oneWay" (ionChange)="segmentChanged($event)">
                 <ion-segment-button value="oneWay" checked>
                     <ion-icon name="return-right"></ion-icon>
                     <span>One Way</span>
@@ -26,10 +26,10 @@
                     <ion-icon name="repeat"></ion-icon>
                     <span>Round Trip</span>
                 </ion-segment-button>
-                <ion-segment-button value="multiCity">
+                <!-- <ion-segment-button value="multiCity">
                     <ion-icon name="shuffle"></ion-icon>
                     <span>Multi City</span>
-                </ion-segment-button>
+                </ion-segment-button> -->
             </ion-segment>
 
         </ion-toolbar>
@@ -149,9 +149,16 @@
                 <ion-col size="6">
                     <ion-item>
                         <ion-icon name="ios-car" slot="end"></ion-icon>
-                        <ion-label class="ion-text-wrap">Vehicle Type:<br>
+                        <!-- <ion-label class="ion-text-wrap">Vehicle Type:<br>
                             <strong class="selectedText">Prime</strong>
-                        </ion-label>
+                        </ion-label> -->
+
+                        <label class="item item-input item-select">
+                                <ion-label>Vehicle Type</ion-label>
+                            <ion-select class="myCustomSelect" placeholder="Select Vehicle Type">
+                                <ion-select-option class="selectedText" *ngFor="let type of carType">{{type}}</ion-select-option>
+                            </ion-select>
+                        </label>
                     </ion-item>
                 </ion-col>
                 <ion-col size="6">
@@ -165,7 +172,13 @@
                 </ion-col>
             </ion-row>
         </ion-grid>
-        <h5 class="ion-text-center">(OR)</h5>
+        <ion-list>
+            <ion-item>
+                <ion-label>Comments :</ion-label>
+                <ion-textarea rows="3" cols="20" placeholder="Enter any comments here..."></ion-textarea>
+            </ion-item>
+        </ion-list>
+        <!-- <h5 class="ion-text-center">(OR)</h5>
         <ion-card color="light" class="voicenote-card">
             <ion-card-content class="ion-text-center">
                 <ion-icon class="megaphone" name="megaphone"></ion-icon>
@@ -198,7 +211,7 @@
                     </ion-item-option>
                 </ion-item-options>
             </ion-item-sliding>
-        </ion-list>
+        </ion-list> -->
 
     </div>
 

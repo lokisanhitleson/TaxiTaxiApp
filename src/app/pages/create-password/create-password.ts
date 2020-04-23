@@ -9,7 +9,8 @@ import { NavController, MenuController, LoadingController,AlertController } from
 })
 export class CreatePasswordPage implements OnInit {
   public onCreatePasswordForm: FormGroup;
-
+  isTextFieldType: boolean;
+  
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -17,6 +18,10 @@ export class CreatePasswordPage implements OnInit {
     private formBuilder: FormBuilder,
     public alertController: AlertController
   ) { }
+
+  togglePasswordFieldType(){
+    this.isTextFieldType = !this.isTextFieldType;
+  }
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);

@@ -30,7 +30,7 @@ export class AppComponent {
       },
       {
         title: 'My Vehicles',
-        url: '/home/tabs/my-vehicles',
+        url: '/my-vehicle-list',
         direct: 'forward',
         icon: 'information-circle-outline'
       },

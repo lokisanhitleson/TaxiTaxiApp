@@ -15,35 +15,34 @@
             Recent Request
         </ion-list-header>
 
-        <ion-item *ngFor="let req of request">
-            <ion-avatar slot="start">
+        <ion-item *ngFor="let req of request" class="ion-no-padding">
+            <ion-avatar slot="start" class="ion-no-margin">
                 <ion-icon name="{{req.icon}}" color="primary"></ion-icon>
-
                 <!-- <img [src]="req.img"> -->
             </ion-avatar>
-            <ion-label>
 
+            <ion-label>
                 <h4><strong>{{req.agentname}}</strong>, {{req.location}}
                     <span class="time-text">{{req.time}}</span></h4>
                 <h3>{{req.carname}}</h3>
-
                 <audio *ngIf="req.voicenote" controls [src]="req.voicenote" controlsList="nodownload"></audio>
-
                 <p *ngIf="!req.voicenote">{{req.description}}</p>
             </ion-label>
+
+            <ion-icon no-margin name="eye" class="view-icon" slot="end" (click)="goToDetailReuest()"></ion-icon>
+
         </ion-item>
     </ion-list>
 
 
     <ion-list>
         <ion-list-header color="medium">
-            Yesterday Request
+            Yesterday
         </ion-list-header>
 
-        <ion-item *ngFor="let req of oldrequest">
-            <ion-avatar slot="start">
-                <ion-icon name="{{req.icon}}" color="primary"></ion-icon>
-
+        <ion-item *ngFor="let req of oldrequest" class="ion-no-padding">
+            <ion-avatar slot="start" class="ion-no-margin">
+                <ion-icon name="{{req.icon}}" color="primary" class="ion-no-margin"></ion-icon>
                 <!-- <img [src]="req.img"> -->
             </ion-avatar>
             <ion-label>
@@ -52,6 +51,9 @@
                 <h3>{{req.carname}}</h3>
                 <p>{{req.description}}</p>
             </ion-label>
+
+            <ion-icon no-margin name="eye" slot="end" class="view-icon"></ion-icon>
+
         </ion-item>
     </ion-list>
 </ion-content>

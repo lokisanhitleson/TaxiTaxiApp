@@ -33,4 +33,19 @@
             color: gray;
         }
     }
+    .myCustomSelect {
+        max-width: 100% !important;
+    }
+    .termsConditions {
+        text-decoration: underline;
+        position: relative;
+        left: 50px;
+    }
+    ion-checkbox.checkBox {
+        position: absolute;
+        left: 0;
+    }
+    ion-checkbox ion-label {
+        pointer-events: none;
+    }
 }
