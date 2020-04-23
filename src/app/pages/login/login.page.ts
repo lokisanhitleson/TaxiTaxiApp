@@ -86,7 +86,7 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 
- 
+ //z
   goToSignup() {
     this.navCtrl.navigateRoot('/signup');
   }
