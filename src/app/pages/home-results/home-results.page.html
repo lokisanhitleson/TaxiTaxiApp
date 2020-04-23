@@ -5,9 +5,17 @@
         </ion-buttons>
         <ion-title>
             <ion-text color="light">
-                <ion-text color="light" class="fw700">Home</ion-text>
+                <ion-text color="light" class="fw700">{{'TAB_MENU_ITEMS.HOME' | translate}}</ion-text>
             </ion-text>
         </ion-title>
+        <div slot="end" class="language_btn">
+            <ion-select [(ngModel)]="lang" (ionChange)="switchLanguage()">
+                <ion-select-option value="en">English</ion-select-option>
+                <ion-select-option value="ta">தமிழ்</ion-select-option>
+            </ion-select>
+        </div>
+
+
         <!-- <ion-buttons slot="end">
             <ion-button size="small" shape="round" color="medium" (click)="notifications($event)">
                 <ion-icon name="notifications"></ion-icon>
@@ -28,7 +36,7 @@
     <ion-item lines="none" color="secondary">
         <ion-label>
             <h2 no-margin class="fw500 no-margin">
-                <ion-text color="medium">Location : </ion-text>
+                <ion-text color="medium">{{'HOME_ITEMS.LOCATION' | translate}} : </ion-text>
                 <ion-text color="medium" class="location-text">{{yourLocation}}</ion-text>
             </h2>
 
@@ -37,7 +45,7 @@
             </p> -->
         </ion-label>
         <ion-button shape="round" fill="outline" size="small" color="medium" (click)="alertLocation()">
-            Change
+            {{'HOME_ITEMS.CHANGE' | translate}}
             <ion-icon name="locate"></ion-icon>
         </ion-button>
     </ion-item>
@@ -52,7 +60,7 @@
         </ion-slides>
     </div>
     <ion-list-header class="home-header-text">
-        <ion-label color="primary">Vehicle Availability</ion-label>
+        <ion-label color="primary">{{'HOME_ITEMS.AVAILABLE_VEHICLE' | translate}}</ion-label>
     </ion-list-header>
     <!-- <ion-title class="ion-text-center ion-padding-top">
         <ion-text color="primary" class="fw700 ">Vehicle Availability</ion-text>

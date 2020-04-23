@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-
+import { TranslateModule } from '@ngx-translate/core';
 import { TabsPageRoutingModule } from './tabs-routing.module';
 
 import { TabsPage } from './tabs.page';
@@ -13,6 +13,7 @@ import { TabsPage } from './tabs.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    TranslateModule,
     TabsPageRoutingModule
   ],
   declarations: [TabsPage]

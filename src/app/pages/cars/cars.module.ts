@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicRatingModule } from "ionic4-rating";
+import { TranslateModule } from '@ngx-translate/core';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -27,6 +28,7 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     IonicRatingModule ,
+    TranslateModule,
     RouterModule.forChild(routes)
   ],
   declarations: [CarsPage, RatingModalPage]

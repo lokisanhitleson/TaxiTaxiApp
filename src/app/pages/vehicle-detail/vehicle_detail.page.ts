@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
 import { Location } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-vehicle-detail',
   templateUrl: './vehicle_detail.page.html',
@@ -35,7 +37,11 @@ export class VehicleDetailPage implements OnInit {
     initialSlide: 0,
     speed: 400,
   };
-  constructor(private datePicker: DatePicker,private _location: Location) { }
+  constructor(private datePicker: DatePicker,
+    private _location: Location,
+    public translate: TranslateService, 
+    public TranslateModule : TranslateModule
+    ) { }
   showDatepicker(){
     this.datePicker.show({
       date: new Date(),

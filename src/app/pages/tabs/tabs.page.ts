@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-tabs',
   templateUrl: './tabs.page.html',
@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabsPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    public translate: TranslateService, 
+    public TranslateModule : TranslateModule
+    ) { }
 
   ngOnInit() {
   }
