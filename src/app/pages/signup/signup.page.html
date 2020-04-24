@@ -48,7 +48,13 @@
                 </div>
             </ion-card-content>
         </ion-card>
-
+        <div class="language_btn">
+            <ion-label>Choose Language</ion-label>
+            <ion-select [(ngModel)]="lang" (ionChange)="switchLanguage()">
+                <ion-select-option value="en">English</ion-select-option>
+                <ion-select-option value="ta">தமிழ்</ion-select-option>
+            </ion-select>
+        </div>
         <!-- <h4 class="ion-text-center signup-msg">getRide gets you polite drivers with clean cars!</h4> -->
 
     </div>

@@ -40,14 +40,14 @@ export class HomeResultsPage {
     public translate: TranslateService, 
     public TranslateModule : TranslateModule
   ) {
-    this.lang = 'en';
-    this.translate.setDefaultLang('en');
-    this.translate.use('en');
+    // this.lang = 'en';
+    // this.translate.setDefaultLang('en');
+    // this.translate.use('en');
   }
 
-  switchLanguage() {
-    this.translate.use(this.lang);
-  }
+  // switchLanguage() {
+  //   this.translate.use(this.lang);
+  // }
 
   vehicles =[
     {img:"assets/svg/car.svg", num:45},
@@ -157,5 +157,7 @@ export class HomeResultsPage {
     this.presentLoading();
         this.navCtrl.navigateRoot('/home/tabs/cars');
       }
-
+      goToViewRequest(){
+        this.navCtrl.navigateRoot('home/tabs/view-request')
+      }
 }

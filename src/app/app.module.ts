@@ -13,6 +13,7 @@ import { Crop } from '@ionic-native/crop/ngx';
 import { Camera } from '@ionic-native/Camera/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import {FormsModule} from '@angular/forms';
 
 import { Media } from '@ionic-native/media/ngx';
 import { File } from '@ionic-native/file/ngx';
@@ -40,6 +41,7 @@ export function createTranslateLoader(http: HttpClient) {
     AppRoutingModule,
     HttpClientModule,
     ImagePageModule,
+    FormsModule,
     SearchFilterPageModule,
     TranslateModule.forRoot({
       loader: {

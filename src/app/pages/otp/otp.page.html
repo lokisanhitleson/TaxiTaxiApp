@@ -12,6 +12,35 @@
 
         <ion-card color="light" class="ion-padding ion-no-margin">
             <ion-card-content class="ion-no-padding">
+                <!-- <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-input type="tel" placeholder="*" maxlength="1" tabindex="1" (keyup)="moveFocus(b)"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col>
+                            <ion-item>
+                                <ion-input type="tel" placeholder="*" maxlength="1" tabindex="2" #b (keyup)="moveFocus(c)"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col>
+                            <ion-item>
+                                <ion-input type="tel" placeholder="*" maxlength="1" tabindex="3" #c (keyup)="moveFocus(d)"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col>
+                            <ion-item>
+                                <ion-input type="tel" placeholder="*" maxlength="1" tabindex="4" #d></ion-input>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+
+                </ion-grid> -->
+
+
+
+
                 <form [formGroup]="onLoginForm" class="list-form">
                     <ion-item no-padding class="animated fadeInUp">
                         <ion-label position="floating">
@@ -49,6 +78,8 @@
                 </div>
             </ion-card-content>
         </ion-card>
+
+
         <!-- <h4 class="ion-text-center signup-msg">getRide works only with carefully selected licensed drivers!</h4> -->
     </div>
 </ion-content>

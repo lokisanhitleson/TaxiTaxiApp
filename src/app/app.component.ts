@@ -16,16 +16,8 @@ export class AppComponent {
 
   public appPages: Array<Pages>;
 
-  constructor(
-    private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
-    public navCtrl: NavController,
-    public translate: TranslateService, 
-    public TranslateModule : TranslateModule
-  ) {
-    this.appPages = [
-      {
+pages = [
+  {
         title: 'SIDE_MENU_ITEMS.HOME',
         url: '/home/tabs/home-results',
         direct: 'root',
@@ -60,10 +52,39 @@ export class AppComponent {
         url: '/login',
         direct: 'forward',
         icon: 'log-out'
+      },
+  {
+    title:'COMMON.LANGUAGES',
+    children: [
+      {
+        title:'English',
+          value:'en'
+      },
+      {
+        title:'தமிழ்',
+          value:'ta'
       }
-    ];
+    ]
+  }
+]
+
+lang:any;
+  constructor(
+    private platform: Platform,
+    private splashScreen: SplashScreen,
+    private statusBar: StatusBar,
+    public navCtrl: NavController,
+    public translate: TranslateService, 
+    public TranslateModule : TranslateModule
+  ) {
+    this.lang = 'en';
+    this.translate.setDefaultLang('en');
+    this.translate.use('en');
 
     this.initializeApp();
+  }
+  switchLanguage() {
+    this.translate.use(this.lang);
   }
 
   initializeApp() {
