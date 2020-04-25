@@ -16,6 +16,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { Media } from '@ionic-native/media/ngx';
 import { File } from '@ionic-native/file/ngx';
+//ionic storage
+import { IonicStorageModule } from '@ionic/storage';
 // Modal Pages
 import { ImagePageModule } from './pages/modal/image/image.module';
 import { SearchFilterPageModule } from './pages/modal/search-filter/search-filter.module';
@@ -32,6 +34,7 @@ import { CalendarModule } from 'ion2-calendar';
     BrowserAnimationsModule,
     CalendarModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     ImagePageModule,

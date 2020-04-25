@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, MenuController, ToastController, AlertController, LoadingController } from '@ionic/angular';
-
+import { Storage } from '@ionic/storage';
+import {SignUpService} from './signup.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
@@ -16,7 +17,9 @@ export class SignupPage implements OnInit {
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private SignUpService: SignUpService,
+    private storage: Storage
   ) { }
 
   ionViewWillEnter() {
@@ -27,7 +30,8 @@ export class SignupPage implements OnInit {
 
     this.onSignUpForm = this.formBuilder.group({
       'mobileNumber': [null, Validators.compose([
-        Validators.required
+        Validators.required,
+        Validators.pattern(/^[789]\d{9}$/)
       ])]
     });
   }
@@ -79,8 +83,36 @@ export class SignupPage implements OnInit {
 
   // // //
   goToOtp() {
-    this.navCtrl.navigateRoot('/otp');
-  }
+    var mobileNumber =this.onSignUpForm.value.mobileNumber;
+    
+    console.log(mobileNumber);
+    
+    this.storage.set('mobilenumber', mobileNumber);
+    
+    this.SignUpService.get(mobileNumber)    
+     .subscribe(      
+      (response) => { 
+        // console.log( response)
+        // console.log(response.status);
+      if (response.status = true){
+    
+        this.navCtrl.navigateRoot('/otp');   
+    
+      }
+      else {
+        
+        console.log("error");
+    
+      }
+    },       
+      function(error) { 
+    
+        console.log("Error happened" + error)         
+    
+     }, 
+     );
+    }
+
   goToLogin() {
     this.navCtrl.navigateRoot('/login');
   }

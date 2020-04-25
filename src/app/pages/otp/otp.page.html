@@ -31,6 +31,11 @@
                         <ion-icon name="checkmark-circle-outline"></ion-icon>
                         Verify
                     </ion-button>
+                    <p ion-text class="text08" *ngIf="showErr">
+                        <ion-text color="warning">
+                            Incorrect OTP
+                        </ion-text>
+                    </p>
                 </div>
                 <p class="ion-text-center otp-time-text" *ngIf="timeLeft">{{timeLeft}} Seconds Left....</p>
                 <div class="ion-text-center" item-center>

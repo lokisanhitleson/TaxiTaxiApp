@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, MenuController, ToastController, AlertController, LoadingController } from '@ionic/angular';
-
+import { Storage } from '@ionic/storage';
+import { OtpService } from './otp.service';
 @Component({
   selector: 'app-otp',
   templateUrl: './otp.page.html',
@@ -9,14 +10,17 @@ import { NavController, MenuController, ToastController, AlertController, Loadin
 })
 export class OtpPage implements OnInit {
   public onLoginForm: FormGroup;
-
+  showErr: boolean;
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private storage: Storage,
+    private OtpService:OtpService
+
   ) { }
 
   ionViewWillEnter() {
@@ -96,8 +100,42 @@ pauseTimer() {
 }
   // // //
   goToRegisterAgency() {
-    this.navCtrl.navigateRoot('/register-agency');
-  }
+    // this.navCtrl.navigateRoot('/register-agency');
+
+    this.storage.get('mobilenumber').then((val) => {
+      console.log('Your mobilenumber is', val);
+     
+   var mobilenumber = val;
+   
+
+   var OTP = this.onLoginForm.value.otp;
+
+   console.log(OTP,mobilenumber);
+    
+    this.OtpService.get(OTP,mobilenumber)
+    
+    .subscribe(      
+      (response) => {             
+      if (response.status ==true ){
+        this.navCtrl.navigateRoot('/register-agency');
+        console.log(response);
+          this.showErr = false;
+      }     
+      else {
+      
+         console.log(response + "the error is " + response.status);
+
+         this.showErr = true ;
+      }
+     // var nextpage= this.navCtrl.navigateRoot('/home');    
+     
+    },       
+      function(error) { 
+        console.log("Error happened" + error)         
+    },       
+     );
+  });
+  }  
   goToLogin() {
     this.navCtrl.navigateRoot('/login');
   }
