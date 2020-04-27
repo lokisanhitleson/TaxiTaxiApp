@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController, MenuController, LoadingController,AlertController } from '@ionic/angular';
+import { NavController, MenuController, LoadingController,AlertController, ModalController } from '@ionic/angular';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { WelcomeModal } from './welcome-modal';
 
 @Component({
   selector: 'app-create-password',
@@ -16,7 +18,10 @@ export class CreatePasswordPage implements OnInit {
     public menuCtrl: MenuController,
     public loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public translate: TranslateService, 
+    public TranslateModule : TranslateModule,
+    public modalCtrl: ModalController,
   ) { }
 
   togglePasswordFieldType(){
@@ -50,6 +55,19 @@ export class CreatePasswordPage implements OnInit {
     await alert.present();
   }
 
+  async openWelcomeModal() {
+    const modal = await this.modalCtrl.create({
+      component: WelcomeModal,
+      componentProps: {
+        "Title": "Welcome"
+      }
+    });
+ 
+    modal.onDidDismiss();
+    return await modal.present();
+  }
+
+
   async signUp() {
     const loader = await this.loadingCtrl.create({
       duration: 2000
@@ -61,22 +79,14 @@ export class CreatePasswordPage implements OnInit {
     });
   }
 
-  async presentLoading() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Please wait...',
-      duration: 2000
-    });
-    await loading.present();
-
-    const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed!');
-  }
+  
   // // //
   goToLogin() {
     this.navCtrl.navigateRoot('/');
   }
+
   goToHome() {
+    this.openWelcomeModal();
     this.navCtrl.navigateRoot('/home');
-    this.welcomeAlert();
   }
 }

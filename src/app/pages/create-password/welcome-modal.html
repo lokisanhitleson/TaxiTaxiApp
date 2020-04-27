@@ -1,0 +1,39 @@
+<!-- <ion-header>
+    <ion-toolbar color="primary" text-center>
+        <ion-title>{{Title}}</ion-title>
+    </ion-toolbar>
+</ion-header> -->
+
+<ion-content padding>
+    <ion-card color="primary" class="ion-no-margin ion-text-center" no-shadow>
+        <ion-card-content>
+            <div class="welcomeLogo"></div>
+
+
+            <div class="animation-cover">
+                <h1>{{'LOGIN_ITEMS.WELCOME_TITLE' | translate}} User</h1>
+                <div class="taxi-animation"></div>
+            </div>
+            <div class="welcome-desc">
+                <p [innerHtml]="'LOGIN_ITEMS.HOME_WELCOME_MESSAGE' | translate"></p>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-button color="medium" expand="block" (click)="goToAddvehicle()">You can Add Your Vehicle here</ion-button>
+    <ion-button color="warning" expand="block" (click)="submitModal()">Get Started</ion-button>
+
+    <!-- <ion-footer no-shadow>
+        <ion-toolbar position="bottom">
+            <ion-row>
+                <ion-col text-center>
+                    <ion-button color="medium" (click)="cancelModal()">Cancel</ion-button>
+                </ion-col>
+                <ion-col text-center>
+                    <ion-button color="warning" (click)="submitModal()">Submit</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-toolbar>
+    </ion-footer> -->
+
+</ion-content>

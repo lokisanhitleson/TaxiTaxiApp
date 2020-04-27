@@ -45,7 +45,7 @@ lang:any;
   async forgotPass() {
     const alert = await this.alertCtrl.create({
       header: 'Forgot Password?',
-      message: 'Enter your mobile number to send a reset link password.',
+      message: 'Enter your mobile number to send a secret code.',
       inputs: [
         {
           name: 'mobileNumber',

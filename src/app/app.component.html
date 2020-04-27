@@ -65,7 +65,7 @@
                                 <ion-radio-group [value]="en" [(ngModel)]="lang" (ionChange)="switchLanguage()">
                                     <ion-item *ngFor="let sub of page.children" (click)="page.open = !page.open">
                                         <ion-label>{{sub.title}}</ion-label>
-                                        <ion-radio slot="start" (ionSelect)="select(sub)" [value]="sub.value"></ion-radio>
+                                        <ion-radio slot="start" [value]="sub.value"></ion-radio>
                                     </ion-item>
                                 </ion-radio-group>
                             </ion-list>

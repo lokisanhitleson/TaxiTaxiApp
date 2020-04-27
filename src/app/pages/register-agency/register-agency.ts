@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, MenuController, LoadingController,AlertController } from '@ionic/angular';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register-agency',
@@ -15,7 +16,9 @@ export class RegisterAgencyPage implements OnInit {
     public menuCtrl: MenuController,
     public loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public translate: TranslateService, 
+    public TranslateModule : TranslateModule
   ) { }
 
 
@@ -37,9 +40,9 @@ export class RegisterAgencyPage implements OnInit {
       'contactName': [null, Validators.compose([
         Validators.required
       ])],
-      'age': [null, Validators.compose([
-        Validators.required
-      ])],
+      // 'age': [null, Validators.compose([
+      //   Validators.required
+      // ])],
       'email': [null, Validators.compose([
         Validators.required
       ])],
