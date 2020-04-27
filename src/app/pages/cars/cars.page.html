@@ -5,12 +5,12 @@
                 <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
             </ion-button>
         </ion-buttons>
-        <ion-title>Available Cars</ion-title>
+        <ion-title>{{'HOME_ITEMS.AVAILABLE_VEHICLE' | translate}}</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-toolbar color="secondary" slot="fixed">
     <ion-item>
-        <ion-label class="date-label">Select Date :</ion-label>
+        <ion-label class="date-label">{{'COMMON.SELECT_DATE' | translate}} :</ion-label>
         <ion-icon name="calendar" class="calendar-icon"></ion-icon>
         <ion-datetime [(ngModel)]="selectedDate" placeholder="24/03/2020" displayFormat="DD/MM/YYYY" min="{{today}}" max="{{nextThirty}}" value="{{today}}">
         </ion-datetime>
@@ -28,7 +28,7 @@
                             <img [src]="car.img">
                         </ion-thumbnail>
                         <ion-text class="view-text" (click)="toVehicleProfile()">
-                            <ion-icon name="eye"></ion-icon> View Details
+                            <ion-icon name="eye"></ion-icon> {{'COMMON.VIEW_DETAILS' | translate}}
                         </ion-text>
                     </ion-col>
                     <ion-col>

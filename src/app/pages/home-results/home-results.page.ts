@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonSlides, LoadingController } from '@ionic/angular';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 import {
   NavController,
   AlertController,
@@ -22,6 +24,7 @@ import { NotificationsComponent } from './../../components/notifications/notific
 export class HomeResultsPage {
   searchKey = '';
   yourLocation = 'Chennai 600 072';
+  lang:any;
   // themeCover = [
   //   {car:'assets/svg/car.svg'},
   //   {car1:'assets/svg/car1.svg'},
@@ -33,10 +36,18 @@ export class HomeResultsPage {
     public alertCtrl: AlertController,
     public modalCtrl: ModalController,
     public toastCtrl: ToastController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public translate: TranslateService, 
+    public TranslateModule : TranslateModule
   ) {
-
+    // this.lang = 'en';
+    // this.translate.setDefaultLang('en');
+    // this.translate.use('en');
   }
+
+  // switchLanguage() {
+  //   this.translate.use(this.lang);
+  // }
 
   vehicles =[
     {img:"assets/svg/car.svg", num:45},
@@ -146,5 +157,7 @@ export class HomeResultsPage {
     this.presentLoading();
         this.navCtrl.navigateRoot('/home/tabs/cars');
       }
-
+      goToViewRequest(){
+        this.navCtrl.navigateRoot('home/tabs/view-request')
+      }
 }

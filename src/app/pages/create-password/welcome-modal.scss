@@ -1,0 +1,39 @@
+      :host {
+         ion-content {
+             --background: var(--ion-color-primary);
+         }
+         ion-footer {
+             position: fixed;
+             left: 0;
+             right: 0;
+             bottom: 0;
+         }
+         .welcomeLogo {
+             color: #7c0ad2!important;
+             font-size: 0px;
+             background-image: url('/assets/img/taxi-logo1.png');
+             background-size: 180px 55px;
+             background-position: center;
+             background-repeat: no-repeat;
+             height: 60px;
+         }
+         .animation-cover {
+             height: 200px;
+             margin: 5% auto;
+         }
+         .welcome-desc {
+             p {
+                 font-size: 1.2rem;
+                 text-align: center;
+             }
+         }
+         .taxi-animation {
+             background-image: url(/assets/img/taxi-animation.gif);
+             background-position: 54% 36%;
+             background-repeat: no-repeat;
+             width: 120px;
+             height: 150px;
+             margin: 0 auto;
+             border: 4px solid #ffce00;
+         }
+     }

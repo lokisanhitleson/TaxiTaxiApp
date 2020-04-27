@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, LoadingController, ToastController } from '@ionic/angular';
 import { Location } from '@angular/common';
-
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-agent-profile',
@@ -14,7 +14,9 @@ export class AgentProfilePage implements OnInit {
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
-    private _location: Location
+    private _location: Location,
+    public translate: TranslateService, 
+    public TranslateModule : TranslateModule
     ) { }
 
 

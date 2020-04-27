@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, MenuController, ToastController, AlertController, LoadingController } from '@ionic/angular';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-otp',
@@ -16,8 +17,14 @@ export class OtpPage implements OnInit {
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public translate: TranslateService, 
+    public TranslateModule : TranslateModule
   ) { }
+
+  // moveFocus(nextElement) {
+  //   nextElement.setFocus();
+  // }
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
@@ -94,6 +101,7 @@ startTimer() {
 pauseTimer() {
   clearInterval(this.interval);
 }
+
   // // //
   goToRegisterAgency() {
     this.navCtrl.navigateRoot('/register-agency');

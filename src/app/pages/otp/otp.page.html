@@ -7,11 +7,42 @@
         <div padding-horizontal text-center class="animated fadeInDown center-content">
             <div class="logo"></div>
         </div>
-        <p class="sub-text ion-text-center">OTP has been sent to your registered mobile number Please enter the OTP in the field below!</p>
+        <p class="sub-text ion-text-center">
+            {{'LOGIN_ITEMS.OTP_INSTRUCTION_MSG' | translate}}
+        </p>
         <!-- Login form -->
 
         <ion-card color="light" class="ion-padding ion-no-margin">
             <ion-card-content class="ion-no-padding">
+                <!-- <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-input type="tel" placeholder="*" maxlength="1" tabindex="1" (keyup)="moveFocus(b)"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col>
+                            <ion-item>
+                                <ion-input type="tel" placeholder="*" maxlength="1" tabindex="2" #b (keyup)="moveFocus(c)"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col>
+                            <ion-item>
+                                <ion-input type="tel" placeholder="*" maxlength="1" tabindex="3" #c (keyup)="moveFocus(d)"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col>
+                            <ion-item>
+                                <ion-input type="tel" placeholder="*" maxlength="1" tabindex="4" #d></ion-input>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+
+                </ion-grid> -->
+
+
+
+
                 <form [formGroup]="onLoginForm" class="list-form">
                     <ion-item no-padding class="animated fadeInUp">
                         <ion-label position="floating">
@@ -20,11 +51,16 @@
                         </ion-label>
                         <ion-input type="number" formControlName="otp"></ion-input>
                     </ion-item>
-                    <p ion-text class="text08" *ngIf="onLoginForm.get('otp').touched && onLoginForm.get('otp').hasError('required')">
+                    <ion-chip class="warning-msg" *ngIf="onLoginForm.get('otp').touched && onLoginForm.get('otp').hasError('required')">
+                        <ion-icon color="danger" name="warning"></ion-icon>
+                        <ion-label color="dark">Required Field</ion-label>
+                    </ion-chip>
+
+                    <!-- <p ion-text class="text08" *ngIf="onLoginForm.get('otp').touched && onLoginForm.get('otp').hasError('required')">
                         <ion-text color="danger">
                             Required Field
                         </ion-text>
-                    </p>
+                    </p> -->
                 </form>
                 <div class="ion-padding-top">
                     <ion-button icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToRegisterAgency()" [disabled]="!onLoginForm.valid" tappable>
@@ -32,10 +68,10 @@
                         Verify
                     </ion-button>
                 </div>
-                <p class="ion-text-center otp-time-text" *ngIf="timeLeft">{{timeLeft}} Seconds Left....</p>
+                <p class="ion-text-center otp-time-text" *ngIf="timeLeft">{{timeLeft}} {{'COMMON.IN_SECONDS' | translate}}....</p>
                 <div class="ion-text-center" item-center>
                     <p>
-                        If you didn't receive OTP <span class="resend-btn">Resend</span>
+                        {{'LOGIN_ITEMS.OTP_RESEND_MSG' | translate}} <span class="resend-btn">Resend</span>
                     </p>
                 </div>
 
@@ -43,12 +79,14 @@
                 <div text-center margin-top>
                     <span (click)="goToLogin()" class="paz" tappable>
                 <ion-text>
-                  Already user? <strong>Sign in</strong>
+                  {{'LOGIN_ITEMS.ALREADY_USER' | translate}} <strong>{{'LOGIN_ITEMS.SIGN_IN' | translate}}</strong>
                 </ion-text>
               </span>
                 </div>
             </ion-card-content>
         </ion-card>
+
+
         <!-- <h4 class="ion-text-center signup-msg">getRide works only with carefully selected licensed drivers!</h4> -->
     </div>
 </ion-content>
