@@ -38,26 +38,28 @@ export class CreatePasswordPage implements OnInit {
         null,
         Validators.compose([
           Validators.required,
+          //check whether the entered password has a number and6 charcterlong
+          Validators.pattern(/(?=.*?)(?=.*?[a-z])(?=.*?[0-9])(?=.*?).{6,}/),
           // check whether the entered password has a number
-          CustomValidators.patternValidator(/\d/, {
-            hasNumber: true
-          }),
+          // CustomValidators.patternValidator(/\d/, {
+          //   hasNumber: true
+          // }),
           // check whether the entered password has upper case letter
-          CustomValidators.patternValidator(/[A-Z]/, {
-            hasCapitalCase: true
-          }),
+          // CustomValidators.patternValidator(/[A-Z]/, {
+          //   hasCapitalCase: true
+          // }),
           // check whether the entered password has a lower case letter
-          CustomValidators.patternValidator(/[a-z]/, {
-            hasSmallCase: true
-          }),
+          // CustomValidators.patternValidator(/[a-z]/, {
+          //   hasSmallCase: true
+          // }),
           // check whether the entered password has a special character
-          CustomValidators.patternValidator(
-            /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
-            {
-              hasSpecialCharacters: true
-            }
-          ),
-          Validators.minLength(8)
+          // CustomValidators.patternValidator(
+          //   /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
+          //   {
+          //     hasSpecialCharacters: true
+          //   }
+          // ),
+          Validators.minLength(6)
         ])
       ],
 

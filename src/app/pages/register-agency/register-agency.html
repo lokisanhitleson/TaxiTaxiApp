@@ -45,7 +45,7 @@
                         </ion-text>
                     </p>
 
-                    <ion-item no-padding class="animated fadeInUp">
+                    <!-- <ion-item no-padding class="animated fadeInUp">
                         <ion-label position="floating">Age</ion-label>
                         <ion-input type="text" formControlName="age"></ion-input>
                     </ion-item>
@@ -58,7 +58,7 @@
                         <ion-text color="danger">
                            Incorrect Age
                         </ion-text>                        
-                    </p>
+                    </p> -->
 
                     <ion-item no-padding class="animated fadeInUp">
                         <ion-label position="floating">E-Mail</ion-label>
@@ -69,7 +69,7 @@
                             Required Field
                         </ion-text>
                     </p>
-                    <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('age').touched && onAgencyRegistrationForm.get('email').hasError('pattern')">
+                    <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('email').touched && onAgencyRegistrationForm.get('email').hasError('pattern')">
                         <ion-text color="danger">
                            Incorrect Email
                         </ion-text>                        
@@ -91,8 +91,11 @@
                     <div class="ion-padding-top" ion-item>
                         <ion-label class="termsConditions">Terms and conditions</ion-label>
                         <ion-checkbox class="checkBox" formControlName="t&c" slot="start"></ion-checkbox>
+                        
                     </div>
-                    
+                    <p ion-text class="text08"  color="danger" aria-hidden="true">{{ onAgencyRegistrationForm.get('t&c').touched ||
+                        onAgencyRegistrationForm.get('t&c').hasError('required') ? 'Please check the Terms and conditions' :
+                      '' }}</p>   
 
                 </form>
                 <div margin-top>

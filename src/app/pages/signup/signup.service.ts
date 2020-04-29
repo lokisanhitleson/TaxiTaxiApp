@@ -22,8 +22,8 @@ export class SignUpService{
     }
   
 
-    configUrl = 'http://localhost:8012/api/otp';
+    configUrl = 'http://localhost:8000/signUpRegister';
     get(mobileNumber) {
-         return this.http.post<any>(this.configUrl, {mobilenumber: mobileNumber});             
+         return this.http.post<any>(this.configUrl, {"mobileNo":mobileNumber});             
       }
     }

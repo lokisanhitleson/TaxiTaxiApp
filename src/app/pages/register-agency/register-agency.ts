@@ -40,10 +40,10 @@ export class RegisterAgencyPage implements OnInit {
       'contactName': [null, Validators.compose([
         Validators.required
       ])],
-      'age': [null, Validators.compose([
-        Validators.required,
-        Validators.pattern(/^[0-9]*$/)
-      ])],
+      // 'age': [null, Validators.compose([
+      //   Validators.required,
+      //   Validators.pattern(/^[0-9]*$/)
+      // ])],
       'email': [null, Validators.compose([
         Validators.required,
         Validators.pattern(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)
@@ -69,14 +69,14 @@ export class RegisterAgencyPage implements OnInit {
    var AgencyName = this.onAgencyRegistrationForm.value.agencyName;
    var AgencyRegisterationNumber = this.onAgencyRegistrationForm.value.agencyRegNum;
    var ContactName = this.onAgencyRegistrationForm.value.contactName;
-   var Age = this.onAgencyRegistrationForm.value.age;
+  // var Age = this.onAgencyRegistrationForm.value.age;
    var Region = this.onAgencyRegistrationForm.value.region;
    var email = this.onAgencyRegistrationForm.value.email;
 
 
-   console.log(mobileNumber,AgencyName,AgencyRegisterationNumber,ContactName,Age,Region,email);
+   console.log(mobileNumber,AgencyName,AgencyRegisterationNumber,ContactName,Region,email);
     
-    this.RegisterService.get(mobileNumber,AgencyName,AgencyRegisterationNumber,ContactName,Age,Region,email)
+    this.RegisterService.get(mobileNumber,AgencyName,AgencyRegisterationNumber,ContactName,Region,email)
     
     .subscribe(      
       (response) => {             

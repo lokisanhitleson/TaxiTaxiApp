@@ -23,12 +23,11 @@ export class RegisterService{
   
 
     configUrl = 'http://localhost:8012/api/register';
-    get(mobileNumber,AgencyName,AgencyRegisterationNumber,Age,Region,ContactName,email) {
+    get(mobileNumber,AgencyName,AgencyRegisterationNumber,Region,ContactName,email) {
          return this.http.post<any>(this.configUrl, {mobilenumber: mobileNumber,
           AgencyName: AgencyName,
           AgencyRegisterationNumber: AgencyRegisterationNumber ,
-           ContactName: ContactName, 
-           Age: Age,
+           ContactName: ContactName,
             Region: Region,
             email:email});             
       }

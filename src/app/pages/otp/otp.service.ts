@@ -10,12 +10,11 @@ export class OtpService{
     constructor(private http: HttpClient) {}
   
 
-    configUrl = 'http://localhost:8012/api/otpauth';
+    configUrl = 'http://localhost:8000/OTPAuth';
     get(OTP,mobileNumber) {
       return this.http
           // .post<any>(this.configUrl, { params: { "mobilenumber": mobileNum, "password": pass } })
-          .post<any>(this.configUrl, {mobilenumber: mobileNumber,  OTP:OTP});           
-         
+          .post<any>(this.configUrl, {mobileNo: mobileNumber,  otp:OTP});                    
          
       }
 }

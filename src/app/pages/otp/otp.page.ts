@@ -116,7 +116,7 @@ pauseTimer() {
     
     .subscribe(      
       (response) => {             
-      if (response.status ==true ){
+      if (response.status == "SUCCESS" ){
         this.navCtrl.navigateRoot('/register-agency');
         console.log(response);
           this.showErr = false;
@@ -141,6 +141,10 @@ pauseTimer() {
   }
   goToHome() {
     this.navCtrl.navigateRoot('/home');
+  }
+  ReSendOTP(){
+
+
   }
 
 }
