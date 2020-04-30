@@ -5,7 +5,7 @@
                 <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
             </ion-button>
         </ion-buttons>
-        <ion-title>Request Vehicle</ion-title>
+        <ion-title>{{'TAB_MENU_ITEMS.ASK_VEHICLE' | translate}}</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content color="light">
@@ -34,7 +34,7 @@
 
         </ion-toolbar>
         <!--Grid 1-->
-        <ion-grid *ngIf="tripSelector === 'oneWay'">
+        <ion-grid *ngIf="tripSelector === 'oneWay'" class="animated fadeInLeft">
             <ion-row class="grid-btns">
                 <ion-col size="6">
                     <ion-item (click)="openPlacesModal()">
@@ -104,7 +104,7 @@
         </ion-grid>
 
         <!--Grid 2-->
-        <ion-grid *ngIf="tripSelector === 'roundTrip'">
+        <ion-grid *ngIf="tripSelector === 'roundTrip'" class="animated fadeInRight">
             <ion-row class="grid-btns">
                 <ion-col size="6">
                     <ion-item (click)="openPlacesModal()">
@@ -216,7 +216,7 @@
     </div>
 
 </ion-content>
-<div class="ion-text-center" margin-bottom padding-top>
+<div class="ion-text-center animated fadeInUp" margin-bottom padding-top>
     <ion-button slot="start" (click)="goToHome()" icon-left size="medium" shape="round" color="medium" tappable>
         Cancel
     </ion-button>

@@ -43,7 +43,8 @@
                 <div *ngFor="let page of pages">
                     <ion-menu-toggle *ngIf="page.url">
                         <ion-item lines="none" [routerLink]="page.url" routerDirection="root" routerLinkActive="active" detail="false">
-                            <ion-icon slot="start" [name]="page.icon" color="dark"></ion-icon>
+                            <!-- <ion-icon slot="start" [name]="page.icon" color="dark"></ion-icon> -->
+                            <span slot="start" class="{{page.icon}}" color="dark" class=""></span>
                             <ion-label>
                                 {{page.title | translate}}
                             </ion-label>

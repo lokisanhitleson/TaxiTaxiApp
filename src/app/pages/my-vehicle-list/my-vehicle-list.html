@@ -5,10 +5,10 @@
                 <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
             </ion-button>
         </ion-buttons>
-        <ion-buttons slot="primary">
-            <ion-button color="light" fill="outline" (click)="goAddVehicle()">
-                +
-                <ion-icon slot="end" name="car"></ion-icon>
+        <ion-buttons slot="primary" class="toolbar-btn">
+            <ion-button color="light" (click)="goAddVehicle()">
+                <span class="icon-add-car" slot="end"></span>
+                <!-- <ion-icon  name="car"></ion-icon> -->
             </ion-button>
         </ion-buttons>
         <ion-title>Vehicle List</ion-title>
@@ -40,7 +40,7 @@
                                 </ion-text>
                             </div>
                         </ion-label>
-                        <ion-button color="medium" size="small" class="action-btn" (click)="goAddVehicle()">
+                        <ion-button no-shadow color="medium" size="small" class="action-btn" (click)="goAddVehicle()">
                             <ion-icon name="create"></ion-icon>
                         </ion-button>
                         <ion-button color="danger" size="small" class="action-btn">

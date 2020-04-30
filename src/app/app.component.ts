@@ -21,37 +21,43 @@ pages = [
         title: 'SIDE_MENU_ITEMS.HOME',
         url: '/home/tabs/home-results',
         direct: 'root',
-        icon: 'home'
+        icon: 'icon-home'
       },
       {
         title: 'SIDE_MENU_ITEMS.MY_VEHICLES',
         url: '/my-vehicle-list',
         direct: 'forward',
-        icon: 'information-circle-outline'
+        icon: 'icon-steering-wheel'
       },
       {
         title: 'SIDE_MENU_ITEMS.ASK_VEHICLE',
         url: '/home/tabs/request-vehicle',
         direct: 'forward',
-        icon: 'ios-car'
+        icon: 'icon-car-front'
       },
       {
         title: 'SIDE_MENU_ITEMS.VIEW_REQUEST',
         url: '/home/tabs/view-request',
         direct: 'forward',
-        icon: 'notifications-outline'
+        icon: 'icon-bell'
       },
       {
         title: 'SIDE_MENU_ITEMS.APP_SETTINGS',
         url: '/home/tabs/home-results',
         direct: 'forward',
-        icon: 'cog'
+        icon: 'icon-cog'
+      },
+      {
+        title: 'SIDE_MENU_ITEMS.HELP_MENU',
+        url: '/home/tabs/home-results',
+        direct: 'forward',
+        icon: 'icon-help'
       },
       {
         title: 'SIDE_MENU_ITEMS.SIGN_OUT',
         url: '/login',
         direct: 'forward',
-        icon: 'log-out'
+        icon: 'icon-exit'
       },
   {
     title:'COMMON.LANGUAGES',
