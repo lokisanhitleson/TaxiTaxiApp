@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, MenuController, ToastController, AlertController, LoadingController } from '@ionic/angular';
-
+import { LoginService} from './login.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -10,14 +10,15 @@ import { NavController, MenuController, ToastController, AlertController, Loadin
 export class LoginPage implements OnInit {
   public onLoginForm: FormGroup;
   isTextFieldType: boolean;
-  
+  invalidpassword : boolean
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private loginService: LoginService
   ) { }
 
   togglePasswordFieldType(){
@@ -31,7 +32,8 @@ export class LoginPage implements OnInit {
 
     this.onLoginForm = this.formBuilder.group({
       'mobileNum': [null, Validators.compose([
-        Validators.required
+        Validators.required,
+        Validators.pattern(/^[789]\d{9}$/)
       ])],
       'password': [null, Validators.compose([
         Validators.required
@@ -90,8 +92,26 @@ export class LoginPage implements OnInit {
   goToSignup() {
     this.navCtrl.navigateRoot('/signup');
   }
-  goToHome() {
-    this.navCtrl.navigateRoot('/home/tabs/home-results');
+  goToHome() {    
+    var mobilenum =this.onLoginForm.value.mobileNum;
+    var password = this.onLoginForm.value.password;
+     console.log(mobilenum,password );
+
+     this.loginService.get(mobilenum,password)  
+     .subscribe(      
+      (response) => { 
+       
+     if (response.status = true){
+            console.log("error");            
+           this.invalidpassword = true;
+     }
+     else {
+      this.invalidpassword = false;
+      console.log("true");
+      // this.navCtrl.navigateRoot('/home/tabs/home-results');
+       }      
+     },       
+     );
   }
 
 }
