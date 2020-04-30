@@ -24,7 +24,11 @@
                             Required Field
                         </ion-text>
                     </p>
-
+                    <p ion-text class="text08" *ngIf="onLoginForm.get('mobileNum').touched && onLoginForm.get('mobileNum').hasError('pattern')">
+                        <ion-text color="danger">
+                           Incorrect Mobile Number
+                        </ion-text>
+                    </p>
                     <ion-item no-padding class="animated fadeInUp">
                         <ion-label position="floating">
                             <ion-icon name="lock" item-start></ion-icon>
@@ -55,7 +59,11 @@
                         Signin
                     </ion-button>
                 </div>
-
+                <p ion-text class="text08" *ngIf="invalidpassword">
+                    <ion-text color="warning">
+                        Incorrect password
+                    </ion-text>
+                </p>
                 <!-- Other links -->
                 <div text-center margin-top>
                     <span (click)="goToSignup()" class="paz" tappable>

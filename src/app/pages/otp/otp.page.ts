@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, MenuController, ToastController, AlertController, LoadingController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { OtpService } from './otp.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -10,7 +12,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 })
 export class OtpPage implements OnInit {
   public onLoginForm: FormGroup;
-
+  showErr: boolean;
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -18,6 +20,8 @@ export class OtpPage implements OnInit {
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
+    private storage: Storage,
+    private OtpService: OtpService,
     public translate: TranslateService, 
     public TranslateModule : TranslateModule
   ) { }
@@ -83,9 +87,9 @@ export class OtpPage implements OnInit {
 
     await alert.present();
   }
-//OTP timer model
 timeLeft: number = 120;
 interval;
+//OTP timer model
 
 startTimer() {
   this.interval = setInterval(() => {
@@ -104,13 +108,51 @@ pauseTimer() {
 
   // // //
   goToRegisterAgency() {
-    this.navCtrl.navigateRoot('/register-agency');
-  }
+    // this.navCtrl.navigateRoot('/register-agency');
+
+    this.storage.get('mobilenumber').then((val) => {
+      console.log('Your mobilenumber is', val);
+     
+   var mobilenumber = val;
+   
+
+   var OTP = this.onLoginForm.value.otp;
+
+   console.log(OTP,mobilenumber);
+    
+    this.OtpService.get(OTP,mobilenumber)
+    
+    .subscribe(      
+      (response) => {             
+      if (response.status == "SUCCESS" ){
+        this.navCtrl.navigateRoot('/register-agency');
+        console.log(response);
+          this.showErr = false;
+      }     
+      else {
+      
+         console.log(response + "the error is " + response.status);
+
+         this.showErr = true ;
+      }
+     // var nextpage= this.navCtrl.navigateRoot('/home');    
+     
+    },       
+      function(error) { 
+        console.log("Error happened" + error)         
+    },       
+     );
+  });
+  }  
   goToLogin() {
     this.navCtrl.navigateRoot('/login');
   }
   goToHome() {
     this.navCtrl.navigateRoot('/home');
+  }
+  ReSendOTP(){
+
+
   }
 
 }

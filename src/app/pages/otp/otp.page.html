@@ -59,6 +59,11 @@
                     <!-- <p ion-text class="text08" *ngIf="onLoginForm.get('otp').touched && onLoginForm.get('otp').hasError('required')">
                         <ion-text color="danger">
                             Required Field
+                        </ion-text>                      
+                    </p>
+                    <p ion-text class="text08" *ngIf="showErr">
+                        <ion-text color="danger">
+                            Incorrect OTP
                         </ion-text>
                     </p> -->
                 </form>
@@ -66,12 +71,12 @@
                     <ion-button icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToRegisterAgency()" [disabled]="!onLoginForm.valid" tappable>
                         <ion-icon name="checkmark-circle-outline"></ion-icon>
                         Verify
-                    </ion-button>
+                    </ion-button>                   
                 </div>
                 <p class="ion-text-center otp-time-text" *ngIf="timeLeft">{{timeLeft}} {{'COMMON.IN_SECONDS' | translate}}....</p>
                 <div class="ion-text-center" item-center>
-                    <p>
-                        {{'LOGIN_ITEMS.OTP_RESEND_MSG' | translate}} <span class="resend-btn">Resend</span>
+                    <p >
+                        {{'LOGIN_ITEMS.OTP_RESEND_MSG' | translate}} <span class="resend-btn" (click)="ReSendOTP">Resend</span>
                     </p>
                 </div>
 

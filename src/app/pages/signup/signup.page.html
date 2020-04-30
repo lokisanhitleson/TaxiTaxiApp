@@ -24,7 +24,7 @@
                         </ion-label>
                         <ion-input type="number" maxlength="10" formControlName="mobileNumber" [disabled]="showOtp"></ion-input>
                     </ion-item>
-                    <p ion-text class="text08" *ngIf="onSignUpForm.get('mobileNumber').touched && onSignUpForm.get('mobileNumber').hasError('required')">
+                    <p ion-text class="text08" *ngIf="onSignUpForm.get('mobileNumber').touched && onSignUpForm.get('mobileNumber').hasError('pattern')">
                         <ion-text color="danger">
                             Enter valid mobile number
                         </ion-text>
