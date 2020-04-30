@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { CalendarModule } from 'ion2-calendar';
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { AddVehiclePage } from './add-vehicle.page';
 
@@ -20,6 +21,7 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     CalendarModule,
+    TranslateModule,
     RouterModule.forChild(routes)
   ],
   declarations: [AddVehiclePage]

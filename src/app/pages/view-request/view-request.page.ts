@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { NavController } from "@ionic/angular";
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-view-request',
   templateUrl: './view-request.page.html',
@@ -8,7 +10,12 @@ import { NavController } from "@ionic/angular";
 })
 export class ViewRequestPage implements OnInit {
 
-  constructor(private _location: Location, public navCtrl: NavController) { }
+  constructor(
+    private _location: Location, 
+    public navCtrl: NavController,
+    public translate: TranslateService, 
+    public TranslateModule : TranslateModule,
+    ) { }
   request =[
     {carname:"Indica",agentname:"R.Satheesh Kumar",location:"Chennai",description:"Need a 4 seater vehicle urgently", mobilenumber:"9884420042",icon:"mail", img:"assets/img/innova.jpg", time:"10 mins ago"},
     {carname:"Indica v2",agentname:"S.Mahalingam",location:"Avadi",description:"Need a 5 seater vehicle urgently", mobilenumber:"8754491205",icon:"mail", img:"assets/img/indica-v2.jpg",time:"20 mins ago"},

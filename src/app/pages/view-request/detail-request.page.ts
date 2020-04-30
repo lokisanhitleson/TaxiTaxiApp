@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { NavController } from "@ionic/angular";
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-detail-request',
   templateUrl: './detail-request.page.html',
@@ -8,7 +10,12 @@ import { NavController } from "@ionic/angular";
 })
 export class DetailRequestPage implements OnInit {
 
-  constructor(private _location: Location, public navCtrl: NavController) { }
+  constructor(
+    private _location: Location, 
+    public navCtrl: NavController,
+    public translate: TranslateService, 
+    public TranslateModule : TranslateModule,
+    ) { }
   request =[
     {
     agentname:"R.Satheesh Kumar",

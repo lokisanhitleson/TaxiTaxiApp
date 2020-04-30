@@ -14,6 +14,7 @@ import { Camera } from '@ionic-native/Camera/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {FormsModule} from '@angular/forms';
+import { NgOtpInputModule } from 'ng-otp-input';
 
 import { Media } from '@ionic-native/media/ngx';
 import { File } from '@ionic-native/file/ngx';
@@ -46,6 +47,7 @@ export function createTranslateLoader(http: HttpClient) {
     ImagePageModule,
     FormsModule,
     SearchFilterPageModule,
+    NgOtpInputModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

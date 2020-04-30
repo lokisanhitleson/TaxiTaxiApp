@@ -63,7 +63,8 @@
         "VIEW_REQUEST": "கோரிக்கைகள்",
         "APP_SETTINGS": "செயலி அமைப்புகள்",
         "SIGN_OUT": "வெளியேறு",
-        "EDIT_PROFILE": "சுய விவரம் மாற்று"
+        "EDIT_PROFILE": "சுய விவரம் மாற்று",
+        "HELP_MENU": "உதவி"
     },
 
     "TAB_MENU_ITEMS": {
@@ -72,7 +73,8 @@
         "SCHEDULE_VEHICLE": "வாகனம் கொடுக்க",
         "ASK_VEHICLE": "வாகனம் கேட்க",
         "REQUEST_DETAILS": "கோரிக்கை விவரம்",
-        "CHANGE_LOCATION": "இடம் மாற்று"
+        "CHANGE_LOCATION": "இடம் மாற்று",
+        "SHEDULE_VEHICLE_SUBTITLE": "வாகனம் கிடைக்கும் தேதிகளை தேர்ந்தெடுக்கவும்"
 
     },
 

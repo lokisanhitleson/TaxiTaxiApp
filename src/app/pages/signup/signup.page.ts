@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, MenuController, ToastController, AlertController, LoadingController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
@@ -12,7 +12,13 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 })
 export class SignupPage implements OnInit {
   public onSignUpForm: FormGroup;
-lang:any;
+  public onOtpForm: FormGroup;
+  otp: number;
+  showOtpComponent = true;
+  @ViewChild('ngOtpInput') ngOtpInput: any;
+
+  lang:any;
+  showOtp: boolean = false;
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -43,6 +49,11 @@ lang:any;
       'mobileNumber': [null, Validators.compose([
         Validators.required,
         Validators.pattern(/^[789]\d{9}$/)
+      ])]
+    });
+    this.onOtpForm = this.formBuilder.group({
+      'otp': [null, Validators.compose([
+        Validators.required
       ])]
     });
   }
@@ -92,9 +103,58 @@ lang:any;
     await alert.present();
   }
 
-  // // //
+  //OTP timer model
+timeLeft: number = 120;
+interval;
+
+startTimer() {
+  this.interval = setInterval(() => {
+    if(this.timeLeft > 0) {
+      this.timeLeft--;
+    } else {
+      this.timeLeft = 120;
+    }
+  },1000)
+  
+}
+
+pauseTimer() {
+  clearInterval(this.interval);
+}
+  //OTP Input
+  config = {
+    allowNumbersOnly: true,
+    length: 4,
+    isPasswordInput: false,
+    disableAutoFocus: false,
+    placeholder:'',
+    inputStyles: {
+      'width': '100px',
+      'height': '100px'
+    }
+  };
+  onOtpChange(otp) {
+    this.otp = otp;
+  }
+
+  setVal(val) {
+    this.ngOtpInput.setValue(val);
+  }
+
+  onConfigChange() {
+    this.showOtpComponent = false;
+    this.otp = null;
+    setTimeout(() => {
+      this.showOtpComponent = true;
+    }, 0);
+  }
+
   goToOtp() {
-    var mobileNumber =this.onSignUpForm.value.mobileNumber;
+    this.showOtp = true;
+    this.startTimer();
+    
+    // RAM CODE
+    /* var mobileNumber =this.onSignUpForm.value.mobileNumber;
     
     console.log(mobileNumber);
     
@@ -108,7 +168,7 @@ lang:any;
       if (response.status = true){
     
         this.navCtrl.navigateRoot('/otp');   
-    
+ 
       }
       else {
         
@@ -121,9 +181,12 @@ lang:any;
         console.log("Error happened" + error)         
     
      }, 
-     );
-    }
-
+     ); */
+  }
+   
+  goToRegisterAgency() {
+    this.navCtrl.navigateRoot('/register-agency');
+  }
   goToLogin() {
     this.navCtrl.navigateRoot('/login');
   }
