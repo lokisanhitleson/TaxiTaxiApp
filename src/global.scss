@@ -16,14 +16,13 @@
         outline: none!important;
     }
     
-    .modal-wrapper.sc-ion-modal-md {
-        -webkit-transform: translate3d(0, 40px, 0);
-        transform: translate3d(0, 40px, 0);
-        opacity: .01;
-        width: 90%!important;
-        height: 90%!important;
-    }
-    
+    // .modal-wrapper.sc-ion-modal-md {
+    //     -webkit-transform: translate3d(0, 40px, 0);
+    //     transform: translate3d(0, 40px, 0);
+    //     opacity: .01;
+    //     width: 90%!important;
+    //     height: 90%!important;
+    // }
     // backgrounds //
     .bg-white {
         background-color: #fff!important;
@@ -200,7 +199,7 @@
                         display: none;
                     }
                     ion-label {
-                        font-size: 1em;
+                        font-size: 14px;
                         color: var(--ion-color-dark);
                     }
                     // ion-input {

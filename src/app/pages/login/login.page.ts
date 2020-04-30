@@ -73,7 +73,7 @@ export class LoginPage implements OnInit {
             loader.onWillDismiss().then(async l => {
               const toast = await this.toastCtrl.create({
                 showCloseButton: true,
-                message: 'Email was sended successfully.',
+                message: 'Verfication SMS sent to your mobile number.',
                 duration: 3000,
                 position: 'bottom'
               });

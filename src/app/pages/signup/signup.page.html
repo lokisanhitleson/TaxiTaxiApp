@@ -7,11 +7,13 @@
         <div padding-horizontal text-center class="animated fadeInDown center-content">
             <h4 no-margin>
                 <ion-text color="light" class="fw700">
-                    Welcome!
+                    {{'LOGIN_ITEMS.WELCOME_TITLE' | translate}}
                 </ion-text>
             </h4>
             <div class="logo"></div>
-            <p class="sub-text">Thank you for choosing us!</p>
+            <p class="sub-text">
+                {{'LOGIN_ITEMS.WELCOME_SUB_MESSAGE' | translate}}
+            </p>
         </div>
 
         <ion-card color="light" class="ion-padding ion-no-margin">
@@ -21,7 +23,7 @@
                     <ion-item no-padding class="animated fadeInUp">
                         <ion-label position="floating">
                             <ion-icon name="phone-portrait" item-start></ion-icon>
-                            Enter Your Mobile Number
+                            {{'PLACEHOLDER_MSG.MOBILE_NUMBER' | translate}}
                         </ion-label>
                         <ion-input type="number" formControlName="mobileNumber"></ion-input>
                     </ion-item>
@@ -42,13 +44,20 @@
                 <div text-center margin-top>
                     <span (click)="goToLogin()" class="paz" tappable>
                     <ion-text>
-                    Already user? <strong>Sign in</strong>
+                {{'LOGIN_ITEMS.ALREADY_USER' | translate}} 
+                <ion-text color="primary"><strong>{{'LOGIN_ITEMS.SIGN_IN' | translate}}</strong></ion-text>
                     </ion-text>
                     </span>
                 </div>
             </ion-card-content>
         </ion-card>
-
+        <div class="language_btn">
+            <ion-label>{{'COMMON.SELECT_LANGUAGE' | translate}}</ion-label>
+            <ion-select [(ngModel)]="lang" (ionChange)="switchLanguage()">
+                <ion-select-option value="en">English</ion-select-option>
+                <ion-select-option value="ta">தமிழ்</ion-select-option>
+            </ion-select>
+        </div>
         <!-- <h4 class="ion-text-center signup-msg">getRide gets you polite drivers with clean cars!</h4> -->
 
     </div>

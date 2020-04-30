@@ -6,7 +6,7 @@
             <div class="logo"></div>
             <h3 no-margin padding>
                 <ion-text color="light" class="fw700">
-                    <ion-text color="medium">Agency Registration</ion-text>
+                    <ion-text color="medium">{{'LOGIN_ITEMS.AGENCY_REG_TITLE' | translate}}</ion-text>
                 </ion-text>
             </h3>
         </div>
@@ -16,7 +16,7 @@
                 <!-- Create Password form -->
                 <form [formGroup]="onAgencyRegistrationForm" class="list-form">
                     <ion-item no-padding class="animated fadeInUp">
-                        <ion-label position="floating">Agency Name</ion-label>
+                        <ion-label position="floating">{{'LOGIN_ITEMS.AGENCY_NAME' | translate}}</ion-label>
                         <ion-input type="text" formControlName="agencyName"></ion-input>
                     </ion-item>
                     <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('agencyName').touched && onAgencyRegistrationForm.get('agencyName').hasError('required')">
@@ -26,7 +26,7 @@
                     </p>
 
                     <ion-item no-padding class="animated fadeInUp">
-                        <ion-label position="floating">Agency Registration Number</ion-label>
+                        <ion-label position="floating">{{'LOGIN_ITEMS.AGENCY_REG_NUM' | translate}}</ion-label>
                         <ion-input type="text" formControlName="agencyRegNum"></ion-input>
                     </ion-item>
                     <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('agencyRegNum').touched && onAgencyRegistrationForm.get('agencyRegNum').hasError('required')">
@@ -36,7 +36,7 @@
                     </p>
 
                     <ion-item no-padding class="animated fadeInUp">
-                        <ion-label position="floating">Contact Name</ion-label>
+                        <ion-label position="floating">{{'LOGIN_ITEMS.CONTACT_NAME' | translate}}</ion-label>
                         <ion-input type="text" formControlName="contactName"></ion-input>
                     </ion-item>
                     <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('contactName').touched && onAgencyRegistrationForm.get('contactName').hasError('required')">
@@ -57,11 +57,11 @@
                     <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('age').touched && onAgencyRegistrationForm.get('age').hasError('pattern')">
                         <ion-text color="danger">
                            Incorrect Age
-                        </ion-text>                        
+                        </ion-text>  
                     </p> -->
 
                     <ion-item no-padding class="animated fadeInUp">
-                        <ion-label position="floating">E-Mail</ion-label>
+                        <ion-label position="floating">{{'LOGIN_ITEMS.EMAIL' | translate}}</ion-label>
                         <ion-input type="email" formControlName="email"></ion-input>
                     </ion-item>
                     <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('email').touched && onAgencyRegistrationForm.get('email').hasError('required')">
@@ -76,7 +76,7 @@
                     </p>
 
                     <ion-item no-padding>
-                        <ion-label>Region</ion-label>
+                        <ion-label>{{'LOGIN_ITEMS.REGION' | translate}}</ion-label>
                         <ion-select formControlName="region" class="myCustomSelect" ok-text="Okay" cancel-text="Dismiss">
                             <ion-select-option>Chennai</ion-select-option>
                         </ion-select>
@@ -89,7 +89,7 @@
                     </p>
 
                     <div class="ion-padding-top" ion-item>
-                        <ion-label class="termsConditions">Terms and conditions</ion-label>
+                        <ion-label class="termsConditions">{{'LOGIN_ITEMS.TERMS_AND_CONDITIONS' | translate}}</ion-label>
                         <ion-checkbox class="checkBox" formControlName="t&c" slot="start"></ion-checkbox>
                         
                     </div>

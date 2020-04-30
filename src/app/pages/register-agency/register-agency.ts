@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, MenuController, LoadingController,AlertController } from '@ionic/angular';
 import {RegisterService} from "./register.service";
 import { Storage } from '@ionic/storage';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-register-agency',
   templateUrl: './register-agency.html',
@@ -18,7 +20,9 @@ export class RegisterAgencyPage implements OnInit {
     private formBuilder: FormBuilder,
     public alertController: AlertController,
     public RegisterService:RegisterService,
-    public Storage:Storage
+    public Storage:Storage,
+    public translate: TranslateService, 
+    public TranslateModule: TranslateModule
   ) { }
 
 
@@ -54,7 +58,6 @@ export class RegisterAgencyPage implements OnInit {
     });
   }
 
-  // // //
   goToLogin() {
     this.navCtrl.navigateRoot('/');
   }

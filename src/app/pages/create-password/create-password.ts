@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController, MenuController, LoadingController,AlertController } from '@ionic/angular';
+import { NavController, MenuController, LoadingController, AlertController, ModalController } from '@ionic/angular';
 import { PasswordService } from './create-passwordservice'
 import { Storage } from '@ionic/storage';
-import {CustomValidators} from './password-validators';
+import { CustomValidators } from './password-validators';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { WelcomeModal } from './welcome-modal';
+
 @Component({
   selector: 'app-create-password',
   templateUrl: './create-password.html',
@@ -20,8 +23,10 @@ export class CreatePasswordPage implements OnInit {
     private formBuilder: FormBuilder,
     public alertController: AlertController,
     public PasswordService:PasswordService,
-    public Storage:Storage
-  
+    public Storage:Storage,
+    public translate: TranslateService, 
+    public TranslateModule : TranslateModule,
+    public modalCtrl: ModalController
   ) { }
 
   togglePasswordFieldType(){
@@ -81,6 +86,19 @@ export class CreatePasswordPage implements OnInit {
     await alert.present();
   }
 
+  async openWelcomeModal() {
+    const modal = await this.modalCtrl.create({
+      component: WelcomeModal,
+      componentProps: {
+        "Title": "Welcome"
+      }
+    });
+ 
+    modal.onDidDismiss();
+    return await modal.present();
+  }
+
+
   async signUp() {
     const loader = await this.loadingCtrl.create({
       duration: 2000
@@ -92,20 +110,12 @@ export class CreatePasswordPage implements OnInit {
     });
   }
 
-  async presentLoading() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Please wait...',
-      duration: 2000
-    });
-    await loading.present();
-
-    const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed!');
-  }
+  
   // // //
   goToLogin() {
     this.navCtrl.navigateRoot('/');
   }
+
   goToHome() {
     
     var crp =this.onCreatePasswordForm.value.createpassword;
@@ -113,35 +123,33 @@ export class CreatePasswordPage implements OnInit {
 
     if (crp !== cp) {
       this.incorrectpassword = true;     
-    }
-    else{
+    } else {
       this.incorrectpassword = false;
-    console.log(crp,cp);
+      console.log(crp,cp);
 
-  this.Storage.get('mobilenumber').then((val) => {
-    console.log('Your mobilenumber is', val);    
- var mobilenumber = val;
- this.PasswordService.get(crp,mobilenumber)
- .subscribe(      
-  (response) => {                    
-  if (response.status == true ){          
-     this.incorrectpassword = false;
-      console.log(response);
-    this.navCtrl.navigateRoot('/home');
-    this.welcomeAlert();
-  }       
-  else {
-    this.incorrectpassword = true;  
-      console.log(response + "the error is " + response.status);          
-  }      
-},       
-  function(error) { 
-    console.log("Error happened" + error)         
-  },  
+      this.Storage.get('mobilenumber').then((val) => {
+        console.log('Your mobilenumber is', val);    
+        var mobilenumber = val;
+        this.PasswordService.get(crp,mobilenumber)
+          .subscribe(      
+            (response) => {                    
+              if (response.status == true ){          
+                this.incorrectpassword = false;
+                this.openWelcomeModal();
+                this.navCtrl.navigateRoot('/home');
+              }       
+              else {
+                this.incorrectpassword = true;  
+                console.log(response + "the error is " + response.status);          
+              }      
+            },       
+            function(error) { 
+              console.log("Error happened" + error)         
+            },  
 
-  );
-});
+          );
+      });
   
-}
-}
+    }
+  }
 }

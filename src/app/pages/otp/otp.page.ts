@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, MenuController, ToastController, AlertController, LoadingController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { OtpService } from './otp.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-otp',
   templateUrl: './otp.page.html',
@@ -19,9 +21,14 @@ export class OtpPage implements OnInit {
     public loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
     private storage: Storage,
-    private OtpService:OtpService
-
+    private OtpService: OtpService,
+    public translate: TranslateService, 
+    public TranslateModule : TranslateModule
   ) { }
+
+  // moveFocus(nextElement) {
+  //   nextElement.setFocus();
+  // }
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
@@ -80,9 +87,9 @@ export class OtpPage implements OnInit {
 
     await alert.present();
   }
-//OTP timer model
 timeLeft: number = 120;
 interval;
+//OTP timer model
 
 startTimer() {
   this.interval = setInterval(() => {
@@ -98,6 +105,7 @@ startTimer() {
 pauseTimer() {
   clearInterval(this.interval);
 }
+
   // // //
   goToRegisterAgency() {
     // this.navCtrl.navigateRoot('/register-agency');

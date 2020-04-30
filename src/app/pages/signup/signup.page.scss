@@ -27,4 +27,13 @@
     .signup-msg {
         color: #662d91;
     }
+    .language_btn {
+        margin: 20px 0;
+        text-align: center;
+        ion-select {
+            color: #444;
+            border: 1px solid #662d91;
+            margin-top: 5px;
+        }
+    }
 }

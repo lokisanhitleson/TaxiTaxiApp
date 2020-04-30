@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { NavController, LoadingController, ModalController } from "@ionic/angular";
 import { RatingModalPage } from '../../pages/modal/rating-modal/rating-modal';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-cars',
   templateUrl: './cars.page.html',
@@ -17,7 +19,9 @@ export class CarsPage implements OnInit {
   constructor(private _location: Location, 
     private navCtrl: NavController,
     public loadingCtrl: LoadingController,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public translate: TranslateService, 
+    public TranslateModule : TranslateModule
     ) {
 
     this.today = new Date().toISOString();

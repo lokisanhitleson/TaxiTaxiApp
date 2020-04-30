@@ -20,7 +20,7 @@
                             <ion-menu-toggle class="mto" auto-hide="false">
                                 <a class="text08" tappable (click)="goToEditProgile()">
                                     <ion-text color="medium">
-                                        <strong>Edit profile |</strong>
+                                        <strong>{{'SIDE_MENU_ITEMS.EDIT_PROFILE' | translate}} |</strong>
                                         <ion-icon name="create"></ion-icon>
                                     </ion-text>
                                 </a>
@@ -39,19 +39,57 @@
             </ion-header>
 
             <ion-content class="bg-profile">
+
+                <div *ngFor="let page of pages">
+                    <ion-menu-toggle *ngIf="page.url">
+                        <ion-item lines="none" [routerLink]="page.url" routerDirection="root" routerLinkActive="active" detail="false">
+                            <ion-icon slot="start" [name]="page.icon" color="dark"></ion-icon>
+                            <ion-label>
+                                {{page.title | translate}}
+                            </ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+
+                    <ion-item lines="none" class="lang-bg" button *ngIf="page.children?.length > 0" (click)="page.open = !page.open" [class.active-parent]="page.open" detail="false">
+                        <ion-icon slot="end" name="ios-arrow-forward" *ngIf="!page.open"></ion-icon>
+                        <ion-icon slot="end" name="ios-arrow-down" *ngIf="page.open"></ion-icon>
+
+                        <ion-label class="language">
+                            <ion-icon slot="start" src="/assets/svg/language.svg"></ion-icon>
+                            <span>{{page.title | translate}}</span>
+                        </ion-label>
+                    </ion-item>
+                    <ion-list *ngIf="page.open">
+                        <ion-menu-toggle>
+                            <ion-list>
+                                <ion-radio-group [value]="en" [(ngModel)]="lang" (ionChange)="switchLanguage()">
+                                    <ion-item *ngFor="let sub of page.children" (click)="page.open = !page.open">
+                                        <ion-label>{{sub.title}}</ion-label>
+                                        <ion-radio slot="start" [value]="sub.value"></ion-radio>
+                                    </ion-item>
+                                </ion-radio-group>
+                            </ion-list>
+                        </ion-menu-toggle>
+                    </ion-list>
+
+                </div>
+
+
+
+
                 <ion-list>
                     <!-- <ion-list-header color="medium">
                         <ion-label>Menu</ion-label>
                     </ion-list-header> -->
 
-                    <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+                    <!-- <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
                         <ion-item [routerLink]="[p.url]" color="light">
                             <ion-icon slot="start" [name]="p.icon" color="dark"></ion-icon>
                             <ion-label>
-                                {{p.title}}
+                                {{p.title | translate}}
                             </ion-label>
                         </ion-item>
-                    </ion-menu-toggle>
+                    </ion-menu-toggle> -->
                 </ion-list>
             </ion-content>
         </ion-menu>

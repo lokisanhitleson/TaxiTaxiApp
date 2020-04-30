@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, MenuController, ToastController, AlertController, LoadingController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import {SignUpService} from './signup.service';
+import { SignUpService } from './signup.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
@@ -10,7 +12,7 @@ import {SignUpService} from './signup.service';
 })
 export class SignupPage implements OnInit {
   public onSignUpForm: FormGroup;
-
+lang:any;
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -19,9 +21,18 @@ export class SignupPage implements OnInit {
     public loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
     private SignUpService: SignUpService,
-    private storage: Storage
-  ) { }
-
+    private storage: Storage,
+    public translate: TranslateService, 
+    public TranslateModule : TranslateModule
+  ) {
+    this.lang = 'en';
+    this.translate.setDefaultLang('en');
+    this.translate.use('en');
+   }
+  switchLanguage() {
+    this.translate.use(this.lang);
+  }
+  
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
   }
@@ -39,7 +50,7 @@ export class SignupPage implements OnInit {
   async forgotPass() {
     const alert = await this.alertCtrl.create({
       header: 'Forgot Password?',
-      message: 'Enter your mobile number to send a reset link password.',
+      message: 'Enter your mobile number to send a secret code.',
       inputs: [
         {
           name: 'mobileNumber',

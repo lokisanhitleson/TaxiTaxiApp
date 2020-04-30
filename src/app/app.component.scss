@@ -7,4 +7,24 @@
             padding: 0;
         }
     }
+    .language {
+        span {
+            padding-left: 58px;
+        }
+        ion-icon {
+            margin: 0;
+            position: absolute;
+            font-size: 24px;
+            color: #252425;
+        }
+    }
+    .active {
+        color: #830c83
+    }
+    .active-parent {
+        color: #830c83;
+    }
+    .lang-bg {
+        background: #ece9e9;
+    }
 }
