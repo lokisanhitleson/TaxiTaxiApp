@@ -90,6 +90,35 @@
         text-align: center!important;
         color: #444;
     }
+    .AppUpdateAlert .alert-head {
+        background: #4b4a4c!important;
+        text-align: center!important;
+        border-bottom: 1px solid #ffce00;
+    }
+    .AppUpdateAlert button.primary {
+        background: #ffce00!important;
+        text-align: center!important;
+        color: #444;
+        font-weight: 600;
+        margin: 0 auto;
+    }
+    .AppUpdateAlert button.secondary {
+        background: #c2c2c1!important;
+        text-align: center!important;
+        color: #444;
+        margin: 0 auto;
+    }
+    .AppUpdateAlert .alert-title {
+        text-align: center !important;
+        color: #fff!important;
+    }
+    .AppUpdateAlert .alert-message {
+        text-align: center !important;
+        margin: 30px 5px;
+        font-size: 18px;
+        padding: 0px;
+        color: #000;
+    }
     .rating-modal-css .modal-wrapper {
         transform: translate3d(0, 40px, 0);
         opacity: .01;

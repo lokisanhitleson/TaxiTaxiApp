@@ -43,7 +43,6 @@
                 <div *ngFor="let page of pages">
                     <ion-menu-toggle *ngIf="page.url">
                         <ion-item lines="none" [routerLink]="page.url" routerDirection="root" routerLinkActive="active" detail="false">
-                            <!-- <ion-icon slot="start" [name]="page.icon" color="dark"></ion-icon> -->
                             <span slot="start" class="{{page.icon}}" color="dark" class=""></span>
                             <ion-label>
                                 {{page.title | translate}}
@@ -54,9 +53,8 @@
                     <ion-item lines="none" class="lang-bg" button *ngIf="page.children?.length > 0" (click)="page.open = !page.open" [class.active-parent]="page.open" detail="false">
                         <ion-icon slot="end" name="ios-arrow-forward" *ngIf="!page.open"></ion-icon>
                         <ion-icon slot="end" name="ios-arrow-down" *ngIf="page.open"></ion-icon>
-
+                        <span slot="start" class="icon-language"></span>
                         <ion-label class="language">
-                            <ion-icon slot="start" src="/assets/svg/language.svg"></ion-icon>
                             <span>{{page.title | translate}}</span>
                         </ion-label>
                     </ion-item>
