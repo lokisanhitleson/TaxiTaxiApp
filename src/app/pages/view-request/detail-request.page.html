@@ -5,11 +5,11 @@
                 <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
             </ion-button>
         </ion-buttons>
-        <ion-title>Request Details</ion-title>
+        <ion-title>{{'TAB_MENU_ITEMS.REQUEST_DETAILS' | translate}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen *ngFor="let req of request" color="light">
+<ion-content fullscreen *ngFor="let req of request" color="light" class="animated fadeInRight">
     <ion-card class="ion-text-center ion-padding destination-card" color="light">
         <ion-card-content>
             <ion-row>

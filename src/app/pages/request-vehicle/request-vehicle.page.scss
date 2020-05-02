@@ -58,8 +58,8 @@
         ion-col {
             ion-item {
                 max-width: 100%;
-                background: #039e3e;
-                border-bottom: 2px solid #f7f5ed;
+                background: #3a4e73;
+                border-bottom: 2px solid #ffce00;
                 --color: var(--ion-color-light);
                 // border-bottom-left-radius: 30px;
                 ion-label {
@@ -101,7 +101,7 @@
         background: #ece9ef;
     }
     ion-grid {
-        background: #039e3e;
+        // background: #ddd;
         border-bottom-left-radius: 50px;
         border-bottom-right-radius: 50px;
         padding-bottom: 26px;
@@ -127,14 +127,15 @@
     }
     ion-segment-button {
         font-size: 16px;
-        color: #b79506;
+        color: #6f6f6f;
         border: 0px;
         border-radius: 0px;
+        background: #bbbbbb;
     }
     .segment-button-checked {
-        background: #ffce00;
-        color: #026527;
+        background: #e8e8e8;
+        color: #000;
         font-weight: 600;
-        border-bottom: 3px solid #05ca50;
+        border-bottom: 3px solid #3a4e73;
     }
 }

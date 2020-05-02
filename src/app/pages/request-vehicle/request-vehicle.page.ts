@@ -7,6 +7,7 @@ import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { Location } from '@angular/common';
 import { VehicleModalPage } from './vehicle.model';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-about',
@@ -34,7 +35,9 @@ export class RequestVehiclePage implements OnInit {
     private media: Media,
     private file: File,
     public platform: Platform,
-    private _location: Location
+    private _location: Location,
+    public translate: TranslateService, 
+    public TranslateModule : TranslateModule
     ) { }
 
   
@@ -109,7 +112,7 @@ export class RequestVehiclePage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: VehicleModalPage,
       componentProps: {
-        "Title": "Select Vehicle"
+        "Title": "Select Vehicle Model"
       }
     });
  

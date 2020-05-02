@@ -1,7 +1,8 @@
 :host {
-    ion-content {
-        --background: var(--ion-color-primary);
-    }
+    background: url('/assets/svg/bg-1.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 54%;
     .paz {
         position: relative;
         z-index: 10;
@@ -12,19 +13,15 @@
         font-size: 100%;
         padding: 5px;
     }
-    #info-img {
-        width: 100%;
-        height: 100%;
-        bottom: 0;
-        right: 0;
-        position: absolute;
-        left: 0;
-        margin: 0 auto;
-        background: url('/assets/svg/bg-1.svg');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: 50% 54%;
-    }
+    // #info-img {
+    //     width: 100%;
+    //     height: 100%;
+    //     bottom: 0;
+    //     right: 0;
+    //     position: fixed;
+    //     left: 0;
+    //     margin: 0 auto;
+    // }
     .show-password {
         position: absolute;
         right: 0;
@@ -33,4 +30,9 @@
             color: gray;
         }
     }
+}
+
+ion-content {
+    --background: transparent;
+    // transform: translate3d(0, 200px, 0);
 }

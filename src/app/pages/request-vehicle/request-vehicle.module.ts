@@ -8,6 +8,7 @@ import { RequestVehiclePage } from './request-vehicle.page';
 import { PlacesModalPage } from "./places.page";
 import { VehicleModalPage } from "./vehicle.model";
 import { CalendarModule } from 'ion2-calendar';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -29,6 +30,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    TranslateModule,
     CalendarModule,
     RouterModule.forChild(routes)
   ],

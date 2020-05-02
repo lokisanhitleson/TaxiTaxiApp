@@ -5,21 +5,23 @@
                 <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
             </ion-button>
         </ion-buttons>
-        <ion-title>Schedule Vehicle</ion-title>
+        <ion-title>{{'TAB_MENU_ITEMS.SCHEDULE_VEHICLE' | translate}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="animated bounceInUp">
     <ion-card class="bg-white" no-margin>
         <ion-card-content>
             <ion-row>
                 <ion-col>
                     <p>
-                        <ion-icon name="alert"></ion-icon> Select available dates for vehicle</p>
+                        <ion-icon name="alert"></ion-icon>
+                        {{'TAB_MENU_ITEMS.SHEDULE_VEHICLE_SUBTITLE' | translate}}
+                    </p>
                 </ion-col>
             </ion-row>
             <ion-list class="request-form">
-                <ion-item color="success">
+                <ion-item color="secondary">
                     <!-- <ion-label>&nbsp;</ion-label> -->
                     <ion-select class="myCustomSelect ion-text-center" placeholder="--Select Available Vehicles--" ok-text="Okay" cancel-text="Dismiss">
                         <ion-select-option *ngFor="let car of carModels">{{car}}</ion-select-option>

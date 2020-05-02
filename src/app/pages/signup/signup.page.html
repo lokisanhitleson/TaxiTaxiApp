@@ -1,42 +1,64 @@
-<ion-content padding class="animated fadeIn login auth-page bg-image">
-    <div id="info-img"></div>
+<ion-content padding class="login auth-page bg-image">
     <!-- <div class="theme-bg"></div> -->
     <div class="auth-content">
 
         <!-- Logo -->
-        <div padding-horizontal text-center class="animated fadeInDown center-content">
-            <h4 no-margin>
-                <ion-text color="light" class="fw700">
-                    {{'LOGIN_ITEMS.WELCOME_TITLE' | translate}}
-                </ion-text>
-            </h4>
+        <div padding-horizontal text-center class="center-content">
             <div class="logo"></div>
-            <p class="sub-text">
+            <p class="sub-text" *ngIf="!showOtp">
                 {{'LOGIN_ITEMS.WELCOME_SUB_MESSAGE' | translate}}
+            </p>
+            <p class="sub-text ion-text-center" *ngIf="showOtp">
+                {{'LOGIN_ITEMS.OTP_INSTRUCTION_MSG' | translate}}
             </p>
         </div>
 
         <ion-card color="light" class="ion-padding ion-no-margin">
             <ion-card-content class="ion-no-padding">
                 <!-- Login form -->
-                <form [formGroup]="onSignUpForm" class="list-form">
+                <form [formGroup]="onSignUpForm" class="list-form" *ngIf="!showOtp">
                     <ion-item no-padding class="animated fadeInUp">
                         <ion-label position="floating">
                             <ion-icon name="phone-portrait" item-start></ion-icon>
                             {{'PLACEHOLDER_MSG.MOBILE_NUMBER' | translate}}
                         </ion-label>
-                        <ion-input type="number" formControlName="mobileNumber"></ion-input>
+                        <ion-input type="number" maxlength="10" formControlName="mobileNumber" [disabled]="showOtp"></ion-input>
                     </ion-item>
-                    <p ion-text class="text08" *ngIf="onSignUpForm.get('mobileNumber').touched && onSignUpForm.get('mobileNumber').hasError('required')">
+                    <p ion-text class="text08" *ngIf="onSignUpForm.get('mobileNumber').touched && onSignUpForm.get('mobileNumber').hasError('pattern')">
                         <ion-text color="danger">
                             Enter valid mobile number
                         </ion-text>
                     </p>
                 </form>
+                <form [formGroup]="onOtpForm" *ngIf="showOtp" class="animated fadeIn">
+                    <div class="ion-text-center otp-form">
+                        <p class="a-o-i">Enter verification code</p>
+                        <ng-otp-input formControlName="otp" ngDefaultControl (onInputChange)="onOtpChange($event)" [config]="{length:4}"></ng-otp-input>
+
+                        <!-- <span *ngIf="otp" class="o-t-p">Entered otp :-{{otp}}</span> -->
+                        <p ion-text class="text08" *ngIf="onOtpForm.get('otp').touched && onOtpForm.get('otp').hasError('required')">
+                            <ion-text color="danger">
+                                Enter valid OTP
+                            </ion-text>
+                        </p>
+                    </div>
+
+                    <p class="ion-text-center otp-time-text" *ngIf="timeLeft">{{timeLeft}} {{'COMMON.IN_SECONDS' | translate}}....</p>
+                    <div class="ion-text-center" item-center>
+                        <p>
+                            {{'LOGIN_ITEMS.OTP_RESEND_MSG' | translate}} <span class="resend-btn">Resend</span>
+                        </p>
+                    </div>
+                </form>
+
                 <div class="ion-padding-top">
-                    <ion-button icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToOtp()" [disabled]="!onSignUpForm.valid" tappable>
+                    <ion-button *ngIf="!showOtp" icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToOtp()" [disabled]="!onSignUpForm.valid" tappable>
                         <ion-icon name="log-in"></ion-icon>
                         Get OTP
+                    </ion-button>
+                    <ion-button *ngIf="showOtp" icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToRegisterAgency()" [disabled]="!onOtpForm.valid" tappable>
+                        <ion-icon name="log-in"></ion-icon>
+                        Verify
                     </ion-button>
                 </div>
 
@@ -51,7 +73,7 @@
                 </div>
             </ion-card-content>
         </ion-card>
-        <div class="language_btn">
+        <div class="language_btn animated fadeInUp">
             <ion-label>{{'COMMON.SELECT_LANGUAGE' | translate}}</ion-label>
             <ion-select [(ngModel)]="lang" (ionChange)="switchLanguage()">
                 <ion-select-option value="en">English</ion-select-option>

@@ -61,7 +61,8 @@
         "VIEW_REQUEST": "View Request",
         "APP_SETTINGS": "App Settings",
         "SIGN_OUT": "Sign Out",
-        "EDIT_PROFILE": "Edit Profile"
+        "EDIT_PROFILE": "Edit Profile",
+        "HELP_MENU": "Help"
     },
 
     "TAB_MENU_ITEMS": {
@@ -70,7 +71,8 @@
         "SCHEDULE_VEHICLE": "Schedule Vehicle",
         "ASK_VEHICLE": "Ask Vehicle",
         "REQUEST_DETAILS": "Request Details",
-        "CHANGE_LOCATION": "Change Location"
+        "CHANGE_LOCATION": "Change Location",
+        "SHEDULE_VEHICLE_SUBTITLE": "Select available dates for vehicle"
 
     },
 
@@ -78,7 +80,7 @@
         "LOCATION": "Location",
         "CHANGE": "Change",
         "TITLE": "Vehicle Availability",
-        "AVAILABLE_VEHICLE": "Available Vehicles",
+        "AVAILABLE_VEHICLE": "Find Vehicles",
         "VEHICLE_OVERVIEW": "Vehicle Overview",
         "AGENCY_INFORMATION": "Agency Information",
         "AGENT_PROFILE": "Agent Profile"

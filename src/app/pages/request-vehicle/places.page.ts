@@ -34,8 +34,8 @@ export class PlacesModalPage implements OnInit {
 
   initializeItems(){
         this.cities = [
-          "Avadi","Ambattur","Chengalpatu","Ekattuthangal","Padi",
-          "Manali new town",
+        "Avadi","Ambattur","Chengalpatu","Ekattuthangal","Padi",
+        "Manali new town",
         "Kodungaiyur East",
         "Kodungaiyur West",
         "Madhavaram",
