@@ -57,6 +57,7 @@
         "ionicons": "4.5.5",
         "moment": "^2.24.0",
         "ng-otp-input": "^1.7.0",
+        "ng2-archwizard": "^2.1.0",
         "node-sass": "^4.13.1",
         "plugin": "^0.3.3",
         "rxjs": "~6.3.3",
