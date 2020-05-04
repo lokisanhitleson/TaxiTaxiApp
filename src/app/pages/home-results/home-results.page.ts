@@ -25,6 +25,7 @@ export class HomeResultsPage {
   searchKey = '';
   yourLocation = 'Chennai 600 072';
   lang:any;
+  isAnnouncement:boolean = false;
   // themeCover = [
   //   {car:'assets/svg/car.svg'},
   //   {car1:'assets/svg/car1.svg'},
@@ -59,6 +60,10 @@ export class HomeResultsPage {
   ];
 
   ads = [
+    {img:"assets/img/announce1.jpg"},
+    {img:"assets/img/announce2.jpg"}
+  ];
+  announcement = [
     {img:"assets/img/ad1.jpg"},
     {img:"assets/img/ad2.jpg"}
   ];

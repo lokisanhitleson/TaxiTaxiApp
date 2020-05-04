@@ -127,15 +127,20 @@
     }
     ion-segment-button {
         font-size: 16px;
-        color: #6f6f6f;
+        color: #8c8c8c;
         border: 0px;
         border-radius: 0px;
-        background: #bbbbbb;
+        background: #e6e3e3;
     }
     .segment-button-checked {
         background: #e8e8e8;
         color: #000;
         font-weight: 600;
         border-bottom: 3px solid #3a4e73;
+    }
+    .comments-container {
+        width: 94%;
+        margin: 0 auto;
+        border: 1px solid #ddd;
     }
 }
