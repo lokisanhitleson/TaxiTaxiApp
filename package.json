@@ -1,13 +1,19 @@
 {
-    "name": "Taxi-Taxi",
+    "name": "taxitaxi",
     "description": "Taxi-Taxi",
     "version": "1.0.0",
     "author": "Mazelon",
     "homepage": "http://mazelon.com",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve",
-        "build": "ng build",
+        "start": "ionic serve",
+        "run": "ionic cordova run browser",
+        "run:ios": "ionic cordova run ios",
+        "build:ios": "ionic cordova build ios",
+        "build:ios:prod": "ionic cordova build ios --prod",
+        "run:android": "ionic cordova run android",
+        "build:android": "ionic cordova build android",
+        "build:android:prod": "ionic cordova build android --prod",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e"
@@ -42,6 +48,8 @@
         "animate.css": "^3.7.2",
         "cordova": "^9.0.0",
         "cordova-android": "^8.1.0",
+        "cordova-browser": "6.0.0",
+        "cordova-ios": "5.1.1",
         "cordova-plugin-camera": "^4.1.0",
         "cordova-plugin-crop": "^0.4.0",
         "cordova-plugin-datepicker": "^0.9.3",
@@ -100,7 +108,9 @@
     },
     "cordova": {
         "platforms": [
-            "android"
+            "android",
+            "browser",
+            "ios"
         ],
         "plugins": {
             "cordova-plugin-whitelist": {},
