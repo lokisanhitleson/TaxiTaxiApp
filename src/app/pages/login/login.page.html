@@ -15,20 +15,20 @@
                     <ion-item no-padding class="animated fadeInUp">
                         <ion-label position="floating">
                             <ion-icon name="phone-portrait" item-start></ion-icon>
-                            Mobile Number
+                            Mobile Number / Email
                         </ion-label>
-                        <ion-input type="number" formControlName="mobileNum"></ion-input>
+                        <ion-input type="text" formControlName="mobileNum"></ion-input>
                     </ion-item>
                     <p ion-text class="text08" *ngIf="onLoginForm.get('mobileNum').touched && onLoginForm.get('mobileNum').hasError('required')">
                         <ion-text color="danger">
                             Required Field
                         </ion-text>
                     </p>
-                    <p ion-text class="text08" *ngIf="onLoginForm.get('mobileNum').touched && onLoginForm.get('mobileNum').hasError('pattern')">
+                    <!-- <p ion-text class="text08" *ngIf="onLoginForm.get('mobileNum').touched && onLoginForm.get('mobileNum').hasError('pattern')">
                         <ion-text color="danger">
                            Incorrect Mobile Number
                         </ion-text>
-                    </p>
+                    </p> -->
                     <ion-item no-padding class="animated fadeInUp">
                         <ion-label position="floating">
                             <ion-icon name="lock" item-start></ion-icon>

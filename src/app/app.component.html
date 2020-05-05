@@ -42,12 +42,22 @@
 
                 <div *ngFor="let page of pages">
                     <ion-menu-toggle *ngIf="page.url">
-                        <ion-item lines="none" [routerLink]="page.url" routerDirection="root" routerLinkActive="active" detail="false">
-                            <span slot="start" class="{{page.icon}}" color="dark" class=""></span>
-                            <ion-label>
-                                {{page.title | translate}}
-                            </ion-label>
-                        </ion-item>
+                        <ng-container *ngIf="page.url !== '/login'; else logoutMenu">
+                            <ion-item lines="none" [routerLink]="page.url" routerDirection="root" routerLinkActive="active" detail="false">
+                                <span slot="start" class="{{page.icon}}" color="dark" class=""></span>
+                                <ion-label>
+                                    {{page.title | translate}}
+                                </ion-label>
+                            </ion-item>
+                        </ng-container>
+                        <ng-template #logoutMenu>
+                            <ion-item lines="none" (click)="logout()" detail="false">
+                                <span slot="start" class="{{page.icon}}" color="dark" class=""></span>
+                                <ion-label>
+                                    {{page.title | translate}}
+                                </ion-label>
+                            </ion-item>
+                        </ng-template>
                     </ion-menu-toggle>
 
                     <ion-item lines="none" class="lang-bg" button *ngIf="page.children?.length > 0" (click)="page.open = !page.open" [class.active-parent]="page.open" detail="false">

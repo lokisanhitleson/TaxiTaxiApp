@@ -6,6 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { Pages } from './interfaces/pages';
 import { TranslateModule,TranslateService } from '@ngx-translate/core';
+import { AuthService } from './pages/services/auth.service';
+import { SharedService } from './pages/sharedService/shared.service';
 
 @Component({
   selector: 'app-root',
@@ -82,7 +84,9 @@ lang:any;
     public navCtrl: NavController,
     public translate: TranslateService, 
     public TranslateModule : TranslateModule,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private authService: AuthService,
+    private sharedService: SharedService
   ) {
     this.lang = 'en';
     this.translate.setDefaultLang('en');
@@ -137,6 +141,8 @@ lang:any;
   }
 
   logout() {
-    this.navCtrl.navigateRoot('/');
+    this.authService.logout();
+    this.sharedService.changeLoginCheck(this.authService.isLoggedIn());
+    this.navCtrl.navigateRoot('/login');
   }
 }
