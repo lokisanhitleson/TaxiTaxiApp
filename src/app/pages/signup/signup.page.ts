@@ -19,6 +19,13 @@ export class SignupPage implements OnInit {
 
   lang:any;
   showOtp: boolean = false;
+  showErr: boolean;
+  exist: boolean;
+  otpresendmessage: boolean;
+  accountcreated: string;
+  resendOtpEnable: boolean;
+
+
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -49,7 +56,7 @@ export class SignupPage implements OnInit {
       'mobileNumber': [null, Validators.compose([
         Validators.required,
         Validators.pattern(/^[789]\d{9}$/)
-      ])]
+      ]  ), this.ismobbilenumberunique.bind(this) ],
     });
     this.onOtpForm = this.formBuilder.group({
       'otp': [null, Validators.compose([
@@ -104,16 +111,20 @@ export class SignupPage implements OnInit {
   }
 
   //OTP timer model
-timeLeft: number = 120;
-interval;
+  timeLeft: number = 10;
+  interval;
 
-startTimer() {
+  startTimer() {
   this.interval = setInterval(() => {
     if(this.timeLeft > 0) {
       this.timeLeft--;
+     
     } else {
-      this.timeLeft = 120;
+      this.pauseTimer();
+      this.resendOtpEnable= true
     }
+  
+    
   },1000)
   
 }
@@ -134,11 +145,11 @@ pauseTimer() {
     }
   };
   onOtpChange(otp) {
-    this.otp = otp;
+    this.otp = otp;    
   }
 
   setVal(val) {
-    this.ngOtpInput.setValue(val);
+    this.ngOtpInput.setValue(val);   
   }
 
   onConfigChange() {
@@ -149,49 +160,103 @@ pauseTimer() {
     }, 0);
   }
 
-  goToOtp() {
+  ismobbilenumberunique(control: FormGroup) {        
+    const q = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            this.SignUpService.CheckExists({ value: control.value }).subscribe(data => {
+                if (data.status != "SUCCESS" ||data.data[0] != null ) {
+                    console.log({ 'ismobilenumber': true });
+                    resolve({ 'ismobilenumber': true });
+                    this.exist= true;
+                    console.log('no')
+                } 
+                else {
+                    console.log(null + "s");
+                    resolve(null);
+                    this.exist= false;
+                }
+            });
+        }, 100);
+    });
+    return q;
+  }
+
+  goToOtp() {    
     this.showOtp = true;
-    this.startTimer();
-    
-    // RAM CODE
-    /* var mobileNumber =this.onSignUpForm.value.mobileNumber;
-    
-    console.log(mobileNumber);
-    
-    this.storage.set('mobilenumber', mobileNumber);
-    
-    this.SignUpService.get(mobileNumber)    
-     .subscribe(      
-      (response) => { 
-        // console.log( response)
-        // console.log(response.status);
-      if (response.status = true){
-    
-        this.navCtrl.navigateRoot('/otp');   
+    this.startTimer();    
+       var mobileNumber =this.onSignUpForm.value.mobileNumber;
+       this.storage.set('mobilenumber', mobileNumber);
+       this.SignUpService.createAccount(mobileNumber)
+       .subscribe(
+        data => {
+            if (data.status == "SUCCESS") {
+                let accountid =data.data.accountId;
+                this.storage.set('accountid', accountid);
+                this.onSignUpForm.reset();
+                Object.keys(this.onSignUpForm.controls).forEach(key => {
+                    if (this.onSignUpForm.get(key).errors) {
+
+                        this.onSignUpForm.get(key).errors.required = false;
+                    }
+                });
+                this.accountcreated  = '';
+              }
+            else {
+                this.accountcreated = 'Account Creation Failed';
+            } 
+      },
+       error => console.log(error)
+    );       
+  }
  
-      }
-      else {
-        
-        console.log("error");
-    
-      }
-    },       
-      function(error) { 
-    
-        console.log("Error happened" + error)         
-    
-     }, 
-     ); */
-  }
-   
   goToRegisterAgency() {
-    this.navCtrl.navigateRoot('/register-agency');
+    //this.navCtrl.navigateRoot('/register-agency');
+    console.log('clicked');
+    this.storage.get('mobilenumber').then((val) => {
+      console.log('Your mobilenumber is', val);     
+      var mobilenumber = val;
+      var OTP = this.otp;
+      this.SignUpService.otpauth(OTP,val)
+      .subscribe(      
+          (data) => {             
+          if (data.status == "SUCCESS" ){
+            this.navCtrl.navigateRoot('/register-agency');           
+              this.showErr = false;
+      }     
+      else {       
+             this.showErr = true ;
+      }},       
+    );
+  });
   }
+
+  resend(){
+    this.timeLeft= 10;
+    this.startTimer();
+    this.resendOtpEnable= false;
+    console.log ("otpresend starts")
+    this.storage.get('mobilenumber').then((val) => {
+    console.log('Your mobilenumber is', val);
+       var resendOtpNumber = val;     
+      this.SignUpService.otpresend(resendOtpNumber)
+      .subscribe(      
+       (response) => {             
+     if (response.status == "SUCCESS" ){
+       this.otpresendmessage = true        
+     }     
+     else {     
+          this.showErr = false ;
+     }      
+   },       
+     function(error) { 
+       console.log("Error happened" + error)         
+   },);
+ });}
+  
   goToLogin() {
     this.navCtrl.navigateRoot('/login');
   }
   goToHome() {
     this.navCtrl.navigateRoot('/home/tabs/home-results');
   }
-
 }
