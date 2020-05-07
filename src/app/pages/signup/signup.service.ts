@@ -29,7 +29,7 @@ export class SignUpService{
       }
    
       createAccount(mobileNumber) {
-      return this.http.post<{  data : { accountId: number }, status: string }>(`${ENVIRONMENT.apiUrl}signUpMobileNo`, {"mobileNo":mobileNumber} )
+      return this.http.post<{  data : { accountId: number }, status: string }>(`${ENVIRONMENT.apiUrl}signUpMobileNo`, {"mobileNo":mobileNumber},httpOptions )
         .pipe(
           tap(_ => console.log('crated mobilenumber', _)),
           catchError(this.handleError<{  data : { accountId: number }, status: string }>('setmobilenumber'))
@@ -37,7 +37,7 @@ export class SignUpService{
          }
 
         otpauth(OTP,val) {
-          return this.http.post<{  data : { id: number }, status: string }>(`${ENVIRONMENT.apiUrl}OTPAuth`, {"mobileNo":val,"otp":OTP} )
+          return this.http.post<{  data : { id: number }, status: string }>(`${ENVIRONMENT.apiUrl}OTPAuth`, {"mobileNo":val,"otp":OTP} ,httpOptions)
             .pipe(
               tap(_ => console.log('OTP Authentication', _)),
               catchError(this.handleError<{  data : { id: number }, status: string }>('authentication error'))
@@ -46,7 +46,7 @@ export class SignUpService{
 
         
           otpresend(resendOtpNumber) {
-            return this.http.post<{  data : { response : number }, status: string }>(`${ENVIRONMENT.apiUrl}OTPResend`, {"mobileNo":resendOtpNumber} )
+            return this.http.post<{  data : { response : number }, status: string }>(`${ENVIRONMENT.apiUrl}OTPResend`, {"mobileNo":resendOtpNumber} ,httpOptions)
               .pipe(
                 tap(_ => console.log('OTP Authentication', _)),
                 catchError(this.handleError<{  data : { response: number }, status: string }>('resend OTP Error'))

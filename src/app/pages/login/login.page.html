@@ -59,11 +59,14 @@
                         Signin
                     </ion-button>
                 </div>
-                <p ion-text class="text08" *ngIf="invalidpassword">
-                    <ion-text color="warning">
-                        Incorrect password
-                    </ion-text>
-                </p>
+                
+                    <ion-chip color="warning-msg"   *ngIf="invalidpassword">
+                    <ion-icon color="danger" name="warning"></ion-icon>     
+                    <ion-label color="danger">
+                        Incorrect Password
+                      </ion-label>
+                  </ion-chip>   
+                
                 <!-- Other links -->
                 <div text-center margin-top>
                     <span (click)="goToSignup()" class="paz" tappable>

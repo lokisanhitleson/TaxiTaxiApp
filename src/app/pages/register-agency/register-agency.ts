@@ -34,7 +34,7 @@ export class RegisterAgencyPage implements OnInit {
     this.onAgencyRegistrationForm = this.formBuilder.group({
       'agencyName': [null, Validators.compose([
         Validators.required,
-        Validators.pattern(/^([\w\-]{0,30})$/)
+        Validators.pattern(/^([\w\-][a-zA-Z0-9_ ]{0,30})$/)
       ])],
       'agencyRegNum': [null, Validators.compose([
         Validators.pattern(/^[a-zA-Z0-9]{0,30}$/)

@@ -109,7 +109,7 @@ export class LoginPage implements OnInit {
      .subscribe(      
       (response) => { 
        
-        if (response.status === "SUCCESS"){
+        if (response && response.status === "SUCCESS"){
           this.sharedService.changeLoginCheck(this.authService.isLoggedIn());
           this.invalidpassword = false;
           console.log("true");

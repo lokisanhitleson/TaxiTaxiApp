@@ -1,5 +1,5 @@
 export const ENVIRONMENT = {
   production: false,
-  apiUrl: 'http://localhost:8000/'
- // apiUrl: 'https://api.rungila.com/'
+   apiUrl:  "http://13.234.111.199:8000/"
+  //  apiUrl: 'http://localhost:8000/'
 };

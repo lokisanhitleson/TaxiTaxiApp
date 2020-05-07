@@ -164,7 +164,7 @@ pauseTimer() {
     const q = new Promise((resolve, reject) => {
         setTimeout(() => {
             this.SignUpService.CheckExists({ value: control.value }).subscribe(data => {
-                if (data.status != "SUCCESS" ||data.data[0] != null ) {
+                if (data && data.status != "SUCCESS" ||data.data[0] != null ) {
                     console.log({ 'ismobilenumber': true });
                     resolve({ 'ismobilenumber': true });
                     this.exist= true;
@@ -189,7 +189,7 @@ pauseTimer() {
        this.SignUpService.createAccount(mobileNumber)
        .subscribe(
         data => {
-            if (data.status == "SUCCESS") {
+            if (data && data.status == "SUCCESS") {
                 let accountid =data.data.accountId;
                 this.storage.set('accountid', accountid);
                 this.onSignUpForm.reset();
@@ -219,7 +219,7 @@ pauseTimer() {
       this.SignUpService.otpauth(OTP,val)
       .subscribe(      
           (data) => {             
-          if (data.status == "SUCCESS" ){
+          if (data && data.status == "SUCCESS" ){
             this.navCtrl.navigateRoot('/register-agency');           
               this.showErr = false;
       }     
@@ -241,7 +241,7 @@ pauseTimer() {
       this.SignUpService.otpresend(resendOtpNumber)
       .subscribe(      
        (response) => {             
-     if (response.status == "SUCCESS" ){
+     if (response &&response.status == "SUCCESS" ){
        this.otpresendmessage = true        
      }     
      else {     

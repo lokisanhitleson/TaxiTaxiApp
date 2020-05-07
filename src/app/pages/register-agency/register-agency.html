@@ -116,10 +116,17 @@
                         <ion-label class="termsConditions">{{'LOGIN_ITEMS.TERMS_AND_CONDITIONS' | translate}}</ion-label>
                         <ion-checkbox class="checkBox" formControlName="t&c" slot="start"></ion-checkbox>
                         
-                    </div>
-                    <p ion-text class="text08"  color="danger" aria-hidden="true">{{ onAgencyRegistrationForm.get('t&c').touched ||
-                        onAgencyRegistrationForm.get('t&c').hasError('required') ? 'Please check the Terms and conditions' :
-                      '' }}</p>   
+                        <ion-chip color="warning-msg"   *ngIf=" onAgencyRegistrationForm.get('t&c').touched ||
+                        onAgencyRegistrationForm.get('t&c').hasError('required')">
+                        <ion-icon color="danger" name="warning"></ion-icon>     
+                        <ion-label color="danger">
+                            Please check the Terms and conditions
+                          </ion-label>
+                      </ion-chip>   
+
+                        
+                    </div>                     
+                   
 
                 </form>
                 <div margin-top>

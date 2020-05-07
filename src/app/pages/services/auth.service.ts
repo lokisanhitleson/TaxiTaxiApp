@@ -5,11 +5,10 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { NavController } from '@ionic/angular';
 
 import { Token } from '../models/login.model';
-import { SharedService } from '../sharedService/shared.service';
-// import { ENVIRONMENT } from '../environment';
-const ENVIRONMENT = {
-  apiUrl: "http://13.234.111.199:8000/"
-}
+import { ENVIRONMENT } from "../../../environments/environment"
+// const ENVIRONMENT = {
+//   apiUrl: "http://13.234.111.199:8000/"
+// }
 
 const httpOptions = {
   headers: new HttpHeaders({
