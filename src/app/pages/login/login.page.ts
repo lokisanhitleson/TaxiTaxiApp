@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, MenuController, ToastController, AlertController, LoadingController } from '@ionic/angular';
 import { LoginService} from './login.service';
+import { AuthService } from '../services/auth.service';
+import { SharedService } from '../sharedService/shared.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -18,8 +20,14 @@ export class LoginPage implements OnInit {
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
-    private loginService: LoginService
-  ) { }
+    private loginService: LoginService,
+    private sharedService: SharedService,
+    private authService: AuthService
+  ) {
+    console.log(this.authService.isLoggedIn());
+    if (this.authService.isLoggedIn())
+      this.navCtrl.navigateRoot('/home/tabs/home-results');
+  }
 
   togglePasswordFieldType(){
     this.isTextFieldType = !this.isTextFieldType;
@@ -32,8 +40,8 @@ export class LoginPage implements OnInit {
 
     this.onLoginForm = this.formBuilder.group({
       'mobileNum': [null, Validators.compose([
-        Validators.required,
-        Validators.pattern(/^[789]\d{9}$/)
+        Validators.required
+        // Validators.pattern(/^[789]\d{9}$/)
       ])],
       'password': [null, Validators.compose([
         Validators.required
@@ -97,20 +105,25 @@ export class LoginPage implements OnInit {
     var password = this.onLoginForm.value.password;
      console.log(mobilenum,password );
 
-     this.loginService.get(mobilenum,password)  
+     this.authService.login(mobilenum,password)  
      .subscribe(      
       (response) => { 
        
-     if (response.status = true){
-            console.log("error");            
-           this.invalidpassword = true;
-     }
-     else {
-      this.invalidpassword = false;
-      console.log("true");
-      // this.navCtrl.navigateRoot('/home/tabs/home-results');
-       }      
-     },       
+        if (response.status === "SUCCESS"){
+          this.sharedService.changeLoginCheck(this.authService.isLoggedIn());
+          this.invalidpassword = false;
+          console.log("true");
+          this.navCtrl.navigateRoot('/home/tabs/home-results');
+        }
+        else {
+                console.log("error");            
+              this.invalidpassword = true;
+        }      
+      }, err => {
+
+        console.log("error");            
+        this.invalidpassword = true;
+      }      
      );
   }
 

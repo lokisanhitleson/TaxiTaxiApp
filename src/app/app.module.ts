@@ -15,6 +15,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {FormsModule} from '@angular/forms';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { ArchwizardModule } from 'ng2-archwizard';
 
 import { Media } from '@ionic-native/media/ngx';
 import { File } from '@ionic-native/file/ngx';
@@ -48,6 +49,7 @@ export function createTranslateLoader(http: HttpClient) {
     FormsModule,
     SearchFilterPageModule,
     NgOtpInputModule,
+    ArchwizardModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

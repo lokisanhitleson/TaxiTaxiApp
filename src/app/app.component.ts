@@ -1,18 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { Platform, NavController } from '@ionic/angular';
+import { Platform, NavController, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { Pages } from './interfaces/pages';
 import { TranslateModule,TranslateService } from '@ngx-translate/core';
+import { AuthService } from './pages/services/auth.service';
+import { SharedService } from './pages/sharedService/shared.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   public appPages: Array<Pages>;
 
@@ -81,7 +83,10 @@ lang:any;
     private statusBar: StatusBar,
     public navCtrl: NavController,
     public translate: TranslateService, 
-    public TranslateModule : TranslateModule
+    public TranslateModule : TranslateModule,
+    public alertController: AlertController,
+    private authService: AuthService,
+    private sharedService: SharedService
   ) {
     this.lang = 'en';
     this.translate.setDefaultLang('en');
@@ -100,11 +105,44 @@ lang:any;
     }).catch(() => {});
   }
 
+//App Update Alert
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      header: 'Update getRide!',
+      cssClass:'AppUpdateAlert',
+      message: "This app won't run unless you update.",
+      backdropDismiss:false,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Update',
+          cssClass: 'primary',
+          handler: () => {
+            console.log('Confirm Okay');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+  ngOnInit(){
+    this.presentAlertConfirm();
+  }
+
   goToEditProgile() {
     this.navCtrl.navigateForward('edit-profile');
   }
 
   logout() {
-    this.navCtrl.navigateRoot('/');
+    this.authService.logout();
+    this.sharedService.changeLoginCheck(this.authService.isLoggedIn());
+    this.navCtrl.navigateRoot('/login');
   }
 }

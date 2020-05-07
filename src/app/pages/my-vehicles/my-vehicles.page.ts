@@ -1,7 +1,6 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { CalendarModal, CalendarModalOptions,DayConfig,CalendarResult } from 'ion2-calendar';
 import { ModalController, NavController } from '@ionic/angular';
-import { IonSlides } from '@ionic/angular/';
 import { Location } from '@angular/common';
 import { Crop } from '@ionic-native/crop/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
@@ -16,13 +15,8 @@ import * as moment from "moment";
   styleUrls: ['./my-vehicles.page.scss'],
 })
 export class MyVehiclesPage implements OnInit {
-  @ViewChild('myVehicleSlider') slides: IonSlides;
   daterange: string;
   prevShow:boolean = true;
-  slideOpts = {
-    initialSlide: 0,
-    speed: 400
-  };
 
   croppedImagepath = "assets/no-image.png";
   isLoading = false;
@@ -42,22 +36,6 @@ export class MyVehiclesPage implements OnInit {
     private file: File
     ) { }
 
-  ngAfterViewInit() {
-    this.slides.lockSwipes(true);
-}
-
-swipeNext(){
-  this.slides.lockSwipes(false);
-  this.slides.slideNext();
-  this.prevShow = true;
-  this.slides.lockSwipes(true);
-}
-swipePrev(){
-  this.slides.lockSwipes(false);
-  this.slides.slidePrev();
-  this.prevShow = true;
-  this.slides.lockSwipes(true);
-}
 
 
 //Calendar Picker
@@ -169,5 +147,8 @@ showCroppedImage(ImagePath) {
   previous() 
   { 
     this._location.back(); 
+  }
+  goToMyVehicles(){
+    this.navCtrl.navigateRoot('/my-vehicle-list');
   }
 }

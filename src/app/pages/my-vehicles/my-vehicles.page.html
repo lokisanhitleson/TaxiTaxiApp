@@ -10,23 +10,9 @@
 </ion-header>
 
 <ion-content color="light">
-    <!-- <ion-item lines="none">
-        <p>
-            <ion-icon name="alert"></ion-icon> Please fill the requested details</p>
-    </ion-item> -->
-
-    <ion-slides pager="false" [options]="slideOpts" #myVehicleSlider>
-        <ion-slide>
+    <wizard>
+        <wizard-step stepTitle="Vehicle Info" [canExit]='true'>
             <ion-list class="myvehicle-form">
-                <ion-item lines="none" class="wizard-item">
-                    <div class="container">
-                        <ul class="progressbar">
-                            <li class="active">Vehicle Info</li>
-                            <li class="">F.C Info</li>
-                            <li>Insurance</li>
-                        </ul>
-                    </div>
-                </ion-item>
                 <ion-item lines="none" class="upload-item">
                     <div class="img-upload-container">
                         <div>
@@ -96,18 +82,19 @@
                     </ion-select>
                 </ion-item>
             </ion-list>
-        </ion-slide>
-        <ion-slide>
+            <ion-footer no-shadow>
+                <ion-toolbar position="bottom">
+                    <ion-row class="ion-text-center">
+                        <ion-col>
+                            <ion-button type="button" color="warning" nextStep>Next</ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-toolbar>
+            </ion-footer>
+        </wizard-step>
+
+        <wizard-step stepTitle="F.C. Info" awOptionalStep>
             <ion-list class="myvehicle-form">
-                <ion-item lines="none" class="wizard-item">
-                    <div class="container">
-                        <ul class="progressbar">
-                            <li class="active">Vehicle Info</li>
-                            <li class="active">F.C Info</li>
-                            <li>Insurance</li>
-                        </ul>
-                    </div>
-                </ion-item>
                 <ion-item>
                     <ion-label>Vehicle Condition</ion-label>
                     <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
@@ -162,18 +149,21 @@
                     </ion-select>
                 </ion-item>
             </ion-list>
-        </ion-slide>
-        <ion-slide>
+
+            <ion-footer no-shadow>
+                <ion-toolbar position="bottom">
+                    <ion-row class="ion-text-center">
+                        <ion-col>
+                            <ion-button type="button" color="medium" previousStep>Previous</ion-button>
+                            <ion-button type="button" color="warning" nextStep>Next</ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-toolbar>
+            </ion-footer>
+        </wizard-step>
+
+        <wizard-step stepTitle="Insurance">
             <ion-list class="myvehicle-form">
-                <ion-item lines="none" class="wizard-item">
-                    <div class="container">
-                        <ul class="progressbar">
-                            <li class="active">Vehicle Info</li>
-                            <li class="active">F.C Info</li>
-                            <li class="active">Insurance</li>
-                        </ul>
-                    </div>
-                </ion-item>
                 <ion-item>
                     <ion-label>Insurance Company</ion-label>
                     <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
@@ -192,21 +182,18 @@
                     <ion-input type="text"></ion-input>
                 </ion-item>
             </ion-list>
-        </ion-slide>
-    </ion-slides>
 
+            <ion-footer no-shadow>
+                <ion-toolbar position="bottom">
+                    <ion-row class="ion-text-center">
+                        <ion-col>
+                            <ion-button type="button" color="medium" previousStep>Previous</ion-button>
+                            <ion-button type="button" color="success" (click)="goToMyVehicles()">Finish</ion-button>
+
+                        </ion-col>
+                    </ion-row>
+                </ion-toolbar>
+            </ion-footer>
+        </wizard-step>
+    </wizard>
 </ion-content>
-
-<ion-footer no-shadow>
-    <ion-toolbar position="bottom">
-        <ion-row>
-            <ion-col>
-                <ion-button *ngIf="prevShow" size="medium" color="medium" (click)="swipePrev()">Prev</ion-button>
-            </ion-col>
-            <ion-col class="ion-text-end">
-                <ion-button size="medium" color="warning" (click)="swipeNext()">Next
-                </ion-button>
-            </ion-col>
-        </ion-row>
-    </ion-toolbar>
-</ion-footer>

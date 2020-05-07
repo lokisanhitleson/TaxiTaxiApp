@@ -44,8 +44,15 @@
     </ion-item>
 </ion-card>
 <ion-content>
+    <div class="slide-container" *ngIf="isAnnouncement">
+        <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
+            <ion-slide *ngFor="let item of announcement">
+                <img [src]="item.img">
+            </ion-slide>
+        </ion-slides>
+    </div>
 
-    <div class="slide-container">
+    <div class="slide-container" *ngIf="!isAnnouncement">
         <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
             <ion-slide *ngFor="let ad of ads">
                 <img [src]="ad.img">
