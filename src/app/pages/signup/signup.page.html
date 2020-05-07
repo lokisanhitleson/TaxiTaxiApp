@@ -24,29 +24,42 @@
                         </ion-label>
                         <ion-input type="number" maxlength="10" formControlName="mobileNumber" [disabled]="showOtp"></ion-input>
                     </ion-item>
-                    <p ion-text class="text08" *ngIf="onSignUpForm.get('mobileNumber').touched && onSignUpForm.get('mobileNumber').hasError('pattern')">
-                        <ion-text color="danger">
+                    <ion-chip color="warning-msg" *ngIf="exist">
+                        <ion-icon color="danger" name="warning"></ion-icon>     
+                        <ion-label color="danger">
+                            Mobile number alerady exist
+                          </ion-label>
+                      </ion-chip> 
+                    <ion-chip color="warning-msg"*ngIf="onSignUpForm.get('mobileNumber').touched && onSignUpForm.get('mobileNumber').hasError('pattern')">
+                        <ion-icon color="danger" name="warning"></ion-icon>     
+                        <ion-label color="danger">
                             Enter valid mobile number
-                        </ion-text>
-                    </p>
+                          </ion-label>
+                      </ion-chip>                                       
                 </form>
                 <form [formGroup]="onOtpForm" *ngIf="showOtp" class="animated fadeIn">
                     <div class="ion-text-center otp-form">
                         <p class="a-o-i">Enter verification code</p>
                         <ng-otp-input formControlName="otp" ngDefaultControl (onInputChange)="onOtpChange($event)" [config]="{length:4}"></ng-otp-input>
-
-                        <!-- <span *ngIf="otp" class="o-t-p">Entered otp :-{{otp}}</span> -->
-                        <p ion-text class="text08" *ngIf="onOtpForm.get('otp').touched && onOtpForm.get('otp').hasError('required')">
-                            <ion-text color="danger">
+                     
+                        <ion-chip color="warning-msg"*ngIf="onOtpForm.get('otp').touched && onOtpForm.get('otp').hasError('required')">
+                            <ion-icon color="danger" name="warning"></ion-icon>     
+                            <ion-label color="danger">
                                 Enter valid OTP
-                            </ion-text>
-                        </p>
+                              </ion-label>
+                          </ion-chip> 
+                          <ion-chip color="warning-msg"*ngIf="onOtpForm.get('otp').touched && onOtpForm.get('otp').otpresendmessage('required')">
+                            <ion-icon color="danger" name="warning"></ion-icon>     
+                            <ion-label color="danger">
+                                OTP has been send please check 
+                              </ion-label>
+                          </ion-chip>                                                                     
                     </div>
 
                     <p class="ion-text-center otp-time-text" *ngIf="timeLeft">{{timeLeft}} {{'COMMON.IN_SECONDS' | translate}}....</p>
                     <div class="ion-text-center" item-center>
-                        <p>
-                            {{'LOGIN_ITEMS.OTP_RESEND_MSG' | translate}} <span class="resend-btn">Resend</span>
+                        <p *ngIf="resendOtpEnable">
+                            {{'LOGIN_ITEMS.OTP_RESEND_MSG' | translate}} <span class="resend-btn" (click)="resend()">Resend</span>
                         </p>
                     </div>
                 </form>
@@ -56,10 +69,17 @@
                         <ion-icon name="log-in"></ion-icon>
                         Get OTP
                     </ion-button>
+                    <ion-chip color="warning-msg" *ngIf="showErr">
+                        <ion-icon color="danger" name="warning"></ion-icon>     
+                        <ion-label color="danger">
+                            Incorrect OTP
+                          </ion-label>
+                        
+                      </ion-chip>    
                     <ion-button *ngIf="showOtp" icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToRegisterAgency()" [disabled]="!onOtpForm.valid" tappable>
                         <ion-icon name="log-in"></ion-icon>
                         Verify
-                    </ion-button>
+                    </ion-button>                  
                 </div>
 
                 <!-- Other links -->

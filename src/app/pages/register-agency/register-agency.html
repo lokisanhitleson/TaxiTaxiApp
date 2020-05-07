@@ -19,31 +19,52 @@
                         <ion-label position="floating">{{'LOGIN_ITEMS.AGENCY_NAME' | translate}}</ion-label>
                         <ion-input type="text" formControlName="agencyName"></ion-input>
                     </ion-item>
-                    <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('agencyName').touched && onAgencyRegistrationForm.get('agencyName').hasError('required')">
-                        <ion-text color="danger">
+                    <ion-chip color="warning-msg"*ngIf="onAgencyRegistrationForm.get('agencyName').touched && onAgencyRegistrationForm.get('agencyName').hasError('required')">
+                        <ion-icon color="danger" name="warning"></ion-icon>     
+                        <ion-label color="danger">
                             Required Field
-                        </ion-text>
-                    </p>
+                          </ion-label>
+                      </ion-chip> 
+                      <ion-chip color="warning-msg" *ngIf="onAgencyRegistrationForm.get('agencyName').touched && onAgencyRegistrationForm.get('agencyName').hasError('pattern')">
+                        <ion-icon color="danger" name="warning"></ion-icon>     
+                        <ion-label color="danger">
+                            please check the agency name
+                          </ion-label>
+                      </ion-chip> 
 
                     <ion-item no-padding class="animated fadeInUp">
                         <ion-label position="floating">{{'LOGIN_ITEMS.AGENCY_REG_NUM' | translate}}</ion-label>
                         <ion-input type="text" formControlName="agencyRegNum"></ion-input>
                     </ion-item>
-                    <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('agencyRegNum').touched && onAgencyRegistrationForm.get('agencyRegNum').hasError('required')">
-                        <ion-text color="danger">
+                    <ion-chip color="warning-msg"*ngIf="onAgencyRegistrationForm.get('agencyRegNum').touched && onAgencyRegistrationForm.get('agencyRegNum').hasError('required')">
+                        <ion-icon color="danger" name="warning"></ion-icon>     
+                        <ion-label color="danger">
                             Required Field
-                        </ion-text>
-                    </p>
-
+                          </ion-label>
+                      </ion-chip> 
+                      <ion-chip color="warning-msg" *ngIf="onAgencyRegistrationForm.get('agencyRegNum').touched && onAgencyRegistrationForm.get('agencyRegNum').hasError('pattern')">
+                        <ion-icon color="danger" name="warning"></ion-icon>     
+                        <ion-label color="danger">
+                            please check the agency registernumber
+                          </ion-label>
+                      </ion-chip>
+                  
                     <ion-item no-padding class="animated fadeInUp">
                         <ion-label position="floating">{{'LOGIN_ITEMS.CONTACT_NAME' | translate}}</ion-label>
                         <ion-input type="text" formControlName="contactName"></ion-input>
                     </ion-item>
-                    <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('contactName').touched && onAgencyRegistrationForm.get('contactName').hasError('required')">
-                        <ion-text color="danger">
+                    <ion-chip color="warning-msg" *ngIf="onAgencyRegistrationForm.get('contactName').touched && onAgencyRegistrationForm.get('contactName').hasError('required')">
+                        <ion-icon color="danger" name="warning"></ion-icon>     
+                        <ion-label color="danger">
                             Required Field
-                        </ion-text>
-                    </p>
+                          </ion-label>
+                      </ion-chip> 
+                      <ion-chip color="warning-msg" *ngIf="onAgencyRegistrationForm.get('contactName').touched && onAgencyRegistrationForm.get('contactName').hasError('pattern')">
+                        <ion-icon color="danger" name="warning"></ion-icon>     
+                        <ion-label color="danger">
+                            please check the contact name
+                          </ion-label>
+                      </ion-chip>
 
                     <!-- <ion-item no-padding class="animated fadeInUp">
                         <ion-label position="floating">Age</ion-label>
@@ -64,16 +85,19 @@
                         <ion-label position="floating">{{'LOGIN_ITEMS.EMAIL' | translate}}</ion-label>
                         <ion-input type="email" formControlName="email"></ion-input>
                     </ion-item>
-                    <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('email').touched && onAgencyRegistrationForm.get('email').hasError('required')">
-                        <ion-text color="danger">
+                    <ion-chip color="warning-msg"  *ngIf="onAgencyRegistrationForm.get('email').touched && onAgencyRegistrationForm.get('email').hasError('required')">
+                        <ion-icon color="danger" name="warning"></ion-icon>     
+                        <ion-label color="danger">
                             Required Field
-                        </ion-text>
-                    </p>
-                    <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('email').touched && onAgencyRegistrationForm.get('email').hasError('pattern')">
-                        <ion-text color="danger">
-                           Incorrect Email
-                        </ion-text>                        
-                    </p>
+                          </ion-label>
+                      </ion-chip> 
+                      <ion-chip color="warning-msg"  *ngIf="onAgencyRegistrationForm.get('email').touched && onAgencyRegistrationForm.get('email').hasError('pattern')">
+                        <ion-icon color="danger" name="warning"></ion-icon>     
+                        <ion-label color="danger">
+                            incorrect email
+                          </ion-label>
+                      </ion-chip> 
+                                    
 
                     <ion-item no-padding>
                         <ion-label>{{'LOGIN_ITEMS.REGION' | translate}}</ion-label>
@@ -81,12 +105,12 @@
                             <ion-select-option>Chennai</ion-select-option>
                         </ion-select>
                     </ion-item>
-
-                    <p ion-text class="text08" *ngIf="onAgencyRegistrationForm.get('region').touched && onAgencyRegistrationForm.get('region').hasError('required')">
-                        <ion-text color="danger">
+                    <ion-chip color="warning-msg"   *ngIf="onAgencyRegistrationForm.get('region').touched && onAgencyRegistrationForm.get('region').hasError('required')">
+                        <ion-icon color="danger" name="warning"></ion-icon>     
+                        <ion-label color="danger">
                             Required Field
-                        </ion-text>
-                    </p>
+                          </ion-label>
+                      </ion-chip>             
 
                     <div class="ion-padding-top" ion-item>
                         <ion-label class="termsConditions">{{'LOGIN_ITEMS.TERMS_AND_CONDITIONS' | translate}}</ion-label>

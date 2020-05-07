@@ -108,48 +108,40 @@ export class CreatePasswordPage implements OnInit {
     loader.onWillDismiss().then(() => {
       this.navCtrl.navigateRoot('/home/tabs/home-results');
     });
-  }
-
-  
-  // // //
+  } 
+ 
   goToLogin() {
     this.navCtrl.navigateRoot('/');
   }
 
   goToHome() {
-    
     var crp =this.onCreatePasswordForm.value.createpassword;
     var cp = this.onCreatePasswordForm.value.confirmpassword;
 
-    if (crp !== cp) {
-      this.incorrectpassword = true;     
-    } else {
-      this.incorrectpassword = false;
-      console.log(crp,cp);
-
-      this.Storage.get('mobilenumber').then((val) => {
-        console.log('Your mobilenumber is', val);    
-        var mobilenumber = val;
-        this.PasswordService.get(crp,mobilenumber)
+     if (crp !== cp) {
+        this.incorrectpassword = true;     
+      }
+     else {
+        this.incorrectpassword = false;
+        this.Storage.get('accountid').then((val) => {//ionicstorage 
+        console.log('Your accountid is', val);    
+        var accountid = val;
+        this.PasswordService.createpassword(crp,accountid)
           .subscribe(      
-            (response) => {                    
-              if (response.status == true ){          
-                this.incorrectpassword = false;
-                this.openWelcomeModal();
-                this.navCtrl.navigateRoot('/home');
-              }       
-              else {
-                this.incorrectpassword = true;  
-                console.log(response + "the error is " + response.status);          
-              }      
-            },       
-            function(error) { 
-              console.log("Error happened" + error)         
+              (response) => {                    
+                if (response.status == "SUCCESS" ){          
+                  this.incorrectpassword = false;
+                  this.openWelcomeModal();
+                  this.navCtrl.navigateRoot('/home');
+                }       
+                else {
+                  this.incorrectpassword = true;                      
+                }      
+              },       
+              function(error) { 
             },  
-
           );
-      });
-  
+      });  
     }
   }
 }
