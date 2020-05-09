@@ -12,7 +12,8 @@ import { SharedService } from '../sharedService/shared.service';
 export class LoginPage implements OnInit {
   public onLoginForm: FormGroup;
   isTextFieldType: boolean;
-  invalidpassword : boolean
+  invalidpassword : boolean;
+  formSubmitted :boolean;
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -45,7 +46,7 @@ export class LoginPage implements OnInit {
       ])],
       'password': [null, Validators.compose([
         Validators.required
-      ])]
+      ])],     
     });
   }
 
@@ -76,6 +77,8 @@ export class LoginPage implements OnInit {
             const loader = await this.loadingCtrl.create({
               duration: 2000
             });
+           console.log(this)
+            
 
             loader.present();
             loader.onWillDismiss().then(async l => {
@@ -100,7 +103,13 @@ export class LoginPage implements OnInit {
   goToSignup() {
     this.navCtrl.navigateRoot('/signup');
   }
-  goToHome() {    
+  goToHome() {         
+    
+    this.formSubmitted = true;
+    console.log(this.onLoginForm);
+    if (this.onLoginForm.invalid) {
+        return;
+    }   
     var mobilenum =this.onLoginForm.value.mobileNum;
     var password = this.onLoginForm.value.password;
      console.log(mobilenum,password );

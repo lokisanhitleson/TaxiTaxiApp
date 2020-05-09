@@ -24,18 +24,31 @@
                         </ion-label>
                         <ion-input type="number" maxlength="10" formControlName="mobileNumber" [disabled]="showOtp"></ion-input>
                     </ion-item>
-                    <ion-chip color="warning-msg" *ngIf="exist">
+                    <ion-chip color="warning-msg" *ngIf="exist && !onSignUpForm.get('mobileNumber').hasError('required') && !onSignUpForm.get('mobileNumber').hasError('pattern') ">
                         <ion-icon color="danger" name="warning"></ion-icon>     
                         <ion-label color="danger">
                             Mobile number alerady exist
                           </ion-label>
                       </ion-chip> 
-                    <ion-chip color="warning-msg"*ngIf="onSignUpForm.get('mobileNumber').touched && onSignUpForm.get('mobileNumber').hasError('pattern')">
+                    <ion-chip color="warning-msg"*ngIf="onSignUpForm.get('mobileNumber').dirty && onSignUpForm.get('mobileNumber').hasError('pattern')">
                         <ion-icon color="danger" name="warning"></ion-icon>     
                         <ion-label color="danger">
-                            Enter valid mobile number
+                            This isn't a valid mobile phone number. Please try again.
                           </ion-label>
-                      </ion-chip>                                       
+                      </ion-chip>    
+                      <ion-chip color="warning-msg"*ngIf="(formSubmitted ||onSignUpForm.get('mobileNumber').dirty )&& onSignUpForm.get('mobileNumber').hasError('required')">
+                        <ion-icon color="danger" name="warning"></ion-icon>     
+                        <ion-label color="danger">
+                            Please enter a valid mobile phone number to proceed.
+                          </ion-label>
+                      </ion-chip>      
+                      <div class="ion-padding-top">
+                        <ion-button *ngIf="!showOtp" icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToOtp()"  tappable>
+                            <ion-icon name="log-in"></ion-icon>
+                            Get OTP
+                        </ion-button>
+                        </div> 
+                                                     
                 </form>
                 <form [formGroup]="onOtpForm" *ngIf="showOtp" class="animated fadeIn">
                     <div class="ion-text-center otp-form">
@@ -65,18 +78,14 @@
                 </form>
 
                 <div class="ion-padding-top">
-                    <ion-button *ngIf="!showOtp" icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToOtp()" [disabled]="!onSignUpForm.valid" tappable>
-                        <ion-icon name="log-in"></ion-icon>
-                        Get OTP
-                    </ion-button>
-                    <ion-chip color="warning-msg" *ngIf="showErr">
+                        <ion-chip color="warning-msg" *ngIf="showErr">
                         <ion-icon color="danger" name="warning"></ion-icon>     
                         <ion-label color="danger">
                             Incorrect OTP
                           </ion-label>
                         
                       </ion-chip>    
-                    <ion-button *ngIf="showOtp" icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToRegisterAgency()" [disabled]="!onOtpForm.valid" tappable>
+                    <ion-button *ngIf="showOtp" icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToRegisterAgency()" tappable>
                         <ion-icon name="log-in"></ion-icon>
                         Verify
                     </ion-button>                  

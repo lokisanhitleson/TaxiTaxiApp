@@ -24,7 +24,7 @@ export class SignupPage implements OnInit {
   otpresendmessage: boolean;
   accountcreated: string;
   resendOtpEnable: boolean;
-
+  formSubmitted:boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -56,7 +56,7 @@ export class SignupPage implements OnInit {
       'mobileNumber': [null, Validators.compose([
         Validators.required,
         Validators.pattern(/^[789]\d{9}$/)
-      ]  ), this.ismobbilenumberunique.bind(this) ],
+      ]), this.ismobbilenumberunique.bind(this) ],
     });
     this.onOtpForm = this.formBuilder.group({
       'otp': [null, Validators.compose([
@@ -181,7 +181,12 @@ pauseTimer() {
     return q;
   }
 
-  goToOtp() {    
+  goToOtp() {
+    this.formSubmitted = true;
+    console.log(this.onSignUpForm);
+    if (this.onSignUpForm.invalid) {
+        return;
+    }       
     this.showOtp = true;
     this.startTimer();    
        var mobileNumber =this.onSignUpForm.value.mobileNumber;
@@ -210,8 +215,10 @@ pauseTimer() {
   }
  
   goToRegisterAgency() {
-    //this.navCtrl.navigateRoot('/register-agency');
-    console.log('clicked');
+    this.formSubmitted = true;
+        if (this.onOtpForm.invalid) {
+        return;
+    }      
     this.storage.get('mobilenumber').then((val) => {
       console.log('Your mobilenumber is', val);     
       var mobilenumber = val;

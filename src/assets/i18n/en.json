@@ -40,7 +40,7 @@
         "CREATE_PASSWORD_SUBTITLE": "Your password has to be at least 6 characters long, one upper case and one digit!",
         "CREATE_PASSWORD_BOTTOM_INFO": "This password can be used for future login!",
         "CREATE_PASSWORD_ERR_MSG": "Password has to be at least 6 characters with numeric!",
-        "CONFIRM_PASSWORD_ERR_MSG": "Password did not match!",
+        "CONFIRM_PASSWORD_ERR_MSG": "Confirm Password required",
         "CREATE_PASSWORD_LABEL": "Create Password",
         "CONFIRM_PASSWORD_LABEL": "Confirm Password",
 
