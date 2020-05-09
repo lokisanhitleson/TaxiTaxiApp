@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { NgOtpInputModule } from 'ng-otp-input';
 import { OtpPage } from './otp.page';
 
 const routes: Routes = [
@@ -21,6 +21,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     IonicModule,
     TranslateModule,
+    NgOtpInputModule,
     RouterModule.forChild(routes)
   ],
   declarations: [OtpPage]

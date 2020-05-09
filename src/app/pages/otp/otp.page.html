@@ -4,93 +4,57 @@
     <div class="auth-content">
 
         <!-- Logo -->
-        <div padding-horizontal text-center class="animated fadeInDown center-content">
+        <div padding-horizontal text-center class="center-content">
             <div class="logo"></div>
+            <p class="sub-text" *ngIf="!showOtp">
+                {{'LOGIN_ITEMS.WELCOME_SUB_MESSAGE' | translate}}
+            </p>
+            <p class="sub-text ion-text-center" *ngIf="showOtp">
+                {{'LOGIN_ITEMS.OTP_INSTRUCTION_MSG' | translate}}
+            </p>
         </div>
-        <p class="sub-text ion-text-center">
-            {{'LOGIN_ITEMS.OTP_INSTRUCTION_MSG' | translate}}
-        </p>
-        <!-- Login form -->
+        <!-- otp form -->
+     
+        <form [formGroup]="onOtpForm" *ngIf="showOtp" class="animated fadeIn">
+            <div class="ion-text-center otp-form">
+                <p class="a-o-i">Enter verification code</p>
+                <ng-otp-input formControlName="otp" ngDefaultControl (onInputChange)="onOtpChange($event)" [config]="{length:4}"></ng-otp-input>
+             
+                <ion-chip color="warning-msg"*ngIf="onOtpForm.get('otp').touched && onOtpForm.get('otp').hasError('required')">
+                    <ion-icon color="danger" name="warning"></ion-icon>     
+                    <ion-label color="danger">
+                        Enter valid OTP
+                      </ion-label>
+                  </ion-chip> 
+                  <ion-chip color="warning-msg"*ngIf="onOtpForm.get('otp').touched && onOtpForm.get('otp').otpresendmessage('required')">
+                    <ion-icon color="danger" name="warning"></ion-icon>     
+                    <ion-label color="danger">
+                        OTP has been send please check 
+                      </ion-label>
+                  </ion-chip>                                                                     
+            </div>
 
-        <ion-card color="light" class="ion-padding ion-no-margin">
-            <ion-card-content class="ion-no-padding">
-                <!-- <ion-grid>
-                    <ion-row>
-                        <ion-col>
-                            <ion-item>
-                                <ion-input type="tel" placeholder="*" maxlength="1" tabindex="1" (keyup)="moveFocus(b)"></ion-input>
-                            </ion-item>
-                        </ion-col>
-                        <ion-col>
-                            <ion-item>
-                                <ion-input type="tel" placeholder="*" maxlength="1" tabindex="2" #b (keyup)="moveFocus(c)"></ion-input>
-                            </ion-item>
-                        </ion-col>
-                        <ion-col>
-                            <ion-item>
-                                <ion-input type="tel" placeholder="*" maxlength="1" tabindex="3" #c (keyup)="moveFocus(d)"></ion-input>
-                            </ion-item>
-                        </ion-col>
-                        <ion-col>
-                            <ion-item>
-                                <ion-input type="tel" placeholder="*" maxlength="1" tabindex="4" #d></ion-input>
-                            </ion-item>
-                        </ion-col>
-                    </ion-row>
+            <p class="ion-text-center otp-time-text" *ngIf="timeLeft">{{timeLeft}} {{'COMMON.IN_SECONDS' | translate}}....</p>
+            <div class="ion-text-center" item-center>
+                <p *ngIf="resendOtpEnable">
+                    {{'LOGIN_ITEMS.OTP_RESEND_MSG' | translate}} <span class="resend-btn" (click)="resend()">Resend</span>
+                </p>
+            </div>
+        </form>
 
-                </ion-grid> -->
-
-
-
-
-                <form [formGroup]="onLoginForm" class="list-form">
-                    <ion-item no-padding class="animated fadeInUp">
-                        <ion-label position="floating">
-                            <ion-icon name="lock" item-start></ion-icon>
-                            One Time Password
-                        </ion-label>
-                        <ion-input type="number" formControlName="otp"></ion-input>
-                    </ion-item>
-                    <ion-chip class="warning-msg" *ngIf="onLoginForm.get('otp').touched && onLoginForm.get('otp').hasError('required')">
-                        <ion-icon color="danger" name="warning"></ion-icon>
-                        <ion-label color="dark">Required Field</ion-label>
-                    </ion-chip>
-
-                    <!-- <p ion-text class="text08" *ngIf="onLoginForm.get('otp').touched && onLoginForm.get('otp').hasError('required')">
-                        <ion-text color="danger">
-                            Required Field
-                        </ion-text>                      
-                    </p>
-                    <p ion-text class="text08" *ngIf="showErr">
-                        <ion-text color="danger">
-                            Incorrect OTP
-                        </ion-text>
-                    </p> -->
-                </form>
-                <div class="ion-padding-top">
-                    <ion-button icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToRegisterAgency()" [disabled]="!onLoginForm.valid" tappable>
-                        <ion-icon name="checkmark-circle-outline"></ion-icon>
-                        Verify
-                    </ion-button>                   
-                </div>
-                <p class="ion-text-center otp-time-text" *ngIf="timeLeft">{{timeLeft}} {{'COMMON.IN_SECONDS' | translate}}....</p>
-                <div class="ion-text-center" item-center>
-                    <p >
-                        {{'LOGIN_ITEMS.OTP_RESEND_MSG' | translate}} <span class="resend-btn" (click)="ReSendOTP">Resend</span>
-                    </p>
-                </div>
-
-                <!-- Other links -->
-                <div text-center margin-top>
-                    <span (click)="goToLogin()" class="paz" tappable>
-                <ion-text>
-                  {{'LOGIN_ITEMS.ALREADY_USER' | translate}} <strong>{{'LOGIN_ITEMS.SIGN_IN' | translate}}</strong>
-                </ion-text>
-              </span>
-                </div>
-            </ion-card-content>
-        </ion-card>
-
+        <div class="ion-padding-top">
+                       <ion-chip color="warning-msg" *ngIf="showErr">
+                <ion-icon color="danger" name="warning"></ion-icon>     
+                <ion-label color="danger">
+                    Incorrect OTP
+                  </ion-label>
+                
+              </ion-chip>    
+            <ion-button *ngIf="showOtp" icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToCreatePassword()" [disabled]="!onOtpForm.valid" tappable>
+                <ion-icon name="log-in"></ion-icon>
+                Verify
+            </ion-button>                  
+        </div>
 
         <!-- <h4 class="ion-text-center signup-msg">getRide works only with carefully selected licensed drivers!</h4> -->
     </div>

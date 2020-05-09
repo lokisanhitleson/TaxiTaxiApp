@@ -15,7 +15,8 @@ import { WelcomeModal } from './welcome-modal';
 export class CreatePasswordPage implements OnInit {
   public onCreatePasswordForm: FormGroup;
   isTextFieldType: boolean;
-  incorrectpassword : boolean
+  incorrectpassword : boolean;
+  formSubmitted:boolean;
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -115,6 +116,13 @@ export class CreatePasswordPage implements OnInit {
   }
 
   goToHome() {
+
+    this.formSubmitted = true;
+    console.log(this.onCreatePasswordForm);
+    if (this.onCreatePasswordForm.invalid) {
+        return;
+    }
+
     var crp =this.onCreatePasswordForm.value.createpassword;
     var cp = this.onCreatePasswordForm.value.confirmpassword;
 

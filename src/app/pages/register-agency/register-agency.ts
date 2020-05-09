@@ -12,7 +12,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 })
 export class RegisterAgencyPage implements OnInit {
   public onAgencyRegistrationForm: FormGroup;
-   
+  formSubmitted :boolean;
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -64,7 +64,11 @@ export class RegisterAgencyPage implements OnInit {
     this.navCtrl.navigateRoot('/');
   }
   goToCreatePassword() {
-    console.log("click")
+    this.formSubmitted = true;
+   console.log(this.onAgencyRegistrationForm);
+    if (this.onAgencyRegistrationForm.invalid) {
+        return;
+    }   
     // this.navCtrl.navigateRoot('/create-password');
     this.Storage.get('accountid').then((val) => {
       console.log('Your accountid is', val);    

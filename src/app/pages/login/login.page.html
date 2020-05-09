@@ -11,7 +11,7 @@
         <ion-card color="light" class="ion-padding ion-no-margin">
             <ion-card-content class="ion-no-padding">
                 <!-- Login form -->
-                <form [formGroup]="onLoginForm" class="list-form">
+                <form [formGroup]="onLoginForm" (submit)="goToHome()" class="list-form">
                     <ion-item no-padding class="animated fadeInUp">
                         <ion-label position="floating">
                             <ion-icon name="phone-portrait" item-start></ion-icon>
@@ -19,7 +19,7 @@
                         </ion-label>
                         <ion-input type="text" formControlName="mobileNum"></ion-input>
                     </ion-item>
-                    <p ion-text class="text08" *ngIf="onLoginForm.get('mobileNum').touched && onLoginForm.get('mobileNum').hasError('required')">
+                    <p ion-text class="text08" *ngIf=" (formSubmitted ||onLoginForm.get('mobileNum').touched) && onLoginForm.get('mobileNum').hasError('required')">
                         <ion-text color="danger">
                             Required Field
                         </ion-text>
@@ -40,32 +40,40 @@
                             </ion-icon>
                         </div>
                     </ion-item>
-                    <p ion-text color="danger" class="text08" *ngIf="onLoginForm.get('password').touched && onLoginForm.get('password').hasError('required')">
+                    <p ion-text color="danger" class="text08" *ngIf="( formSubmitted || onLoginForm.get('password').touched) && onLoginForm.get('password').hasError('required')">
                         <ion-text color="danger">
                             Required Field
                         </ion-text>
                     </p>
+
+                    <p text-right tappable (click)="forgotPass()" class="paz">
+                        <ion-text color="dark">
+                            <strong>Forgot Password?</strong>
+                        </ion-text>
+                    </p>
+
+                    <div>
+                        <ion-button type="submit" icon-left size="medium" expand="full" shape="round" color="warning"  tappable>
+                            <ion-icon name="log-in"></ion-icon>
+                            Signin
+                        </ion-button>
+                    </div>
                 </form>
-
-                <p text-right tappable (click)="forgotPass()" class="paz">
-                    <ion-text color="dark">
-                        <strong>Forgot Password?</strong>
-                    </ion-text>
-                </p>
-
-                <div>
-                    <ion-button icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToHome()" [disabled]="!onLoginForm.valid" tappable>
-                        <ion-icon name="log-in"></ion-icon>
-                        Signin
-                    </ion-button>
-                </div>
-                
-                    <ion-chip color="warning-msg"   *ngIf="invalidpassword">
+                                
+                  <ion-chip color="warning-msg"  *ngIf="( formSubmitted || onLoginForm.get('mobileNum').touched )&& onLoginForm.get('mobileNum').hasError('required')">
                     <ion-icon color="danger" name="warning"></ion-icon>     
                     <ion-label color="danger">
-                        Incorrect Password
+                        Please provide valid mobile phone number and password to sign-In.
                       </ion-label>
-                  </ion-chip>   
+                  </ion-chip>
+
+                  <ion-chip color="warning-msg"   *ngIf="invalidpassword">
+                    <ion-icon color="danger" name="warning"></ion-icon>     
+                    <ion-label color="danger">
+                        The mobile phone number or password you entered was incorrect - please try again.
+                      </ion-label>
+                  </ion-chip>
+
                 
                 <!-- Other links -->
                 <div text-center margin-top>

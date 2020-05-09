@@ -7,7 +7,7 @@
         --background: transparent;
         // transform: translate3d(0, 200px, 0);
     }
-}
+
 
 .paz {
     position: relative;
@@ -36,7 +36,18 @@ p.sub-text {
 .signup-msg {
     color: #662d91;
 }
-
+.language_btn {
+    margin: 20px 0;
+    text-align: center;
+    ion-select {
+        color: #444;
+        border: 1px solid #662d91;
+        margin-top: 5px;
+    }
+}
+.otp-form {
+    margin: 20px 0;
+}
 .otp-time-text {
     color: #50048a;
     font-weight: 600;
@@ -57,4 +68,6 @@ p.sub-text {
         font-size: 16px;
         margin: 0 0 5px;
     }
+}
+
 }
