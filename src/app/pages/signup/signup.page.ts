@@ -234,7 +234,7 @@ pauseTimer() {
         if (this.onOtpForm.invalid) {
         return;
     }      
-    this.loading.present();    
+    this.loading.then( loading => loading.present());
     this.storage.get('mobilenumber').then((val) => {
       console.log('Your mobilenumber is', val);     
       var mobilenumber = val;
@@ -242,7 +242,7 @@ pauseTimer() {
       this.SignUpService.otpauth(OTP,val)
       .subscribe(      
           (data) => {  
-            this.loading.dismiss();           
+            this.loading.then( loading => loading.dismiss());       
           if (data && data.status == "SUCCESS" ){
             this.navCtrl.navigateRoot('/register-agency');           
               this.showErr = false;
@@ -257,7 +257,7 @@ pauseTimer() {
                  position: 'bottom'
                }).then(toast => toast.present())  
       }},  err => {
-        console.log("google");
+        this.loading.then( loading => loading.dismiss());
         this.toastCtrl.create({
         showCloseButton: true,
         message: 'Connection failed! try again',

@@ -75,7 +75,7 @@ export class RegisterAgencyPage implements OnInit {
     if (this.onAgencyRegistrationForm.invalid) {
         return;
     }   
-    this.loading.present();
+    this.loading.then( loading => loading.present());
     this.Storage.get('accountid').then((val) => {
       console.log('Your accountid is', val);    
       var AgencyName = this.onAgencyRegistrationForm.value.agencyName;
@@ -88,7 +88,7 @@ export class RegisterAgencyPage implements OnInit {
       this.RegisterService.registeragency(AgencyName,AgencyRegisterationNumber,ContactName,Region,email,accountid)
       .subscribe(      
         (response) => { 
-          this.loading.dismiss();            
+          this.loading.then( loading => loading.dismiss());         
         if (response && response.status =="SUCCESS" ){
           this.navCtrl.navigateRoot('/create-password');
           console.log(response);    
@@ -103,7 +103,7 @@ export class RegisterAgencyPage implements OnInit {
           }).then(toast => toast.present())  
         }           
       },   err => {
-        this.loading.dismiss();
+        this.loading.then( loading => loading.dismiss());
         this.toastCtrl.create({
         showCloseButton: true,
         message: 'Connection failed! try again',
