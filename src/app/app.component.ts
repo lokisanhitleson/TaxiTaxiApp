@@ -133,7 +133,7 @@ lang:any;
     await alert.present();
   }
   ngOnInit(){
-    this.presentAlertConfirm();
+    // this.presentAlertConfirm();
   }
 
   goToEditProgile() {

@@ -26,6 +26,8 @@ export class SignupPage implements OnInit {
   resendOtpEnable: boolean;
   formSubmitted:boolean;
 
+  loading;
+
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -38,6 +40,7 @@ export class SignupPage implements OnInit {
     public translate: TranslateService, 
     public TranslateModule : TranslateModule
   ) {
+    this.loading = this.loadingCtrl.create()
     this.lang = 'en';
     this.translate.setDefaultLang('en');
     this.translate.use('en');
@@ -208,9 +211,21 @@ pauseTimer() {
               }
             else {
                 this.accountcreated = 'Account Creation Failed';
+                if(!data)
+                  this.toastCtrl.create({
+                    showCloseButton: true,
+                    message: 'Connection failed! try again',
+                    duration: 3000,
+                    position: 'bottom'
+                  }).then(toast => toast.present())  
             } 
       },
-       error => console.log(error)
+       error => this.toastCtrl.create({
+        showCloseButton: true,
+        message: 'Connection failed! try again',
+        duration: 3000,
+        position: 'bottom'
+      }).then(toast => toast.present())
     );       
   }
  
@@ -219,20 +234,37 @@ pauseTimer() {
         if (this.onOtpForm.invalid) {
         return;
     }      
+    this.loading.present();    
     this.storage.get('mobilenumber').then((val) => {
       console.log('Your mobilenumber is', val);     
       var mobilenumber = val;
       var OTP = this.otp;
       this.SignUpService.otpauth(OTP,val)
       .subscribe(      
-          (data) => {             
+          (data) => {  
+            this.loading.dismiss();           
           if (data && data.status == "SUCCESS" ){
             this.navCtrl.navigateRoot('/register-agency');           
               this.showErr = false;
       }     
       else {       
              this.showErr = true ;
-      }},       
+             if(!data)
+               this.toastCtrl.create({
+                 showCloseButton: true,
+                 message: 'Connection failed! try again',
+                 duration: 3000,
+                 position: 'bottom'
+               }).then(toast => toast.present())  
+      }},  err => {
+        console.log("google");
+        this.toastCtrl.create({
+        showCloseButton: true,
+        message: 'Connection failed! try again',
+        duration: 3000,
+        position: 'bottom'
+      }).then(toast => toast.present())    
+    } 
     );
   });
   }

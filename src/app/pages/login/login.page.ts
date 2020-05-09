@@ -14,6 +14,9 @@ export class LoginPage implements OnInit {
   isTextFieldType: boolean;
   invalidpassword : boolean;
   formSubmitted :boolean;
+
+  loading;
+
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -25,6 +28,7 @@ export class LoginPage implements OnInit {
     private sharedService: SharedService,
     private authService: AuthService
   ) {
+   this.loading = this.loadingCtrl.create();
     console.log(this.authService.isLoggedIn());
     if (this.authService.isLoggedIn())
       this.navCtrl.navigateRoot('/home/tabs/home-results');
@@ -103,20 +107,22 @@ export class LoginPage implements OnInit {
   goToSignup() {
     this.navCtrl.navigateRoot('/signup');
   }
-  goToHome() {         
+  goToHome() {
     
     this.formSubmitted = true;
     console.log(this.onLoginForm);
     if (this.onLoginForm.invalid) {
         return;
     }   
-    var mobilenum =this.onLoginForm.value.mobileNum;
+    this.loading.then( loading => loading.present());
+    var mobilenum = this.onLoginForm.value.mobileNum;
     var password = this.onLoginForm.value.password;
      console.log(mobilenum,password );
 
      this.authService.login(mobilenum,password)  
      .subscribe(      
       (response) => { 
+        this.loading.then( loading => loading.dismiss());
        
         if (response && response.status === "SUCCESS"){
           this.sharedService.changeLoginCheck(this.authService.isLoggedIn());
@@ -124,16 +130,31 @@ export class LoginPage implements OnInit {
           console.log("true");
           this.navCtrl.navigateRoot('/home/tabs/home-results');
         }
-        else {
-                console.log("error");            
+        else {         
               this.invalidpassword = true;
+              console.log(response)
+              if(!response) {
+                this.toastCtrl.create({
+                  showCloseButton: true,
+                  message: 'Connection failed! try again',
+                  duration: 3000,
+                  position: 'bottom'
+                }).then(toast => toast.present())  
+              }
         }      
-      }, err => {
+      }, async err => {
+        this.loading.then( loading => loading.dismiss());
+        let toast = await this.toastCtrl.create({
+          showCloseButton: true,
+          message: 'Connection failed! try again',
+          duration: 3000,
+          position: 'bottom'
+        });
+        toast.present();
 
-        console.log("error");            
-        this.invalidpassword = true;
       }      
      );
   }
+
 
 }

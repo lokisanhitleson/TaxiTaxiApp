@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController, MenuController, LoadingController, AlertController, ModalController } from '@ionic/angular';
+import { NavController, MenuController, LoadingController, AlertController, ModalController, ToastController } from '@ionic/angular';
 import { PasswordService } from './create-passwordservice'
 import { Storage } from '@ionic/storage';
 import { CustomValidators } from './password-validators';
@@ -17,6 +17,9 @@ export class CreatePasswordPage implements OnInit {
   isTextFieldType: boolean;
   incorrectpassword : boolean;
   formSubmitted:boolean;
+
+  loading;
+
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -27,8 +30,11 @@ export class CreatePasswordPage implements OnInit {
     public Storage:Storage,
     public translate: TranslateService, 
     public TranslateModule : TranslateModule,
+    public toastCtrl: ToastController,
     public modalCtrl: ModalController
-  ) { }
+  ) {
+   this.loading = this.loadingCtrl.create();
+  }
 
   togglePasswordFieldType(){
     this.isTextFieldType = !this.isTextFieldType;
@@ -130,23 +136,39 @@ export class CreatePasswordPage implements OnInit {
         this.incorrectpassword = true;     
       }
      else {
+        this.loading.present();
         this.incorrectpassword = false;
         this.Storage.get('accountid').then((val) => {//ionicstorage 
         console.log('Your accountid is', val);    
         var accountid = val;
         this.PasswordService.createpassword(crp,accountid)
           .subscribe(      
-              (response) => {                    
-                if (response.status == "SUCCESS" ){          
+              (response) => {       
+                this.loading.dismiss();             
+                if (response && response.status == "SUCCESS" ){          
                   this.incorrectpassword = false;
                   this.openWelcomeModal();
                   this.navCtrl.navigateRoot('/home');
                 }       
                 else {
-                  this.incorrectpassword = true;                      
+                  this.incorrectpassword = true;   
+                  if(!response)
+                    this.toastCtrl.create({
+                      showCloseButton: true,
+                      message: 'Connection failed! try again',
+                      duration: 3000,
+                      position: 'bottom'
+                    }).then(toast => toast.present())                     
                 }      
               },       
-              function(error) { 
+              (error) => { 
+                this.loading.dismiss();  
+                this.toastCtrl.create({
+                  showCloseButton: true,
+                  message: 'Connection failed! try again',
+                  duration: 3000,
+                  position: 'bottom'
+                }).then(toast => toast.present());
             },  
           );
       });  

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController, MenuController, LoadingController,AlertController } from '@ionic/angular';
+import { NavController, MenuController, LoadingController,AlertController, ToastController } from '@ionic/angular';
 import {RegisterService} from "./register.service";
 import { Storage } from '@ionic/storage';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -13,6 +13,9 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 export class RegisterAgencyPage implements OnInit {
   public onAgencyRegistrationForm: FormGroup;
   formSubmitted :boolean;
+
+  loading;
+
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -22,8 +25,11 @@ export class RegisterAgencyPage implements OnInit {
     public RegisterService:RegisterService,
     public Storage:Storage,
     public translate: TranslateService, 
+    public toastCtrl: ToastController,
     public TranslateModule: TranslateModule
-  ) { }
+  ) {
+    this.loading = this.loadingCtrl.create()
+  }
 
 
   ionViewWillEnter() {
@@ -69,7 +75,7 @@ export class RegisterAgencyPage implements OnInit {
     if (this.onAgencyRegistrationForm.invalid) {
         return;
     }   
-    // this.navCtrl.navigateRoot('/create-password');
+    this.loading.present();
     this.Storage.get('accountid').then((val) => {
       console.log('Your accountid is', val);    
       var AgencyName = this.onAgencyRegistrationForm.value.agencyName;
@@ -81,12 +87,30 @@ export class RegisterAgencyPage implements OnInit {
       console.log(AgencyName,AgencyRegisterationNumber,ContactName,Region,email,accountid);
       this.RegisterService.registeragency(AgencyName,AgencyRegisterationNumber,ContactName,Region,email,accountid)
       .subscribe(      
-        (response) => {             
-        if (response.status =="SUCCESS" ){
+        (response) => { 
+          this.loading.dismiss();            
+        if (response && response.status =="SUCCESS" ){
           this.navCtrl.navigateRoot('/create-password');
           console.log(response);    
-        }            
-      },   
+        }  else {
+          
+          if(!response)
+          this.toastCtrl.create({
+            showCloseButton: true,
+            message: 'Connection failed! try again',
+            duration: 3000,
+            position: 'bottom'
+          }).then(toast => toast.present())  
+        }           
+      },   err => {
+        this.loading.dismiss();
+        this.toastCtrl.create({
+        showCloseButton: true,
+        message: 'Connection failed! try again',
+        duration: 3000,
+        position: 'bottom'
+      }).then(toast => toast.present()) 
+    }
       );
     });
   }
