@@ -67,13 +67,15 @@
     </ion-title> -->
     <ion-grid>
         <ion-row>
-            <ion-col size="4" *ngFor="let count of vehicles ">
+            <ion-col size="6" *ngFor="let count of vehicles ">
                 <div class="vehicle-card animated bounceInUp">
                     <ion-card class="bg-white ion-text-center ">
                         <img [src]="count.img" (click)="goToCars()">
-                        <ion-text class="count-text" color="primary">
-                            {{count.num}}
-                        </ion-text>
+                        <div class="count-text">
+                            <ion-text color="dark">
+                                {{count.num}}
+                            </ion-text>
+                        </div>
                     </ion-card>
                 </div>
             </ion-col>

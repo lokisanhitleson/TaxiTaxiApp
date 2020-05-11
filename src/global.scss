@@ -280,3 +280,27 @@
             height: 20px!important;
         }
     }
+    
+    .font-ta {
+        font-family: 'MuktaMalar-Regular'!important;
+    }
+    
+    .home-header-text {
+        .font-ta {
+            font-size: 1.2rem!important;
+        }
+    }
+    
+    ion-tabs {
+        .font-ta {
+            ion-tab-button {
+                font-size: 0.8rem!important;
+            }
+        }
+    }
+    
+    .warning-msg {
+        .font-ta {
+            font-size: 1rem!important;
+        }
+    }

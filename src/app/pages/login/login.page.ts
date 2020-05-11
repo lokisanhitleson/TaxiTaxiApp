@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, MenuController, ToastController, AlertController, LoadingController } from '@ionic/angular';
-import { LoginService} from './login.service';
+import { LoginService } from './login.service';
 import { AuthService } from '../services/auth.service';
 import { SharedService } from '../sharedService/shared.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +14,10 @@ import { SharedService } from '../sharedService/shared.service';
 export class LoginPage implements OnInit {
   public onLoginForm: FormGroup;
   isTextFieldType: boolean;
-  invalidpassword : boolean;
-  mobileNumErr :boolean;
-  passwordErr :boolean;
-  formSubmitted :boolean;
+  invalidpassword: boolean;
+  mobileNumErr: boolean;
+  passwordErr: boolean;
+  formSubmitted: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -27,14 +28,16 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private loginService: LoginService,
     private sharedService: SharedService,
-    private authService: AuthService
+    private authService: AuthService,
+    public translate: TranslateService,
+    public TranslateModule: TranslateModule
   ) {
     console.log(this.authService.isLoggedIn());
     if (this.authService.isLoggedIn())
       this.navCtrl.navigateRoot('/home/tabs/home-results');
   }
 
-  togglePasswordFieldType(){
+  togglePasswordFieldType() {
     this.isTextFieldType = !this.isTextFieldType;
   }
   ionViewWillEnter() {
@@ -50,7 +53,7 @@ export class LoginPage implements OnInit {
       ])],
       'password': [null, Validators.compose([
         Validators.required
-      ])],     
+      ])],
     });
   }
 
@@ -58,7 +61,7 @@ export class LoginPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Forgot Password?',
       message: 'Enter registered mobile number to reset password.',
-      cssClass:'forgotPasswordAlert',
+      cssClass: 'forgotPasswordAlert',
       inputs: [
         {
           name: 'mobileNum',
@@ -81,8 +84,8 @@ export class LoginPage implements OnInit {
             const loader = await this.loadingCtrl.create({
               duration: 2000
             });
-           console.log(this)
-            
+            console.log(this)
+
 
             loader.present();
             loader.onWillDismiss().then(async l => {
@@ -104,63 +107,63 @@ export class LoginPage implements OnInit {
   }
 
   typeChange(field) {
-    if(field === "mobileNum")
+    if (field === "mobileNum")
       this.mobileNumErr = false;
     this.passwordErr = false;
   }
- 
+
   goToSignup() {
     this.navCtrl.navigateRoot('/signup');
   }
   goToHome() {
-    
+
     this.formSubmitted = true;
     console.log(this.onLoginForm);
     if (this.onLoginForm.invalid) {
-        return;
-    }   
+      return;
+    }
     const loading = this.loadingCtrl.create();
-    loading.then( loading => loading.present());
+    loading.then(loading => loading.present());
     var mobilenum = this.onLoginForm.value.mobileNum;
     var password = this.onLoginForm.value.password;
-     console.log(mobilenum,password );
+    console.log(mobilenum, password);
 
-     this.authService.login(mobilenum,password)
-     .subscribe(
-      (response) => {
-        loading.then( loading => loading.dismiss());
-       
-        if (response && response.status === "SUCCESS"){
-          this.sharedService.changeLoginCheck(this.authService.isLoggedIn());
-          this.mobileNumErr = false;
-          this.passwordErr = false;
-          this.navCtrl.navigateRoot('/home/tabs/home-results');
-        } else {
-              if(response) {
-                if(response.data.username)
-                  this.mobileNumErr = true;
-                else if(response.data.password)
-                  this.passwordErr = true;
-              } else
-                this.toastCtrl.create({
-                  showCloseButton: true,
-                  message: 'Connection failed! try again',
-                  duration: 3000,
-                  position: 'bottom'
-                }).then(toast => toast.present());
-        }      
-      }, async err => {
-        loading.then( loading => loading.dismiss());
-        let toast = await this.toastCtrl.create({
-          showCloseButton: true,
-          message: 'Connection failed! try again',
-          duration: 3000,
-          position: 'bottom'
-        });
-        toast.present();
+    this.authService.login(mobilenum, password)
+      .subscribe(
+        (response) => {
+          loading.then(loading => loading.dismiss());
 
-      }      
-     );
+          if (response && response.status === "SUCCESS") {
+            this.sharedService.changeLoginCheck(this.authService.isLoggedIn());
+            this.mobileNumErr = false;
+            this.passwordErr = false;
+            this.navCtrl.navigateRoot('/home/tabs/home-results');
+          } else {
+            if (response) {
+              if (response.data.username)
+                this.mobileNumErr = true;
+              else if (response.data.password)
+                this.passwordErr = true;
+            } else
+              this.toastCtrl.create({
+                showCloseButton: true,
+                message: 'Connection failed! try again',
+                duration: 3000,
+                position: 'bottom'
+              }).then(toast => toast.present());
+          }
+        }, async err => {
+          loading.then(loading => loading.dismiss());
+          let toast = await this.toastCtrl.create({
+            showCloseButton: true,
+            message: 'Connection failed! try again',
+            duration: 3000,
+            position: 'bottom'
+          });
+          toast.present();
+
+        }
+      );
   }
 
 

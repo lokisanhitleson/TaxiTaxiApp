@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { Pages } from './interfaces/pages';
-import { TranslateModule,TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from './pages/services/auth.service';
 import { SharedService } from './pages/sharedService/shared.service';
 
@@ -18,72 +18,72 @@ export class AppComponent implements OnInit {
 
   public appPages: Array<Pages>;
 
-pages = [
-  {
-        title: 'SIDE_MENU_ITEMS.HOME',
-        url: '/home/tabs/home-results',
-        direct: 'root',
-        icon: 'icon-home'
-      },
-      {
-        title: 'SIDE_MENU_ITEMS.MY_VEHICLES',
-        url: '/my-vehicle-list',
-        direct: 'forward',
-        icon: 'icon-steering-wheel'
-      },
-      {
-        title: 'SIDE_MENU_ITEMS.ASK_VEHICLE',
-        url: '/home/tabs/request-vehicle',
-        direct: 'forward',
-        icon: 'icon-car-front'
-      },
-      {
-        title: 'SIDE_MENU_ITEMS.VIEW_REQUEST',
-        url: '/home/tabs/view-request',
-        direct: 'forward',
-        icon: 'icon-bell'
-      },
-      {
-        title: 'SIDE_MENU_ITEMS.APP_SETTINGS',
-        url: '/home/tabs/home-results',
-        direct: 'forward',
-        icon: 'icon-cog'
-      },
-      {
-        title: 'SIDE_MENU_ITEMS.HELP_MENU',
-        url: '/home/tabs/home-results',
-        direct: 'forward',
-        icon: 'icon-help'
-      },
-      {
-        title: 'SIDE_MENU_ITEMS.SIGN_OUT',
-        url: '/login',
-        direct: 'forward',
-        icon: 'icon-exit'
-      },
-  {
-    title:'COMMON.LANGUAGES',
-    children: [
-      {
-        title:'English',
-          value:'en'
-      },
-      {
-        title:'தமிழ்',
-          value:'ta'
-      }
-    ]
-  }
-]
+  pages = [
+    {
+      title: 'SIDE_MENU_ITEMS.HOME',
+      url: '/home/tabs/home-results',
+      direct: 'root',
+      icon: 'icon-home'
+    },
+    {
+      title: 'SIDE_MENU_ITEMS.MY_VEHICLES',
+      url: '/my-vehicle-list',
+      direct: 'forward',
+      icon: 'icon-steering-wheel'
+    },
+    {
+      title: 'SIDE_MENU_ITEMS.ASK_VEHICLE',
+      url: '/home/tabs/request-vehicle',
+      direct: 'forward',
+      icon: 'icon-car-front'
+    },
+    {
+      title: 'SIDE_MENU_ITEMS.VIEW_REQUEST',
+      url: '/home/tabs/view-request',
+      direct: 'forward',
+      icon: 'icon-bell'
+    },
+    {
+      title: 'SIDE_MENU_ITEMS.APP_SETTINGS',
+      url: '/home/tabs/home-results',
+      direct: 'forward',
+      icon: 'icon-cog'
+    },
+    {
+      title: 'SIDE_MENU_ITEMS.HELP_MENU',
+      url: '/home/tabs/home-results',
+      direct: 'forward',
+      icon: 'icon-help'
+    },
+    {
+      title: 'SIDE_MENU_ITEMS.SIGN_OUT',
+      url: '/login',
+      direct: 'forward',
+      icon: 'icon-exit'
+    },
+    {
+      title: 'COMMON.LANGUAGES',
+      children: [
+        {
+          title: 'English',
+          value: 'en'
+        },
+        {
+          title: 'தமிழ்',
+          value: 'ta'
+        }
+      ]
+    }
+  ]
 
-lang:any;
+  lang: any;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public navCtrl: NavController,
-    public translate: TranslateService, 
-    public TranslateModule : TranslateModule,
+    public translate: TranslateService,
+    public TranslateModule: TranslateModule,
     public alertController: AlertController,
     private authService: AuthService,
     private sharedService: SharedService
@@ -100,18 +100,26 @@ lang:any;
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    }).catch(() => {});
+      // let status bar overlay webview
+      this.statusBar.overlaysWebView(false);
+      // set status bar to black
+      this.statusBar.backgroundColorByHexString('#662d91');
+      this.statusBar.styleLightContent();
+
+      // this.statusBar.styleDefault();
+      setTimeout(() => {
+        this.splashScreen.hide();
+      }, 1000);
+    }).catch(() => { });
   }
 
-//App Update Alert
+  //App Update Alert
   async presentAlertConfirm() {
     const alert = await this.alertController.create({
       header: 'Update getRide!',
-      cssClass:'AppUpdateAlert',
+      cssClass: 'AppUpdateAlert',
       message: "This app won't run unless you update.",
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: [
         {
           text: 'Cancel',
@@ -132,7 +140,7 @@ lang:any;
 
     await alert.present();
   }
-  ngOnInit(){
+  ngOnInit() {
     // this.presentAlertConfirm();
   }
 

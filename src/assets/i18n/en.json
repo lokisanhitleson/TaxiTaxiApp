@@ -21,14 +21,16 @@
 
     },
     "PLACEHOLDER_MSG": {
-        "MOBILE_NUMBER": "Enter Mobile Number"
+        "MOBILE_NUMBER": "Enter Mobile Number",
+        "PASSWORD": "Password"
     },
     "LOGIN_ITEMS": {
         "WELCOME_TITLE": "Welcome",
         "WELCOME_SUB_MESSAGE": "Thank you for choosing us!",
         "OTP_BUTTON_TEXT": "Get OTP",
         "ALREADY_USER": "Already User?",
-        "SIGN_IN": "Sign In",
+        "SIGN_IN": "Sign in",
+        "SIGN_UP": "Sign up",
         "OTP_INSTRUCTION_MSG": "OTP has been sent to your registered mobile number Please enter the OTP in the field below!",
         "OTP_VERIFY_BUTTON_TEXT": "Verify",
         "OTP_RESEND_MSG": "If you didn't receive OTP",
@@ -51,7 +53,8 @@
         "CONTACT_NAME": "Contact Name",
         "EMAIL": "E-Mail",
         "REGION": "Region",
-        "TERMS_AND_CONDITIONS": "I accept Terms and Conditions"
+        "TERMS_AND_CONDITIONS": "I accept Terms and Conditions",
+        "NEW_USER": "New user"
 
     },
     "SIDE_MENU_ITEMS": {
@@ -85,5 +88,17 @@
         "AGENCY_INFORMATION": "Agency Information",
         "AGENT_PROFILE": "Agent Profile"
 
+    },
+    "ERROR_MSG": {
+        "VALID_MOBILE_NUMBER": "Enter valid mobile number",
+        "ENTER_MOBILE_NUMBER": "Please enter mobile number",
+        "INVALID_MOBILE_NUMBER": "Invalid mobile number",
+        "INVALID_PASSWORD": "Invalid passsword",
+        "MOBILE_NUMBER_EXIST": "Mobile number already exit",
+        "VALID_OTP": "Please Enter valid OTP",
+        "OTP_SENT": "OTP has been sent",
+        "INVALID_OTP": "Incorrect OTP",
+        "PASSWORD_REQUIRED": "Password required",
+        "ACCOUNT_NOT_EXIST": "Account not exist"
     }
 }
