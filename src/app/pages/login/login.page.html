@@ -21,7 +21,7 @@
                     </ion-item>
                     <p ion-text class="text08" *ngIf=" (formSubmitted ||onLoginForm.get('mobileNum').touched) && onLoginForm.get('mobileNum').hasError('required')">
                         <ion-text color="danger">
-                            Required Field
+                            Mobile number is requried
                         </ion-text>
                     </p>
                     <!-- <p ion-text class="text08" *ngIf="onLoginForm.get('mobileNum').touched && onLoginForm.get('mobileNum').hasError('pattern')">
@@ -42,7 +42,7 @@
                     </ion-item>
                     <p ion-text color="danger" class="text08" *ngIf="( formSubmitted || onLoginForm.get('password').touched) && onLoginForm.get('password').hasError('required')">
                         <ion-text color="danger">
-                            Required Field
+                            password is required
                         </ion-text>
                     </p>
 
@@ -70,7 +70,7 @@
                   <ion-chip color="warning-msg"   *ngIf="invalidpassword">
                     <ion-icon color="danger" name="warning"></ion-icon>     
                     <ion-label color="danger">
-                        The mobile phone number or password you entered was incorrect - please try again.
+                        The mobile number entered or password entered is incorrect - please try again
                       </ion-label>
                   </ion-chip>
 

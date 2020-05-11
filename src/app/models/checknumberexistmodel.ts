@@ -1,6 +1,6 @@
 export class checkExistnumber {
 
-    accounId : number;
+    accountId : number;
     mobileNo : number;
     email : string;
     roleId : any;

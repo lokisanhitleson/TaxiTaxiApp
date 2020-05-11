@@ -14,7 +14,8 @@
             </p>
         </div>
         <!-- otp form -->
-     
+        <ion-card color="light" class="ion-padding ion-no-margin">
+            <ion-card-content class="ion-no-padding">
         <form [formGroup]="onOtpForm" *ngIf="showOtp" class="animated fadeIn">
             <div class="ion-text-center otp-form">
                 <p class="a-o-i">Enter verification code</p>
@@ -42,20 +43,21 @@
             </div>
         </form>
 
-        <div class="ion-padding-top">
-                       <ion-chip color="warning-msg" *ngIf="showErr">
+        <div class="ion-padding-top">                   
+            <ion-button *ngIf="showOtp" icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToCreatePassword()" [disabled]="!onOtpForm.valid" tappable>
+                <ion-icon name="log-in"></ion-icon>
+                Verify
+            </ion-button>            
+            <ion-chip color="warning-msg" *ngIf="showErr">
                 <ion-icon color="danger" name="warning"></ion-icon>     
                 <ion-label color="danger">
                     Incorrect OTP
                   </ion-label>
                 
-              </ion-chip>    
-            <ion-button *ngIf="showOtp" icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToCreatePassword()" [disabled]="!onOtpForm.valid" tappable>
-                <ion-icon name="log-in"></ion-icon>
-                Verify
-            </ion-button>                  
+              </ion-chip>      
         </div>
-
+    </ion-card-content>
+</ion-card> 
         <!-- <h4 class="ion-text-center signup-msg">getRide works only with carefully selected licensed drivers!</h4> -->
     </div>
 </ion-content>

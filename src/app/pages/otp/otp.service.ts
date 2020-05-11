@@ -17,7 +17,7 @@ export class OtpService{
     constructor(private http: HttpClient) {}
     
     otpauth(OTP,val) {
-        return this.http.post<{  data : { id: number }, status: string }>(`${ENVIRONMENT.apiUrl}OTPAuth`, {"mobileNo":val,"otp":OTP} ,httpOptions)
+        return this.http.post<{  data : { id: number }, status: string }>(`${ENVIRONMENT.apiUrl}passotpauth`, {"mobileNo":val,"otp":OTP} ,httpOptions)
           .pipe(
             tap(_ => console.log('OTP Authentication', _)),
             catchError(this.handleError<{  data : { id: number }, status: string }>('authentication error'))
@@ -26,7 +26,7 @@ export class OtpService{
 
 
     otpresend(resendOtpNumber) {
-            return this.http.post<{  data : { response : number }, status: string }>(`${ENVIRONMENT.apiUrl}OTPResend`, {"mobileNo":resendOtpNumber} ,httpOptions)
+            return this.http.post<{  data : { response : number }, status: string }>(`${ENVIRONMENT.apiUrl}passresendotp`, {"mobileNo":resendOtpNumber} ,httpOptions)
               .pipe(
                 tap(_ => console.log('OTP Authentication', _)),
                 catchError(this.handleError<{  data : { response: number }, status: string }>('resend OTP Error'))

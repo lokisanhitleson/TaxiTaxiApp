@@ -4,6 +4,7 @@ import { NavController, MenuController, ToastController, AlertController, Loadin
 import { LoginService} from './login.service';
 import { AuthService } from '../services/auth.service';
 import { SharedService } from '../sharedService/shared.service';
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -14,6 +15,7 @@ export class LoginPage implements OnInit {
   isTextFieldType: boolean;
   invalidpassword : boolean;
   formSubmitted :boolean;
+  exist:boolean;
 
   loading;
 
@@ -26,6 +28,7 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private loginService: LoginService,
     private sharedService: SharedService,
+    private storage: Storage,
     private authService: AuthService
   ) {
    this.loading = this.loadingCtrl.create();
@@ -64,6 +67,7 @@ export class LoginPage implements OnInit {
           name: 'mobileNum',
           type: 'number',
           placeholder: 'Enter Mobile Number'
+           //this.ismobbilenumberunique.bind(this)
         }
       ],
       buttons: [
@@ -76,30 +80,34 @@ export class LoginPage implements OnInit {
           }
         }, {
           text: 'Confirm',
-          cssClass: 'primary',
-          handler: async () => {
-            const loader = await this.loadingCtrl.create({
-              duration: 2000
-            });
-           console.log(this)
-            
-
-            loader.present();
-            loader.onWillDismiss().then(async l => {
-              const toast = await this.toastCtrl.create({
-                showCloseButton: true,
-                message: 'Verfication SMS sent to your mobile number.',
-                duration: 3000,
-                position: 'bottom'
-              });
-
-              toast.present();
+          cssClass: 'primary',          
+          handler: value => {    
+          this.loginService.CheckExists({ value: value.mobileNum }).subscribe(data => {
+              if (!data || (data && (data.status != "SUCCESS" || data.data.length < 1 ))) {
+                this.toastCtrl.create({
+                  showCloseButton: true,
+                  message: 'Mobile Number Does Not Exist failed! Try Again',
+                  duration: 3000,
+                  position: 'bottom'
+                }).then(toast => toast.present())  
+                } 
+              else {
+                  var mobileNumber =value.mobileNum;
+                  this.storage.set('forgetPassNum', mobileNumber);
+                  this.storage.set('accountid', data.data[0].accountId);
+                  this.loginService.forgetpassword(mobileNumber)
+                  .subscribe(
+                    data => {
+                        if (data && data.status == "SUCCESS") {
+                          this.navCtrl.navigateRoot('/otp');
+                          }   
+                    });
+              }
             });
           }
         }
       ]
     });
-
     await alert.present();
   }
 
