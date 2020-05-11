@@ -5,10 +5,10 @@
         <!-- Logo -->
         <div padding-horizontal text-center class="center-content">
             <div class="logo"></div>
-            <p class="sub-text" *ngIf="!showOtp">
+            <p class="sub-text" [ngClass]="translate.currentLang?'font-'+translate.currentLang:''" *ngIf="!showOtp">
                 {{'LOGIN_ITEMS.WELCOME_SUB_MESSAGE' | translate}}
             </p>
-            <p class="sub-text ion-text-center" *ngIf="showOtp">
+            <p class="sub-text ion-text-center" [ngClass]="translate.currentLang?'font-'+translate.currentLang:''" *ngIf="showOtp">
                 {{'LOGIN_ITEMS.OTP_INSTRUCTION_MSG' | translate}}
             </p>
         </div>
@@ -18,55 +18,52 @@
                 <!-- Login form -->
                 <form [formGroup]="onSignUpForm" class="list-form" *ngIf="!showOtp">
                     <ion-item no-padding class="animated fadeInUp">
-                        <ion-label position="floating">
+                        <ion-label position="floating" [ngClass]="translate.currentLang?'font-'+translate.currentLang:''">
                             <ion-icon name="phone-portrait" item-start></ion-icon>
                             {{'PLACEHOLDER_MSG.MOBILE_NUMBER' | translate}}
                         </ion-label>
                         <ion-input type="number" maxlength="10" formControlName="mobileNumber" [disabled]="showOtp"></ion-input>
                     </ion-item>
-                    <ion-chip color="warning-msg" *ngIf="exist && !onSignUpForm.get('mobileNumber').hasError('required') && !onSignUpForm.get('mobileNumber').hasError('pattern') ">
-                        <ion-icon color="danger" name="warning"></ion-icon>     
+                    <ion-chip class="warning-msg" *ngIf="exist && !onSignUpForm.get('mobileNumber').hasError('required') && !onSignUpForm.get('mobileNumber').hasError('pattern') ">
                         <ion-label color="danger">
-                            Mobile number alerady exist
-                          </ion-label>
-                      </ion-chip> 
-                    <ion-chip color="warning-msg"*ngIf="onSignUpForm.get('mobileNumber').dirty && onSignUpForm.get('mobileNumber').hasError('pattern')">
-                        <ion-icon color="danger" name="warning"></ion-icon>     
+                            {{'ERROR_MSG.MOBILE_NUMBER_EXIST' | translate}}
+                        </ion-label>
+                    </ion-chip>
+                    <ion-chip class="warning-msg" *ngIf="onSignUpForm.get('mobileNumber').dirty && onSignUpForm.get('mobileNumber').hasError('pattern')">
                         <ion-label color="danger">
-                            This isn't a valid mobile phone number. Please try again.
-                          </ion-label>
-                      </ion-chip>    
-                      <ion-chip color="warning-msg"*ngIf="(formSubmitted ||onSignUpForm.get('mobileNumber').dirty )&& onSignUpForm.get('mobileNumber').hasError('required')">
-                        <ion-icon color="danger" name="warning"></ion-icon>     
+                            {{'ERROR_MSG.INVALID_MOBILE_NUMBER' | translate}}
+                        </ion-label>
+                    </ion-chip>
+                    <ion-chip class="warning-msg" *ngIf="(formSubmitted ||onSignUpForm.get('mobileNumber').dirty )&& onSignUpForm.get('mobileNumber').hasError('required')">
                         <ion-label color="danger">
-                            Please enter a valid mobile phone number to proceed.
-                          </ion-label>
-                      </ion-chip>      
-                      <div class="ion-padding-top">
-                        <ion-button *ngIf="!showOtp" icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToOtp()"  tappable>
+                            {{'ERROR_MSG.VALID_MOBILE_NUMBER' | translate}}
+                        </ion-label>
+                    </ion-chip>
+                    <div class="ion-padding-top">
+                        <ion-button *ngIf="!showOtp" icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToOtp()" tappable>
                             <ion-icon name="log-in"></ion-icon>
                             Get OTP
                         </ion-button>
-                        </div> 
-                                                     
+                    </div>
+
                 </form>
                 <form [formGroup]="onOtpForm" *ngIf="showOtp" class="animated fadeIn">
                     <div class="ion-text-center otp-form">
                         <p class="a-o-i">Enter verification code</p>
                         <ng-otp-input formControlName="otp" ngDefaultControl (onInputChange)="onOtpChange($event)" [config]="{length:4}"></ng-otp-input>
-                     
-                        <ion-chip color="warning-msg"*ngIf="onOtpForm.get('otp').touched && onOtpForm.get('otp').hasError('required')">
-                            <ion-icon color="danger" name="warning"></ion-icon>     
+
+                        <ion-chip class="warning-msg" *ngIf="onOtpForm.get('otp').touched && onOtpForm.get('otp').hasError('required')">
+                            <ion-icon color="danger" name="warning"></ion-icon>
                             <ion-label color="danger">
-                                Enter valid OTP
-                              </ion-label>
-                          </ion-chip> 
-                          <ion-chip color="warning-msg"*ngIf="onOtpForm.get('otp').touched && onOtpForm.get('otp').otpresendmessage('required')">
-                            <ion-icon color="danger" name="warning"></ion-icon>     
+                                {{'ERROR_MSG.VALID_OTP' | translate}}
+                            </ion-label>
+                        </ion-chip>
+                        <ion-chip class="warning-msg" *ngIf="onOtpForm.get('otp').touched && onOtpForm.get('otp').otpresendmessage('required')">
+                            <ion-icon color="danger" name="warning"></ion-icon>
                             <ion-label color="danger">
-                                OTP has been send please check 
-                              </ion-label>
-                          </ion-chip>                                                                     
+                                {{'ERROR_MSG.OTP_SENT' | translate}}
+                            </ion-label>
+                        </ion-chip>
                     </div>
 
                     <p class="ion-text-center otp-time-text" *ngIf="timeLeft">{{timeLeft}} {{'COMMON.IN_SECONDS' | translate}}....</p>
@@ -78,17 +75,17 @@
                 </form>
 
                 <div class="ion-padding-top">
-                        <ion-chip color="warning-msg" *ngIf="showErr">
-                        <ion-icon color="danger" name="warning"></ion-icon>     
+                    <ion-chip class="warning-msg" *ngIf="showErr">
+                        <ion-icon color="danger" name="warning"></ion-icon>
                         <ion-label color="danger">
-                            Incorrect OTP
-                          </ion-label>
-                        
-                      </ion-chip>    
+                            {{'ERROR_MSG.INVALID_OTP' | translate}}
+                        </ion-label>
+
+                    </ion-chip>
                     <ion-button *ngIf="showOtp" icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToRegisterAgency()" tappable>
                         <ion-icon name="log-in"></ion-icon>
                         Verify
-                    </ion-button>                  
+                    </ion-button>
                 </div>
 
                 <!-- Other links -->
@@ -96,7 +93,9 @@
                     <span (click)="goToLogin()" class="paz" tappable>
                     <ion-text>
                 {{'LOGIN_ITEMS.ALREADY_USER' | translate}} 
-                <ion-text color="primary"><strong>{{'LOGIN_ITEMS.SIGN_IN' | translate}}</strong></ion-text>
+                <ion-text color="primary" [ngClass]="translate.currentLang?'font-'+translate.currentLang:''">
+                    <strong>{{'LOGIN_ITEMS.SIGN_IN' | translate}}</strong>
+                </ion-text>
                     </ion-text>
                     </span>
                 </div>

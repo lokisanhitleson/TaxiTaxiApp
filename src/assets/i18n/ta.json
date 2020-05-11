@@ -22,7 +22,8 @@
     },
 
     "PLACEHOLDER_MSG": {
-        "MOBILE_NUMBER": "மொபைல் எண்ணை பதிவிடவும்"
+        "MOBILE_NUMBER": "மொபைல் எண்ணை பதிவிடவும்",
+        "PASSWORD": "கடவுச்சொல்"
     },
     "LOGIN_ITEMS": {
         "WELCOME_TITLE": "வரவேற்கிறோம்!",
@@ -30,6 +31,7 @@
         "OTP_BUTTON_TEXT": "OTP பெறு",
         "ALREADY_USER": "ஏற்கனவே பயனர்?",
         "SIGN_IN": "உள்நுழைக",
+        "SIGN_UP": "பதிவுசெய்க",
         "OTP_INSTRUCTION_MSG": "உங்கள் மொபைல் எண்ணுக்கு OTP அனுப்பப்பட்டுள்ளது, தயவுசெய்து கீழே உள்ள புலத்தில் OTP ஐ உள்ளிடவும்!",
         "OTP_VERIFY_BUTTON_TEXT": "சரிபார்ப்பு",
         "OTP_RESEND_MSG": "நீங்கள் OTP ஐப் பெறவில்லை என்றால்",
@@ -52,7 +54,8 @@
         "CONTACT_NAME": "நபரின் பெயர்",
         "EMAIL": "மின்னஞ்சல்",
         "REGION": "பகுதி",
-        "TERMS_AND_CONDITIONS": "நிபந்தனை மற்றும் விதிமுறைகளை ஏற்றுக்கொள்கிறேன்."
+        "TERMS_AND_CONDITIONS": "நிபந்தனை மற்றும் விதிமுறைகளை ஏற்றுக்கொள்கிறேன்.",
+        "NEW_USER": "புதிய பயனர்"
 
     },
 
@@ -87,5 +90,17 @@
         "AGENCY_INFORMATION": "ஏஜென்சி முழு தகவல்",
         "AGENT_PROFILE": "ஏஜென்சி விவரம்"
 
+    },
+    "ERROR_MSG": {
+        "VALID_MOBILE_NUMBER": "சரியான மொபைல் எண்ணை தரவும்",
+        "ENTER_MOBILE_NUMBER": "மொபைல் எண்ணை பதிவிடவும்",
+        "INVALID_MOBILE_NUMBER": "தவறான மொபைல் எண்",
+        "INVALID_PASSWORD": "தவறான கடவுச்சொல்",
+        "MOBILE_NUMBER_EXIST": "மொபைல் எண் ஏற்கனவே பதிவுசெய்யப்பட்டது ",
+        "VALID_OTP": "சரியான OTP எண்ணை தரவும்",
+        "OTP_SENT": "OTP அனுப்பப்பட்டுள்ளது",
+        "INVALID_OTP": "OTP தவறானது",
+        "PASSWORD_REQUIRED": "கடவுச்சொல்லை பதிவிடவும்",
+        "ACCOUNT_NOT_EXIST": "கணக்கு துவங்கப்படவில்லை"
     }
 }

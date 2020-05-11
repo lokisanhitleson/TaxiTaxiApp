@@ -36,3 +36,13 @@ ion-content {
     --background: transparent;
     // transform: translate3d(0, 200px, 0);
 }
+
+.warning-msg {
+    border-radius: 2px;
+    margin: 2px 0;
+    width: 100%;
+    ion-icon {
+        font-size: 16px;
+        margin: 0 0 5px;
+    }
+}
