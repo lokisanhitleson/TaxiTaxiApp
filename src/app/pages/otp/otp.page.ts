@@ -149,18 +149,16 @@ onConfigChange() {
   }, 0);
 }
 
-goToCreatePassword() {
-  console.log("click")
+goToCreatePassword() {  
   this.startTimer();
-   this.storage.get('mobilenumber').then((val) => {
-  console.log('Your mobilenumber is', val);     
+   this.storage.get('forgetPassNum').then((val) => {     
     var mobilenumber = val;
     var OTP = this.otp;
   this.OtpService.otpauth(OTP,mobilenumber)
   .subscribe(      
     (data) => {             
     if (data && data.status == "SUCCESS" ){
-      this.navCtrl.navigateRoot('/register-agency');           
+      this.navCtrl.navigateRoot('/create-password');           
         this.showErr = false;
 }     
 else {       
@@ -173,9 +171,7 @@ resend(){
   this.timeLeft= 10;
   this.startTimer();
   this.resendOtpEnable= false;
-  console.log ("otpresend starts")
-  this.storage.get('mobilenumber').then((val) => {
-  console.log('Your mobilenumber is', val);
+ this.storage.get('forgetPassNum').then((val) => {
      var resendOtpNumber = val;     
     this.OtpService.otpresend(resendOtpNumber)
     .subscribe(      
@@ -197,10 +193,4 @@ resend(){
   }
   goToHome() {
     this.navCtrl.navigateRoot('/home');
-  }
-  ReSendOTP(){
-
-
-  }
-
-}
+  }}

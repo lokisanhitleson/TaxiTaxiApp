@@ -47,7 +47,7 @@ export class RegisterAgencyPage implements OnInit {
       ])],
       'contactName': [null, Validators.compose([
         Validators.required,
-        Validators.pattern(/^([\w\-]{0,30})$/)
+        Validators.pattern(/^([\w\-][a-zA-Z0-9_ ]{0,30})$/)
       ])],
       // 'age': [null, Validators.compose([
       //   Validators.required,

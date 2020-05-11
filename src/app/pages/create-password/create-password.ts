@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { CustomValidators } from './password-validators';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { WelcomeModal } from './welcome-modal';
+import { error } from 'util';
 
 @Component({
   selector: 'app-create-password',
@@ -142,22 +143,30 @@ export class CreatePasswordPage implements OnInit {
         var accountid = val;
         this.PasswordService.createpassword(crp,accountid)
           .subscribe(      
-              (response) => {       
-                loading.then( loading => loading.dismiss());          
+              async (response) => {            
+                loading.then( loading => loading.dismiss());
                 if (response && response.status == "SUCCESS" ){          
                   this.incorrectpassword = false;
+                  const fogotPasswordNumber = await this.Storage.get('forgetPassNum');
+                  if(!fogotPasswordNumber){
                   this.openWelcomeModal();
+                }
+                else{
+                  this.Storage.remove('forgetPassNum'); 
+                }
                   this.navCtrl.navigateRoot('/home');
                 }       
                 else {
                   this.incorrectpassword = true;   
-                  if(!response)
-                    this.toastCtrl.create({
+                  if(!response) {
+                    let toast = await this.toastCtrl.create({
                       showCloseButton: true,
                       message: 'Connection failed! try again',
                       duration: 3000,
                       position: 'bottom'
-                    }).then(toast => toast.present())                     
+                    });   
+                    toast.present();  
+                  }
                 }      
               },       
               (error) => { 
