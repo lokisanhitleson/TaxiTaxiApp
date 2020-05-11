@@ -23,14 +23,14 @@ export class AuthService {
   constructor(private http: HttpClient,
     public navCtrl: NavController) { }
 
-  login(mobileNo: string, password: string): Observable<{data: Token, status: string}> {
-    return this.http.post<{data: Token, status: string}>(`${ENVIRONMENT.apiUrl}login/`, {type: 'USER', mobileNo, password}, httpOptions)
+  login(username: string, password: string): Observable<{data: any, status: string}> {
+    return this.http.post<{data: any, status: string}>(`${ENVIRONMENT.apiUrl}login/`, {type: 'USER', username, password}, httpOptions)
       .pipe(
         tap(_ => {
           console.log('Authenticating', _);
           this.setSession(_.data);
         }),
-        catchError(this.handleError<{data: Token, status: string}>('Login Authenticate'))
+        catchError(this.handleError<{data: any, status: string}>('Login Authenticate'))
       );
   }
   private setSession(authResult: Token) {

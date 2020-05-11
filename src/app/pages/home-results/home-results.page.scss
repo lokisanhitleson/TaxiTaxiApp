@@ -14,8 +14,10 @@
     .vehicle-card {
         ion-card {
             border: 1px solid #662d91;
-            ion-text.count-text {
-                font-size: 25px;
+            .count-text {
+                font-size: 1rem;
+                line-height: 1.5;
+                height: 25px;
                 font-weight: 600;
             }
         }

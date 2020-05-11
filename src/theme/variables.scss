@@ -137,4 +137,16 @@
         height: 44px !important;
         font-size: 18px;
     }
+    --ion-font-family: 'MuktaMalar-Regular';
+    --ion-font-family: 'Roboto-Regular';
+}
+
+@font-face {
+    font-family: 'Roboto-Regular';
+    src: url('../assets/fonts/Roboto-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'MuktaMalar-Regular';
+    src: url('../assets/fonts/MuktaMalar-Regular.ttf');
 }

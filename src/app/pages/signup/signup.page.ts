@@ -26,7 +26,6 @@ export class SignupPage implements OnInit {
   resendOtpEnable: boolean;
   formSubmitted:boolean;
 
-  loading;
 
   constructor(
     public navCtrl: NavController,
@@ -40,7 +39,6 @@ export class SignupPage implements OnInit {
     public translate: TranslateService, 
     public TranslateModule : TranslateModule
   ) {
-    this.loading = this.loadingCtrl.create()
     this.lang = 'en';
     this.translate.setDefaultLang('en');
     this.translate.use('en');
@@ -234,7 +232,8 @@ pauseTimer() {
         if (this.onOtpForm.invalid) {
         return;
     }      
-    this.loading.then( loading => loading.present());
+    const loading = this.loadingCtrl.create();
+    loading.then( loading => loading.present());
     this.storage.get('mobilenumber').then((val) => {
       console.log('Your mobilenumber is', val);     
       var mobilenumber = val;
@@ -242,7 +241,7 @@ pauseTimer() {
       this.SignUpService.otpauth(OTP,val)
       .subscribe(      
           (data) => {  
-            this.loading.then( loading => loading.dismiss());       
+            loading.then( loading => loading.dismiss());       
           if (data && data.status == "SUCCESS" ){
             this.navCtrl.navigateRoot('/register-agency');           
               this.showErr = false;
@@ -257,7 +256,7 @@ pauseTimer() {
                  position: 'bottom'
                }).then(toast => toast.present())  
       }},  err => {
-        this.loading.then( loading => loading.dismiss());
+        loading.then( loading => loading.dismiss());
         this.toastCtrl.create({
         showCloseButton: true,
         message: 'Connection failed! try again',

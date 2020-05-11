@@ -8,7 +8,8 @@ import {
   MenuController,
   ToastController,
   PopoverController,
-  ModalController } from '@ionic/angular';
+  ModalController
+} from '@ionic/angular';
 
 // Modals
 import { SearchFilterPage } from '../../pages/modal/search-filter/search-filter.page';
@@ -24,8 +25,8 @@ import { NotificationsComponent } from './../../components/notifications/notific
 export class HomeResultsPage {
   searchKey = '';
   yourLocation = 'Chennai 600 072';
-  lang:any;
-  isAnnouncement:boolean = false;
+  lang: any;
+  isAnnouncement: boolean = false;
   // themeCover = [
   //   {car:'assets/svg/car.svg'},
   //   {car1:'assets/svg/car1.svg'},
@@ -38,8 +39,8 @@ export class HomeResultsPage {
     public modalCtrl: ModalController,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
-    public translate: TranslateService, 
-    public TranslateModule : TranslateModule
+    public translate: TranslateService,
+    public TranslateModule: TranslateModule
   ) {
     // this.lang = 'en';
     // this.translate.setDefaultLang('en');
@@ -50,28 +51,26 @@ export class HomeResultsPage {
   //   this.translate.use(this.lang);
   // }
 
-  vehicles =[
-    {img:"assets/svg/car.svg", num:45},
-    {img:"assets/svg/car1.svg", num:23},
-    {img:"assets/svg/van.svg", num:32},
-    {img:"assets/svg/bus.svg", num:13},
-    {img:"assets/svg/auto.svg", num:27},
-    {img:"assets/svg/load_vehicle.svg", num:0}
+  vehicles = [
+    { img: "assets/svg/car.svg", num: '4+1' },
+    { img: "assets/svg/car1.svg", num: '(7 or 6)+1' },
+    { img: "assets/svg/van.svg", num: '12 + 1' },
+    { img: "assets/svg/bus.svg", num: '(21 or 25)+ 1' }
   ];
 
   ads = [
-    {img:"assets/img/announce1.jpg"},
-    {img:"assets/img/announce2.jpg"}
+    { img: "assets/img/announce1.jpg" },
+    { img: "assets/img/announce2.jpg" }
   ];
   announcement = [
-    {img:"assets/img/ad1.jpg"},
-    {img:"assets/img/ad2.jpg"}
+    { img: "assets/img/ad1.jpg" },
+    { img: "assets/img/ad2.jpg" }
   ];
   slideOptions = {
     initialSlide: 1,
     speed: 400,
   };
-  
+
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
   }
@@ -122,7 +121,7 @@ export class HomeResultsPage {
     changeLocation.present();
   }
 
-  async searchFilter () {
+  async searchFilter() {
     const modal = await this.modalCtrl.create({
       component: SearchFilterPage
     });
@@ -158,11 +157,11 @@ export class HomeResultsPage {
     console.log('Loading dismissed!');
   }
 
-  goToCars(){
+  goToCars() {
     this.presentLoading();
-        this.navCtrl.navigateRoot('/home/tabs/cars');
-      }
-      goToViewRequest(){
-        this.navCtrl.navigateRoot('home/tabs/view-request')
-      }
+    this.navCtrl.navigateRoot('/home/tabs/cars');
+  }
+  goToViewRequest() {
+    this.navCtrl.navigateRoot('home/tabs/view-request')
+  }
 }

@@ -5,7 +5,9 @@
         <!-- Logo -->
         <div padding-horizontal text-center class="center-content">
             <div class="logo"></div>
-            <p class="sub-text">Thank you for choosing us!</p>
+            <p class="sub-text" [ngClass]="translate.currentLang?'font-'+translate.currentLang:''">
+                {{'LOGIN_ITEMS.WELCOME_SUB_MESSAGE' | translate}}
+            </p>
         </div>
 
         <ion-card color="light" class="ion-padding ion-no-margin">
@@ -13,38 +15,43 @@
                 <!-- Login form -->
                 <form [formGroup]="onLoginForm" (submit)="goToHome()" class="list-form">
                     <ion-item no-padding class="animated fadeInUp">
-                        <ion-label position="floating">
+                        <ion-label position="floating" [ngClass]="translate.currentLang?'font-'+translate.currentLang:''">
                             <ion-icon name="phone-portrait" item-start></ion-icon>
-                            Mobile Number / Email
+                            {{'PLACEHOLDER_MSG.MOBILE_NUMBER' | translate}}
                         </ion-label>
-                        <ion-input type="text" formControlName="mobileNum"></ion-input>
+                        <ion-input type="number" formControlName="mobileNum" (input)="typeChange('mobileNum')"></ion-input>
                     </ion-item>
-                    <p ion-text class="text08" *ngIf=" (formSubmitted ||onLoginForm.get('mobileNum').touched) && onLoginForm.get('mobileNum').hasError('required')">
-                        <ion-text color="danger">
-                            Mobile number is requried
-                        </ion-text>
-                    </p>
-                    <!-- <p ion-text class="text08" *ngIf="onLoginForm.get('mobileNum').touched && onLoginForm.get('mobileNum').hasError('pattern')">
-                        <ion-text color="danger">
-                           Incorrect Mobile Number
-                        </ion-text>
-                    </p> -->
+                    <ion-chip ion-text class="warning-msg" *ngIf=" (formSubmitted ||onLoginForm.get('mobileNum').touched) && onLoginForm.get('mobileNum').hasError('required')">
+                        <ion-label color="danger">
+                            {{'ERROR_MSG.ENTER_MOBILE_NUMBER' | translate}}
+                        </ion-label>
+                    </ion-chip>
+                    <ion-chip ion-text class="warning-msg" *ngIf="(formSubmitted) && mobileNumErr">
+                        <ion-label color="danger">
+                            {{'ERROR_MSG.ACCOUNT_NOT_EXIST' | translate}}
+                        </ion-label>
+                    </ion-chip>
                     <ion-item no-padding class="animated fadeInUp">
                         <ion-label position="floating">
                             <ion-icon name="lock" item-start></ion-icon>
-                            Password
+                            {{'PLACEHOLDER_MSG.PASSWORD' | translate}}
                         </ion-label>
-                        <ion-input [type]="isTextFieldType ? 'text' : 'password'" formControlName="password"></ion-input>
+                        <ion-input [type]="isTextFieldType ? 'text' : 'password'" formControlName="password" (input)="typeChange('password')"></ion-input>
                         <div class="show-password">
                             <ion-icon [name]="isTextFieldType ? 'eye-off' : 'eye'" (click)="togglePasswordFieldType()">
                             </ion-icon>
                         </div>
                     </ion-item>
-                    <p ion-text color="danger" class="text08" *ngIf="( formSubmitted || onLoginForm.get('password').touched) && onLoginForm.get('password').hasError('required')">
-                        <ion-text color="danger">
-                            password is required
-                        </ion-text>
-                    </p>
+                    <ion-chip ion-text class="warning-msg" *ngIf="( formSubmitted || onLoginForm.get('password').touched) && onLoginForm.get('password').hasError('required')">
+                        <ion-label color="danger">
+                            {{'ERROR_MSG.PASSWORD_REQUIRED' | translate}}
+                        </ion-label>
+                    </ion-chip>
+                    <ion-chip ion-text class="warning-msg" *ngIf="(formSubmitted) && passwordErr && !onLoginForm.get('password').hasError('required')">
+                        <ion-label color="danger">
+                            {{'ERROR_MSG.INVALID_PASSWORD' | translate}}
+                        </ion-label>
+                    </ion-chip>
 
                     <p text-right tappable (click)="forgotPass()" class="paz">
                         <ion-text color="dark">
@@ -53,33 +60,18 @@
                     </p>
 
                     <div>
-                        <ion-button type="submit" icon-left size="medium" expand="full" shape="round" color="warning"  tappable>
+                        <ion-button type="submit" icon-left size="medium" expand="full" shape="round" color="warning" tappable>
                             <ion-icon name="log-in"></ion-icon>
                             Signin
                         </ion-button>
                     </div>
                 </form>
-                                
-                  <ion-chip color="warning-msg"  *ngIf="( formSubmitted || onLoginForm.get('mobileNum').touched )&& onLoginForm.get('mobileNum').hasError('required')">
-                    <ion-icon color="danger" name="warning"></ion-icon>     
-                    <ion-label color="danger">
-                        Please provide valid mobile phone number and password to sign-In.
-                      </ion-label>
-                  </ion-chip>
 
-                  <ion-chip color="warning-msg"   *ngIf="invalidpassword">
-                    <ion-icon color="danger" name="warning"></ion-icon>     
-                    <ion-label color="danger">
-                        The mobile number entered or password entered is incorrect - please try again
-                      </ion-label>
-                  </ion-chip>
-
-                
                 <!-- Other links -->
                 <div text-center margin-top>
                     <span (click)="goToSignup()" class="paz" tappable>
                         <ion-text color="dark">
-                        New User? <strong>Sign Up</strong>
+                        {{'LOGIN_ITEMS.NEW_USER' | translate}}? <strong>{{'LOGIN_ITEMS.SIGN_UP' | translate}}</strong>
                         </ion-text>
                     </span>
                 </div>
