@@ -31,6 +31,7 @@ export class LoginPage implements OnInit {
     private loginService: LoginService,
     private sharedService: SharedService,
     private storage: Storage,
+    private authService: AuthService,
     public translate: TranslateService,
     public TranslateModule: TranslateModule
   ) {
@@ -88,7 +89,7 @@ export class LoginPage implements OnInit {
               if (!data || (data && (data.status != "SUCCESS" || data.data.length < 1 ))) {
                 this.toastCtrl.create({
                   showCloseButton: true,
-                  message: 'Mobile Number Does Not Exist failed! Try Again',
+                  message: 'Mobile number not registered!',
                   duration: 3000,
                   position: 'bottom'
                 }).then(toast => toast.present())  
