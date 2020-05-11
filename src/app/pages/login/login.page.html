@@ -17,32 +17,37 @@
                             <ion-icon name="phone-portrait" item-start></ion-icon>
                             Mobile Number / Email
                         </ion-label>
-                        <ion-input type="text" formControlName="mobileNum"></ion-input>
+                        <ion-input type="text" formControlName="mobileNum" (input)="typeChange('mobileNum')"></ion-input>
                     </ion-item>
                     <p ion-text class="text08" *ngIf=" (formSubmitted ||onLoginForm.get('mobileNum').touched) && onLoginForm.get('mobileNum').hasError('required')">
                         <ion-text color="danger">
-                            Required Field
+                            Mobile Number Required
                         </ion-text>
                     </p>
-                    <!-- <p ion-text class="text08" *ngIf="onLoginForm.get('mobileNum').touched && onLoginForm.get('mobileNum').hasError('pattern')">
+                    <p ion-text class="text08" *ngIf="(formSubmitted) && mobileNumErr">
                         <ion-text color="danger">
-                           Incorrect Mobile Number
+                            Account not exist
                         </ion-text>
-                    </p> -->
+                    </p>
                     <ion-item no-padding class="animated fadeInUp">
                         <ion-label position="floating">
                             <ion-icon name="lock" item-start></ion-icon>
                             Password
                         </ion-label>
-                        <ion-input [type]="isTextFieldType ? 'text' : 'password'" formControlName="password"></ion-input>
+                        <ion-input [type]="isTextFieldType ? 'text' : 'password'" formControlName="password" (input)="typeChange('password')"></ion-input>
                         <div class="show-password">
                             <ion-icon [name]="isTextFieldType ? 'eye-off' : 'eye'" (click)="togglePasswordFieldType()">
                             </ion-icon>
                         </div>
                     </ion-item>
-                    <p ion-text color="danger" class="text08" *ngIf="( formSubmitted || onLoginForm.get('password').touched) && onLoginForm.get('password').hasError('required')">
+                    <p ion-text class="text08" *ngIf="( formSubmitted || onLoginForm.get('password').touched) && onLoginForm.get('password').hasError('required')">
                         <ion-text color="danger">
-                            Required Field
+                            Password Required
+                        </ion-text>
+                    </p>
+                    <p ion-text class="text08" *ngIf="(formSubmitted) && passwordErr && !onLoginForm.get('password').hasError('required')">
+                        <ion-text color="danger">
+                            Incorrect Password
                         </ion-text>
                     </p>
 
@@ -59,21 +64,6 @@
                         </ion-button>
                     </div>
                 </form>
-                                
-                  <ion-chip color="warning-msg"  *ngIf="( formSubmitted || onLoginForm.get('mobileNum').touched )&& onLoginForm.get('mobileNum').hasError('required')">
-                    <ion-icon color="danger" name="warning"></ion-icon>     
-                    <ion-label color="danger">
-                        Please provide valid mobile phone number and password to sign-In.
-                      </ion-label>
-                  </ion-chip>
-
-                  <ion-chip color="warning-msg"   *ngIf="invalidpassword">
-                    <ion-icon color="danger" name="warning"></ion-icon>     
-                    <ion-label color="danger">
-                        The mobile phone number or password you entered was incorrect - please try again.
-                      </ion-label>
-                  </ion-chip>
-
                 
                 <!-- Other links -->
                 <div text-center margin-top>

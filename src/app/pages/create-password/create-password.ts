@@ -18,7 +18,6 @@ export class CreatePasswordPage implements OnInit {
   incorrectpassword : boolean;
   formSubmitted:boolean;
 
-  loading;
 
   constructor(
     public navCtrl: NavController,
@@ -33,7 +32,6 @@ export class CreatePasswordPage implements OnInit {
     public toastCtrl: ToastController,
     public modalCtrl: ModalController
   ) {
-   this.loading = this.loadingCtrl.create();
   }
 
   togglePasswordFieldType(){
@@ -136,7 +134,8 @@ export class CreatePasswordPage implements OnInit {
         this.incorrectpassword = true;     
       }
      else {
-      this.loading.then( loading => loading.present());
+        const loading = this.loadingCtrl.create();
+        loading.then( loading => loading.present());
         this.incorrectpassword = false;
         this.Storage.get('accountid').then((val) => {//ionicstorage 
         console.log('Your accountid is', val);    
@@ -144,7 +143,7 @@ export class CreatePasswordPage implements OnInit {
         this.PasswordService.createpassword(crp,accountid)
           .subscribe(      
               (response) => {       
-                this.loading.then( loading => loading.dismiss());          
+                loading.then( loading => loading.dismiss());          
                 if (response && response.status == "SUCCESS" ){          
                   this.incorrectpassword = false;
                   this.openWelcomeModal();
@@ -162,7 +161,7 @@ export class CreatePasswordPage implements OnInit {
                 }      
               },       
               (error) => { 
-                this.loading.then( loading => loading.dismiss());
+                loading.then( loading => loading.dismiss());
                 this.toastCtrl.create({
                   showCloseButton: true,
                   message: 'Connection failed! try again',

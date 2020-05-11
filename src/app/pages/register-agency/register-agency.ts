@@ -14,8 +14,6 @@ export class RegisterAgencyPage implements OnInit {
   public onAgencyRegistrationForm: FormGroup;
   formSubmitted :boolean;
 
-  loading;
-
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -28,7 +26,6 @@ export class RegisterAgencyPage implements OnInit {
     public toastCtrl: ToastController,
     public TranslateModule: TranslateModule
   ) {
-    this.loading = this.loadingCtrl.create()
   }
 
 
@@ -75,7 +72,8 @@ export class RegisterAgencyPage implements OnInit {
     if (this.onAgencyRegistrationForm.invalid) {
         return;
     }   
-    this.loading.then( loading => loading.present());
+    const loading = this.loadingCtrl.create();
+    loading.then( loading => loading.present());
     this.Storage.get('accountid').then((val) => {
       console.log('Your accountid is', val);    
       var AgencyName = this.onAgencyRegistrationForm.value.agencyName;
@@ -88,7 +86,7 @@ export class RegisterAgencyPage implements OnInit {
       this.RegisterService.registeragency(AgencyName,AgencyRegisterationNumber,ContactName,Region,email,accountid)
       .subscribe(      
         (response) => { 
-          this.loading.then( loading => loading.dismiss());         
+          loading.then( loading => loading.dismiss());         
         if (response && response.status =="SUCCESS" ){
           this.navCtrl.navigateRoot('/create-password');
           console.log(response);    
@@ -103,7 +101,7 @@ export class RegisterAgencyPage implements OnInit {
           }).then(toast => toast.present())  
         }           
       },   err => {
-        this.loading.then( loading => loading.dismiss());
+        loading.then( loading => loading.dismiss());
         this.toastCtrl.create({
         showCloseButton: true,
         message: 'Connection failed! try again',
