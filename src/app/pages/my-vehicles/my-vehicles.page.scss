@@ -96,5 +96,17 @@
         left: 0;
         right: 0;
         bottom: 0;
+        background: transparent;
+    }
+    .footer-md:before {
+        background-image: none!important;
+    }
+    .divider-b {
+        height: 50px;
+        width: 100%;
+    }
+    ion-item {
+        border: .5px solid #ddd;
+        margin: 5px;
     }
 }

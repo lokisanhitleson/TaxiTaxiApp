@@ -9,191 +9,199 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content color="light">
-    <wizard>
-        <wizard-step stepTitle="Vehicle Info" [canExit]='true'>
-            <ion-list class="myvehicle-form">
-                <ion-item lines="none" class="upload-item">
-                    <div class="img-upload-container">
-                        <div>
-                            <ion-button size="small" color="light" (click)="selectImage()">
-                                Upload Vehicle Image
-                            </ion-button>
-                        </div>
-                        <div slot="start">
-                            <p *ngIf="isLoading">Loading ...</p>
-                            <img slot="end" [src]="croppedImagepath" />
-                        </div>
-                    </div>
-                </ion-item>
-                <ion-item>
-                    <ion-label>Vehicle Name</ion-label>
-                    <ion-select class="myCustomSelect ion-text-center" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
-                        <ion-select-option *ngFor="let car of carModels">{{car}}</ion-select-option>
-                    </ion-select>
-                </ion-item>
+<ion-content color="light" class="my-vehicles">
+    <ion-card class="ion-padding ion-no-margin" no-shadow>
+        <ion-card-content class="ion-no-padding">
+            <wizard>
+                <wizard-step stepTitle="Vehicle Info" [canExit]='true'>
+                    <ion-list class="myvehicle-form">
+                        <ion-item lines="none" class="upload-item">
+                            <div class="img-upload-container">
+                                <div>
+                                    <ion-button size="small" color="light" (click)="selectImage()">
+                                        Upload Vehicle Image
+                                    </ion-button>
+                                </div>
+                                <div slot="start">
+                                    <p *ngIf="isLoading">Loading ...</p>
+                                    <img slot="end" [src]="croppedImagepath" />
+                                </div>
+                            </div>
+                        </ion-item>
+                        <ion-item lines="none">
+                            <ion-label>Vehicle Name</ion-label>
+                            <ion-select class="myCustomSelect ion-text-center" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
+                                <ion-select-option *ngFor="let car of carModels">{{car}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
 
-                <ion-item>
-                    <ion-label>Maker</ion-label>
-                    <ion-select class="myCustomSelect ion-text-center" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
-                        <ion-select-option *ngFor="let car of carModels">{{car}}</ion-select-option>
-                    </ion-select>
-                </ion-item>
-                <ion-item>
-                    <ion-label position="floating">Registration No</ion-label>
-                    <ion-input type="text"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-label>Vehicle Type</ion-label>
-                    <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
-                        <ion-select-option *ngFor="let type of carType">{{type}}</ion-select-option>
-                    </ion-select>
-                </ion-item>
+                        <ion-item lines="none">
+                            <ion-label>Maker</ion-label>
+                            <ion-select class="myCustomSelect ion-text-center" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
+                                <ion-select-option *ngFor="let car of carModels">{{car}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Registration No:</ion-label>
+                            <ion-input type="text"></ion-input>
+                        </ion-item>
+                        <ion-item lines="none">
+                            <ion-label>Vehicle Type</ion-label>
+                            <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
+                                <ion-select-option *ngFor="let type of carType">{{type}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
 
-                <ion-item>
-                    <ion-label>Vehicle Color</ion-label>
-                    <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
-                        <ion-select-option>Red</ion-select-option>
-                        <ion-select-option>Blue</ion-select-option>
-                        <ion-select-option>Green</ion-select-option>
-                    </ion-select>
-                </ion-item>
-                <ion-item>
-                    <ion-label>Year of Manufacture</ion-label>
-                    <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
-                        <ion-select-option>2005</ion-select-option>
-                        <ion-select-option>2006</ion-select-option>
-                        <ion-select-option>2007</ion-select-option>
-                    </ion-select>
-                </ion-item>
-                <ion-item>
-                    <ion-label>Vehicle Variant</ion-label>
-                    <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
-                        <ion-select-option>LXI</ion-select-option>
-                        <ion-select-option>VXI</ion-select-option>
-                    </ion-select>
-                </ion-item>
-                <ion-item>
-                    <ion-label>Fuel Type</ion-label>
-                    <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
-                        <ion-select-option>Petrol</ion-select-option>
-                        <ion-select-option>Diesel</ion-select-option>
-                        <ion-select-option>Gas</ion-select-option>
-                    </ion-select>
-                </ion-item>
-            </ion-list>
-            <ion-footer no-shadow>
-                <ion-toolbar position="bottom">
-                    <ion-row class="ion-text-center">
-                        <ion-col>
-                            <ion-button type="button" color="warning" nextStep>Next</ion-button>
-                        </ion-col>
-                    </ion-row>
-                </ion-toolbar>
-            </ion-footer>
-        </wizard-step>
+                        <ion-item lines="none">
+                            <ion-label>Vehicle Color</ion-label>
+                            <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
+                                <ion-select-option>Red</ion-select-option>
+                                <ion-select-option>Blue</ion-select-option>
+                                <ion-select-option>Green</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item lines="none">
+                            <ion-label>Year of Manufacture</ion-label>
+                            <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
+                                <ion-select-option>2005</ion-select-option>
+                                <ion-select-option>2006</ion-select-option>
+                                <ion-select-option>2007</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item lines="none">
+                            <ion-label>Vehicle Variant</ion-label>
+                            <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
+                                <ion-select-option>LXI</ion-select-option>
+                                <ion-select-option>VXI</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item lines="none">
+                            <ion-label>Fuel Type</ion-label>
+                            <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
+                                <ion-select-option>Petrol</ion-select-option>
+                                <ion-select-option>Diesel</ion-select-option>
+                                <ion-select-option>Gas</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <div class="divider-b"></div>
+                    </ion-list>
+                    <ion-footer no-shadow lines="none">
+                        <ion-toolbar position="bottom">
+                            <ion-row class="ion-text-center">
+                                <ion-col>
+                                    <ion-button type="button" color="warning" nextStep>Next</ion-button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-toolbar>
+                    </ion-footer>
+                </wizard-step>
 
-        <wizard-step stepTitle="F.C. Info" awOptionalStep>
-            <ion-list class="myvehicle-form">
-                <ion-item>
-                    <ion-label>Vehicle Condition</ion-label>
-                    <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
-                        <ion-select-option>Brand New</ion-select-option>
-                        <ion-select-option>Excellent</ion-select-option>
-                        <ion-select-option>Good</ion-select-option>
-                    </ion-select>
-                </ion-item>
+                <wizard-step stepTitle="F.C. Info" awOptionalStep>
+                    <ion-list class="myvehicle-form">
+                        <ion-item>
+                            <ion-label>Vehicle Condition</ion-label>
+                            <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
+                                <ion-select-option>Brand New</ion-select-option>
+                                <ion-select-option>Excellent</ion-select-option>
+                                <ion-select-option>Good</ion-select-option>
+                            </ion-select>
+                        </ion-item>
 
-                <ion-item>
-                    <ion-label>Accident History</ion-label>
-                    <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
-                        <ion-select-option>Yes</ion-select-option>
-                        <ion-select-option>No</ion-select-option>
-                    </ion-select>
-                </ion-item>
-                <ion-item>
-                    <ion-label position="floating">Chasis Number</ion-label>
-                    <ion-input type="text"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-label>F.C Month and Year</ion-label>
-                    <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
-                        <ion-select-option>January</ion-select-option>
-                        <ion-select-option>February</ion-select-option>
-                    </ion-select>
-                    <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
-                        <ion-select-option>2019</ion-select-option>
-                        <ion-select-option>2020</ion-select-option>
-                    </ion-select>
-                </ion-item>
+                        <ion-item>
+                            <ion-label>Accident History</ion-label>
+                            <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
+                                <ion-select-option>Yes</ion-select-option>
+                                <ion-select-option>No</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Chasis Number</ion-label>
+                            <ion-input type="text"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>F.C Month and Year</ion-label>
+                            <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
+                                <ion-select-option>January</ion-select-option>
+                                <ion-select-option>February</ion-select-option>
+                            </ion-select>
+                            <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
+                                <ion-select-option>2019</ion-select-option>
+                                <ion-select-option>2020</ion-select-option>
+                            </ion-select>
+                        </ion-item>
 
-                <ion-item>
-                    <ion-label>Air Bag</ion-label>
-                    <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
-                        <ion-select-option>Yes</ion-select-option>
-                        <ion-select-option>No</ion-select-option>
-                    </ion-select>
-                </ion-item>
-                <ion-item>
-                    <ion-label>Wheel Type</ion-label>
-                    <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
-                        <ion-select-option>Alloy</ion-select-option>
-                        <ion-select-option>Drom</ion-select-option>
-                    </ion-select>
-                </ion-item>
-                <ion-item>
-                    <ion-label>Breaking System</ion-label>
-                    <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
-                        <ion-select-option>ABS</ion-select-option>
-                        <ion-select-option>ESC</ion-select-option>
-                    </ion-select>
-                </ion-item>
-            </ion-list>
+                        <ion-item>
+                            <ion-label>Air Bag</ion-label>
+                            <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
+                                <ion-select-option>Yes</ion-select-option>
+                                <ion-select-option>No</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Wheel Type</ion-label>
+                            <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
+                                <ion-select-option>Alloy</ion-select-option>
+                                <ion-select-option>Drom</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Breaking System</ion-label>
+                            <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
+                                <ion-select-option>ABS</ion-select-option>
+                                <ion-select-option>ESC</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-list>
 
-            <ion-footer no-shadow>
-                <ion-toolbar position="bottom">
-                    <ion-row class="ion-text-center">
-                        <ion-col>
-                            <ion-button type="button" color="medium" previousStep>Previous</ion-button>
-                            <ion-button type="button" color="warning" nextStep>Next</ion-button>
-                        </ion-col>
-                    </ion-row>
-                </ion-toolbar>
-            </ion-footer>
-        </wizard-step>
+                    <ion-footer no-shadow>
+                        <ion-toolbar position="bottom">
+                            <ion-row class="ion-text-center">
+                                <ion-col>
+                                    <ion-button type="button" color="medium" previousStep>Previous</ion-button>
+                                    <ion-button type="button" color="warning" nextStep>Next</ion-button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-toolbar>
+                    </ion-footer>
+                </wizard-step>
 
-        <wizard-step stepTitle="Insurance">
-            <ion-list class="myvehicle-form">
-                <ion-item>
-                    <ion-label>Insurance Company</ion-label>
-                    <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
-                        <ion-select-option>Reliance</ion-select-option>
-                        <ion-select-option>United India</ion-select-option>
-                        <ion-select-option>HDFC</ion-select-option>
-                    </ion-select>
-                </ion-item>
+                <wizard-step stepTitle="Insurance">
+                    <ion-list class="myvehicle-form">
+                        <ion-item>
+                            <ion-label>Insurance Company</ion-label>
+                            <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
+                                <ion-select-option>Reliance</ion-select-option>
+                                <ion-select-option>United India</ion-select-option>
+                                <ion-select-option>HDFC</ion-select-option>
+                            </ion-select>
+                        </ion-item>
 
-                <ion-item>
-                    <ion-label position="floating">Insurance Number</ion-label>
-                    <ion-input type="text"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-label position="floating">Insurance Expiry</ion-label>
-                    <ion-input type="text"></ion-input>
-                </ion-item>
-            </ion-list>
+                        <ion-item>
+                            <ion-label>Insurance Number</ion-label>
+                            <ion-input type="text"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Insurance Expiry</ion-label>
+                            <ion-input type="text"></ion-input>
+                        </ion-item>
+                    </ion-list>
 
-            <ion-footer no-shadow>
-                <ion-toolbar position="bottom">
-                    <ion-row class="ion-text-center">
-                        <ion-col>
-                            <ion-button type="button" color="medium" previousStep>Previous</ion-button>
-                            <ion-button type="button" color="success" (click)="goToMyVehicles()">Finish</ion-button>
+                    <ion-footer no-shadow>
+                        <ion-toolbar position="bottom">
+                            <ion-row class="ion-text-center">
+                                <ion-col>
+                                    <ion-button type="button" color="medium" previousStep>Previous</ion-button>
+                                    <ion-button type="button" color="success" (click)="goToMyVehicles()">Finish</ion-button>
 
-                        </ion-col>
-                    </ion-row>
-                </ion-toolbar>
-            </ion-footer>
-        </wizard-step>
-    </wizard>
+                                </ion-col>
+                            </ion-row>
+                        </ion-toolbar>
+                    </ion-footer>
+                </wizard-step>
+            </wizard>
+        </ion-card-content>
+    </ion-card>
+
+
+
 </ion-content>
