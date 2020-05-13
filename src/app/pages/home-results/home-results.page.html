@@ -8,9 +8,15 @@
                 <ion-text color="light" class="fw700">{{'TAB_MENU_ITEMS.HOME' | translate}}</ion-text>
             </ion-text>
         </ion-title>
+        <ion-buttons slot="primary" class="toolbar-btn">
+            <ion-button color="light" (click)="goAddVehicle()">
+                <span class="icon-add-car" slot="end"></span>
+                <!-- <ion-icon  name="car"></ion-icon> -->
+            </ion-button>
+        </ion-buttons>
 
         <ion-buttons slot="end">
-            <ion-button size="small" shape="round" color="medium" (click)="goToViewRequest()">
+            <ion-button size="small" shape="round" color="light" (click)="goToViewRequest()">
                 <ion-icon name="notifications"></ion-icon>
                 <ion-badge color="danger" slot="end">2</ion-badge>
             </ion-button>
