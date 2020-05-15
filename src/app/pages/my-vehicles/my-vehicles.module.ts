@@ -7,11 +7,16 @@ import { ArchwizardModule } from 'ng2-archwizard';
 import { IonicModule } from '@ionic/angular';
 
 import { MyVehiclesPage } from './my-vehicles.page';
+import { UploadVehicle } from "./upload-vehicle";
 
 const routes: Routes = [
   {
     path: '',
     component: MyVehiclesPage
+  },
+  {
+    path: 'upload-vehicle',
+    component: UploadVehicle
   }
 ];
 
@@ -23,6 +28,6 @@ const routes: Routes = [
     ArchwizardModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MyVehiclesPage]
+  declarations: [MyVehiclesPage, UploadVehicle]
 })
-export class MyVehiclesPageModule {}
+export class MyVehiclesPageModule { }

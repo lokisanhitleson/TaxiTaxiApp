@@ -15,7 +15,12 @@
             <wizard>
                 <wizard-step stepTitle="Vehicle Info" [canExit]='true'>
                     <ion-list class="myvehicle-form">
-                        <ion-item lines="none" class="upload-item">
+
+                        <ion-button expand="full" color="medium" (click)="openUploadPhoto()">
+                            <ion-icon name="camera"></ion-icon> Upload Vehicle Photos
+                        </ion-button>
+
+                        <!-- <ion-item lines="none" class="upload-item">
                             <div class="img-upload-container">
                                 <div>
                                     <ion-button size="small" color="light" (click)="selectImage()">
@@ -27,7 +32,7 @@
                                     <img slot="end" [src]="croppedImagepath" />
                                 </div>
                             </div>
-                        </ion-item>
+                        </ion-item> -->
                         <ion-item lines="none">
                             <ion-label>Vehicle Name</ion-label>
                             <ion-select class="myCustomSelect ion-text-center" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">

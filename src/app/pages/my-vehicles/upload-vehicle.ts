@@ -1,26 +1,26 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { CalendarModal, CalendarModalOptions, DayConfig, CalendarResult } from 'ion2-calendar';
-import { ModalController, NavController } from '@ionic/angular';
-import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ModalController, NavParams } from '@ionic/angular';
 import { Crop } from '@ionic-native/crop/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { Camera, CameraOptions } from '@ionic-native/Camera/ngx';
 import { ActionSheetController } from '@ionic/angular';
 import { File } from '@ionic-native/file/ngx';
-import * as moment from "moment";
-
-import { UploadVehicle } from "./upload-vehicle";
 
 @Component({
-  selector: 'app-my-vehicles',
-  templateUrl: './my-vehicles.page.html',
-  styleUrls: ['./my-vehicles.page.scss'],
+  selector: 'upload-vehicle',
+  templateUrl: './upload-vehicle.html',
+  styleUrls: ['./upload-vehicle.scss'],
 })
-export class MyVehiclesPage implements OnInit {
-  daterange: string;
-  prevShow: boolean = true;
+export class UploadVehicle implements OnInit {
 
-  croppedImagepath = "assets/no-image.png";
+  modalTitle: string;
+  modelId: number;
+
+  croppedImagepath = "assets/img/displayview.jpg";
+  frontView = "assets/img/frontview.jpg";
+  backView = "assets/img/backview.jpg";
+  leftView = "assets/img/leftview.jpg";
+  rightView = "assets/img/rightview.jpg";
   isLoading = false;
 
   imagePickerOptions = {
@@ -28,10 +28,10 @@ export class MyVehiclesPage implements OnInit {
     quality: 50
   };
 
+
   constructor(
-    public modalCtrl: ModalController,
-    public navCtrl: NavController,
-    private _location: Location,
+    private modalController: ModalController,
+    private navParams: NavParams,
     private imagePicker: ImagePicker,
     private crop: Crop,
     private camera: Camera,
@@ -40,37 +40,16 @@ export class MyVehiclesPage implements OnInit {
   ) { }
 
 
-
-  //Calendar Picker
-  async openCalendar() {
-    const options: CalendarModalOptions = {
-      pickMode: 'single',
-      title: 'Calendar',
-    };
-
-    const myCalendar = await this.modalCtrl.create({
-      component: CalendarModal,
-      componentProps: { options }
-    });
-
-    myCalendar.present();
-    const event: any = await myCalendar.onDidDismiss();
-    const newFormat = moment(event.data.dateObj).format("DD-MMMM-YYYY");
-    this.daterange = newFormat;
-  }
-
-  carModels = [
-    "Toyota Platinum Etios",
-    "Maruti Suzuki Dzire",
-    "Renault Lodgy",
-    "Mahindra Scorpio",
-    "Toyota Innova Crysta",
-    "Hyundai Xcent",
-    "Nissan Sunny"
-  ];
-  carType = ["Mini", "Micro", "Prime"];
-
   ngOnInit() {
+    console.table(this.navParams);
+    this.modelId = this.navParams.data.paramID;
+    this.modalTitle = this.navParams.data.paramTitle;
+  }
+  async cancelModal() {
+    this.modalController.dismiss();
+  }
+  async submitModal() {
+    this.modalController.dismiss();
   }
 
   //Image Crop and Upload
@@ -98,22 +77,23 @@ export class MyVehiclesPage implements OnInit {
   async selectImage() {
     const actionSheet = await this.actionSheetController.create({
       header: "Select Image source",
-      buttons: [{
-        text: 'Load from Library',
-        handler: () => {
-          this.pickImage(this.camera.PictureSourceType.PHOTOLIBRARY);
+      buttons: [
+        //   {
+        //   text: 'Load from Library',
+        //   handler: () => {
+        //     this.pickImage(this.camera.PictureSourceType.PHOTOLIBRARY);
+        //   }
+        // },
+        {
+          text: 'Use Camera',
+          handler: () => {
+            this.pickImage(this.camera.PictureSourceType.CAMERA);
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel'
         }
-      },
-      {
-        text: 'Use Camera',
-        handler: () => {
-          this.pickImage(this.camera.PictureSourceType.CAMERA);
-        }
-      },
-      {
-        text: 'Cancel',
-        role: 'cancel'
-      }
       ]
     });
     await actionSheet.present();
@@ -140,6 +120,10 @@ export class MyVehiclesPage implements OnInit {
 
     this.file.readAsDataURL(filePath, imageName).then(base64 => {
       this.croppedImagepath = base64;
+      this.frontView = base64;
+      this.backView = base64;
+      this.leftView = base64;
+      this.rightView = base64;
       this.isLoading = false;
     }, error => {
       alert('Error in showing image' + error);
@@ -147,23 +131,7 @@ export class MyVehiclesPage implements OnInit {
     });
   }
 
-  async openUploadPhoto() {
-    const modal = await this.modalCtrl.create({
-      component: UploadVehicle,
-      componentProps: {
-        "Title": "Upload Photos"
-      }
-    });
 
-    modal.onDidDismiss().then(() => { });
 
-    return await modal.present();
-  }
 
-  previous() {
-    this._location.back();
-  }
-  goToMyVehicles() {
-    this.navCtrl.navigateRoot('/my-vehicle-list');
-  }
 }
