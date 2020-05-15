@@ -44,7 +44,7 @@ export class LoginPage implements OnInit {
     this.isTextFieldType = !this.isTextFieldType;
   }
   ionViewWillEnter() {
-    this.menuCtrl.enable(true);
+    this.menuCtrl.enable(false);
   }
 
   ngOnInit() {

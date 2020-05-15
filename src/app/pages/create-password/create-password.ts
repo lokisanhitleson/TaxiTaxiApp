@@ -79,6 +79,9 @@ export class CreatePasswordPage implements OnInit {
       ])]
     });
   }
+  passwordMissmatch() {
+    this.incorrectpassword = false;
+  }
 
   async welcomeAlert() {
     const alert = await this.alertController.create({
