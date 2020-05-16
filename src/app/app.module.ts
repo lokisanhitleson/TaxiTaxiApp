@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
@@ -28,6 +28,8 @@ import { SearchFilterPageModule } from './pages/modal/search-filter/search-filte
 // Components
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { CalendarModule } from 'ion2-calendar';
+
+import { AuthInterceptor } from './pages/interceptor/auth.interceptor';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -60,6 +62,11 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   entryComponents: [NotificationsComponent],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
     StatusBar,
     SplashScreen,
     DatePicker,
