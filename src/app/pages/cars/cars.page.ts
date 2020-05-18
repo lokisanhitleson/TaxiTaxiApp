@@ -27,15 +27,15 @@ export class CarsPage implements OnInit {
     public Router:Router,
     public TranslateModule : TranslateModule
     )
-     { 
+     {
                   
          this.route.queryParams.subscribe(params => {
-         if (params && params.special) {
-          this.data = JSON.parse(params.special);
-          console.log(this.data,"valuesinc");
-        }
-       
-      });
+          if (params && params.special) {
+            this.data = JSON.parse(params.special);
+            console.log(this.data,"valuesinc");
+          }
+        
+        });
 
     this.today = new Date().toISOString();
     let now = new Date();

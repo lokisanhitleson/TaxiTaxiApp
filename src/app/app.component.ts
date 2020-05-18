@@ -148,9 +148,9 @@ export class AppComponent implements OnInit {
     this.navCtrl.navigateForward('edit-profile');
   }
 
-  logout() {
+  async logout() {
     this.authService.logout();
-    this.sharedService.changeLoginCheck(this.authService.isLoggedIn());
+    this.sharedService.changeLoginCheck(await this.authService.isLoggedIn());
     this.navCtrl.navigateRoot('/login');
   }
 }

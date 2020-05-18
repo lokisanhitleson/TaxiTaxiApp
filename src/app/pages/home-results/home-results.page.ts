@@ -84,6 +84,10 @@ export class HomeResultsPage {
     speed: 400,
   }; 
 
+  ionViewWillEnter() {
+    this.menuCtrl.enable(true);
+  }
+
   slidesDidLoad(slides: IonSlides) {
     slides.startAutoplay();
   }
@@ -166,13 +170,13 @@ export class HomeResultsPage {
     console.log('Loading dismissed!');
   }
 
-  goToCars() {    
+  goToCars(vehicleTypeId) {    
     this.presentLoading();
-    this.navCtrl.navigateRoot('/home/tabs/cars');
+    //this.navCtrl.navigateRoot('/home/tabs/cars');
      console.log("clicked");
      let navigationExtras: NavigationExtras = {
       queryParams: {
-        special: JSON.stringify(this.vehicles[0].vehicleTypeId)
+        special: JSON.stringify(vehicleTypeId)
       }
     };
     this.router.navigate(['/home/tabs/cars'], navigationExtras);

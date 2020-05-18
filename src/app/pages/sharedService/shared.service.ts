@@ -7,10 +7,12 @@ import { AuthService } from '../services/auth.service';
 })
 export class SharedService {
 
-  private loginCheckSource = new BehaviorSubject(this.authService.isLoggedIn());
+  private loginCheckSource = new BehaviorSubject(null);
   currentLoginCheck = this.loginCheckSource.asObservable();
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+    this.authService.isLoggedIn().then(x => this.loginCheckSource.next(x))
+  }
   
   changeLoginCheck(message: boolean) {
     this.loginCheckSource.next(message)

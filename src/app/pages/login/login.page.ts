@@ -35,9 +35,10 @@ export class LoginPage implements OnInit {
     public translate: TranslateService,
     public TranslateModule: TranslateModule
   ) {
-    console.log(this.authService.isLoggedIn());
-    if (this.authService.isLoggedIn())
-      this.navCtrl.navigateRoot('/home/tabs/home-results');
+    this.authService.isLoggedIn().then(x => {
+      if(x)
+        this.navCtrl.navigateRoot('/home/tabs/home-results');
+    })
   }
 
   togglePasswordFieldType() {
@@ -127,51 +128,51 @@ export class LoginPage implements OnInit {
 
     this.formSubmitted = true;
     console.log(this.onLoginForm);
-    if (this.onLoginForm.invalid) {
-      return;
-    }
-    const loading = this.loadingCtrl.create();
-    loading.then(loading => loading.present());
-    var mobilenum = this.onLoginForm.value.mobileNum;
-    var password = this.onLoginForm.value.password;
-    console.log(mobilenum, password);
+    if (this.onLoginForm.valid) {
 
-    this.authService.login(mobilenum, password)
-      .subscribe(
-        (response) => {
-          loading.then(loading => loading.dismiss());
+      const loading = this.loadingCtrl.create();
+      loading.then(loading => loading.present());
+      var mobilenum = this.onLoginForm.value.mobileNum;
+      var password = this.onLoginForm.value.password;
+      console.log(mobilenum, password);
 
-          if (response && response.status === "SUCCESS") {
-            this.sharedService.changeLoginCheck(this.authService.isLoggedIn());
-            this.mobileNumErr = false;
-            this.passwordErr = false;
-            this.navCtrl.navigateRoot('/home/tabs/home-results');
-          } else {
-            if (response) {
-              if (response.data.username)
-                this.mobileNumErr = true;
-              else if (response.data.password)
-                this.passwordErr = true;
-            } else
-              this.toastCtrl.create({
-                showCloseButton: true,
-                message: 'Connection failed! try again',
-                duration: 3000,
-                position: 'bottom'
-              }).then(toast => toast.present());
+      this.authService.login(mobilenum, password)
+        .subscribe(
+          async (response) => {
+            loading.then(loading => loading.dismiss());
+
+            if (response && response.status === "SUCCESS") {
+              this.sharedService.changeLoginCheck(await this.authService.isLoggedIn());
+              this.mobileNumErr = false;
+              this.passwordErr = false;
+              this.navCtrl.navigateRoot('/home/tabs/home-results');
+            } else {
+              if (response) {
+                if (response.data.username)
+                  this.mobileNumErr = true;
+                else if (response.data.password)
+                  this.passwordErr = true;
+              } else
+                this.toastCtrl.create({
+                  showCloseButton: true,
+                  message: 'Connection failed! try again',
+                  duration: 3000,
+                  position: 'bottom'
+                }).then(toast => toast.present());
+            }
+          }, async err => {
+            loading.then(loading => loading.dismiss());
+            let toast = await this.toastCtrl.create({
+              showCloseButton: true,
+              message: 'Connection failed! try again',
+              duration: 3000,
+              position: 'bottom'
+            });
+            toast.present();
+
           }
-        }, async err => {
-          loading.then(loading => loading.dismiss());
-          let toast = await this.toastCtrl.create({
-            showCloseButton: true,
-            message: 'Connection failed! try again',
-            duration: 3000,
-            position: 'bottom'
-          });
-          toast.present();
-
-        }
-      );
+        );
+    }
   }
 
 
