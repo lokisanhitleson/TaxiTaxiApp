@@ -5,16 +5,17 @@
         <!-- Logo -->
         <div padding-horizontal text-center class="center-content">
             <div class="logo"></div>
-            <p class="sub-text" [ngClass]="translate.currentLang?'font-'+translate.currentLang:''" *ngIf="!showOtp">
+            <p class="welcome-text" [ngClass]="translate.currentLang?'font-'+translate.currentLang:''" *ngIf="!showOtp">
                 {{'LOGIN_ITEMS.WELCOME_SUB_MESSAGE' | translate}}
-            </p>
-            <p class="sub-text ion-text-center" [ngClass]="translate.currentLang?'font-'+translate.currentLang:''" *ngIf="showOtp">
-                {{'LOGIN_ITEMS.OTP_INSTRUCTION_MSG' | translate}}
             </p>
         </div>
 
-        <ion-card color="light" class="ion-padding ion-no-margin">
+        <ion-card color="light" class="ion-padding ion-no-margin ion-margin-top">
             <ion-card-content class="ion-no-padding">
+
+                <p class="sub-text ion-text-center" [ngClass]="translate.currentLang?'font-'+translate.currentLang:''" *ngIf="showOtp">
+                    {{'LOGIN_ITEMS.OTP_INSTRUCTION_MSG' | translate}}
+                </p>
                 <!-- Login form -->
                 <form [formGroup]="onSignUpForm" class="list-form" *ngIf="!showOtp">
                     <ion-item no-padding class="animated fadeInUp">
@@ -40,7 +41,7 @@
                         </ion-label>
                     </ion-chip>
                     <div class="ion-padding-top">
-                        <ion-button *ngIf="!showOtp" icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToOtp()" tappable>
+                        <ion-button *ngIf="!showOtp" icon-left size="medium" expand="full" color="warning" (click)="goToOtp()" tappable>
                             <ion-icon name="log-in"></ion-icon>
                             Get OTP
                         </ion-button>
@@ -82,7 +83,7 @@
                         </ion-label>
 
                     </ion-chip>
-                    <ion-button *ngIf="showOtp" icon-left size="medium" expand="full" shape="round" color="warning" (click)="goToRegisterAgency()" tappable>
+                    <ion-button *ngIf="showOtp" icon-left size="medium" expand="full" color="warning" (click)="goToRegisterAgency()" tappable>
                         <ion-icon name="log-in"></ion-icon>
                         Verify
                     </ion-button>

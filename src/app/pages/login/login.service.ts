@@ -12,19 +12,18 @@ const httpOptions = {
   })
 };
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class LoginService{
  
 
     constructor(private http: HttpClient) {}
 
 
-    configUrl = 'http://localhost:8000/login';
     get(mobileNum, pass) {
       // mobilenumber: mobileNum, password: pass}
        return this.http
           // .post<any>(this.configUrl, { params: { "mobilenumber": mobileNum, "password": pass } })
-          .post<any>(this.configUrl, {mobileNo: mobileNum, password: pass});                 
+          .post<any>(`${ENVIRONMENT.apiUrl}login`, {mobileNo: mobileNum, password: pass});                 
       }
       
       CheckExists(values): Observable<{ data: [checkExistnumber], status: string }> {

@@ -180,4 +180,7 @@ export class HomeResultsPage {
   goToViewRequest() {
     this.navCtrl.navigateRoot('home/tabs/view-request')
   }
+  goAddVehicle() {
+    this.navCtrl.navigateRoot('/my-vehicles');
+  }
 }

@@ -56,9 +56,6 @@ export class RegisterAgencyPage implements OnInit {
       'email': [null, Validators.compose([
         Validators.required,
         Validators.pattern(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)
-      ])],
-      't&c': [null, Validators.compose([
-        Validators.required
       ])]
     });
   }

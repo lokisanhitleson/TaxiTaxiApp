@@ -1,6 +1,6 @@
-import { Component, OnInit} from '@angular/core';
-import { CalendarModal, CalendarModalOptions,DayConfig,CalendarResult } from 'ion2-calendar';
-import { ModalController,AlertController,PopoverController,NavController, Platform } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { CalendarModal, CalendarModalOptions, DayConfig, CalendarResult } from 'ion2-calendar';
+import { ModalController, AlertController, PopoverController, NavController, Platform } from '@ionic/angular';
 import { PlacesModalPage } from "./places.page";
 import * as moment from "moment";
 import { Media, MediaObject } from '@ionic-native/media/ngx';
@@ -19,13 +19,12 @@ export class RequestVehiclePage implements OnInit {
   startDate: string;
   fromLocation = 'Avadi';
   toLocation = 'T.Nagar';
-  selectedCity:any = "Avadi";
-  selectedVehicle:any = "Indica";
-  public tripSelector: string ='oneWay';
+  selectedCity: any = "Avadi";
+  selectedVehicle: any = "Indica";
+  public tripSelector: string = 'oneWay';
   status: String = "";
-  recording:boolean = false;
-  audioFile : MediaObject;
-
+  recording: boolean = false;
+  audioFile: MediaObject;
 
   constructor(
     public modalCtrl: ModalController,
@@ -36,11 +35,11 @@ export class RequestVehiclePage implements OnInit {
     private file: File,
     public platform: Platform,
     private _location: Location,
-    public translate: TranslateService, 
-    public TranslateModule : TranslateModule
-    ) { }
+    public translate: TranslateService,
+    public TranslateModule: TranslateModule
+  ) { }
 
-  
+
   carType = ["Mini", "Micro", "Prime"];
 
   async openCalendar() {
@@ -48,19 +47,19 @@ export class RequestVehiclePage implements OnInit {
       pickMode: 'single',
       title: 'Calendar',
     };
-  
+
     const myCalendar = await this.modalCtrl.create({
       component: CalendarModal,
       componentProps: { options }
     });
-  
+
     myCalendar.present();
     const event: any = await myCalendar.onDidDismiss();
     const newFormat = moment(event.data.dateObj).format("DD-MMMM-YYYY");
     this.endDate = newFormat;
     this.startDate = newFormat;
   }
-  
+
   async fromLocationModal() {
     const changeLocation = await this.alertCtrl.create({
       header: 'Pickup Location',
@@ -90,7 +89,7 @@ export class RequestVehiclePage implements OnInit {
     });
     changeLocation.present();
   }
- 
+
   async openPlacesModal() {
     const modal = await this.modalCtrl.create({
       component: PlacesModalPage,
@@ -98,13 +97,13 @@ export class RequestVehiclePage implements OnInit {
         "Title": "Select Location"
       }
     });
- 
+
     modal.onDidDismiss().then((selectedCity) => {
       if (selectedCity !== null) {
         this.selectedCity = selectedCity.data;
       }
     });
- 
+
     return await modal.present();
   }
 
@@ -115,84 +114,83 @@ export class RequestVehiclePage implements OnInit {
         "Title": "Select Vehicle Model"
       }
     });
- 
+
     modal.onDidDismiss().then((selectedVehicle) => {
       if (selectedVehicle !== null) {
         this.selectedVehicle = selectedVehicle.data;
       }
     });
- 
+
     return await modal.present();
   }
 
-    //Media file Record
-    filePath: string;
-    fileName: string;
-    audio: MediaObject;
-    audioList: any[] = [];
+  //Media file Record
+  filePath: string;
+  fileName: string;
+  audio: MediaObject;
+  audioList: any[] = [];
 
 
 
-    getAudioList() {
-      if(localStorage.getItem("audiolist")) {
-        this.audioList = JSON.parse(localStorage.getItem("audiolist"));
-        console.log(this.audioList);
-      }
+  getAudioList() {
+    if (localStorage.getItem("audiolist")) {
+      this.audioList = JSON.parse(localStorage.getItem("audiolist"));
+      console.log(this.audioList);
     }
-    ionViewWillEnter() {
-      this.getAudioList();
-    }
+  }
+  ionViewWillEnter() {
+    this.getAudioList();
+  }
 
-    startRecord() {
-      if (this.platform.is('ios')) {
-        this.fileName = 'voice-note'+new Date().getDate()+new Date().getMonth()+new Date().getFullYear()+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.mp3';
-        this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName;
-        this.audio = this.media.create(this.filePath);
-      } else if (this.platform.is('android')) {
-        this.fileName = 'voice-note'+new Date().getDate()+new Date().getMonth()+new Date().getFullYear()+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.mp3';
-        this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
-        this.audio = this.media.create(this.filePath);
-      }
-      this.audio.startRecord();
-      this.recording = true;
-      this.status = "Recording...";
+  startRecord() {
+    if (this.platform.is('ios')) {
+      this.fileName = 'voice-note' + new Date().getDate() + new Date().getMonth() + new Date().getFullYear() + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.mp3';
+      this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName;
+      this.audio = this.media.create(this.filePath);
+    } else if (this.platform.is('android')) {
+      this.fileName = 'voice-note' + new Date().getDate() + new Date().getMonth() + new Date().getFullYear() + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.mp3';
+      this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
+      this.audio = this.media.create(this.filePath);
     }
+    this.audio.startRecord();
+    this.recording = true;
+    this.status = "Recording...";
+  }
 
-    stopRecord() {
-      this.audio.stopRecord();
-      let data = { filename: this.fileName };
-      this.audioList.push(data);
-      localStorage.setItem("audiolist", JSON.stringify(this.audioList));
-      this.recording = false;
-      this.getAudioList();
-      this.audio.release();
-      this.status = "Done!";
-    }
+  stopRecord() {
+    this.audio.stopRecord();
+    let data = { filename: this.fileName };
+    this.audioList.push(data);
+    localStorage.setItem("audiolist", JSON.stringify(this.audioList));
+    this.recording = false;
+    this.getAudioList();
+    this.audio.release();
+    this.status = "Done!";
+  }
 
-    playAudio(file,idx) {
-      if (this.platform.is('ios')) {
-        this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
-        this.audio = this.media.create(this.filePath);
-      } else if (this.platform.is('android')) {
-        this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
-        this.audio = this.media.create(this.filePath);
-      }
-      this.audio.play();
-      this.audio.setVolume(0.8);
+  playAudio(file, idx) {
+    if (this.platform.is('ios')) {
+      this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
+      this.audio = this.media.create(this.filePath);
+    } else if (this.platform.is('android')) {
+      this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
+      this.audio = this.media.create(this.filePath);
     }
+    this.audio.play();
+    this.audio.setVolume(0.8);
+  }
 
-    goToHome() {
-      this.navCtrl.navigateRoot('/home/tabs/home-results');
-    }
-    ngOnInit() {
-    }
+  goToHome() {
+    this.navCtrl.navigateRoot('/home/tabs/home-results');
+  }
+  ngOnInit() {
+  }
 
-    segmentChanged(ev: any) {
-      console.log('Segment changed', ev);
-    }
-    previous() 
-    { 
-      this._location.back(); 
-    }
+  segmentChanged(ev: any) {
+    console.log('Segment changed', ev);
+  }
+  previous() {
+    this._location.back();
+  }
 
 }

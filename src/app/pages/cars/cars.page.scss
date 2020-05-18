@@ -9,13 +9,37 @@
         color: #dcbbf5
     }
     .view-text {
-        color: #272983;
+        background: #f7c90b;
         font-size: 12px;
-        text-decoration: underline;
+        color: #444;
+        padding: 3px;
+        position: absolute;
+        bottom: 9px;
+        right: 5px;
+    }
+    .card-text {
+        h5 {
+            padding: 2px;
+            font-size: 16px;
+            .icon {
+                color: #86888f;
+                padding-right: 4px;
+            }
+        }
+    }
+    .car-name {
+        float: right;
+        position: relative;
+        z-index: 99;
+    }
+    .agent-div {
+        padding: 9px 0 9px;
     }
     .agent-name {
-        color: #272983;
-        text-decoration: underline;
+        color: #fff;
+        background: #8548b3;
+        margin: 9px 0;
+        padding: 5px;
     }
     .calendar-icon {
         font-size: 25px;
@@ -31,10 +55,11 @@
     }
     .car-profile {
         .car-avatar {
-            width: 90%;
-            max-width: 200px;
-            height: 100px;
-            margin-right: 5px;
+            width: 100%;
+            margin: 0 auto;
+            position: absolute;
+            height: auto;
+            padding: 25px;
             img {
                 width: 100%;
             }
@@ -62,7 +87,9 @@
                 color: #ffb400;
             }
         }
-        float: right;
+        position: absolute;
+        bottom: 42px;
+        right: 0;
     }
     ion-title {
         padding: 10px!important;

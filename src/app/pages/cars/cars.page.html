@@ -22,55 +22,70 @@
             <ion-card-content no-padding>
                 <ion-row>
                     <ion-col>
+                        <ion-label class="ion-text-start">
+                            <div class="agent-div">
+                                <ion-text color="ion-text-start" class="agent-name" (click)="toAgentProfile()">
+                                    {{car.agentname}}
+                                </ion-text>
+                            </div>
 
-                        {{car.carname}}
-                        <ion-thumbnail class="car-avatar">
-                            <img [src]="car.img">
-                        </ion-thumbnail>
-                        <ion-text class="view-text" (click)="toVehicleProfile()">
-                            <ion-icon name="eye"></ion-icon> {{'COMMON.VIEW_DETAILS' | translate}}
-                        </ion-text>
-                    </ion-col>
-                    <ion-col>
-                        <ion-label class="ion-text-end">
-                            <ion-text color="dark ion-text-end" class="agent-name" (click)="toAgentProfile()">
-                                <h4><strong>{{car.agentname}}</strong></h4>
-                            </ion-text>
-                            <ion-text color="dark ion-text-end">
-                                <h3>
-                                    {{car.location}}
-                                </h3>
-                            </ion-text>
-                            <ion-text class="text-gray ion-text-end">
+                            <ion-text color="dark ion-text-start card-text">
                                 <h5>
-                                    {{car.seater}}
+                                    <span class="icon icon-location2"></span> {{car.location}}
                                 </h5>
                             </ion-text>
-                            <ion-text class="rating-star-box" (click)="openRating()">
-                                <ion-label>
-                                    <rating [rate]="givenStar" readonly="true">
-                                    </rating>
-                                </ion-label>
+                            <ion-text color="dark" class="ion-text-start card-text">
+                                <h5>
+                                    <span class="icon icon-user"></span> {{car.seater}}
+                                </h5>
                             </ion-text>
-                            <div class="ion-text-end mobnum-text">
+                            <ion-text color="dark" class="ion-text-start card-text">
+                                <h5>
+                                    <span class="icon icon-fuel-dispenser"></span> {{car.fuel}}
+                                </h5>
+                            </ion-text>
+
+                            <div class="ion-text-start mobnum-text">
                                 <ion-text color="dark">
                                     +91 {{car.mobilenumber}}
                                 </ion-text>
                             </div>
                         </ion-label>
 
-                        <div class="ion-text-end">
+                        <div class="ion-text-start">
                             <a href="tel:{{car.mobilenumber}}">
-                                <ion-button shape="round" size="small" color="success">
-                                    <ion-icon name="call"></ion-icon>
+                                <ion-button size="small" color="success">
+                                    <span class="icon-phone"></span>
                                 </ion-button>
                             </a>
                             <a (click)="openWhatsApp()">
-                                <ion-button shape="round" size="small" color="success">
+                                <ion-button size="small" color="success">
                                     <ion-icon name="logo-whatsapp"></ion-icon>
                                 </ion-button>
                             </a>
                         </div>
+                    </ion-col>
+
+                    <ion-col>
+                        <ion-text class="car-name">
+                            {{car.carname}}
+                        </ion-text>
+
+                        <ion-thumbnail class="car-avatar" no-padding no-margin>
+                            <img [src]="car.img">
+                        </ion-thumbnail>
+
+                        <ion-text class="rating-star-box" (click)="openRating()">
+                            <ion-label>
+                                <rating [rate]="givenStar" readonly="true">
+                                </rating>
+                            </ion-label>
+                        </ion-text>
+
+
+                        <ion-text class="view-text ion-text-end" (click)="toVehicleProfile()">
+                            <ion-icon name="eye"></ion-icon> {{'COMMON.VIEW_DETAILS' | translate}}
+                        </ion-text>
                     </ion-col>
                 </ion-row>
 

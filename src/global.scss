@@ -281,6 +281,12 @@
         }
     }
     
+    rating {
+        .sc-ion-buttons-ios-s ion-icon[slot=icon-only] {
+            font-size: 20px!important;
+        }
+    }
+    
     .font-ta {
         font-family: 'MuktaMalar-Regular'!important;
     }
@@ -302,5 +308,13 @@
     .warning-msg {
         .font-ta {
             font-size: 1rem!important;
+        }
+    }
+    
+    .my-vehicles {
+        ion-card.sc-ion-card-md-h {
+            box-shadow: none!important;
+            --box-shadow: none!important;
+            -webkit-box-shadow: none!important;
         }
     }
