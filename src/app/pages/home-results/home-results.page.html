@@ -76,10 +76,10 @@
             <ion-col size="6" *ngFor="let count of vehicles ">
                 <div class="vehicle-card animated bounceInUp">
                     <ion-card class="bg-white ion-text-center ">
-                        <img [src]="count.img" (click)="goToCars()">
+                        <img [src]="count.icons" (click)="goToCars()">
                         <div class="count-text">
                             <ion-text color="dark">
-                                {{count.num}}
+                                {{count.type}}
                             </ion-text>
                         </div>
                     </ion-card>

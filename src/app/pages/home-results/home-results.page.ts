@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { Router ,NavigationExtras } from '@angular/router'
 import { IonSlides, LoadingController } from '@ionic/angular';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-
+import {homeResultsService } from './home-results.page.service';
+import { vechicleTypes } from '../../models/VechileTypesmodel';    
 import {
   NavController,
   AlertController,
@@ -27,12 +29,14 @@ export class HomeResultsPage {
   yourLocation = 'Chennai 600 072';
   lang: any;
   isAnnouncement: boolean = false;
+  vehicles: [vechicleTypes];
   // themeCover = [
   //   {car:'assets/svg/car.svg'},
   //   {car1:'assets/svg/car1.svg'},
   // ];
   constructor(
     public navCtrl: NavController,
+    public router: Router,
     public menuCtrl: MenuController,
     public popoverCtrl: PopoverController,
     public alertCtrl: AlertController,
@@ -40,8 +44,11 @@ export class HomeResultsPage {
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
     public translate: TranslateService,
+    public homeResultsService:homeResultsService,
     public TranslateModule: TranslateModule
   ) {
+      this.vechileTypes();
+      
     // this.lang = 'en';
     // this.translate.setDefaultLang('en');
     // this.translate.use('en');
@@ -50,14 +57,20 @@ export class HomeResultsPage {
   // switchLanguage() {
   //   this.translate.use(this.lang);
   // }
-
-  vehicles = [
-    { img: "assets/svg/car.svg", num: '4+1' },
-    { img: "assets/svg/car1.svg", num: '(7 or 6)+1' },
-    { img: "assets/svg/van.svg", num: '12 + 1' },
-    { img: "assets/svg/bus.svg", num: '(21 or 25)+ 1' }
-  ];
-
+  vechileTypes() {
+    this.homeResultsService.getVechileTypes().subscribe(data => {
+      if (data && data.status === "SUCCESS") {
+          console.log(data, "datas")
+          this.vehicles=data.data;
+      } 
+      else {
+          console.log(null + "s");
+          console.log(data+"datas")        
+          
+      }
+  });
+  }
+  
   ads = [
     { img: "assets/img/announce1.jpg" },
     { img: "assets/img/announce2.jpg" }
@@ -69,11 +82,7 @@ export class HomeResultsPage {
   slideOptions = {
     initialSlide: 1,
     speed: 400,
-  };
-
-  ionViewWillEnter() {
-    this.menuCtrl.enable(true);
-  }
+  }; 
 
   slidesDidLoad(slides: IonSlides) {
     slides.startAutoplay();
@@ -157,9 +166,16 @@ export class HomeResultsPage {
     console.log('Loading dismissed!');
   }
 
-  goToCars() {
+  goToCars() {    
     this.presentLoading();
     this.navCtrl.navigateRoot('/home/tabs/cars');
+     console.log("clicked");
+     let navigationExtras: NavigationExtras = {
+      queryParams: {
+        special: JSON.stringify(this.vehicles[0].vehicleTypeId)
+      }
+    };
+    this.router.navigate(['/home/tabs/cars'], navigationExtras);
   }
   goToViewRequest() {
     this.navCtrl.navigateRoot('home/tabs/view-request')

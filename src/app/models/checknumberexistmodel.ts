@@ -5,6 +5,7 @@ export class checkExistnumber {
     email : string;
     roleId : any;
     active : number;
+    signupFlag:number;
    
 
 }
