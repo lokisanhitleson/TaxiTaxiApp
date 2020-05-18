@@ -35,6 +35,8 @@ export class LoginPage implements OnInit {
     public translate: TranslateService,
     public TranslateModule: TranslateModule
   ) {
+
+    this.menuCtrl.enable(false);
     this.authService.isLoggedIn().then(x => {
       if(x)
         this.navCtrl.navigateRoot('/home/tabs/home-results');
@@ -43,9 +45,6 @@ export class LoginPage implements OnInit {
 
   togglePasswordFieldType() {
     this.isTextFieldType = !this.isTextFieldType;
-  }
-  ionViewWillEnter() {
-    this.menuCtrl.enable(false);
   }
 
   ngOnInit() {
@@ -139,14 +138,18 @@ export class LoginPage implements OnInit {
       this.authService.login(mobilenum, password)
         .subscribe(
           async (response) => {
-            loading.then(loading => loading.dismiss());
 
             if (response && response.status === "SUCCESS") {
-              this.sharedService.changeLoginCheck(await this.authService.isLoggedIn());
+              this.sharedService.changeAuthTokenCheck(response.data.accessToken);
+              await this.storage.set('accessToken', response.data.accessToken);
+              const authVal = await this.authService.isLoggedIn();
+              this.sharedService.changeLoginCheck(authVal);
               this.mobileNumErr = false;
               this.passwordErr = false;
+              loading.then(loading => loading.dismiss());
               this.navCtrl.navigateRoot('/home/tabs/home-results');
             } else {
+              loading.then(loading => loading.dismiss());
               if (response) {
                 if (response.data.username)
                   this.mobileNumErr = true;

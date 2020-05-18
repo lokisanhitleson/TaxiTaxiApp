@@ -15,6 +15,7 @@ const httpOptions = {
 
         constructor(private http: HttpClient) {}
         getVechileTypes(): Observable<{  data: [vechicleTypes], status: string }> {
+          console.log("vehicleTypes");
             let url = `${ENVIRONMENT.apiUrl}vehicleTypes?active=Y&sort=sequence:asc`;
             return (
               this.http.get<{  data: [vechicleTypes], status: string }>(url)

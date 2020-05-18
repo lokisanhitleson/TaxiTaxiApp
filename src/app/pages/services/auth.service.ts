@@ -29,16 +29,10 @@ export class AuthService {
       .pipe(
         tap(_ => {
           console.log('Authenticating', _);
-          this.setSession(_);
         }),
         catchError(this.handleError<{data: any, status: string}>('Login Authenticate'))
       );
   }
-  private setSession(authResult: {data: any, status: string}) {
-    if(authResult.status === "SUCCESS") {
-      this.storage.set('accessToken', authResult.data.accessToken);
-    }
-  } 
   
   getAccount(): Observable<{ data: Account, status: string }> {
     return this.http.get<{ data: Account, status: string }>(`${ENVIRONMENT.apiUrl}currentAccount`)
