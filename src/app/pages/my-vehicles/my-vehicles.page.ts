@@ -47,6 +47,7 @@ export class MyVehiclesPage implements OnInit {
   form1Submitted: boolean;
   form2Submitted: boolean;
   form3Submitted: boolean;
+  modelOpened: boolean;
   picturesSelected: boolean;
   vehicleNames: [VehicleNameWithBrand];
   vehicleBrand: string;
@@ -60,6 +61,12 @@ export class MyVehiclesPage implements OnInit {
   vehicleBreakingSystems: [BreakingSystemOfVehicle];
   insuranceTypes: [InsuranceType];
   insuranceCompanies: [InsuranceCompany];
+
+  displayImage = "assets/img/displayview.jpg";
+  frontImage = "assets/img/frontview.jpg";
+  backImage = "assets/img/backview.jpg";
+  leftImage = "assets/img/leftview.jpg";
+  rightImage = "assets/img/rightview.jpg";
 
   constructor(
     public modalCtrl: ModalController,
@@ -129,9 +136,9 @@ export class MyVehiclesPage implements OnInit {
   }
   createForm3(): FormGroup {
     return this.formBuilder.group({
-        insuraceTypeId: ['', Validators.required],
-        insuraceCompanyId: ['', Validators.required],
-        insuraceNo: ['', Validators.required],
+        insuranceTypeId: ['', Validators.required],
+        insuranceCompanyId: ['', Validators.required],
+        insuranceNo: ['', Validators.required],
         startDate: ['', Validators.required],
         expiryDate: ['', Validators.required]
     });
@@ -325,6 +332,12 @@ export class MyVehiclesPage implements OnInit {
     const loading = await this.loadingCtrl.create();
     try {
       loading.present();
+      this.vehicleForm.form1.controls['vehicleColorId'].setValue(null);
+      this.vehicleForm.form1.controls['vehicleVariantId'].setValue(null);
+      this.vehicleForm.form1.controls['fuelTypeId'].setValue(null);
+      this.vehicleForm.form2.controls['wheelTypeId'].setValue(null);
+      this.vehicleForm.form2.controls['breakingSystemId'].setValue(null);
+
       const vehicleNameObject = this.vehicleNames.find(x => x.vehicleNameId === this.vehicleForm.form1.value.vehicleNameId)
       if(vehicleNameObject) {
         this.vehicleBrand = vehicleNameObject.brandName;
@@ -350,18 +363,63 @@ export class MyVehiclesPage implements OnInit {
 
   form1Submit() {
     this.form1Submitted = true;
+    this.checkImagesSelected();
   }
   form2Submit() {
     this.form2Submitted = true;
   }
   form3Submit() {
     this.form3Submitted = true;
-    if (this.vehicleForm.form1.valid && this.vehicleForm.form2.valid && this.vehicleForm.form3.valid) {
-      
+    if (this.vehicleForm.form1.valid && this.vehicleForm.form2.valid && this.vehicleForm.form3.valid && this.picturesSelected) {
+      const loading = this.loadingCtrl.create();
+      loading.then(l => l.present());
+      let formData = this.vehicleForm.form1.value;
+      Object.assign(formData, this.vehicleForm.form2.value);
+      Object.assign(formData, this.vehicleForm.form3.value);
+      formData.displayImage = this.displayImage;
+      formData.frontImage = this.frontImage;
+      formData.backImage = this.backImage;
+      formData.leftImage = this.leftImage;
+      formData.rightImage = this.rightImage;
+      console.log(formData);
+      this.addVehicleService.insertAgencyVehicle(formData).subscribe(data => {
+        loading.then(l => l.dismiss());
+        if(data && data.status == "SUCCESS") {
+          this.navCtrl.navigateRoot('/my-vehicle-list');
+        } else {
+          if(!data) {
+            this.toastCtrl.create({
+              showCloseButton: true,
+              message: 'Connection failed! try again',
+              duration: 3000,
+              position: 'bottom'
+            }).then(toast => toast.present());
+          }
+        }
+      }, async err => {
+        loading.then(l => l.dismiss());
+        this.toastCtrl.create({
+          showCloseButton: true,
+          message: 'Connection failed! try again',
+          duration: 3000,
+          position: 'bottom'
+        }).then(toast => toast.present());
+      })
     }
   }
+
+  checkImagesSelected() {
+    if(!this.displayImage.includes("assets/img") || !this.frontImage.includes("assets/img") || !this.backImage.includes("assets/img") || !this.leftImage.includes("assets/img") || !this.rightImage.includes("assets/img")) {
+      if(this.displayImage.includes("assets/img") || this.frontImage.includes("assets/img") || this.backImage.includes("assets/img") || this.leftImage.includes("assets/img") || this.rightImage.includes("assets/img")) {
+        this.picturesSelected = false;
+      } else {
+        this.picturesSelected = true;
+      }
+    }
+  }
+
   //Calendar Picker
-  async openCalendar() {
+  async openCalendar(field: string) {
     const options: CalendarModalOptions = {
       pickMode: 'single',
       title: 'Calendar',
@@ -374,8 +432,8 @@ export class MyVehiclesPage implements OnInit {
 
     myCalendar.present();
     const event: any = await myCalendar.onDidDismiss();
-    const newFormat = moment(event.data.dateObj).format("DD-MMMM-YYYY");
-    this.daterange = newFormat;
+    const newFormat = moment(event.data.dateObj).format("YYYY-MM-DD");
+    this.vehicleForm.form3.controls[field].setValue(newFormat);
   }
   //Image Crop and Upload
   pickImage(sourceType) {
@@ -455,12 +513,23 @@ export class MyVehiclesPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: UploadVehicle,
       componentProps: {
-        "Title": "Upload Photos"
+        "displayImage": this.displayImage,
+        "frontImage": this.frontImage,
+        "backImage": this.backImage,
+        "leftImage": this.leftImage,
+        "rightImage": this.rightImage
       }
     });
 
-    modal.onDidDismiss().then(() => { });
-
+    modal.onWillDismiss().then((data) => {
+      this.displayImage = data.data.displayImage;
+      this.frontImage = data.data.frontImage;
+      this.backImage = data.data.backImage;
+      this.leftImage = data.data.leftImage;
+      this.rightImage = data.data.rightImage;
+      this.checkImagesSelected()
+      this.modelOpened = true;
+    });
     return await modal.present();
   }
 

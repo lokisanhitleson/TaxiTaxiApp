@@ -98,11 +98,11 @@ export class AddVehicleService {
     
 
 
-  forgetpassword(mobileNumber) {
-    return this.http.post<{  data : { accountId: number }, status: string }>(`${ENVIRONMENT.apiUrl}forgetPass`, {"mobileNo":mobileNumber},httpOptions )
+  insertAgencyVehicle(formData) {
+    return this.http.post<{  data : number, status: string }>(`${ENVIRONMENT.apiUrl}agencyVehicles`, formData, httpOptions )
       .pipe(
-        tap(_ => console.log('crated otp for forgetpassword', _)),
-        catchError(this.handleError<{  data : { accountId: number }, status: string }>('error'))
+        tap(_ => console.log('Insert Agency Vehicle: ', _)),
+        catchError(this.handleError<{  data : number, status: string }>('Insert Agency Vehicle'))
       );
   }
 

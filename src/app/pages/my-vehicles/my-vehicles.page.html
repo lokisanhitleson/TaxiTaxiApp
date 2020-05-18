@@ -13,16 +13,21 @@
     <ion-card class="ion-padding ion-no-margin" no-shadow>
         <ion-card-content class="ion-no-padding">
             <wizard>
-                <wizard-step stepTitle="Vehicle Info" [canExit]='vehicleForm.form1.valid'>
+                <wizard-step stepTitle="Vehicle Info" [canExit]='vehicleForm.form1.valid && picturesSelected'>
                     <form [formGroup]="vehicleForm.form1" (submit)="form1Submit()" class="form-list">
                         <ion-list class="myvehicle-form">
                             <ion-button expand="full" color="medium" (click)="openUploadPhoto()">
                                 <ion-icon name="camera"></ion-icon> Upload Vehicle Photos
                             </ion-button>
 
-                            <ion-chip ion-text class="warning-msg" *ngIf="picturesSelected">
+                            <ion-chip ion-text class="warning-msg" *ngIf="(form1Submitted || modelOpened) && picturesSelected === undefined">
                                 <ion-label color="danger">
                                     {{'Please upload Vehicle pictures'}}
+                                </ion-label>
+                            </ion-chip>
+                            <ion-chip ion-text class="warning-msg" *ngIf="(form1Submitted || modelOpened) && picturesSelected === false">
+                                <ion-label color="danger">
+                                    {{'Please upload All Vehicle pictures'}}
                                 </ion-label>
                             </ion-chip>
                             <!-- <ion-item lines="none" class="upload-item">
@@ -241,11 +246,11 @@
                         <ion-list class="myvehicle-form">
                             <ion-item>
                                 <ion-label>Insurance Type</ion-label>
-                                <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss" formControlName="insuraceTypeId">
-                                    <ion-select-option *ngFor="let type of insuranceTypes" [value]="type.insuraceTypeId">{{type.type}}</ion-select-option>
+                                <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss" formControlName="insuranceTypeId">
+                                    <ion-select-option *ngFor="let type of insuranceTypes" [value]="type.insuranceTypeId">{{type.type}}</ion-select-option>
                                 </ion-select>
                             </ion-item>
-                            <ion-chip ion-text class="warning-msg" *ngIf="(form3Submitted ||vehicleForm.form3.get('insuraceTypeId').touched) && vehicleForm.form3.get('insuraceTypeId').hasError('required')">
+                            <ion-chip ion-text class="warning-msg" *ngIf="(form3Submitted ||vehicleForm.form3.get('insuranceTypeId').touched) && vehicleForm.form3.get('insuranceTypeId').hasError('required')">
                                 <ion-label color="danger">
                                     {{'Insurance Type required'}}
                                 </ion-label>
@@ -253,11 +258,11 @@
 
                             <ion-item>
                                 <ion-label>Insurance Company</ion-label>
-                                <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss" formControlName="insuraceCompanyId">
-                                    <ion-select-option *ngFor="let comp of insuranceCompanies" [value]="comp.insuraceCompanyId">{{comp.name}}</ion-select-option>
+                                <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss" formControlName="insuranceCompanyId">
+                                    <ion-select-option *ngFor="let comp of insuranceCompanies" [value]="comp.insuranceCompanyId">{{comp.name}}</ion-select-option>
                                 </ion-select>
                             </ion-item>
-                            <ion-chip ion-text class="warning-msg" *ngIf="(form3Submitted ||vehicleForm.form3.get('insuraceCompanyId').touched) && vehicleForm.form3.get('insuraceCompanyId').hasError('required')">
+                            <ion-chip ion-text class="warning-msg" *ngIf="(form3Submitted ||vehicleForm.form3.get('insuranceCompanyId').touched) && vehicleForm.form3.get('insuranceCompanyId').hasError('required')">
                                 <ion-label color="danger">
                                     {{'Insurance Company required'}}
                                 </ion-label>
@@ -265,9 +270,9 @@
 
                             <ion-item>
                                 <ion-label>Insurance Number</ion-label>
-                                <ion-input type="text" formControlName="insuraceNo"></ion-input>
+                                <ion-input type="text" formControlName="insuranceNo"></ion-input>
                             </ion-item>
-                            <ion-chip ion-text class="warning-msg" *ngIf="(form3Submitted ||vehicleForm.form3.get('insuraceNo').touched) && vehicleForm.form3.get('insuraceNo').hasError('required')">
+                            <ion-chip ion-text class="warning-msg" *ngIf="(form3Submitted ||vehicleForm.form3.get('insuranceNo').touched) && vehicleForm.form3.get('insuranceNo').hasError('required')">
                                 <ion-label color="danger">
                                     {{'Insurance Number required'}}
                                 </ion-label>
@@ -275,7 +280,7 @@
 
                             <ion-item>
                                 <ion-label>Insurance Start Date</ion-label>
-                                <ion-input type="text" formControlName="startDate"></ion-input>
+                                <ion-input type="text" formControlName="startDate" readonly="readonly" (click)="openCalendar('startDate')"></ion-input>
                             </ion-item>
                             <ion-chip ion-text class="warning-msg" *ngIf="(form3Submitted ||vehicleForm.form3.get('startDate').touched) && vehicleForm.form3.get('startDate').hasError('required')">
                                 <ion-label color="danger">
@@ -285,7 +290,7 @@
 
                             <ion-item>
                                 <ion-label>Insurance Expiry Date</ion-label>
-                                <ion-input type="text" formControlName="expiryDate"></ion-input>
+                                <ion-input type="text" formControlName="expiryDate" readonly="readonly" (click)="openCalendar('expiryDate')"></ion-input>
                             </ion-item>
                             <ion-chip ion-text class="warning-msg" *ngIf="(form3Submitted ||vehicleForm.form3.get('expiryDate').touched) && vehicleForm.form3.get('expiryDate').hasError('required')">
                                 <ion-label color="danger">

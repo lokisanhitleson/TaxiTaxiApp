@@ -1,65 +1,65 @@
 <ion-header>
     <ion-toolbar color="primary" text-center>
-        <ion-title><span class="icon-camera"></span> Upload Photos</ion-title>
+        <ion-title><span class="icon-camera"></span> {{title}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
     <ion-grid>
         <ion-row class="ion-text-center">
-            <ion-col size="12" class="ion-text-center" (click)="selectImage()">
+            <ion-col size="12" class="ion-text-center" (click)="selectImage(1)">
                 <div class="outer-wrapper">
                     <ion-text color="dark">Display Picture</ion-text>
                     <span class="icon-camera place-holder"></span>
                     <div class="frame">
                         <p *ngIf="isLoading">Loading ...</p>
-                        <img slot="end" [src]="croppedImagepath" />
+                        <img slot="end" [src]="displayImage" />
                     </div>
                 </div>
             </ion-col>
-            <ion-col size="6" (click)="selectImage()">
+            <ion-col size="6" (click)="selectImage(2)">
                 <div class="outer-wrapper">
                     <ion-text color="dark">Front</ion-text>
                     <span class="icon-camera place-holder2"></span>
                     <div class="frame">
                         <p *ngIf="isLoading">Loading ...</p>
-                        <img slot="end" [src]="frontView" />
+                        <img slot="end" [src]="frontImage" />
                     </div>
                 </div>
             </ion-col>
 
-            <ion-col size="6" (click)="selectImage()">
+            <ion-col size="6" (click)="selectImage(3)">
                 <div class="outer-wrapper">
                     <ion-text color="dark">Back</ion-text>
                     <span class="icon-camera place-holder2"></span>
                     <div class="frame">
                         <p *ngIf="isLoading">Loading ...</p>
-                        <img [src]="backView" />
+                        <img [src]="backImage" />
                     </div>
                 </div>
 
             </ion-col>
 
-            <ion-col size="6" (click)="selectImage()">
+            <ion-col size="6" (click)="selectImage(4)">
                 <div class="outer-wrapper">
                     <ion-text color="dark">Left</ion-text>
                     <span class="icon-camera place-holder3"></span>
                     <div class="frame">
 
                         <p *ngIf="isLoading">Loading ...</p>
-                        <img [src]="leftView" />
+                        <img [src]="leftImage" />
                     </div>
                 </div>
             </ion-col>
 
-            <ion-col size="6" (click)="selectImage()">
+            <ion-col size="6" (click)="selectImage(5)">
 
                 <div class="outer-wrapper">
                     <ion-text color="dark">Right</ion-text>
                     <span class="icon-camera place-holder3"></span>
                     <div class="frame">
                         <p *ngIf="isLoading">Loading ...</p>
-                        <img [src]="rightView" />
+                        <img [src]="rightImage" />
                     </div>
                 </div>
             </ion-col>
@@ -67,7 +67,7 @@
     </ion-grid>
 </ion-content>
 <div class="ion-text-center animated fadeInUp" margin-bottom padding-top>
-    <ion-button slot="start" (click)="cancelModal()" icon-left size="medium" shape="round" color="medium" tappable>
+    <ion-button slot="start" (click)="submitModal()" icon-left size="medium" shape="round" color="medium" tappable>
         Cancel
     </ion-button>
 

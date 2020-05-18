@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 import { Crop } from '@ionic-native/crop/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
@@ -13,14 +13,13 @@ import { File } from '@ionic-native/file/ngx';
 })
 export class UploadVehicle implements OnInit {
 
-  modalTitle: string;
-  modelId: number;
+  @Input() title: string;
+  @Input() displayImage: string;
+  @Input() frontImage: string;
+  @Input() backImage: string;
+  @Input() leftImage: string;
+  @Input() rightImage: string;
 
-  croppedImagepath = "assets/img/displayview.jpg";
-  frontView = "assets/img/frontview.jpg";
-  backView = "assets/img/backview.jpg";
-  leftView = "assets/img/leftview.jpg";
-  rightView = "assets/img/rightview.jpg";
   isLoading = false;
 
   imagePickerOptions = {
@@ -31,29 +30,29 @@ export class UploadVehicle implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private navParams: NavParams,
-    private imagePicker: ImagePicker,
     private crop: Crop,
     private camera: Camera,
     public actionSheetController: ActionSheetController,
     private file: File
-  ) { }
+  ) {
+  }
 
 
   ngOnInit() {
-    console.table(this.navParams);
-    this.modelId = this.navParams.data.paramID;
-    this.modalTitle = this.navParams.data.paramTitle;
-  }
-  async cancelModal() {
-    this.modalController.dismiss();
+    
   }
   async submitModal() {
-    this.modalController.dismiss();
+    this.modalController.dismiss({
+      displayImage: this.displayImage,
+      frontImage: this.frontImage,
+      backImage: this.backImage,
+      leftImage: this.leftImage,
+      rightImage: this.rightImage
+    });
   }
 
   //Image Crop and Upload
-  pickImage(sourceType) {
+  pickImage(sourceType, n: number) {
     const options: CameraOptions = {
       quality: 50,
       allowEdit: false,
@@ -68,42 +67,21 @@ export class UploadVehicle implements OnInit {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
       // let base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.cropImage(imageData)
+      this.cropImage(imageData, n)
     }, (err) => {
       // Handle error
     });
   }
 
-  async selectImage() {
-    const actionSheet = await this.actionSheetController.create({
-      header: "Select Image source",
-      buttons: [
-        //   {
-        //   text: 'Load from Library',
-        //   handler: () => {
-        //     this.pickImage(this.camera.PictureSourceType.PHOTOLIBRARY);
-        //   }
-        // },
-        {
-          text: 'Use Camera',
-          handler: () => {
-            this.pickImage(this.camera.PictureSourceType.CAMERA);
-          }
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        }
-      ]
-    });
-    await actionSheet.present();
+  async selectImage(n: number) {
+    this.pickImage(this.camera.PictureSourceType.CAMERA, n);
   }
 
-  cropImage(fileUrl) {
+  cropImage(fileUrl, n: number) {
     this.crop.crop(fileUrl, { quality: 50 })
       .then(
         newPath => {
-          this.showCroppedImage(newPath.split('?')[0])
+          this.showCroppedImage(newPath.split('?')[0], n)
         },
         error => {
           alert('Error cropping image' + error);
@@ -111,7 +89,7 @@ export class UploadVehicle implements OnInit {
       );
   }
 
-  showCroppedImage(ImagePath) {
+  showCroppedImage(ImagePath, n: number) {
     this.isLoading = true;
     var copyPath = ImagePath;
     var splitPath = copyPath.split('/');
@@ -119,11 +97,22 @@ export class UploadVehicle implements OnInit {
     var filePath = ImagePath.split(imageName)[0];
 
     this.file.readAsDataURL(filePath, imageName).then(base64 => {
-      this.croppedImagepath = base64;
-      this.frontView = base64;
-      this.backView = base64;
-      this.leftView = base64;
-      this.rightView = base64;
+      switch (n) {
+        case 1:
+          this.displayImage = base64;
+          break;
+        case 2:
+          this.frontImage = base64;
+          break;
+        case 3:
+          this.backImage = base64;
+          break;
+        case 4:
+          this.leftImage = base64;
+          break;
+        case 5:
+          this.rightImage = base64;
+      }
       this.isLoading = false;
     }, error => {
       alert('Error in showing image' + error);
