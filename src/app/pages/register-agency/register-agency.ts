@@ -78,7 +78,7 @@ export class RegisterAgencyPage implements OnInit {
       var ContactName = this.onAgencyRegistrationForm.value.contactName;  
       var Region = this.onAgencyRegistrationForm.value.region;
       var email = this.onAgencyRegistrationForm.value.email;
-      var accountid = val[0];
+      var accountid = val;
       console.log(AgencyName,AgencyRegisterationNumber,ContactName,Region,email,accountid);
       this.RegisterService.registeragency(AgencyName,AgencyRegisterationNumber,ContactName,Region,email,accountid)
       .subscribe(      
