@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { NavController, LoadingController, ModalController } from "@ionic/angular";
 import { RatingModalPage } from '../../pages/modal/rating-modal/rating-modal';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-cars',
   templateUrl: './cars.page.html',
@@ -15,14 +15,28 @@ export class CarsPage implements OnInit {
   today; 
   nextThirty; 
   selectedDate; 
-
+  vehiclesId;
+  data:any;
   constructor(private _location: Location, 
     private navCtrl: NavController,
     public loadingCtrl: LoadingController,
     public modalCtrl: ModalController,
     public translate: TranslateService, 
+    public route:ActivatedRoute,
+    public Router:Router,
     public TranslateModule : TranslateModule
-    ) {
+    )
+     { 
+       {
+                  
+         this.route.queryParams.subscribe(params => {
+         if (params && params.special) {
+          this.data = JSON.parse(params.special);
+          console.log(this.data,"valuesinc");
+        }
+       
+      });
+    }
 
     this.today = new Date().toISOString();
     let now = new Date();
@@ -52,6 +66,7 @@ async presentLoading() {
   const { role, data } = await loading.onDidDismiss();
   console.log('Loading dismissed!');
 }
+
 
 ngOnInit() {
 }

@@ -175,7 +175,7 @@ pauseTimer() {
                     console.log(null + "s");
                     resolve(null);
                     this.exist= false;
-                }
+                  }
             });
         }, 100);
     });
@@ -190,8 +190,8 @@ pauseTimer() {
     }       
     this.showOtp = true;
     this.startTimer();    
-       var mobileNumber =this.onSignUpForm.value.mobileNumber;
-       this.storage.set('mobilenumber', mobileNumber);
+       const mobileNumber =this.onSignUpForm.value.mobileNumber;
+       this.storage.set('mobilenumber', mobileNumber);       
        this.SignUpService.createAccount(mobileNumber)
        .subscribe(
         data => {
