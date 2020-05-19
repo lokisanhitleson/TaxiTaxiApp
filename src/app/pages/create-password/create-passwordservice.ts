@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { ENVIRONMENT } from "../../../environments/environment"
+import { environment } from "../../../environments/environment";
 import { checkExistnumber } from '../../models/checknumberexistmodel';
      
 const httpOptions = {
@@ -17,7 +17,7 @@ const httpOptions = {
         constructor(private http: HttpClient) {}
    
         createpassword(crp,accountid) {
-          return this.http.post<{  data : { accountId: number }, status: string }>(`${ENVIRONMENT.apiUrl}createpassword`, {"password":crp ,  "accountId":accountid } ,httpOptions)
+          return this.http.post<{  data : { accountId: number }, status: string }>(`${environment.apiUrl}createpassword`, {"password":crp ,  "accountId":accountid } ,httpOptions)
           .pipe(
             tap(_ => console.log('crated mobilenumber', _)),
             catchError(this.handleError<{  data : { accountId: number }, status: string }>('setmobilenumber'))

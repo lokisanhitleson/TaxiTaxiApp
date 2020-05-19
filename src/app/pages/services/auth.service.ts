@@ -5,8 +5,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Token } from '../models/login.model';
-import { ENVIRONMENT } from "../../../environments/environment"
-// const ENVIRONMENT = {
+import { environment } from "../../../environments/environment";
+// const environment = {
 //   apiUrl: "http://13.234.111.199:8000/"
 // }
 
@@ -25,7 +25,7 @@ export class AuthService {
     private storage: Storage) { }
 
   login(username: string, password: string): Observable<{data: any, status: string}> {
-    return this.http.post<{data: any, status: string}>(`${ENVIRONMENT.apiUrl}login/`, {type: 'USER', username, password}, httpOptions)
+    return this.http.post<{data: any, status: string}>(`${environment.apiUrl}login/`, {type: 'USER', username, password}, httpOptions)
       .pipe(
         tap(_ => {
           console.log('Authenticating', _);
@@ -35,7 +35,7 @@ export class AuthService {
   }
   
   getAccount(): Observable<{ data: Account, status: string }> {
-    return this.http.get<{ data: Account, status: string }>(`${ENVIRONMENT.apiUrl}currentAccount`)
+    return this.http.get<{ data: Account, status: string }>(`${environment.apiUrl}currentAccount`)
       .pipe(
         tap(_ => console.log('Fetched Account', _)),
         catchError(this.handleError<{ data: Account, status: string }>('getAccountDetails'))

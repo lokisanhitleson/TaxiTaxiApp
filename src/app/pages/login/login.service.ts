@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse ,HttpHeaders } from '@angular/common/http
 import { throwError } from 'rxjs';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { ENVIRONMENT } from "../../../environments/environment"
+import { environment } from "../../../environments/environment";
 import { checkExistnumber } from '../../models/checknumberexistmodel';
 
 const httpOptions = {
@@ -23,14 +23,14 @@ export class LoginService{
       // mobilenumber: mobileNum, password: pass}
        return this.http
           // .post<any>(this.configUrl, { params: { "mobilenumber": mobileNum, "password": pass } })
-          .post<any>(`${ENVIRONMENT.apiUrl}login`, {mobileNo: mobileNum, password: pass});                 
+          .post<any>(`${environment.apiUrl}login`, {mobileNo: mobileNum, password: pass});                 
       }
       
       CheckExists(values): Observable<{ data: [checkExistnumber], status: string }> {
 
         //  this. = values.value;
  
-       return this.http.get<{ data: [checkExistnumber], status: string }>(`${ENVIRONMENT.apiUrl}accounts?mobilenumber=${values.value}`)
+       return this.http.get<{ data: [checkExistnumber], status: string }>(`${environment.apiUrl}accounts?mobilenumber=${values.value}`)
          .pipe(
            tap(_ => console.log(`mobilenumbers exist ${values}`, _)),
            catchError(this.handleError<{ data: [checkExistnumber], status: string }>('mobilenumber exist'))
@@ -38,7 +38,7 @@ export class LoginService{
        }
 
        forgetpassword(mobileNumber) {
-        return this.http.post<{  data : { accountId: number }, status: string }>(`${ENVIRONMENT.apiUrl}forgetPass`, {"mobileNo":mobileNumber},httpOptions )
+        return this.http.post<{  data : { accountId: number }, status: string }>(`${environment.apiUrl}forgetPass`, {"mobileNo":mobileNumber},httpOptions )
           .pipe(
             tap(_ => console.log('crated otp for forgetpassword', _)),
             catchError(this.handleError<{  data : { accountId: number }, status: string }>('error'))

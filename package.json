@@ -49,7 +49,7 @@
         "cordova": "^9.0.0",
         "cordova-android": "^8.1.0",
         "cordova-browser": "6.0.0",
-        "cordova-ios": "5.1.1",
+        "cordova-ios": "^5.1.1",
         "cordova-plugin-camera": "^4.1.0",
         "cordova-plugin-crop": "^0.4.0",
         "cordova-plugin-datepicker": "^0.9.3",
@@ -109,8 +109,8 @@
     "cordova": {
         "platforms": [
             "browser",
-            "ios",
-            "android"
+            "android",
+            "ios"
         ],
         "plugins": {
             "cordova-plugin-whitelist": {},

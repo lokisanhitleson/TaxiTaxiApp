@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient ,HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { ENVIRONMENT } from "../../../environments/environment"
+import { environment } from "../../../environments/environment";
 import { VehicleNameWithBrand } from '../models/vehicle-name.model';
 import { VehicleTypeDetails } from '../models/vehicle-type.model';
 import { ColorOfVehicle } from '../models/vehicle-color.model';
@@ -26,70 +26,70 @@ export class AddVehicleService {
   constructor(private http: HttpClient) {}
 
   getVehicleNames() {
-    return this.http.get<{ data: [VehicleNameWithBrand], status: string }>(`${ENVIRONMENT.apiUrl}vehicleNamesWithBrand`)
+    return this.http.get<{ data: [VehicleNameWithBrand], status: string }>(`${environment.apiUrl}vehicleNamesWithBrand`)
       .pipe(
         tap(_ => console.log(`VehicleNamesWithBrand: `, _)),
         catchError(this.handleError<{ data: [VehicleNameWithBrand], status: string }>('get VehicleNamesWithBrand'))
       );               
   }  
   getVehicleType(vehicleTypeId) {
-    return this.http.get<{ data: VehicleTypeDetails, status: string }>(`${ENVIRONMENT.apiUrl}vehicleTypes/${vehicleTypeId}`)
+    return this.http.get<{ data: VehicleTypeDetails, status: string }>(`${environment.apiUrl}vehicleTypes/${vehicleTypeId}`)
       .pipe(
         tap(_ => console.log(`VehicleTypeDetails: `, _)),
         catchError(this.handleError<{ data: VehicleTypeDetails, status: string }>('get VehicleTypeDetails'))
       );               
   }
   getVehicleColors(vehicleNameId) {
-    return this.http.get<{ data: [ColorOfVehicle], status: string }>(`${ENVIRONMENT.apiUrl}colorsOfVehicle/${vehicleNameId}`)
+    return this.http.get<{ data: [ColorOfVehicle], status: string }>(`${environment.apiUrl}colorsOfVehicle/${vehicleNameId}`)
       .pipe(
         tap(_ => console.log(`ColorsOfVehicle: `, _)),
         catchError(this.handleError<{ data: [ColorOfVehicle], status: string }>('get ColorsOfVehicle'))
       );               
   }
   getVehicleVariants(vehicleNameId) {
-    return this.http.get<{ data: [VariantOfVehicle], status: string }>(`${ENVIRONMENT.apiUrl}variantsOfVehicle/${vehicleNameId}`)
+    return this.http.get<{ data: [VariantOfVehicle], status: string }>(`${environment.apiUrl}variantsOfVehicle/${vehicleNameId}`)
       .pipe(
         tap(_ => console.log(`variantsOfVehicle: `, _)),
         catchError(this.handleError<{ data: [VariantOfVehicle], status: string }>('get variantsOfVehicle'))
       );               
   }
   getVehicleFuelTypes(vehicleNameId) {
-    return this.http.get<{ data: [FuelTypeOfVehicle], status: string }>(`${ENVIRONMENT.apiUrl}fuelTypesOfVehicle/${vehicleNameId}`)
+    return this.http.get<{ data: [FuelTypeOfVehicle], status: string }>(`${environment.apiUrl}fuelTypesOfVehicle/${vehicleNameId}`)
       .pipe(
         tap(_ => console.log(`fuelTypesOfVehicle: `, _)),
         catchError(this.handleError<{ data: [FuelTypeOfVehicle], status: string }>('get fuelTypesOfVehicle'))
       );               
   }
   getVehicleConditions() {
-    return this.http.get<{ data: [VehicleCondition], status: string }>(`${ENVIRONMENT.apiUrl}vehicleConditions`)
+    return this.http.get<{ data: [VehicleCondition], status: string }>(`${environment.apiUrl}vehicleConditions`)
       .pipe(
         tap(_ => console.log(`vehicleConditions: `, _)),
         catchError(this.handleError<{ data: [VehicleCondition], status: string }>('get vehicleConditions'))
       );               
   }  
   getVehicleWheelTypes(vehicleNameId) {
-    return this.http.get<{ data: [WheelTypeOfVehicle], status: string }>(`${ENVIRONMENT.apiUrl}wheelTypesOfVehicle/${vehicleNameId}`)
+    return this.http.get<{ data: [WheelTypeOfVehicle], status: string }>(`${environment.apiUrl}wheelTypesOfVehicle/${vehicleNameId}`)
       .pipe(
         tap(_ => console.log(`wheelTypesOfVehicle: `, _)),
         catchError(this.handleError<{ data: [WheelTypeOfVehicle], status: string }>('get wheelTypesOfVehicle'))
       );               
   }
   getVehicleBreakingSystems(vehicleNameId) {
-    return this.http.get<{ data: [BreakingSystemOfVehicle], status: string }>(`${ENVIRONMENT.apiUrl}breakingSystemsOfVehicle/${vehicleNameId}`)
+    return this.http.get<{ data: [BreakingSystemOfVehicle], status: string }>(`${environment.apiUrl}breakingSystemsOfVehicle/${vehicleNameId}`)
       .pipe(
         tap(_ => console.log(`breakingSystemsOfVehicle: `, _)),
         catchError(this.handleError<{ data: [BreakingSystemOfVehicle], status: string }>('get breakingSystemsOfVehicle'))
       );               
   }
   getInsuranceCompanies() {
-    return this.http.get<{ data: [InsuranceCompany], status: string }>(`${ENVIRONMENT.apiUrl}insuranceCompanies`)
+    return this.http.get<{ data: [InsuranceCompany], status: string }>(`${environment.apiUrl}insuranceCompanies`)
       .pipe(
         tap(_ => console.log(`insuranceCompanies: `, _)),
         catchError(this.handleError<{ data: [InsuranceCompany], status: string }>('get insuranceCompanies'))
       );               
   } 
   getInsuranceTypes() {
-    return this.http.get<{ data: [InsuranceType], status: string }>(`${ENVIRONMENT.apiUrl}insuranceTypes`)
+    return this.http.get<{ data: [InsuranceType], status: string }>(`${environment.apiUrl}insuranceTypes`)
       .pipe(
         tap(_ => console.log(`insuranceTypes: `, _)),
         catchError(this.handleError<{ data: [InsuranceType], status: string }>('get insuranceTypes'))
@@ -99,7 +99,7 @@ export class AddVehicleService {
 
 
   insertAgencyVehicle(formData) {
-    return this.http.post<{  data : number, status: string }>(`${ENVIRONMENT.apiUrl}agencyVehicles`, formData, httpOptions )
+    return this.http.post<{  data : number, status: string }>(`${environment.apiUrl}agencyVehicles`, formData, httpOptions )
       .pipe(
         tap(_ => console.log('Insert Agency Vehicle: ', _)),
         catchError(this.handleError<{  data : number, status: string }>('Insert Agency Vehicle'))

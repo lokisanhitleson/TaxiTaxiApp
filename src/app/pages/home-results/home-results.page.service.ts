@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { ENVIRONMENT } from "../../../environments/environment"
+import { environment } from "../../../environments/environment";
 import { vechicleTypes } from '../../models/VechileTypesmodel';     
 const httpOptions = {
       headers: new HttpHeaders({
@@ -16,7 +16,7 @@ const httpOptions = {
         constructor(private http: HttpClient) {}
         getVechileTypes(): Observable<{  data: [vechicleTypes], status: string }> {
           console.log("vehicleTypes");
-            let url = `${ENVIRONMENT.apiUrl}vehicleTypes?active=Y&sort=sequence:asc`;
+            let url = `${environment.apiUrl}vehicleTypes?active=Y&sort=sequence:asc`;
             return (
               this.http.get<{  data: [vechicleTypes], status: string }>(url)
               .pipe(

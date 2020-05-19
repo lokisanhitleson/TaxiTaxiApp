@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { ENVIRONMENT } from "../../../environments/environment"
+import { environment } from "../../../environments/environment";
 import { checkExistnumber } from '../../models/checknumberexistmodel';
 
 const httpOptions = {
@@ -19,7 +19,7 @@ export class RegisterService{
     constructor(private http: HttpClient) {}
    
     registeragency(AgencyName,AgencyRegisterationNumber,ContactName,Region,email,accountid) {
-        return this.http.post<{  data : { accountId: number }, status: string }>(`${ENVIRONMENT.apiUrl}registerAgency`, {"agencyName":AgencyName , "agecncyRegisterNumber":AgencyRegisterationNumber ,"contactName":ContactName , "email":email ,"region":Region , "accountId":accountid }, httpOptions)
+        return this.http.post<{  data : { accountId: number }, status: string }>(`${environment.apiUrl}registerAgency`, {"agencyName":AgencyName , "agecncyRegisterNumber":AgencyRegisterationNumber ,"contactName":ContactName , "email":email ,"region":Region , "accountId":accountid }, httpOptions)
           .pipe(
             tap(_ => console.log('crated mobilenumber', _)),
             catchError(this.handleError<{  data : { accountId: number }, status: string }>('setmobilenumber'))
