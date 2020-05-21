@@ -15,41 +15,67 @@
     </ion-toolbar>
 </ion-header>
 <ion-content color="light">
-    <div class="car-profile" *ngFor="let car of cars">
-        <ion-card class="bg-white" no-margin>
-            <ion-card-content no-padding>
-                <ion-row>
-                    <ion-col>
-                        <ion-thumbnail class="car-avatar">
-                            <img [src]="car.img">
-                        </ion-thumbnail>
-                    </ion-col>
-                    <ion-col>
-                        <ion-label class="ion-text-end">
-                            <ion-text color="dark ion-text-end" class="car-name">
-                                <h4><strong>{{car.carname}}</strong></h4>
-                            </ion-text>
-                            <ion-text class="ion-text-end car-seater">
-                                <h5>
-                                    {{car.seater}}
-                                </h5>
-                            </ion-text>
-                            <div class="ion-text-end">
-                                <ion-text color="dark">
-                                    {{car.regNo}}
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingIcon="chevron-down-circle-outline"
+            pullingText="Pull to refresh"
+            refreshingSpinner="circular"
+            refreshingText="Loading">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ng-container *ngIf="newData">
+        <div class="car-profile" *ngFor="let car of newData; let i = index">
+            <ion-card class="bg-white" no-margin>
+                <ion-card-content no-padding>
+                    <ion-row>
+                        <ion-col>
+                            <ion-thumbnail class="car-avatar">
+                                <img [src]="generateThumbnail(car.displayImage)">
+                            </ion-thumbnail>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label class="ion-text-end">
+                                <ion-text color="dark ion-text-end" class="car-name">
+                                    <h4><strong>{{car.brandName+' '+car.vehicleName}}</strong></h4>
                                 </ion-text>
-                            </div>
-                        </ion-label>
-                        <ion-button no-shadow color="medium" size="small" class="action-btn" (click)="goAddVehicle()">
-                            <ion-icon name="create"></ion-icon>
-                        </ion-button>
-                        <ion-button color="danger" size="small" class="action-btn">
-                            <ion-icon name="trash"></ion-icon>
-                        </ion-button>
-                    </ion-col>
-                </ion-row>
+                                <ion-text class="ion-text-end car-seater">
+                                    <h5>
+                                        {{car.vehicleType}}
+                                    </h5>
+                                </ion-text>
+                                <div class="ion-text-end">
+                                    <ion-text color="dark">
+                                        {{car.registrationNo}}
+                                    </ion-text>
+                                </div>
+                            </ion-label>
+                            <ion-button no-shadow color="success" size="small" class="action-btn" (click)="viewVehicle(car.agencyVehicleId)">
+                                <ion-icon name="eye"></ion-icon>
+                            </ion-button>
+                            <ion-button no-shadow color="medium" size="small" class="action-btn" (click)="goAddVehicle()">
+                                <ion-icon name="create"></ion-icon>
+                            </ion-button>
+                            <ion-button color="danger" size="small" class="action-btn" (click)="deleteVehicle(i)">
+                                <ion-icon name="trash"></ion-icon>
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
 
-            </ion-card-content>
-        </ion-card>
-    </div>
+                </ion-card-content>
+            </ion-card>
+        </div>
+    </ng-container>
+    <div *ngIf="errorMessage!=undefined" text-center>
+		<ion-card class="error-card">			
+			<p style="font-size:20px" text-wrap>
+				{{errorMessage}}
+			</p>
+		</ion-card>
+	</div>
+    <ion-infinite-scroll *ngIf="page < totalPage" threshold="100px" (ionInfinite)="loadMoreData($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Loading...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
 </ion-content>

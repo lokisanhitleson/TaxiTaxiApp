@@ -2,12 +2,14 @@ export class AgencyVehicle {
     agencyVehicleId: number;
     agencyId: number;
     vehicleNameId: number;
-    active: string;
-    createdAt: string;
-    updatedAt: string;
+    displayImage: string;
     vehicleName: string;
     brandName: string;
     vehicleType: string;
+    registrationNo: string;
+    active: string;
+    createdAt: string;
+    updatedAt: string;
 }
 export class AgencyVehicleDetails {
     agencyVehicleId: number;
@@ -24,6 +26,11 @@ export class AgencyVehicleDetails {
     accidentHistory: string;
     registrationNo: string;
     fcYear: number;
+    displayImage: string;
+    frontImage: string;
+    backImage: string;
+    leftImage: string;
+    rightImage: string;
     active: string;
     createdAt: string;
     updatedAt: string;

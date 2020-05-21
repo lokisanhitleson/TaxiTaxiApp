@@ -33,6 +33,7 @@ import { AuthInterceptor } from './pages/interceptor/auth.interceptor';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ToastService } from './pages/services/toast.service';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -76,7 +77,8 @@ export function createTranslateLoader(http: HttpClient) {
     ImagePicker,
     Crop,
     FileTransfer,
-    Camera
+    Camera,
+    ToastService
   ],
   bootstrap: [AppComponent]
 })

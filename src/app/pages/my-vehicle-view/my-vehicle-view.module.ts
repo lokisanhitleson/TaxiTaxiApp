@@ -2,19 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { IonicRatingModule } from "ionic4-rating";
+import { TranslateModule } from '@ngx-translate/core';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MyVehicleList } from './my-vehicle-list';
-import { myVehicleListService } from './my-vehicle-list.service';
+import { MyVehicleViewPage } from './my-vehicle-view.page';
+import { myVehicleViewService } from './my-vehicle-view.service';
 
 const routes: Routes = [
   {
     path: '',
-    component: MyVehicleList
+    component: MyVehicleViewPage
   }
-
 ];
 
 @NgModule({
@@ -22,12 +21,12 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    IonicRatingModule ,
+    TranslateModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MyVehicleList],
+  declarations: [MyVehicleViewPage],
   providers: [
-    myVehicleListService
+    myVehicleViewService
   ]
 })
-export class MyVehicleListModule {}
+export class MyVehicleViewModule {}
