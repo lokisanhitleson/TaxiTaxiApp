@@ -45,7 +45,7 @@ export class AuthService {
   logout() {
       this.storage.remove("accessToken");
       this.storage.remove("mobileNo");
-      this.storage.remove("role");
+      this.storage.remove("userData");
       this.storage.remove("roleName");
   }
   public async isLoggedIn() {

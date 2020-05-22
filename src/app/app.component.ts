@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Storage } from '@ionic/storage';
 import { Platform, NavController, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
+import { agencyProfileImage } from '../app/models/agencymodel';
 import { Pages } from './interfaces/pages';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from './pages/services/auth.service';
@@ -17,7 +17,6 @@ import { SharedService } from './pages/sharedService/shared.service';
 export class AppComponent implements OnInit {
 
   public appPages: Array<Pages>;
-
   pages = [
     {
       title: 'SIDE_MENU_ITEMS.HOME',
@@ -77,12 +76,16 @@ export class AppComponent implements OnInit {
   ]
 
   lang: any;
+  agencyName: string;
+  agencyUrl = "assets/img/user-default.png";
+  agencyProfileImagedatas:[agencyProfileImage];
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public navCtrl: NavController,
     public translate: TranslateService,
+    public Storage:Storage,
     public TranslateModule: TranslateModule,
     public alertController: AlertController,
     private authService: AuthService,
@@ -91,9 +94,29 @@ export class AppComponent implements OnInit {
     this.lang = 'en';
     this.translate.setDefaultLang('en');
     this.translate.use('en');
+    this.sharedService.currentLoginCheck.subscribe(async data => {
+      if(data) {
+        this.Storage.get('userData').then((val) => { //ionicstorage 
+          console.log('Your userData is', val);
+          this.agencyName = val.agencyName           
+          if(val.agencyLogoURL !== null){
+            this.agencyUrl = val.agencyLogoURL 
+          }
+          else{
+            this.agencyUrl = "assets/img/user-default.png";
+          }
+          console.log(this.agencyName,"values");
+      
+        // this.agencyProfileImagedatas =this.agencyName;
+        // console.log(this.agencyProfileImagedatas[0].agencyLogoURL,"logo")
+        });
+      }
+    });
 
     this.initializeApp();
   }
+
+
   switchLanguage() {
     this.translate.use(this.lang);
   }
@@ -147,9 +170,9 @@ export class AppComponent implements OnInit {
   goToEditProgile() {
     this.navCtrl.navigateForward('edit-profile');
   }
-
   async logout() {
     this.authService.logout();
+    this.sharedService.changeAuthTokenCheck(null);
     this.sharedService.changeLoginCheck(await this.authService.isLoggedIn());
     this.navCtrl.navigateRoot('/login');
   }

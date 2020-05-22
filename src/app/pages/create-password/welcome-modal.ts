@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams, NavController } from '@ionic/angular';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'welcome-modal',
   templateUrl: './welcome-modal.html',
@@ -11,14 +11,20 @@ export class WelcomeModal implements OnInit {
   
   modalTitle:string;
   modelId:number;
-
+  registerAgencyName:string;
   constructor(
     private modalController: ModalController,
     private navParams: NavParams,
     private navCtrl: NavController,
+    private storage: Storage,
     public TranslateModule : TranslateModule,
     public modalCtrl: ModalController,
-  ) { }
+  ) { 
+    this.storage.get('userData').then((val) => { //ionicstorage 
+      console.log('Your userData is', val);
+       this.registerAgencyName =val.agencyName
+    });
+  }
  
   ngOnInit() {
     console.table(this.navParams);
