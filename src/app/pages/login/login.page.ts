@@ -159,7 +159,9 @@ export class LoginPage implements OnInit {
               if (response) {
                 if (response.data.username)
                   this.mobileNumErr = true;
-                else if (response.data.password)
+                else if (response.data.signupFlag) {
+                  this.partialSignupPrompt();
+                } else if (response.data.password)
                   this.passwordErr = true;
               } else
                 this.toastCtrl.create({
@@ -183,6 +185,25 @@ export class LoginPage implements OnInit {
         );
     }
   }
+  async partialSignupPrompt() {
+    const alert = await this.alertCtrl.create({
+      header: 'Info!',
+      message: 'Partial signup detected on this account! Please signup again.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary'
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.navCtrl.navigateRoot('/signup');
+          }
+        }
+      ]
+    });
 
+    await alert.present();
+  }
 
 }
