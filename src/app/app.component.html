@@ -6,11 +6,11 @@
 
                     <ion-item margin-bottom lines="none">
                         <ion-avatar slot="start" class="user-avatar">
-                            <img src="assets/img/user-default.png">
+                            <img  [src]="agencyUrl" />
                         </ion-avatar>
                         <ion-label>
-                            <ion-text color="light">
-                                <h2><strong>Sunu Sundar</strong></h2>
+                            <ion-text color="light" >
+                                <h2><strong>{{agencyName}}</strong></h2>
                             </ion-text>
                             <ion-text color="medium">
                                 <h3>

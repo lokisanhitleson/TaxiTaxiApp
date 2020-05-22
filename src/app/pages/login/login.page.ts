@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { SharedService } from '../sharedService/shared.service';
 import { Storage } from '@ionic/storage';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -20,7 +21,7 @@ export class LoginPage implements OnInit {
   mobileNumErr: boolean;
   passwordErr: boolean;
   formSubmitted: boolean;
-
+  
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -143,7 +144,12 @@ export class LoginPage implements OnInit {
               this.sharedService.changeAuthTokenCheck(response.data.accessToken);
               await this.storage.set('accessToken', response.data.accessToken);
               const authVal = await this.authService.isLoggedIn();
-              this.sharedService.changeLoginCheck(authVal);
+              this.loginService.userData().subscribe( async data => {             
+                if (response && response.status === "SUCCESS") {
+                  await this.storage.set('userData', data.data);
+                  this.sharedService.changeLoginCheck(authVal);
+                }
+              });
               this.mobileNumErr = false;
               this.passwordErr = false;
               loading.then(loading => loading.dismiss());
