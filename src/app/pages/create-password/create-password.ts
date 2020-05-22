@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, MenuController, LoadingController, AlertController, ModalController, ToastController } from '@ionic/angular';
 import { PasswordService } from './create-passwordservice'
 import { Storage } from '@ionic/storage';
+import { SharedService } from '../sharedService/shared.service';
+import { AuthService } from '../services/auth.service';
 import { CustomValidators } from './password-validators';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { WelcomeModal } from './welcome-modal';
@@ -27,7 +29,9 @@ export class CreatePasswordPage implements OnInit {
     private formBuilder: FormBuilder,
     public alertController: AlertController,
     public PasswordService:PasswordService,
-    public Storage:Storage,
+    private sharedService: SharedService,
+    private storage: Storage,
+    private authService: AuthService,
     public translate: TranslateService, 
     public TranslateModule : TranslateModule,
     public toastCtrl: ToastController,
@@ -141,7 +145,7 @@ export class CreatePasswordPage implements OnInit {
         const loading = this.loadingCtrl.create();
         loading.then( loading => loading.present());
         this.incorrectpassword = false;
-        this.Storage.get('accountid').then((val) => {//ionicstorage 
+        this.storage.get('accountid').then((val) => {//ionicstorage 
         console.log('Your accountid is', val);    
         var accountid = val;
         this.PasswordService.createpassword(crp,accountid)
@@ -150,15 +154,32 @@ export class CreatePasswordPage implements OnInit {
                 loading.then( loading => loading.dismiss());
                 if (response && response.status == "SUCCESS" ){          
                   this.incorrectpassword = false;
-                  const fogotPasswordNumber = await this.Storage.get('forgetPassNum');
-                  if(!fogotPasswordNumber){
-                  this.openWelcomeModal();
-                }
-                else{
-                  this.Storage.remove('forgetPassNum'); 
-                }
-                  this.navCtrl.navigateRoot('/home');
-                }       
+                  this.storage.get('mobilenumber').then((mobilenumber) => {
+                  this.authService.login(mobilenumber, cp)
+                  .subscribe(
+                    async (response) => {
+                     if (response && response.status === "SUCCESS") {  
+                        this.sharedService.changeAuthTokenCheck(response.data.accessToken);
+                        await this.storage.set('accessToken', response.data.accessToken);
+                        const authVal = await this.authService.isLoggedIn();
+                        this.PasswordService.userData().subscribe( async data => {           
+                          if (response && response.status === "SUCCESS") {
+                           await this.storage.set('userData', data.data);      
+                           this.sharedService.changeLoginCheck(authVal);                      
+                          }
+                        });     
+                        const fogotPasswordNumber = await this.storage.get('forgetPassNum');
+                        if(!fogotPasswordNumber){
+                          this.openWelcomeModal();
+                        } else {
+                          this.storage.remove('forgetPassNum'); 
+                      } 
+                    }  
+                    this.navCtrl.navigateRoot('/home');            
+                 }
+                );              
+            });
+              }
                 else {
                   this.incorrectpassword = true;   
                   if(!response) {

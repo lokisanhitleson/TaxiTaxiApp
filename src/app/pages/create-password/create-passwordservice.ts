@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from "../../../environments/environment";
 import { checkExistnumber } from '../../models/checknumberexistmodel';
-     
+import { agencyProfileImage } from '../../models/agencymodel';     
 const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -23,6 +23,15 @@ const httpOptions = {
             catchError(this.handleError<{  data : { accountId: number }, status: string }>('setmobilenumber'))
           );
         }
+
+        userData() {
+          return this.http.get<{ data: agencyProfileImage, status: string }>(`${environment.apiUrl}agencyProfileImage`)
+            .pipe(
+              tap(_ => console.log(`imageget: `, _)),
+              catchError(this.handleError<{ data: agencyProfileImage, status: string }>('get agencyProfileImage'))
+            );               
+        }     
+        
 
         private handleError<T>(operation = 'operation', result?: T) {
           return (error: any): Observable<T> => {
