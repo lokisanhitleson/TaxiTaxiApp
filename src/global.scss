@@ -318,3 +318,16 @@
             -webkit-box-shadow: none!important;
         }
     }
+    
+    .searchbar-input.sc-ion-searchbar-md {
+        --border-radius: 0px !important;
+        --box-shadow: none!important;
+        -webkit-box-shadow: none!important;
+    }
+    
+    .searchbar-input-container.sc-ion-searchbar-ios {
+        height: 40px;
+        background: transparent;
+        top: 6px;
+        contain: strict;
+    }

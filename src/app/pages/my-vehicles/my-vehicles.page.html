@@ -30,25 +30,16 @@
                                     {{'Please upload All Vehicle pictures'}}
                                 </ion-label>
                             </ion-chip>
-                            <!-- <ion-item lines="none" class="upload-item">
-                                <div class="img-upload-container">
-                                    <div>
-                                        <ion-button size="small" color="light" (click)="selectImage()">
-                                            Upload Vehicle Image
-                                        </ion-button>
-                                    </div>
-                                    <div slot="start">
-                                        <p *ngIf="isLoading">Loading ...</p>
-                                        <img slot="end" [src]="croppedImagepath" />
-                                    </div>
-                                </div>
-                            </ion-item> -->
-                            <ion-item lines="none">
+                            <ion-item lines="none" (click)="openVehiclesBrand()">
+                                <ion-label slot="start">Model:</ion-label>
+                                <span *ngIf="!selectedBrand" class="text-mute">Select Brand</span> {{selectedBrand}}
+                            </ion-item>
+                            <!-- <ion-item lines="none">
                                 <ion-label>Vehicle Name</ion-label>
-                                <ion-select class="myCustomSelect ion-text-center" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss" (ionChange)="changeVehicleName()" formControlName="vehicleNameId">
+                                <ion-select class="myCustomSelect ion-text-center" placeholder="-Vehicle name-" ok-text="Okay" cancel-text="Dismiss" (ionChange)="changeVehicleName()" formControlName="vehicleNameId">
                                     <ion-select-option *ngFor="let car of vehicleNames" [value]="car.vehicleNameId">{{car.brandName+' '+car.name}}</ion-select-option>
                                 </ion-select>
-                            </ion-item>
+                            </ion-item> -->
                             <ion-chip ion-text class="warning-msg" *ngIf=" (form1Submitted ||vehicleForm.form1.get('vehicleNameId').touched) && vehicleForm.form1.get('vehicleNameId').hasError('required')">
                                 <ion-label color="danger">
                                     {{'Vehicle Name required'}}
@@ -56,7 +47,7 @@
                             </ion-chip>
 
                             <ion-item lines="none">
-                                <ion-label>Maker</ion-label>
+                                <ion-label>Brand:</ion-label>
                                 <ion-input type="text" [value]="vehicleBrand" readonly="readonly"></ion-input>
                             </ion-item>
                             <ion-item>
@@ -70,12 +61,12 @@
                             </ion-chip>
 
                             <ion-item lines="none">
-                                <ion-label>Vehicle Type</ion-label>
+                                <ion-label>Vehicle Type:</ion-label>
                                 <ion-input type="text" [value]="vehicleType" readonly="readonly"></ion-input>
                             </ion-item>
 
                             <ion-item lines="none">
-                                <ion-label>Vehicle Color</ion-label>
+                                <ion-label>Vehicle Color:</ion-label>
                                 <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss" formControlName="vehicleColorId">
                                     <ion-select-option *ngFor="let color of vehicleColors" [value]="color.vehicleColorId">{{color.color}}</ion-select-option>
                                 </ion-select>
@@ -87,7 +78,7 @@
                             </ion-chip>
 
                             <ion-item lines="none">
-                                <ion-label>Year of Manufacture</ion-label>
+                                <ion-label>Year of Manufacture:</ion-label>
                                 <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss" formControlName="manufactureYear">
                                     <ion-select-option *ngFor="let year of years">{{year}}</ion-select-option>
                                 </ion-select>
@@ -99,7 +90,7 @@
                             </ion-chip>
 
                             <ion-item lines="none">
-                                <ion-label>Vehicle Variant</ion-label>
+                                <ion-label>Vehicle Variant:</ion-label>
                                 <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss" formControlName="vehicleVariantId">
                                     <ion-select-option *ngFor="let variant of vehicleVariants" [value]="variant.vehicleVariantId">{{variant.variant}}</ion-select-option>
                                 </ion-select>
@@ -111,7 +102,7 @@
                             </ion-chip>
 
                             <ion-item lines="none">
-                                <ion-label>Fuel Type</ion-label>
+                                <ion-label>Fuel Type:</ion-label>
                                 <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss" formControlName="fuelTypeId">
                                     <ion-select-option *ngFor="let type of vehicleFuelTypes" [value]="type.fuelTypeId">{{type.type}}</ion-select-option>
                                 </ion-select>
@@ -214,7 +205,7 @@
                                     {{'Wheel Type required'}}
                                 </ion-label>
                             </ion-chip>
-                            
+
                             <ion-item>
                                 <ion-label>Breaking System</ion-label>
                                 <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss" formControlName="breakingSystemId">
@@ -241,7 +232,7 @@
                     </form>
                 </wizard-step>
 
-                <wizard-step stepTitle="Insurance" >
+                <wizard-step stepTitle="Insurance">
                     <form [formGroup]="vehicleForm.form3" (submit)="form3Submit()" class="form-list">
                         <ion-list class="myvehicle-form">
                             <ion-item>
