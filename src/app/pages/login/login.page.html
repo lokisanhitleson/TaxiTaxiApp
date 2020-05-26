@@ -19,7 +19,7 @@
                             <ion-icon name="phone-portrait" item-start></ion-icon>
                             {{'PLACEHOLDER_MSG.MOBILE_NUMBER' | translate}}
                         </ion-label>
-                        <ion-input type="number" formControlName="mobileNum" (input)="typeChange('mobileNum')"></ion-input>
+                        <ion-input type="tel" formControlName="mobileNum" (input)="typeChange('mobileNum')"></ion-input>
                     </ion-item>
                     <ion-chip ion-text class="warning-msg" *ngIf=" (formSubmitted ||onLoginForm.get('mobileNum').touched) && onLoginForm.get('mobileNum').hasError('required')">
                         <ion-label color="danger">

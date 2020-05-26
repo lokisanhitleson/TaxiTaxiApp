@@ -335,6 +335,7 @@ export class MyVehiclesPage implements OnInit {
       this.vehicleForm.form1.controls['vehicleColorId'].setValue(null);
       this.vehicleForm.form1.controls['vehicleVariantId'].setValue(null);
       this.vehicleForm.form1.controls['fuelTypeId'].setValue(null);
+      this.vehicleForm.form1.controls['registrationNo'].setValue(null);
       this.vehicleForm.form2.controls['wheelTypeId'].setValue(null);
       this.vehicleForm.form2.controls['breakingSystemId'].setValue(null);
 

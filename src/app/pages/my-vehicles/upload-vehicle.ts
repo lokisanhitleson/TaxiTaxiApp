@@ -84,7 +84,6 @@ export class UploadVehicle implements OnInit {
           this.showCroppedImage(newPath.split('?')[0], n)
         },
         error => {
-          alert('Error cropping image' + error);
         }
       );
   }
