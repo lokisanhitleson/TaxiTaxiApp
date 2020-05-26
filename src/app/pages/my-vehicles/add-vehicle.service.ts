@@ -3,7 +3,7 @@ import { HttpClient ,HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from "../../../environments/environment";
-import { VehicleNameWithBrand } from '../models/vehicle-name.model';
+import { VehicleNameWithBrand, VehicleName } from '../models/vehicle-name.model';
 import { VehicleTypeDetails } from '../models/vehicle-type.model';
 import { ColorOfVehicle } from '../models/vehicle-color.model';
 import { VariantOfVehicle } from '../models/vehicle-variant.model';
@@ -13,6 +13,7 @@ import { WheelTypeOfVehicle } from '../models/wheel-type.model';
 import { BreakingSystemOfVehicle } from '../models/breaking-system.model';
 import { InsuranceCompany } from '../models/insurance-company.model';
 import { InsuranceType } from '../models/insurance-type.model';
+import { VehicleBrand } from '../models/vehicle-brand.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -25,11 +26,18 @@ export class AddVehicleService {
  
   constructor(private http: HttpClient) {}
 
-  getVehicleNames() {
-    return this.http.get<{ data: [VehicleNameWithBrand], status: string }>(`${environment.apiUrl}vehicleNamesWithBrand`)
+  getVehicleBrands() {
+    return this.http.get<{ data: [VehicleBrand], status: string }>(`${environment.apiUrl}vehicleBrands?sort=vehicleBrandId:asc`)
       .pipe(
-        tap(_ => console.log(`VehicleNamesWithBrand: `, _)),
-        catchError(this.handleError<{ data: [VehicleNameWithBrand], status: string }>('get VehicleNamesWithBrand'))
+        tap(_ => console.log(`vehicleBrands: `, _)),
+        catchError(this.handleError<{ data: [VehicleBrand], status: string }>('get vehicleBrands'))
+      );               
+  }  
+  getVehicleNamesByBrand(vehicleBrandId: number) {
+    return this.http.get<{ data: [VehicleName], status: string }>(`${environment.apiUrl}vehicleNames?vehicleBrandId=${vehicleBrandId}`)
+      .pipe(
+        tap(_ => console.log(`VehicleNamesByBrand: `, _)),
+        catchError(this.handleError<{ data: [VehicleName], status: string }>('get VehicleNamesByBrand'))
       );               
   }  
   getVehicleType(vehicleTypeId) {

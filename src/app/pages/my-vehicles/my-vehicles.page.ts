@@ -23,6 +23,7 @@ import { BreakingSystemOfVehicle } from '../models/breaking-system.model';
 import { InsuranceType } from '../models/insurance-type.model';
 import { InsuranceCompany } from '../models/insurance-company.model';
 import { VehicleBrandModal } from "./vehicle.brand";
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-my-vehicles',
@@ -50,8 +51,10 @@ export class MyVehiclesPage implements OnInit {
   form3Submitted: boolean;
   modelOpened: boolean;
   picturesSelected: boolean;
-  vehicleNames: [VehicleNameWithBrand];
+  modelOpenedBrand: boolean;
+  vehicleSelected: boolean;
   vehicleBrand: string;
+  vehicleTypeId: number;
   vehicleType: string;
   vehicleColors: [ColorOfVehicle];
   years: [number];
@@ -68,7 +71,9 @@ export class MyVehiclesPage implements OnInit {
   backImage = "assets/img/backview.jpg";
   leftImage = "assets/img/leftview.jpg";
   rightImage = "assets/img/rightview.jpg";
-  selectedBrand: any = "";
+  vehicleNameIdPrev: number;
+  vehicleNameId: number;
+  vehicleName: string;
   constructor(
     public modalCtrl: ModalController,
     public navCtrl: NavController,
@@ -79,7 +84,7 @@ export class MyVehiclesPage implements OnInit {
     public actionSheetController: ActionSheetController,
     private file: File,
     private loadingCtrl: LoadingController,
-    private toastCtrl: ToastController,
+    private toast: ToastService,
     public translate: TranslateService,
     public TranslateModule: TranslateModule,
     private addVehicleService: AddVehicleService,
@@ -97,20 +102,13 @@ export class MyVehiclesPage implements OnInit {
     try {
       loading.present();
       this.loadYears();
-      await this.getVehicleNames();
       await this.getInsuranceCompanies();
       await this.getInsuranceTypes();
       await this.getVehicleConditions();
       loading.dismiss();
     } catch (err) {
       loading.dismiss();
-      const toast = await this.toastCtrl.create({
-        showCloseButton: true,
-        message: 'Connection failed! try again',
-        duration: 3000,
-        position: 'bottom'
-      });
-      toast.present();
+      this.toast.showToast();
     }
   }
 
@@ -150,27 +148,6 @@ export class MyVehiclesPage implements OnInit {
     const year = new Date().getFullYear();
     for (let i = year - count; i <= year; i++)
       if (this.years) this.years.push(i); else this.years = [i];
-  }
-  getVehicleNames() {
-    return new Promise((res, rej) => {
-      this.addVehicleService.getVehicleNames().subscribe(data => {
-        res(true);
-        if (data && data.status == "SUCCESS") {
-          this.vehicleNames = data.data;
-        } else {
-          if (!data) {
-            this.toastCtrl.create({
-              showCloseButton: true,
-              message: 'Connection failed! try again',
-              duration: 3000,
-              position: 'bottom'
-            }).then(toast => toast.present());
-          }
-        }
-      }, async err => {
-        rej(err);
-      })
-    })
   }
 
   getVehicleType(vehicleTypeId: number) {
@@ -241,12 +218,7 @@ export class MyVehiclesPage implements OnInit {
           this.vehicleConditions = data.data;
         } else {
           if (!data) {
-            this.toastCtrl.create({
-              showCloseButton: true,
-              message: 'Connection failed! try again',
-              duration: 3000,
-              position: 'bottom'
-            }).then(toast => toast.present());
+            this.toast.showToast();
           }
         }
       }, async err => {
@@ -293,12 +265,7 @@ export class MyVehiclesPage implements OnInit {
           this.insuranceCompanies = data.data;
         } else {
           if (!data) {
-            this.toastCtrl.create({
-              showCloseButton: true,
-              message: 'Connection failed! try again',
-              duration: 3000,
-              position: 'bottom'
-            }).then(toast => toast.present());
+            this.toast.showToast();
           }
         }
       }, async err => {
@@ -315,12 +282,7 @@ export class MyVehiclesPage implements OnInit {
           this.insuranceTypes = data.data;
         } else {
           if (!data) {
-            this.toastCtrl.create({
-              showCloseButton: true,
-              message: 'Connection failed! try again',
-              duration: 3000,
-              position: 'bottom'
-            }).then(toast => toast.present());
+            this.toast.showToast();
           }
         }
       }, async err => {
@@ -329,7 +291,7 @@ export class MyVehiclesPage implements OnInit {
     })
   }
 
-  async changeVehicleName() {
+  async changeVehicleName(vehicleTypeId: number, vehicleNameId: number) {
     const loading = await this.loadingCtrl.create();
     try {
       loading.present();
@@ -340,32 +302,23 @@ export class MyVehiclesPage implements OnInit {
       this.vehicleForm.form2.controls['wheelTypeId'].setValue(null);
       this.vehicleForm.form2.controls['breakingSystemId'].setValue(null);
 
-      const vehicleNameObject = this.vehicleNames.find(x => x.vehicleNameId === this.vehicleForm.form1.value.vehicleNameId)
-      if (vehicleNameObject) {
-        this.vehicleBrand = vehicleNameObject.brandName;
-        await this.getVehicleType(vehicleNameObject.vehicleTypeId);
-        await this.getVehicleColors(vehicleNameObject.vehicleNameId);
-        await this.getVehicleVariants(vehicleNameObject.vehicleNameId);
-        await this.getVehicleFuelTypes(vehicleNameObject.vehicleNameId);
-        await this.getVehicleWheelTypes(vehicleNameObject.vehicleNameId);
-        await this.getVehicleBreakingSystems(vehicleNameObject.vehicleNameId);
-      }
+      await this.getVehicleType(vehicleTypeId);
+      await this.getVehicleColors(vehicleNameId);
+      await this.getVehicleVariants(vehicleNameId);
+      await this.getVehicleFuelTypes(vehicleNameId);
+      await this.getVehicleWheelTypes(vehicleNameId);
+      await this.getVehicleBreakingSystems(vehicleNameId);
       loading.dismiss();
     } catch (err) {
       loading.dismiss();
-      const toast = await this.toastCtrl.create({
-        showCloseButton: true,
-        message: 'Connection failed! try again',
-        duration: 3000,
-        position: 'bottom'
-      });
-      toast.present();
+      this.toast.showToast();
     }
   }
 
   form1Submit() {
     this.form1Submitted = true;
     this.checkImagesSelected();
+    this.checkVehicleSelected();
   }
   form2Submit() {
     this.form2Submitted = true;
@@ -383,6 +336,7 @@ export class MyVehiclesPage implements OnInit {
       formData.backImage = this.backImage;
       formData.leftImage = this.leftImage;
       formData.rightImage = this.rightImage;
+      formData.vehicleNameId = this.vehicleNameId;
       console.log(formData);
       this.addVehicleService.insertAgencyVehicle(formData).subscribe(data => {
         loading.then(l => l.dismiss());
@@ -390,22 +344,12 @@ export class MyVehiclesPage implements OnInit {
           this.navCtrl.navigateRoot('/my-vehicle-list');
         } else {
           if (!data) {
-            this.toastCtrl.create({
-              showCloseButton: true,
-              message: 'Connection failed! try again',
-              duration: 3000,
-              position: 'bottom'
-            }).then(toast => toast.present());
+            this.toast.showToast();
           }
         }
       }, async err => {
         loading.then(l => l.dismiss());
-        this.toastCtrl.create({
-          showCloseButton: true,
-          message: 'Connection failed! try again',
-          duration: 3000,
-          position: 'bottom'
-        }).then(toast => toast.present());
+        this.toast.showToast();
       })
     }
   }
@@ -417,6 +361,17 @@ export class MyVehiclesPage implements OnInit {
       } else {
         this.picturesSelected = true;
       }
+    }
+  }  
+  checkVehicleSelected() {
+    if (this.vehicleNameId) {
+      this.vehicleSelected = true;
+      if(this.vehicleNameIdPrev !== this.vehicleNameId) {
+        this.changeVehicleName(this.vehicleTypeId, this.vehicleNameId);
+        this.vehicleNameIdPrev = this.vehicleNameId;
+      }
+    } else {
+      this.vehicleSelected = false;
     }
   }
 
@@ -436,79 +391,6 @@ export class MyVehiclesPage implements OnInit {
     const event: any = await myCalendar.onDidDismiss();
     const newFormat = moment(event.data.dateObj).format("YYYY-MM-DD");
     this.vehicleForm.form3.controls[field].setValue(newFormat);
-  }
-  //Image Crop and Upload
-  pickImage(sourceType) {
-    const options: CameraOptions = {
-      quality: 50,
-      allowEdit: false,
-      correctOrientation: true,
-      sourceType: sourceType,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    }
-
-    this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64 (DATA_URL):
-      // let base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.cropImage(imageData)
-    }, (err) => {
-      // Handle error
-    });
-  }
-
-  async selectImage() {
-    const actionSheet = await this.actionSheetController.create({
-      header: "Select Image source",
-      buttons: [{
-        text: 'Load from Library',
-        handler: () => {
-          this.pickImage(this.camera.PictureSourceType.PHOTOLIBRARY);
-        }
-      },
-      {
-        text: 'Use Camera',
-        handler: () => {
-          this.pickImage(this.camera.PictureSourceType.CAMERA);
-        }
-      },
-      {
-        text: 'Cancel',
-        role: 'cancel'
-      }
-      ]
-    });
-    await actionSheet.present();
-  }
-
-  cropImage(fileUrl) {
-    this.crop.crop(fileUrl, { quality: 50 })
-      .then(
-        newPath => {
-          this.showCroppedImage(newPath.split('?')[0])
-        },
-        error => {
-          alert('Error cropping image' + error);
-        }
-      );
-  }
-
-  showCroppedImage(ImagePath) {
-    this.isLoading = true;
-    var copyPath = ImagePath;
-    var splitPath = copyPath.split('/');
-    var imageName = splitPath[splitPath.length - 1];
-    var filePath = ImagePath.split(imageName)[0];
-
-    this.file.readAsDataURL(filePath, imageName).then(base64 => {
-      this.croppedImagepath = base64;
-      this.isLoading = false;
-    }, error => {
-      alert('Error in showing image' + error);
-      this.isLoading = false;
-    });
   }
 
   async openUploadPhoto() {
@@ -535,20 +417,27 @@ export class MyVehiclesPage implements OnInit {
     return await modal.present();
   }
 
-  async openVehiclesBrand() {
+  async openSelectBrand() {
     const modal = await this.modalCtrl.create({
       component: VehicleBrandModal,
       componentProps: {
-        "Title": "Select Vehicle Brand"
+        "vehicleBrand": this.vehicleBrand,
+        "vehicleTypeId": this.vehicleTypeId,
+        "vehicleNameId": this.vehicleNameId,
+        "vehicleName": this.vehicleName
       }
     });
 
-    modal.onDidDismiss().then((selectedBrand) => {
-      if (selectedBrand !== null) {
-        this.selectedBrand = selectedBrand.data;
+    modal.onWillDismiss().then((data) => {
+      if(data.data) {
+        this.vehicleBrand = data.data.vehicleBrand;
+        this.vehicleTypeId = data.data.vehicleTypeId;
+        this.vehicleNameId = data.data.vehicleNameId;
+        this.vehicleName = data.data.vehicleName;
       }
+      this.checkVehicleSelected()
+      this.modelOpenedBrand = true;
     });
-
     return await modal.present();
   }
 

@@ -31,6 +31,11 @@
                             {{'ERROR_MSG.ACCOUNT_NOT_EXIST' | translate}}
                         </ion-label>
                     </ion-chip>
+                    <ion-chip ion-text class="warning-msg" *ngIf="(formSubmitted) && activeErr">
+                        <ion-label color="danger">
+                            {{'Account Disabled'}}
+                        </ion-label>
+                    </ion-chip>
                     <ion-item no-padding class="animated fadeInUp">
                         <ion-label position="floating">
                             <ion-icon name="lock" item-start></ion-icon>

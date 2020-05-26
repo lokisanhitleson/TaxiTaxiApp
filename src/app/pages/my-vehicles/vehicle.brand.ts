@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import { ModalController, NavParams, LoadingController } from '@ionic/angular';
+import { AddVehicleService } from './add-vehicle.service';
+import { ToastService } from '../services/toast.service';
+import { VehicleBrand, VehicleBrandDetails } from '../models/vehicle-brand.model';
+import { VehicleName } from '../models/vehicle-name.model';
 
 @Component({
   selector: 'vehicle-brand',
@@ -8,71 +12,87 @@ import { ModalController, NavParams } from '@ionic/angular';
 })
 export class VehicleBrandModal implements OnInit {
 
-  modalTitle: string;
-  modelId: number;
   isVehicleAvailable = false;
   carModels: any;
+  vehicleBrandId: number;
+  brands: [VehicleBrand];
+  currentBrand: VehicleBrand;
+  vehicleNamesAll: VehicleName[];
+  vehicleNames: VehicleName[];
   constructor(
     private modalController: ModalController,
-    private navParams: NavParams
+    private addVehicleService: AddVehicleService,
+    private toast: ToastService,
+    private loadingCtrl: LoadingController
   ) { }
 
   ngOnInit() {
-    console.table(this.navParams);
-    this.modelId = this.navParams.data.paramID;
-    this.modalTitle = this.navParams.data.paramTitle;
+    this.getVehicleBrands();
   }
   async cancelModal() {
     this.modalController.dismiss();
   }
-  async submitModal() {
-    const onSubmitedData = this.BrandNames;
-    await this.modalController.dismiss(onSubmitedData);
+  backToBrands() {
+    this.vehicleBrandId = undefined;
   }
 
-  BrandNames: string;
-  brands = [
-    { img: "./assets/brand/bmw.png" },
-    { img: "./assets/brand/ford.png" },
-    { img: "./assets/brand/fiat.png" },
-    { img: "./assets/brand/honda.png" },
-    { img: "./assets/brand/hyundai.png" },
-    { img: "./assets/brand/mahindra.png" },
-    { img: "./assets/brand/suzuki.png" },
-    { img: "./assets/brand/nissan.png" },
-    { img: "./assets/brand/toyota.png" },
-    { img: "./assets/brand/volkswagen.png" },
-    { img: "./assets/brand/chevrolet.png" },
-    { img: "./assets/brand/tata.png" }
-  ]
-  initializeItems() {
-    this.carModels = [
-      "Toyota Platinum Etios",
-      "Maruti Suzuki Dzire",
-      "Renault Lodgy",
-      "Mahindra Scorpio",
-      "Toyota Innova Crysta",
-      "Hyundai Xcent",
-      "Nissan Sunny"
-    ];
-    // {name:"Avadi"},{name:"Ambattur"},{name:"Chengalpatu"},{name:"Ekattuthangal"},{name:"Padi"}
-
-  }
-  getVehicles(ev: any) {
-
-    this.initializeItems();
-
+  filterVehicles(ev: any) {
+    this.vehicleNames = this.vehicleNamesAll;
     const val = ev.target.value;
-
     if (val && val.trim() != '') {
-      this.isVehicleAvailable = true;
-      this.carModels = this.carModels.filter((car) => {
-        return (car.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      this.vehicleNames = this.vehicleNames.filter((car) => {
+        return (car.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
   }
-  vehicleSelected(selected: string) {
-    this.BrandNames = selected;
-    this.carModels = [];
+  getVehicleNamesByBrand() {
+    return new Promise((res, rej) => {
+      this.addVehicleService.getVehicleNamesByBrand(this.vehicleBrandId).subscribe(data => {
+        res(true);
+        if (data && data.status == "SUCCESS") {
+          this.vehicleNames = this.vehicleNamesAll = data.data;
+        } else {
+          this.toast.showToast();
+        }
+      }, async err => {
+        rej(err);
+      })
+    })
+  }
+  getVehicleBrands() {
+    return new Promise((res, rej) => {
+      this.addVehicleService.getVehicleBrands().subscribe(data => {
+        res(true);
+        if (data && data.status == "SUCCESS") {
+          this.brands = data.data;
+        } else {
+          this.toast.showToast();
+        }
+      }, async err => {
+        rej(err);
+      })
+    })
+  }
+
+  async onClickBrand(brand: VehicleBrand) {
+    const loading = await this.loadingCtrl.create();
+    try {
+      loading.present();
+      this.vehicleBrandId = brand.vehicleBrandId;
+      this.currentBrand = brand;
+      await this.getVehicleNamesByBrand();
+      loading.dismiss();
+    } catch(err) {
+      loading.dismiss();
+      this.toast.showToast();
+    }
+  }
+  async vehicleSelected(vehicle: VehicleName) {
+    await this.modalController.dismiss({
+      vehicleBrand: this.currentBrand.brandName,
+      vehicleTypeId: vehicle.vehicleTypeId,
+      vehicleNameId: vehicle.vehicleNameId,
+      vehicleName: vehicle.name
+    });
   }
 }
