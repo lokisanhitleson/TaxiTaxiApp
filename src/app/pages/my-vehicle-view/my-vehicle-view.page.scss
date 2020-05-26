@@ -3,8 +3,8 @@
         --background: linear-gradient(-135deg, var(--ion-color-medium), var(--ion-color-light))
     }
     .slide-container {
-        height: 150px;
-        background: #fff;
+        height: 40%;
+        background: #c5c4c5;
         padding-bottom: 5px;
         // border-bottom: 1px dashed #ffce00;
     }
@@ -45,10 +45,19 @@
             font-weight: 500;
             float: right;
         }
+        ion-item {
+            border: none;
+        }
     }
     .vehicle-title {
         padding: 5px;
         background: #f9dc61;
         font-size: 16px;
+    }
+    .vehicle-name {
+        color: #444;
+        font-size: 24px;
+        padding: 10px 0;
+        ;
     }
 }

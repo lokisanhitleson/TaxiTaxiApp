@@ -22,6 +22,7 @@ import { WheelTypeOfVehicle } from '../models/wheel-type.model';
 import { BreakingSystemOfVehicle } from '../models/breaking-system.model';
 import { InsuranceType } from '../models/insurance-type.model';
 import { InsuranceCompany } from '../models/insurance-company.model';
+import { VehicleBrandModal } from "./vehicle.brand";
 
 @Component({
   selector: 'app-my-vehicles',
@@ -67,7 +68,7 @@ export class MyVehiclesPage implements OnInit {
   backImage = "assets/img/backview.jpg";
   leftImage = "assets/img/leftview.jpg";
   rightImage = "assets/img/rightview.jpg";
-
+  selectedBrand: any = "";
   constructor(
     public modalCtrl: ModalController,
     public navCtrl: NavController,
@@ -101,7 +102,7 @@ export class MyVehiclesPage implements OnInit {
       await this.getInsuranceTypes();
       await this.getVehicleConditions();
       loading.dismiss();
-    } catch(err) {
+    } catch (err) {
       loading.dismiss();
       const toast = await this.toastCtrl.create({
         showCloseButton: true,
@@ -115,49 +116,49 @@ export class MyVehiclesPage implements OnInit {
 
   createForm1(): FormGroup {
     return this.formBuilder.group({
-        vehicleNameId: ['', Validators.required],
-        registrationNo: ['', Validators.required],
-        vehicleColorId: ['', Validators.required],
-        manufactureYear: ['', Validators.required],
-        vehicleVariantId: ['', Validators.required],
-        fuelTypeId: ['', Validators.required]
+      vehicleNameId: ['', Validators.required],
+      registrationNo: ['', Validators.required],
+      vehicleColorId: ['', Validators.required],
+      manufactureYear: ['', Validators.required],
+      vehicleVariantId: ['', Validators.required],
+      fuelTypeId: ['', Validators.required]
     });
   }
   createForm2(): FormGroup {
     return this.formBuilder.group({
-        vehicleConditionId: ['', Validators.required],
-        accidentHistory: ['', Validators.required],
-        chassisNo: ['', Validators.required],
-        fcYear: ['', Validators.required],
-        airBag: ['', Validators.required],
-        wheelTypeId: ['', Validators.required],
-        breakingSystemId: ['', Validators.required]
+      vehicleConditionId: ['', Validators.required],
+      accidentHistory: ['', Validators.required],
+      chassisNo: ['', Validators.required],
+      fcYear: ['', Validators.required],
+      airBag: ['', Validators.required],
+      wheelTypeId: ['', Validators.required],
+      breakingSystemId: ['', Validators.required]
     });
   }
   createForm3(): FormGroup {
     return this.formBuilder.group({
-        insuranceTypeId: ['', Validators.required],
-        insuranceCompanyId: ['', Validators.required],
-        insuranceNo: ['', Validators.required],
-        startDate: ['', Validators.required],
-        expiryDate: ['', Validators.required]
+      insuranceTypeId: ['', Validators.required],
+      insuranceCompanyId: ['', Validators.required],
+      insuranceNo: ['', Validators.required],
+      startDate: ['', Validators.required],
+      expiryDate: ['', Validators.required]
     });
   }
 
   loadYears() {
     const count = 20;
     const year = new Date().getFullYear();
-    for(let i = year - count; i <= year; i ++ )
-      if(this.years) this.years.push(i); else this.years = [i];
+    for (let i = year - count; i <= year; i++)
+      if (this.years) this.years.push(i); else this.years = [i];
   }
   getVehicleNames() {
-    return new Promise((res,rej) => {
+    return new Promise((res, rej) => {
       this.addVehicleService.getVehicleNames().subscribe(data => {
         res(true);
-        if(data && data.status == "SUCCESS") {
+        if (data && data.status == "SUCCESS") {
           this.vehicleNames = data.data;
         } else {
-          if(!data) {
+          if (!data) {
             this.toastCtrl.create({
               showCloseButton: true,
               message: 'Connection failed! try again',
@@ -173,9 +174,9 @@ export class MyVehiclesPage implements OnInit {
   }
 
   getVehicleType(vehicleTypeId: number) {
-    return new Promise((res,rej) => {
+    return new Promise((res, rej) => {
       this.addVehicleService.getVehicleType(vehicleTypeId).subscribe(data => {
-        if(data && data.status == "SUCCESS" && data.data.type) {
+        if (data && data.status == "SUCCESS" && data.data.type) {
           this.vehicleType = data.data.type;
           res(true);
         } else {
@@ -188,9 +189,9 @@ export class MyVehiclesPage implements OnInit {
   }
 
   getVehicleColors(vehicleNameId: number) {
-    return new Promise((res,rej) => {
+    return new Promise((res, rej) => {
       this.addVehicleService.getVehicleColors(vehicleNameId).subscribe(data => {
-        if(data && data.status == "SUCCESS") {
+        if (data && data.status == "SUCCESS") {
           res(true);
           this.vehicleColors = data.data;
         } else {
@@ -203,9 +204,9 @@ export class MyVehiclesPage implements OnInit {
   }
 
   getVehicleVariants(vehicleNameId: number) {
-    return new Promise((res,rej) => {
+    return new Promise((res, rej) => {
       this.addVehicleService.getVehicleVariants(vehicleNameId).subscribe(data => {
-        if(data && data.status == "SUCCESS") {
+        if (data && data.status == "SUCCESS") {
           res(true);
           this.vehicleVariants = data.data;
         } else {
@@ -218,9 +219,9 @@ export class MyVehiclesPage implements OnInit {
   }
 
   getVehicleFuelTypes(vehicleNameId: number) {
-    return new Promise((res,rej) => {
+    return new Promise((res, rej) => {
       this.addVehicleService.getVehicleFuelTypes(vehicleNameId).subscribe(data => {
-        if(data && data.status == "SUCCESS") {
+        if (data && data.status == "SUCCESS") {
           res(true);
           this.vehicleFuelTypes = data.data;
         } else {
@@ -233,13 +234,13 @@ export class MyVehiclesPage implements OnInit {
   }
 
   getVehicleConditions() {
-    return new Promise((res,rej) => {
+    return new Promise((res, rej) => {
       this.addVehicleService.getVehicleConditions().subscribe(data => {
         res(true);
-        if(data && data.status == "SUCCESS") {
+        if (data && data.status == "SUCCESS") {
           this.vehicleConditions = data.data;
         } else {
-          if(!data) {
+          if (!data) {
             this.toastCtrl.create({
               showCloseButton: true,
               message: 'Connection failed! try again',
@@ -255,9 +256,9 @@ export class MyVehiclesPage implements OnInit {
   }
 
   getVehicleWheelTypes(vehicleNameId: number) {
-    return new Promise((res,rej) => {
+    return new Promise((res, rej) => {
       this.addVehicleService.getVehicleWheelTypes(vehicleNameId).subscribe(data => {
-        if(data && data.status == "SUCCESS") {
+        if (data && data.status == "SUCCESS") {
           res(true);
           this.vehicleWheelTypes = data.data;
         } else {
@@ -270,9 +271,9 @@ export class MyVehiclesPage implements OnInit {
   }
 
   getVehicleBreakingSystems(vehicleNameId: number) {
-    return new Promise((res,rej) => {
+    return new Promise((res, rej) => {
       this.addVehicleService.getVehicleBreakingSystems(vehicleNameId).subscribe(data => {
-        if(data && data.status == "SUCCESS") {
+        if (data && data.status == "SUCCESS") {
           res(true);
           this.vehicleBreakingSystems = data.data;
         } else {
@@ -285,13 +286,13 @@ export class MyVehiclesPage implements OnInit {
   }
 
   getInsuranceCompanies() {
-    return new Promise((res,rej) => {
+    return new Promise((res, rej) => {
       this.addVehicleService.getInsuranceCompanies().subscribe(data => {
         res(true);
-        if(data && data.status == "SUCCESS") {
+        if (data && data.status == "SUCCESS") {
           this.insuranceCompanies = data.data;
         } else {
-          if(!data) {
+          if (!data) {
             this.toastCtrl.create({
               showCloseButton: true,
               message: 'Connection failed! try again',
@@ -307,13 +308,13 @@ export class MyVehiclesPage implements OnInit {
   }
 
   getInsuranceTypes() {
-    return new Promise((res,rej) => {
+    return new Promise((res, rej) => {
       this.addVehicleService.getInsuranceTypes().subscribe(data => {
         res(true);
-        if(data && data.status == "SUCCESS") {
+        if (data && data.status == "SUCCESS") {
           this.insuranceTypes = data.data;
         } else {
-          if(!data) {
+          if (!data) {
             this.toastCtrl.create({
               showCloseButton: true,
               message: 'Connection failed! try again',
@@ -340,7 +341,7 @@ export class MyVehiclesPage implements OnInit {
       this.vehicleForm.form2.controls['breakingSystemId'].setValue(null);
 
       const vehicleNameObject = this.vehicleNames.find(x => x.vehicleNameId === this.vehicleForm.form1.value.vehicleNameId)
-      if(vehicleNameObject) {
+      if (vehicleNameObject) {
         this.vehicleBrand = vehicleNameObject.brandName;
         await this.getVehicleType(vehicleNameObject.vehicleTypeId);
         await this.getVehicleColors(vehicleNameObject.vehicleNameId);
@@ -350,7 +351,7 @@ export class MyVehiclesPage implements OnInit {
         await this.getVehicleBreakingSystems(vehicleNameObject.vehicleNameId);
       }
       loading.dismiss();
-    } catch(err) {
+    } catch (err) {
       loading.dismiss();
       const toast = await this.toastCtrl.create({
         showCloseButton: true,
@@ -385,10 +386,10 @@ export class MyVehiclesPage implements OnInit {
       console.log(formData);
       this.addVehicleService.insertAgencyVehicle(formData).subscribe(data => {
         loading.then(l => l.dismiss());
-        if(data && data.status == "SUCCESS") {
+        if (data && data.status == "SUCCESS") {
           this.navCtrl.navigateRoot('/my-vehicle-list');
         } else {
-          if(!data) {
+          if (!data) {
             this.toastCtrl.create({
               showCloseButton: true,
               message: 'Connection failed! try again',
@@ -410,8 +411,8 @@ export class MyVehiclesPage implements OnInit {
   }
 
   checkImagesSelected() {
-    if(!this.displayImage.includes("assets/img") || !this.frontImage.includes("assets/img") || !this.backImage.includes("assets/img") || !this.leftImage.includes("assets/img") || !this.rightImage.includes("assets/img")) {
-      if(this.displayImage.includes("assets/img") || this.frontImage.includes("assets/img") || this.backImage.includes("assets/img") || this.leftImage.includes("assets/img") || this.rightImage.includes("assets/img")) {
+    if (!this.displayImage.includes("assets/img") || !this.frontImage.includes("assets/img") || !this.backImage.includes("assets/img") || !this.leftImage.includes("assets/img") || !this.rightImage.includes("assets/img")) {
+      if (this.displayImage.includes("assets/img") || this.frontImage.includes("assets/img") || this.backImage.includes("assets/img") || this.leftImage.includes("assets/img") || this.rightImage.includes("assets/img")) {
         this.picturesSelected = false;
       } else {
         this.picturesSelected = true;
@@ -531,6 +532,23 @@ export class MyVehiclesPage implements OnInit {
       this.checkImagesSelected()
       this.modelOpened = true;
     });
+    return await modal.present();
+  }
+
+  async openVehiclesBrand() {
+    const modal = await this.modalCtrl.create({
+      component: VehicleBrandModal,
+      componentProps: {
+        "Title": "Select Vehicle Brand"
+      }
+    });
+
+    modal.onDidDismiss().then((selectedBrand) => {
+      if (selectedBrand !== null) {
+        this.selectedBrand = selectedBrand.data;
+      }
+    });
+
     return await modal.present();
   }
 

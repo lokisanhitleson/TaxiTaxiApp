@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MyVehiclesPage } from './my-vehicles.page';
 import { UploadVehicle } from "./upload-vehicle";
 import { AddVehicleService } from './add-vehicle.service';
+import { VehicleBrandModal } from "./vehicle.brand";
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'upload-vehicle',
     component: UploadVehicle
+  },
+  {
+    path: 'vehicle-brand',
+    component: VehicleBrandModal
   }
 ];
 
@@ -32,7 +37,7 @@ const routes: Routes = [
     ArchwizardModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MyVehiclesPage, UploadVehicle],
+  declarations: [MyVehiclesPage, UploadVehicle, VehicleBrandModal],
   providers: [
     AddVehicleService
   ]
