@@ -114,7 +114,6 @@ export class MyVehiclesPage implements OnInit {
 
   createForm1(): FormGroup {
     return this.formBuilder.group({
-      vehicleNameId: ['', Validators.required],
       registrationNo: ['', Validators.required],
       vehicleColorId: ['', Validators.required],
       manufactureYear: ['', Validators.required],
