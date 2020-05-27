@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router ,NavigationExtras } from '@angular/router'
 import { IonSlides, LoadingController } from '@ionic/angular';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import {homeResultsService } from './home-results.page.service';
+import { HomeResultsService } from './home-results.page.service';
 import { vechicleTypes } from '../../models/VechileTypesmodel';    
 import {
   NavController,
@@ -18,6 +18,7 @@ import { SearchFilterPage } from '../../pages/modal/search-filter/search-filter.
 import { ImagePage } from './../modal/image/image.page';
 // Call notifications test by Popover and Custom Component.
 import { NotificationsComponent } from './../../components/notifications/notifications.component';
+import { SelectRegionModal } from './select-region';
 
 @Component({
   selector: 'app-home-results',
@@ -44,7 +45,7 @@ export class HomeResultsPage {
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
     public translate: TranslateService,
-    public homeResultsService:homeResultsService,
+    public homeResultsService: HomeResultsService,
     public TranslateModule: TranslateModule
   ) {
       this.vechileTypes();
@@ -133,7 +134,21 @@ export class HomeResultsPage {
     });
     changeLocation.present();
   }
+  async openSelectRegion() {
+    const modal = await this.modalCtrl.create({
+      component: SelectRegionModal,
+      componentProps: {
+        "key": "val"
+      }
+    });
 
+    modal.onWillDismiss().then((data) => {
+      if(data.data) {
+        this.yourLocation = data.data.location;
+      }
+    });
+    return await modal.present();
+  }
   async searchFilter() {
     const modal = await this.modalCtrl.create({
       component: SearchFilterPage
