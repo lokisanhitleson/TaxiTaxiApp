@@ -23,6 +23,9 @@ const routes: Routes = [
     TranslateModule,
     RouterModule.forChild(routes)
   ],
+  exports: [
+    VehicleDetailPage
+  ],
   declarations: [VehicleDetailPage]
 })
-export class VehicleDetailPageModule {}
+export class VehicleDetailPageModule { }

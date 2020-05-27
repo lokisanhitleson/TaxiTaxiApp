@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
     <ion-toolbar color="primary">
         <ion-buttons slot="start">
             <ion-button (click)="previous()">
@@ -7,28 +7,26 @@
         </ion-buttons>
         <ion-title>{{'HOME_ITEMS.VEHICLE_OVERVIEW' | translate}}</ion-title>
     </ion-toolbar>
-</ion-header>
-<div class="slide-container" slot="fixed">
+</ion-header> -->
+<div class="slide-container">
     <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
         <ion-slide *ngFor="let vehicle of vehicles">
             <img [src]="vehicle.img">
         </ion-slide>
     </ion-slides>
 </div>
-<div slot="fixed" class="vehicle-title">
+<div class="vehicle-title">
     <div class="ion-text-center" no-margin>
         <ion-text color="dark"><strong>Toyota Innova</strong></ion-text>
     </div>
 </div>
-<ion-content>
-    <ion-card class="bg-white vehicle-info" no-margin>
-        <ion-card-content class="ion-no-padding">
-            <ion-item *ngFor="let info of vehicleInfo">
-                <ion-label class="ion-text-wrap">
-                    <span>{{info.label}} :</span> <span class="info">{{info.value}}</span>
-                </ion-label>
-            </ion-item>
-        </ion-card-content>
-    </ion-card>
 
-</ion-content>
+<ion-card class="bg-white vehicle-info" no-margin>
+    <ion-card-content class="ion-no-padding">
+        <ion-item *ngFor="let info of vehicleInfo">
+            <ion-label class="ion-text-wrap">
+                <span>{{info.label}} :</span> <span class="info">{{info.value}}</span>
+            </ion-label>
+        </ion-item>
+    </ion-card-content>
+</ion-card>
