@@ -19,6 +19,7 @@ export class LoginPage implements OnInit {
   exist:boolean;
 
   mobileNumErr: boolean;
+  activeErr: boolean;
   passwordErr: boolean;
   formSubmitted: boolean;
   
@@ -116,8 +117,10 @@ export class LoginPage implements OnInit {
   }
 
   typeChange(field) {
-    if (field === "mobileNum")
+    if (field === "mobileNum") {
       this.mobileNumErr = false;
+      this.activeErr = false;
+    }
     this.passwordErr = false;
   }
 
@@ -151,6 +154,7 @@ export class LoginPage implements OnInit {
                 }
               });
               this.mobileNumErr = false;
+              this.activeErr = false;
               this.passwordErr = false;
               loading.then(loading => loading.dismiss());
               this.navCtrl.navigateRoot('/home/tabs/home-results');
@@ -159,9 +163,11 @@ export class LoginPage implements OnInit {
               if (response) {
                 if (response.data.username)
                   this.mobileNumErr = true;
-                else if (response.data.signupFlag) {
+                else if (response.data.signupFlag)
                   this.partialSignupPrompt();
-                } else if (response.data.password)
+                else if (response.data.activeFlag)
+                  this.activeErr = true;
+                else if (response.data.password)
                   this.passwordErr = true;
               } else
                 this.toastCtrl.create({

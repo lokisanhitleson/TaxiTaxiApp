@@ -13,7 +13,7 @@
     <ion-card class="ion-padding ion-no-margin" no-shadow>
         <ion-card-content class="ion-no-padding">
             <wizard>
-                <wizard-step stepTitle="Vehicle Info" [canExit]='vehicleForm.form1.valid && picturesSelected'>
+                <wizard-step stepTitle="Vehicle Info" [canExit]='vehicleForm.form1.valid && picturesSelected && vehicleSelected'>
                     <form [formGroup]="vehicleForm.form1" (submit)="form1Submit()" class="form-list">
                         <ion-list class="myvehicle-form">
                             <ion-button expand="full" color="medium" (click)="openUploadPhoto()">
@@ -22,27 +22,21 @@
 
                             <ion-chip ion-text class="warning-msg" *ngIf="(form1Submitted || modelOpened) && picturesSelected === undefined">
                                 <ion-label color="danger">
-                                    {{'Please upload Vehicle pictures'}}
+                                    {{'Please upload vehicle pictures'}}
                                 </ion-label>
                             </ion-chip>
                             <ion-chip ion-text class="warning-msg" *ngIf="(form1Submitted || modelOpened) && picturesSelected === false">
                                 <ion-label color="danger">
-                                    {{'Please upload All Vehicle pictures'}}
+                                    {{'Please upload all vehicle pictures'}}
                                 </ion-label>
                             </ion-chip>
-                            <ion-item lines="none" (click)="openVehiclesBrand()">
+                            <ion-item lines="none" (click)="openSelectBrand()">
                                 <ion-label slot="start">Model:</ion-label>
-                                <span *ngIf="!selectedBrand" class="text-mute">Select Brand</span> {{selectedBrand}}
+                                <span *ngIf="!vehicleNameId" class="text-mute">Select Vehicle Model</span> {{vehicleNameId ? vehicleBrand + ' ' + vehicleName : ''}}
                             </ion-item>
-                            <!-- <ion-item lines="none">
-                                <ion-label>Vehicle Name</ion-label>
-                                <ion-select class="myCustomSelect ion-text-center" placeholder="-Vehicle name-" ok-text="Okay" cancel-text="Dismiss" (ionChange)="changeVehicleName()" formControlName="vehicleNameId">
-                                    <ion-select-option *ngFor="let car of vehicleNames" [value]="car.vehicleNameId">{{car.brandName+' '+car.name}}</ion-select-option>
-                                </ion-select>
-                            </ion-item> -->
-                            <ion-chip ion-text class="warning-msg" *ngIf=" (form1Submitted ||vehicleForm.form1.get('vehicleNameId').touched) && vehicleForm.form1.get('vehicleNameId').hasError('required')">
+                            <ion-chip ion-text class="warning-msg" *ngIf="(form1Submitted || modelOpenedBrand) && !vehicleSelected">
                                 <ion-label color="danger">
-                                    {{'Vehicle Name required'}}
+                                    {{'Please select vehicle model'}}
                                 </ion-label>
                             </ion-chip>
 
