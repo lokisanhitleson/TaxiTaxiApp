@@ -11,31 +11,30 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CarsPage implements OnInit {
   mobilenumber: any;
-  
-  givenStar:number = 0;
-  today; 
-  nextThirty; 
-  selectedDate; 
+
+  givenStar: number = 0;
+  today;
+  nextThirty;
+  selectedDate;
   vehiclesId;
-  data:any;
-  constructor(private _location: Location, 
+  data: any;
+  constructor(private _location: Location,
     private navCtrl: NavController,
     public loadingCtrl: LoadingController,
     public modalCtrl: ModalController,
-    public translate: TranslateService, 
-    public route:ActivatedRoute,
-    public Router:Router,
-    public TranslateModule : TranslateModule
-    )
-     {
-                  
-         this.route.queryParams.subscribe(params => {
-          if (params && params.special) {
-            this.data = JSON.parse(params.special);
-            console.log(this.data,"valuesinc");
-          }
-        
-        });
+    public translate: TranslateService,
+    public route: ActivatedRoute,
+    public Router: Router,
+    public TranslateModule: TranslateModule
+  ) {
+
+    this.route.queryParams.subscribe(params => {
+      if (params && params.special) {
+        this.data = JSON.parse(params.special);
+        console.log(this.data, "valuesinc");
+      }
+
+    });
 
     this.today = new Date().toISOString();
     let now = new Date();
@@ -84,16 +83,11 @@ export class CarsPage implements OnInit {
     return await modal.present();
   }
 
-  toAgentProfile() {
-    this.presentLoading();
-    this.navCtrl.navigateRoot('/home/tabs/agent-profile');
-  }
 
-  toVehicleProfile() {
-    this.presentLoading();
-    this.navCtrl.navigateRoot('/home/tabs/vehicle-detail');
-  }
 
+  toVehicleInfo() {
+    this.navCtrl.navigateRoot('/home/tabs/vehicle-info');
+  }
   previous() {
     this._location.back();
   }

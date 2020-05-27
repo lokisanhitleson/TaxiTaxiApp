@@ -17,16 +17,16 @@ export class MyVehicleList implements OnInit {
 
   public onlineOffline = navigator.onLine;
   mobilenumber: any;
-  givenStar:number = 0;
+  givenStar: number = 0;
   myNewdealsInitial = []; //initialize your countriesInitial array empty
-  newData: [ AgencyVehicle ];
+  newData: [AgencyVehicle];
   errorMessage: string;
   page: number;
   perPage = 0;
   totalData = 0;
   totalPage = 0;
 
-  constructor(private _location: Location, 
+  constructor(private _location: Location,
     private navCtrl: NavController,
     public loadingCtrl: LoadingController,
     public modalCtrl: ModalController,
@@ -36,22 +36,22 @@ export class MyVehicleList implements OnInit {
     public router: Router
   ) {
 
-    document.addEventListener('online', () => {this.onlineOffline = true});
-    document.addEventListener('offline', () => {this.onlineOffline = false});
+    document.addEventListener('online', () => { this.onlineOffline = true });
+    document.addEventListener('offline', () => { this.onlineOffline = false });
     (async () => {
-      if(this.onlineOffline) {
+      if (this.onlineOffline) {
         await this.getMyVehicles();
       } else {
         this.toast.showToast('No Internet Connection');
       }
     })();
   }
-  
+
   getMyVehicles() {
     return new Promise((resolve, reject) => {
       this.page = 1;
       this.errorMessage = undefined;
-      this.myVehicleListService.getAgencyVehicles({page: this.page}).subscribe(data => {
+      this.myVehicleListService.getAgencyVehicles({ page: this.page }).subscribe(data => {
         // console.log(data);
         if (data && data.status == "SUCCESS") {
           this.newData = data.data;
@@ -73,8 +73,8 @@ export class MyVehicleList implements OnInit {
   }
 
   loadMoreData(infiniteScroll) {
-    this.page = this.page+1;
-    this.myVehicleListService.getAgencyVehicles({page: this.page})
+    this.page = this.page + 1;
+    this.myVehicleListService.getAgencyVehicles({ page: this.page })
       .subscribe(
         data => {
           console.log('Async operation has ended');
@@ -85,20 +85,20 @@ export class MyVehicleList implements OnInit {
             this.totalPage = data.totalPages;
             this.newData.push(...data.data);
             this.errorMessage = undefined;
-            if(this.newData.length >= this.totalData)
+            if (this.newData.length >= this.totalData)
               infiniteScroll.target.disabled = true;
           } else {
             this.errorMessage = "Failed to load data";
           }
         },
-        error =>  {
+        error => {
           console.log('Async operation has ended');
           infiniteScroll.target.complete();
           this.errorMessage = <any>error
         }
       );
   }
-    
+
   doRefresh(refresher) {
     this.getMyVehicles().then(data => {
       refresher.target.complete();
@@ -138,7 +138,7 @@ export class MyVehicleList implements OnInit {
               .subscribe(
                 async data => {
                   loading.dismiss();
-                  if(data && data.status === "SUCCESS") {
+                  if (data && data.status === "SUCCESS") {
                     this.newData.splice(index, 1);
                   } else {
                     this.toast.showToast();
@@ -161,16 +161,15 @@ export class MyVehicleList implements OnInit {
     this.router.navigate(['/my-vehicle-view', id]);
   }
 
-  previous() 
-  { 
-    this._location.back(); 
+  previous() {
+    this._location.back();
   }
 
-  goAddVehicle(){
+  goAddVehicle() {
     this.navCtrl.navigateRoot('/my-vehicles');
   }
   generateThumbnail(url: string) {
-    if(url) {
+    if (url) {
       const split = url.split('/');
       const last = split.pop();
       const first = split.join('/');
