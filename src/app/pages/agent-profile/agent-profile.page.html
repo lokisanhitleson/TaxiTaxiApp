@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
     <ion-toolbar color="primary">
         <ion-buttons slot="start">
             <ion-button (click)="previous()">
@@ -7,7 +7,7 @@
         </ion-buttons>
         <ion-title>{{'HOME_ITEMS.AGENT_PROFILE' | translate}}</ion-title>
     </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <div class="agent-title" slot="fixed">
     <ion-item>
@@ -24,18 +24,17 @@
         <ion-label color="dark"><strong> <ion-icon name="information-circle"></ion-icon> {{'HOME_ITEMS.AGENCY_INFORMATION' | translate}}</strong> </ion-label>
     </ion-list-header>
 </div>
-<ion-content class="agent-profile">
-    <ion-card no-margin>
-        <ion-card class="bg-white" no-margin>
-            <ion-card-content no-padding>
 
-                <ion-item *ngFor="let info of agentInfo">
-                    <ion-label class="ion-text-wrap">
-                        <span class="info-label">{{info.label}} :</span> <span class="info">{{info.value}}</span>
-                    </ion-label>
-                </ion-item>
-            </ion-card-content>
-        </ion-card>
+<ion-card no-margin>
+    <ion-card class="bg-white" no-margin>
+        <ion-card-content no-padding>
 
+            <ion-item *ngFor="let info of agentInfo">
+                <ion-label class="ion-text-wrap">
+                    <span class="info-label">{{info.label}} :</span> <span class="info">{{info.value}}</span>
+                </ion-label>
+            </ion-item>
+        </ion-card-content>
     </ion-card>
-</ion-content>
+
+</ion-card>

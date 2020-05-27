@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="previous()">
+                <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>{{'HOME_ITEMS.VEHICLE_OVERVIEW' | translate}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-toolbar>
+    <ion-segment [(ngModel)]="infoSelector" (ionChange)="segmentChanged($event)" value="vehicle">
+        <ion-segment-button value="vehicle" layout="icon-start">
+            <ion-icon name="car"></ion-icon> Vehicle
+        </ion-segment-button>
+        <ion-segment-button value="agency" layout="icon-start">
+            <ion-icon name="person"></ion-icon> Agency
+        </ion-segment-button>
+    </ion-segment>
+</ion-toolbar>
+<ion-content>
+
+
+    <div *ngIf="infoSelector === 'vehicle'" class="animated fadeInLeft fast">
+        <app-vehicle-detail></app-vehicle-detail>
+    </div>
+    <div *ngIf="infoSelector === 'agency'" class="animated fadeInRight fast">
+        <app-agent-profile></app-agent-profile>
+    </div>
+</ion-content>

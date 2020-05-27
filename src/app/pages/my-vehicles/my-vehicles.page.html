@@ -50,9 +50,11 @@
                                 <ion-label>Brand:</ion-label>
                                 <ion-input type="text" [value]="vehicleBrand" readonly="readonly"></ion-input>
                             </ion-item>
-                            <ion-item>
-                                <ion-label>Registration No:</ion-label>
-                                <ion-input type="text" formControlName="registrationNo"></ion-input>
+                            <ion-item lines="none" class="date-filter">
+                                <ion-label>
+                                    Registration No:
+                                </ion-label>
+                                <ion-input type="text" placeholder="Registration no" formControlName="registrationNo"></ion-input>
                             </ion-item>
                             <ion-chip ion-text class="warning-msg" *ngIf=" (form1Submitted ||vehicleForm.form1.get('registrationNo').touched) && vehicleForm.form1.get('registrationNo').hasError('required')">
                                 <ion-label color="danger">

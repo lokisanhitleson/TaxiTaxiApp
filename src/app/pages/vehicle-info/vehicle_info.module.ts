@@ -6,13 +6,15 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AgentProfilePage } from './agent-profile.page';
-
+import { VehicleInfo } from './vehicle_info.page';
+import { VehicleDetailPage } from "../vehicle-detail/vehicle_detail.page";
+import { AgentProfilePage } from "../agent-profile/agent-profile.page";
 const routes: Routes = [
   {
     path: '',
-    component: AgentProfilePage
+    component: VehicleInfo
   }
+
 ];
 
 @NgModule({
@@ -24,8 +26,8 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   exports: [
-    AgentProfilePage
+    VehicleInfo
   ],
-  declarations: [AgentProfilePage]
+  declarations: [VehicleInfo, VehicleDetailPage, AgentProfilePage]
 })
-export class AgentProfilePageModule { }
+export class VehicleInfoModule { }

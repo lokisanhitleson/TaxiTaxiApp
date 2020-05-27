@@ -1,6 +1,6 @@
 :host {
     ion-content {
-        --background: linear-gradient(-135deg, var(--ion-color-medium), var(--ion-color-light));
+        --background: var(--ion-color-light);
     }
     ion-datetime {
         color: #dcbbf5;
@@ -9,13 +9,11 @@
         color: #dcbbf5
     }
     .view-text {
-        background: #f7c90b;
         font-size: 12px;
         color: #444;
         padding: 3px;
-        position: absolute;
-        bottom: 9px;
-        right: 5px;
+        position: relative;
+        top: 10px;
     }
     .card-text {
         h5 {
@@ -27,19 +25,20 @@
             }
         }
     }
-    .car-name {
-        float: right;
-        position: relative;
+    .agent-name {
+        position: absolute;
+        right: 0;
+        padding: 7px 0;
+        font-size: 14px;
         z-index: 99;
     }
     .agent-div {
         padding: 9px 0 9px;
     }
-    .agent-name {
-        color: #fff;
-        background: #8548b3;
+    .car-name {
+        font-size: 18px;
         margin: 9px 0;
-        padding: 5px;
+        color: #444;
     }
     .calendar-icon {
         font-size: 25px;
@@ -51,31 +50,31 @@
     ion-card {
         padding: 5px;
         margin-bottom: 5px;
-        border-left: 5px solid #0ec254;
     }
-    .car-profile {
-        .car-avatar {
-            width: 100%;
-            margin: 0 auto;
-            position: absolute;
-            height: auto;
-            padding: 25px;
-            img {
-                width: 100%;
-            }
-        }
-        .item-inner {
-            border-width: 0;
-        }
-        ion-icon {
-            font-size: 14px;
-        }
-        .mobnum-text {
-            margin-top: 25px;
-        }
-    }
+    // .car-profile {
+    //     .car-avatar {
+    //         width: 100%;
+    //         margin: 0 auto;
+    //         position: absolute;
+    //         height: auto;
+    //         padding: 25px;
+    //         img {
+    //             width: 100%;
+    //         }
+    //     }
+    //     .item-inner {
+    //         border-width: 0;
+    //     }
+    //     ion-icon {
+    //         font-size: 14px;
+    //     }
+    //     .mobnum-text {
+    //         margin-top: 25px;
+    //     }
+    // }
     ion-button {
         text-transform: none!important;
+        --box-shadow: none;
     }
     ion-item {
         border-bottom: 0px!important;
@@ -88,10 +87,35 @@
             }
         }
         position: absolute;
-        bottom: 42px;
-        right: 0;
+        left: 0;
     }
     ion-title {
         padding: 10px!important;
+    }
+    .image-holder {
+        width: 100%;
+        background: #dad5de;
+        padding: 6px;
+    }
+    .image-inner {
+        max-width: 60%;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+    img {
+        max-width: 100%;
+        max-height: 100%;
+        margin: 0 auto;
+        // transform: scale(1.8);
+    }
+    .cover {
+        object-fit: cover;
+    }
+    .date-filter {
+        box-shadow: 0px 1px 1px 0 #dad8d8;
+        background: #efeeee;
+        width: 95%;
+        border-radius: 9px;
+        margin: 10px auto;
     }
 }
