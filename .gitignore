@@ -24,7 +24,8 @@ node_modules/
 tmp/
 temp/
 platforms/
-resources/android/
+resources/android/icon/
+resources/android/splash/
 resources/ios/
 plugins/
 plugins/android.json
