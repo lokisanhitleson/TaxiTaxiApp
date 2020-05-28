@@ -10,8 +10,6 @@ const routes: Routes = [
     children: [
       { path: 'home-results', loadChildren: '../home-results/home-results.module#HomeResultsPageModule' },
       { path: 'cars', loadChildren: '../cars/cars.module#CarsPageModule' },
-      // { path: 'vehicle-detail', loadChildren: '../vehicle-detail/vehicle_detail.module#VehicleDetailPageModule' },
-      // { path: 'agent-profile', loadChildren: '../agent-profile/agent-profile.module#AgentProfilePageModule' },
       { path: 'schedule-vehicle', loadChildren: '../add-vehicle/add-vehicle.module#AddVehiclePageModule' },
       { path: 'view-request', loadChildren: '../view-request/view-request.module#ViewRequestPageModule' },
       { path: 'request-detail', loadChildren: '../view-request/detail-request.module#DetailRequestPageModule' },
