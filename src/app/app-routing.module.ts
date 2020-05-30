@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, Routes, RouterModule } from '@angular/router';
+import { SelectRegionModal } from './pages/select-region/select-region';
 
 const routes: Routes = [
   { path: '', loadChildren: './pages/login/login.module#LoginPageModule' },
@@ -16,7 +17,11 @@ const routes: Routes = [
   { path: 'my-vehicles', loadChildren: './pages/my-vehicles/my-vehicles.module#MyVehiclesPageModule' },
   { path: 'my-vehicle-list', loadChildren: './pages/my-vehicle-list/my-vehicle-list.module#MyVehicleListModule' },
   { path: 'my-vehicle-view/:agencyVehicleId', loadChildren: './pages/my-vehicle-view/my-vehicle-view.module#MyVehicleViewModule' },
-  { path: 'register-agency', loadChildren: './pages/register-agency/register-agency.module#RegisterAgencyPageModule' }
+  { path: 'register-agency', loadChildren: './pages/register-agency/register-agency.module#RegisterAgencyPageModule' },
+  {
+    path: 'select-region',
+    component: SelectRegionModal
+  }
 
 ];
 

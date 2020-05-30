@@ -91,13 +91,11 @@
                     </ion-chip>
 
 
-                    <ion-item no-padding>
+                    <ion-item no-padding (click)="openSelectRegion()">
                         <ion-label>{{'LOGIN_ITEMS.REGION' | translate}} <span class="required">*</span></ion-label>
-                        <ion-select formControlName="region" class="myCustomSelect" ok-text="Okay" cancel-text="Dismiss">
-                            <ion-select-option>Chennai</ion-select-option>
-                        </ion-select>
+                        <span *ngIf="!placeId" class="text-mute">Select region</span> {{region}}
                     </ion-item>
-                    <ion-chip class="warning-msg" *ngIf="( formSubmitted ||onAgencyRegistrationForm.get('region').touched ) && onAgencyRegistrationForm.get('region').hasError('required')">
+                    <ion-chip class="warning-msg" *ngIf="( formSubmitted || regionOpened ) && !placeId">
                         <ion-label color="danger">
                             {{'ERROR_MSG.REGION_REQ' | translate}}
                         </ion-label>

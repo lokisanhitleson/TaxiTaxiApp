@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, LoadingController } from '@ionic/angular';
-import { HomeResultsService } from './home-results.page.service';
+import { HomeResultsService } from '../home-results/home-results.page.service';
 import { ToastService } from '../services/toast.service';
 
 @Component({
@@ -21,9 +21,8 @@ export class SelectRegionModal implements OnInit {
     private loadingCtrl: LoadingController
   ) { }
 
-  ngOnInit() {
-    // this.getVehicleBrands();
-  }
+  ngOnInit() { }
+
   async cancelModal() {
     this.modalController.dismiss();
   }
@@ -32,10 +31,9 @@ export class SelectRegionModal implements OnInit {
     this.regions = this.regionsAll;
     const val = ev.target.value;
     if (val && val.trim() != '') {
-      this.regions = this.regions.filter((car) => {
-        return (car.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
+      this.getRegionsByKeyword(val);
+      // this.getRegionsByKeyword(val);
+    } else this.regions = [];
   }
 
   getRegionsByKeyword(keyword: string) {
@@ -53,23 +51,10 @@ export class SelectRegionModal implements OnInit {
     })
   }
 
-  async onClickBrand(brand) {
-    const loading = await this.loadingCtrl.create();
-    try {
-      loading.present();
-      // await this.getVehicleNamesByBrand();
-      loading.dismiss();
-    } catch(err) {
-      loading.dismiss();
-      this.toast.showToast();
-    }
-  }
   async regionSelected(vehicle) {
     await this.modalController.dismiss({
-      vehicleBrand: vehicle.brandName,
-      vehicleTypeId: vehicle.vehicleTypeId,
-      vehicleNameId: vehicle.vehicleNameId,
-      vehicleName: vehicle.name
+      placeName: vehicle.placeName,
+      placeId: vehicle.eLoc
     });
   }
 }

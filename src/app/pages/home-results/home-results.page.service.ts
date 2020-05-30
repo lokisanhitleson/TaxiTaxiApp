@@ -4,9 +4,15 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from "../../../environments/environment";
 import { vechicleTypes } from '../../models/VechileTypesmodel';     
+import { Place } from '../models/places.model';
 const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
+      })
+    };
+const httpOptionsMap = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
  @Injectable({ providedIn: 'root' })
@@ -26,15 +32,14 @@ export class HomeResultsService {
       )
     );
   }
-        
-  getRegionsByKeyword(keyword): Observable<{  data: [vechicleTypes], status: string }> {
-    console.log("vehicleTypes");
-    let url = `${environment.apiUrl}vehicleTypes?active=Y&sort=sequence:asc`;
+  
+  getRegionsByKeyword(keyword: string): Observable<{  data: [Place], status: string }> {
+    let url = `${environment.apiUrl}searchPlaces/${keyword}`;
     return (
-      this.http.get<{  data: [vechicleTypes], status: string }>(url)
+      this.http.get<{  data: [Place], status: string }>(url)
       .pipe(
         tap(_ => console.log('linked students', _)),
-        catchError(this.handleError<{  data: [vechicleTypes], status: string }>('getLinkedStudents'))
+        catchError(this.handleError<{  data: [Place], status: string }>('getLinkedStudents'))
       )
     );
   }

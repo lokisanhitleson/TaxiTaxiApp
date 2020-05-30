@@ -4,14 +4,17 @@
             <span class="icon-front-car"></span> Select Region</ion-title>
     </ion-toolbar>
     <ion-toolbar color="light" class="brand-search">
-        <ion-searchbar placeholder="Search your region" [(ngModel)]="keyword" (ionInput)="filterRegions($event)"></ion-searchbar>
+        <ion-searchbar placeholder="Search your region" [(ngModel)]="keyword" (ionChange)="filterRegions($event)" debounce="500"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
     <div>
         <ion-list *ngIf="regions">
-            <ion-item *ngFor="let region of regions" (click)="regionSelected(region)">{{region.name}}</ion-item>
+            <div *ngFor="let region of regions" (click)="regionSelected(region)">
+                <label class="place-name">{{region.placeName}}</label>
+                <div>{{region.placeAddress}}</div>
+            </div>
         </ion-list>
     </div>
 

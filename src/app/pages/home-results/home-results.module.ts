@@ -7,16 +7,11 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { PopmenuComponent } from './../../components/popmenu/popmenu.component';
 import { HomeResultsPage } from './home-results.page';
-import { SelectRegionModal } from './select-region';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeResultsPage
-  },
-  {
-    path: 'select-region',
-    component: SelectRegionModal
   }
 ];
 
@@ -29,6 +24,6 @@ const routes: Routes = [
     TranslateModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [HomeResultsPage, PopmenuComponent, SelectRegionModal]
+  declarations: [HomeResultsPage, PopmenuComponent]
 })
 export class HomeResultsPageModule {}

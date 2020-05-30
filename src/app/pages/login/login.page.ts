@@ -151,13 +151,13 @@ export class LoginPage implements OnInit {
                 if (response && response.status === "SUCCESS") {
                   await this.storage.set('userData', data.data);
                   this.sharedService.changeLoginCheck(authVal);
+                  loading.then(loading => loading.dismiss());
+                  this.navCtrl.navigateRoot('/home/tabs/home-results');
                 }
               });
               this.mobileNumErr = false;
               this.activeErr = false;
               this.passwordErr = false;
-              loading.then(loading => loading.dismiss());
-              this.navCtrl.navigateRoot('/home/tabs/home-results');
             } else {
               loading.then(loading => loading.dismiss());
               if (response) {

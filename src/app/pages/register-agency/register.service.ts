@@ -18,8 +18,8 @@ export class RegisterService{
  
     constructor(private http: HttpClient) {}
    
-    registeragency(AgencyName,AgencyRegisterationNumber,ContactName,Region,email,accountid) {
-        return this.http.post<{  data : { accountId: number }, status: string }>(`${environment.apiUrl}registerAgency`, {"agencyName":AgencyName , "agecncyRegisterNumber":AgencyRegisterationNumber ,"contactName":ContactName , "email":email ,"region":Region , "accountId":accountid }, httpOptions)
+    registeragency(AgencyName,AgencyRegisterationNumber,ContactName,Region,placeId,email,accountid) {
+        return this.http.post<{  data : { accountId: number }, status: string }>(`${environment.apiUrl}registerAgency`, {"agencyName":AgencyName , "agecncyRegisterNumber":AgencyRegisterationNumber ,"contactName":ContactName , "email":email ,"region":Region ,"placeId":placeId , "accountId":accountid }, httpOptions)
           .pipe(
             tap(_ => console.log('crated mobilenumber', _)),
             catchError(this.handleError<{  data : { accountId: number }, status: string }>('setmobilenumber'))

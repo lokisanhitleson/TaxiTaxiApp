@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router ,NavigationExtras } from '@angular/router'
 import { IonSlides, LoadingController } from '@ionic/angular';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -18,16 +18,19 @@ import { SearchFilterPage } from '../../pages/modal/search-filter/search-filter.
 import { ImagePage } from './../modal/image/image.page';
 // Call notifications test by Popover and Custom Component.
 import { NotificationsComponent } from './../../components/notifications/notifications.component';
-import { SelectRegionModal } from './select-region';
+import { SelectRegionModal } from '../select-region/select-region';
+import { createChangeDetectorRef } from '@angular/core/src/view/refs';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-home-results',
   templateUrl: './home-results.page.html',
   styleUrls: ['./home-results.page.scss']
 })
-export class HomeResultsPage {
+export class HomeResultsPage implements OnInit {
   searchKey = '';
-  yourLocation = 'Chennai 600 072';
+  yourLocation: string;
+  placeId: string;
   lang: any;
   isAnnouncement: boolean = false;
   vehicles: [vechicleTypes];
@@ -46,7 +49,8 @@ export class HomeResultsPage {
     public loadingCtrl: LoadingController,
     public translate: TranslateService,
     public homeResultsService: HomeResultsService,
-    public TranslateModule: TranslateModule
+    public TranslateModule: TranslateModule,
+    private storage: Storage
   ) {
       this.vechileTypes();
       
@@ -55,7 +59,16 @@ export class HomeResultsPage {
     // this.translate.use('en');
   }
 
-  // switchLanguage() {
+  async ngOnInit() {
+    try {
+      const uData = await this.storage.get('userData');
+        this.yourLocation = uData.agencyRegion;
+        this.placeId = uData.placeId;
+    } catch(err) {
+      console.log("something went wrong: ", err);
+    }
+  }
+  // switch Language() {
   //   this.translate.use(this.lang);
   // }
   vechileTypes() {
@@ -136,15 +149,13 @@ export class HomeResultsPage {
   }
   async openSelectRegion() {
     const modal = await this.modalCtrl.create({
-      component: SelectRegionModal,
-      componentProps: {
-        "key": "val"
-      }
+      component: SelectRegionModal
     });
 
     modal.onWillDismiss().then((data) => {
       if(data.data) {
-        this.yourLocation = data.data.location;
+        this.yourLocation = data.data.placeName;
+        this.placeId = data.data.placeId;
       }
     });
     return await modal.present();

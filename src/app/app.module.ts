@@ -34,12 +34,14 @@ import { AuthInterceptor } from './pages/interceptor/auth.interceptor';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ToastService } from './pages/services/toast.service';
+import { SelectRegionModal } from './pages/select-region/select-region';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, NotificationsComponent],
+  declarations: [AppComponent, NotificationsComponent, SelectRegionModal],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

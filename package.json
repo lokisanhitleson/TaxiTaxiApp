@@ -6,7 +6,7 @@
     "homepage": "http://mazelon.com",
     "scripts": {
         "ng": "ng",
-        "start": "ionic serve",
+        "start": "ionic serve --port 8100",
         "run": "ionic cordova run browser",
         "run:ios": "ionic cordova run ios",
         "build:ios": "ionic cordova build ios",

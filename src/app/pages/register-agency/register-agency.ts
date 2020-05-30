@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController, MenuController, LoadingController,AlertController, ToastController } from '@ionic/angular';
+import { NavController, MenuController, LoadingController,AlertController, ToastController, ModalController } from '@ionic/angular';
 import {RegisterService} from "./register.service";
 import { Storage } from '@ionic/storage';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { SelectRegionModal } from '../select-region/select-region';
 
 @Component({
   selector: 'app-register-agency',
@@ -13,6 +14,9 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 export class RegisterAgencyPage implements OnInit {
   public onAgencyRegistrationForm: FormGroup;
   formSubmitted :boolean;
+  region: string;
+  placeId: string;
+  regionOpened :boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -24,9 +28,9 @@ export class RegisterAgencyPage implements OnInit {
     public Storage:Storage,
     public translate: TranslateService, 
     public toastCtrl: ToastController,
-    public TranslateModule: TranslateModule
-  ) {
-  }
+    public TranslateModule: TranslateModule,
+    private modalCtrl: ModalController
+  ) { }
 
 
   ionViewWillEnter() {
@@ -42,9 +46,6 @@ export class RegisterAgencyPage implements OnInit {
       'agencyRegNum': [null, Validators.compose([
         Validators.pattern(/^[a-zA-Z0-9]{0,30}$/)
       ])],
-      'region': [null, Validators.compose([
-        Validators.required
-      ])],
       'contactName': [null, Validators.compose([
         Validators.required,
         Validators.pattern(/^([\w\-][a-zA-Z0-9_ ]{0,30})$/)
@@ -59,6 +60,23 @@ export class RegisterAgencyPage implements OnInit {
       ])]
     });
   }
+  async openSelectRegion() {
+    const modal = await this.modalCtrl.create({
+      component: SelectRegionModal,
+      componentProps: {
+        "key": "val"
+      }
+    });
+
+    modal.onWillDismiss().then((data) => {
+      if(data.data) {
+        this.region = data.data.placeName;
+        this.placeId = data.data.placeId;
+      }
+      this.regionOpened = true;
+    });
+    return await modal.present();
+  }
 
   goToLogin() {
     this.navCtrl.navigateRoot('/');
@@ -66,7 +84,7 @@ export class RegisterAgencyPage implements OnInit {
   goToCreatePassword() {
     this.formSubmitted = true;
    console.log(this.onAgencyRegistrationForm);
-    if (this.onAgencyRegistrationForm.invalid) {
+    if (this.onAgencyRegistrationForm.invalid || !this.placeId) {
         return;
     }   
     const loading = this.loadingCtrl.create();
@@ -76,11 +94,11 @@ export class RegisterAgencyPage implements OnInit {
       var AgencyName = this.onAgencyRegistrationForm.value.agencyName;
       var AgencyRegisterationNumber = this.onAgencyRegistrationForm.value.agencyRegNum;
       var ContactName = this.onAgencyRegistrationForm.value.contactName;  
-      var Region = this.onAgencyRegistrationForm.value.region;
+      var Region = this.region;
+      let placeId = this.placeId;
       var email = this.onAgencyRegistrationForm.value.email;
       var accountid = val;
-      console.log(AgencyName,AgencyRegisterationNumber,ContactName,Region,email,accountid);
-      this.RegisterService.registeragency(AgencyName,AgencyRegisterationNumber,ContactName,Region,email,accountid)
+      this.RegisterService.registeragency(AgencyName,AgencyRegisterationNumber,ContactName,Region,placeId,email,accountid)
       .subscribe(      
         (response) => { 
           loading.then( loading => loading.dismiss());         

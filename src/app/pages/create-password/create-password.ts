@@ -165,7 +165,8 @@ export class CreatePasswordPage implements OnInit {
                         this.PasswordService.userData().subscribe( async data => {           
                           if (response && response.status === "SUCCESS") {
                            await this.storage.set('userData', data.data);      
-                           this.sharedService.changeLoginCheck(authVal);                      
+                           this.sharedService.changeLoginCheck(authVal);
+                           this.navCtrl.navigateRoot('/home/tabs/home-results');
                           }
                         });     
                         const fogotPasswordNumber = await this.storage.get('forgetPassNum');
@@ -173,9 +174,8 @@ export class CreatePasswordPage implements OnInit {
                           this.openWelcomeModal();
                         } else {
                           this.storage.remove('forgetPassNum'); 
-                      } 
-                    }  
-                    this.navCtrl.navigateRoot('/home');            
+                        } 
+                    }       
                  }
                 );              
             });
