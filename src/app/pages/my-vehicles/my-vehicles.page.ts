@@ -126,7 +126,7 @@ export class MyVehiclesPage implements OnInit {
     return this.formBuilder.group({
       vehicleConditionId: ['', Validators.required],
       accidentHistory: ['', Validators.required],
-      // chassisNo: ['', Validators.required],
+      chassisNo: [''],
       fcYear: ['', Validators.required],
       airBag: ['', Validators.required],
       wheelTypeId: ['', Validators.required],
