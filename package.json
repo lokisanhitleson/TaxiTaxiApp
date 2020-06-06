@@ -47,7 +47,7 @@
         "add": "^2.0.6",
         "animate.css": "^3.7.2",
         "cordova": "^9.0.0",
-        "cordova-android": "^8.1.0",
+        "cordova-android": "8.1.0",
         "cordova-browser": "6.0.0",
         "cordova-ios": "^5.1.1",
         "cordova-plugin-camera": "^4.1.0",
@@ -109,8 +109,8 @@
     "cordova": {
         "platforms": [
             "browser",
-            "android",
-            "ios"
+            "ios",
+            "android"
         ],
         "plugins": {
             "cordova-plugin-whitelist": {},
@@ -120,9 +120,13 @@
             "cordova-plugin-ionic-webview": {},
             "cordova-plugin-ionic-keyboard": {},
             "cordova-plugin-datepicker": {},
-            "cordova-plugin-media": {},
+            "cordova-plugin-media": {
+                "KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE": "NO"
+            },
             "cordova-plugin-file": {},
-            "cordova-plugin-telerik-imagepicker": {},
+            "cordova-plugin-telerik-imagepicker": {
+                "PHOTO_LIBRARY_USAGE_DESCRIPTION": " "
+            },
             "cordova-plugin-crop": {},
             "cordova-plugin-camera": {
                 "ANDROID_SUPPORT_V4_VERSION": "27.+"

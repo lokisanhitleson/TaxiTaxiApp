@@ -1,29 +1,27 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { CalendarModal, CalendarModalOptions, DayConfig, CalendarResult } from 'ion2-calendar';
-import { ModalController, NavController, LoadingController, ToastController } from '@ionic/angular';
 import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Camera } from '@ionic-native/Camera/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
-import { ImagePicker } from '@ionic-native/image-picker/ngx';
-import { Camera, CameraOptions } from '@ionic-native/Camera/ngx';
-import { ActionSheetController } from '@ionic/angular';
 import { File } from '@ionic-native/file/ngx';
-import * as moment from "moment";
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { ActionSheetController, LoadingController, ModalController, NavController } from '@ionic/angular';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UploadVehicle } from "./upload-vehicle";
-import { AddVehicleService } from "./add-vehicle.service";
-import { VehicleNameWithBrand } from '../models/vehicle-name.model';
-import { ColorOfVehicle } from '../models/vehicle-color.model';
-import { VariantOfVehicle } from '../models/vehicle-variant.model';
-import { FuelTypeOfVehicle } from '../models/fuel-type.model';
-import { VehicleCondition } from '../models/vehicle-condition.model';
-import { WheelTypeOfVehicle } from '../models/wheel-type.model';
+import { CalendarModal, CalendarModalOptions } from 'ion2-calendar';
+import * as moment from 'moment';
 import { BreakingSystemOfVehicle } from '../models/breaking-system.model';
-import { InsuranceType } from '../models/insurance-type.model';
+import { FuelTypeOfVehicle } from '../models/fuel-type.model';
 import { InsuranceCompany } from '../models/insurance-company.model';
-import { VehicleBrandModal } from "./vehicle.brand";
+import { InsuranceType } from '../models/insurance-type.model';
+import { ColorOfVehicle } from '../models/vehicle-color.model';
+import { VehicleCondition } from '../models/vehicle-condition.model';
+import { VariantOfVehicle } from '../models/vehicle-variant.model';
+import { WheelTypeOfVehicle } from '../models/wheel-type.model';
 import { ToastService } from '../services/toast.service';
+import { AddVehicleService } from './add-vehicle.service';
+import { UploadVehicle } from './upload-vehicle';
+import { VehicleBrandModal } from './vehicle.brand';
+
 
 @Component({
   selector: 'app-my-vehicles',
@@ -32,9 +30,9 @@ import { ToastService } from '../services/toast.service';
 })
 export class MyVehiclesPage implements OnInit {
   daterange: string;
-  prevShow: boolean = true;
+  prevShow = true;
 
-  croppedImagepath = "assets/no-image.png";
+  croppedImagepath = 'assets/no-image.png';
   isLoading = false;
 
   imagePickerOptions = {
@@ -58,6 +56,7 @@ export class MyVehiclesPage implements OnInit {
   vehicleType: string;
   vehicleColors: [ColorOfVehicle];
   years: [number];
+  yearsFc: [number];
   vehicleVariants: [VariantOfVehicle];
   vehicleFuelTypes: [FuelTypeOfVehicle];
   vehicleConditions: [VehicleCondition];
@@ -66,14 +65,15 @@ export class MyVehiclesPage implements OnInit {
   insuranceTypes: [InsuranceType];
   insuranceCompanies: [InsuranceCompany];
 
-  displayImage = "assets/img/displayview.jpg";
-  frontImage = "assets/img/frontview.jpg";
-  backImage = "assets/img/backview.jpg";
-  leftImage = "assets/img/leftview.jpg";
-  rightImage = "assets/img/rightview.jpg";
+  displayImage = 'assets/img/displayview.jpg';
+  frontImage = 'assets/img/frontview.jpg';
+  backImage = 'assets/img/backview.jpg';
+  leftImage = 'assets/img/leftview.jpg';
+  rightImage = 'assets/img/rightview.jpg';
   vehicleNameIdPrev: number;
   vehicleNameId: number;
   vehicleName: string;
+
   constructor(
     public modalCtrl: ModalController,
     public navCtrl: NavController,
@@ -86,7 +86,7 @@ export class MyVehiclesPage implements OnInit {
     private loadingCtrl: LoadingController,
     private toast: ToastService,
     public translate: TranslateService,
-    public TranslateModule: TranslateModule,
+    public translateModule: TranslateModule,
     private addVehicleService: AddVehicleService,
     private formBuilder: FormBuilder
   ) {
@@ -94,7 +94,7 @@ export class MyVehiclesPage implements OnInit {
       form1: this.createForm1(),
       form2: this.createForm2(),
       form3: this.createForm3()
-    }
+    };
   }
 
   async ngOnInit() {
@@ -102,6 +102,7 @@ export class MyVehiclesPage implements OnInit {
     try {
       loading.present();
       this.loadYears();
+      this.loadYearsFc();
       await this.getInsuranceCompanies();
       await this.getInsuranceTypes();
       await this.getVehicleConditions();
@@ -125,7 +126,7 @@ export class MyVehiclesPage implements OnInit {
     return this.formBuilder.group({
       vehicleConditionId: ['', Validators.required],
       accidentHistory: ['', Validators.required],
-      chassisNo: ['', Validators.required],
+      // chassisNo: ['', Validators.required],
       fcYear: ['', Validators.required],
       airBag: ['', Validators.required],
       wheelTypeId: ['', Validators.required],
@@ -145,14 +146,23 @@ export class MyVehiclesPage implements OnInit {
   loadYears() {
     const count = 20;
     const year = new Date().getFullYear();
-    for (let i = year - count; i <= year; i++)
-      if (this.years) this.years.push(i); else this.years = [i];
+    for (let i = year - count; i <= year; i++) {
+      if (this.years) { this.years.push(i); } else { this.years = [i]; }
+    }
+  }
+
+  loadYearsFc() {
+    const count = 10;
+    const year = new Date().getFullYear();
+    for (let i = year; i <= year + count; i++) {
+      if (this.yearsFc) { this.yearsFc.push(i); } else { this.yearsFc = [i]; }
+    }
   }
 
   getVehicleType(vehicleTypeId: number) {
     return new Promise((res, rej) => {
       this.addVehicleService.getVehicleType(vehicleTypeId).subscribe(data => {
-        if (data && data.status == "SUCCESS" && data.data.type) {
+        if (data && data.status === 'SUCCESS' && data.data.type) {
           this.vehicleType = data.data.type;
           res(true);
         } else {
@@ -160,14 +170,14 @@ export class MyVehiclesPage implements OnInit {
         }
       }, async err => {
         rej(err);
-      })
-    })
+      });
+    });
   }
 
   getVehicleColors(vehicleNameId: number) {
     return new Promise((res, rej) => {
       this.addVehicleService.getVehicleColors(vehicleNameId).subscribe(data => {
-        if (data && data.status == "SUCCESS") {
+        if (data && data.status === 'SUCCESS') {
           res(true);
           this.vehicleColors = data.data;
         } else {
@@ -175,14 +185,14 @@ export class MyVehiclesPage implements OnInit {
         }
       }, async err => {
         rej(err);
-      })
-    })
+      });
+    });
   }
 
   getVehicleVariants(vehicleNameId: number) {
     return new Promise((res, rej) => {
       this.addVehicleService.getVehicleVariants(vehicleNameId).subscribe(data => {
-        if (data && data.status == "SUCCESS") {
+        if (data && data.status == 'SUCCESS') {
           res(true);
           this.vehicleVariants = data.data;
         } else {
@@ -190,14 +200,14 @@ export class MyVehiclesPage implements OnInit {
         }
       }, async err => {
         rej(err);
-      })
-    })
+      });
+    });
   }
 
   getVehicleFuelTypes(vehicleNameId: number) {
     return new Promise((res, rej) => {
       this.addVehicleService.getVehicleFuelTypes(vehicleNameId).subscribe(data => {
-        if (data && data.status == "SUCCESS") {
+        if (data && data.status == 'SUCCESS') {
           res(true);
           this.vehicleFuelTypes = data.data;
         } else {
@@ -205,15 +215,15 @@ export class MyVehiclesPage implements OnInit {
         }
       }, async err => {
         rej(err);
-      })
-    })
+      });
+    });
   }
 
   getVehicleConditions() {
     return new Promise((res, rej) => {
       this.addVehicleService.getVehicleConditions().subscribe(data => {
         res(true);
-        if (data && data.status == "SUCCESS") {
+        if (data && data.status == 'SUCCESS') {
           this.vehicleConditions = data.data;
         } else {
           if (!data) {
@@ -222,14 +232,14 @@ export class MyVehiclesPage implements OnInit {
         }
       }, async err => {
         rej(err);
-      })
-    })
+      });
+    });
   }
 
   getVehicleWheelTypes(vehicleNameId: number) {
     return new Promise((res, rej) => {
       this.addVehicleService.getVehicleWheelTypes(vehicleNameId).subscribe(data => {
-        if (data && data.status == "SUCCESS") {
+        if (data && data.status == 'SUCCESS') {
           res(true);
           this.vehicleWheelTypes = data.data;
         } else {
@@ -237,14 +247,14 @@ export class MyVehiclesPage implements OnInit {
         }
       }, async err => {
         rej(err);
-      })
-    })
+      });
+    });
   }
 
   getVehicleBreakingSystems(vehicleNameId: number) {
     return new Promise((res, rej) => {
       this.addVehicleService.getVehicleBreakingSystems(vehicleNameId).subscribe(data => {
-        if (data && data.status == "SUCCESS") {
+        if (data && data.status == 'SUCCESS') {
           res(true);
           this.vehicleBreakingSystems = data.data;
         } else {
@@ -252,15 +262,15 @@ export class MyVehiclesPage implements OnInit {
         }
       }, async err => {
         rej(err);
-      })
-    })
+      });
+    });
   }
 
   getInsuranceCompanies() {
     return new Promise((res, rej) => {
       this.addVehicleService.getInsuranceCompanies().subscribe(data => {
         res(true);
-        if (data && data.status == "SUCCESS") {
+        if (data && data.status == 'SUCCESS') {
           this.insuranceCompanies = data.data;
         } else {
           if (!data) {
@@ -268,16 +278,16 @@ export class MyVehiclesPage implements OnInit {
           }
         }
       }, async err => {
-        rej(err)
-      })
-    })
+        rej(err);
+      });
+    });
   }
 
   getInsuranceTypes() {
     return new Promise((res, rej) => {
       this.addVehicleService.getInsuranceTypes().subscribe(data => {
         res(true);
-        if (data && data.status == "SUCCESS") {
+        if (data && data.status == 'SUCCESS') {
           this.insuranceTypes = data.data;
         } else {
           if (!data) {
@@ -286,8 +296,8 @@ export class MyVehiclesPage implements OnInit {
         }
       }, async err => {
         rej(err);
-      })
-    })
+      });
+    });
   }
 
   async changeVehicleName(vehicleTypeId: number, vehicleNameId: number) {
@@ -327,7 +337,7 @@ export class MyVehiclesPage implements OnInit {
     if (this.vehicleForm.form1.valid && this.vehicleForm.form2.valid && this.vehicleForm.form3.valid && this.picturesSelected) {
       const loading = this.loadingCtrl.create();
       loading.then(l => l.present());
-      let formData = this.vehicleForm.form1.value;
+      const formData = this.vehicleForm.form1.value;
       Object.assign(formData, this.vehicleForm.form2.value);
       Object.assign(formData, this.vehicleForm.form3.value);
       formData.displayImage = this.displayImage;
@@ -339,7 +349,7 @@ export class MyVehiclesPage implements OnInit {
       console.log(formData);
       this.addVehicleService.insertAgencyVehicle(formData).subscribe(data => {
         loading.then(l => l.dismiss());
-        if (data && data.status == "SUCCESS") {
+        if (data && data.status == 'SUCCESS') {
           this.navCtrl.navigateRoot('/my-vehicle-list');
         } else {
           if (!data) {
@@ -349,23 +359,23 @@ export class MyVehiclesPage implements OnInit {
       }, async err => {
         loading.then(l => l.dismiss());
         this.toast.showToast();
-      })
+      });
     }
   }
 
   checkImagesSelected() {
-    if (!this.displayImage.includes("assets/img") || !this.frontImage.includes("assets/img") || !this.backImage.includes("assets/img") || !this.leftImage.includes("assets/img") || !this.rightImage.includes("assets/img")) {
-      if (this.displayImage.includes("assets/img") || this.frontImage.includes("assets/img") || this.backImage.includes("assets/img") || this.leftImage.includes("assets/img") || this.rightImage.includes("assets/img")) {
+    if (!this.displayImage.includes('assets/img') || !this.frontImage.includes('assets/img') || !this.backImage.includes('assets/img') || !this.leftImage.includes('assets/img') || !this.rightImage.includes('assets/img')) {
+      if (this.displayImage.includes('assets/img') || this.frontImage.includes('assets/img') || this.backImage.includes('assets/img') || this.leftImage.includes('assets/img') || this.rightImage.includes('assets/img')) {
         this.picturesSelected = false;
       } else {
         this.picturesSelected = true;
       }
     }
-  }  
+  }
   checkVehicleSelected() {
     if (this.vehicleNameId) {
       this.vehicleSelected = true;
-      if(this.vehicleNameIdPrev !== this.vehicleNameId) {
+      if (this.vehicleNameIdPrev !== this.vehicleNameId) {
         this.changeVehicleName(this.vehicleTypeId, this.vehicleNameId);
         this.vehicleNameIdPrev = this.vehicleNameId;
       }
@@ -374,7 +384,7 @@ export class MyVehiclesPage implements OnInit {
     }
   }
 
-  //Calendar Picker
+  // Calendar Picker
   async openCalendar(field: string) {
     const options: CalendarModalOptions = {
       pickMode: 'single',
@@ -388,7 +398,7 @@ export class MyVehiclesPage implements OnInit {
 
     myCalendar.present();
     const event: any = await myCalendar.onDidDismiss();
-    const newFormat = moment(event.data.dateObj).format("YYYY-MM-DD");
+    const newFormat = moment(event.data.dateObj).format('YYYY-MM-DD');
     this.vehicleForm.form3.controls[field].setValue(newFormat);
   }
 
@@ -396,11 +406,11 @@ export class MyVehiclesPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: UploadVehicle,
       componentProps: {
-        "displayImage": this.displayImage,
-        "frontImage": this.frontImage,
-        "backImage": this.backImage,
-        "leftImage": this.leftImage,
-        "rightImage": this.rightImage
+        'displayImage': this.displayImage,
+        'frontImage': this.frontImage,
+        'backImage': this.backImage,
+        'leftImage': this.leftImage,
+        'rightImage': this.rightImage
       }
     });
 
@@ -410,7 +420,7 @@ export class MyVehiclesPage implements OnInit {
       this.backImage = data.data.backImage;
       this.leftImage = data.data.leftImage;
       this.rightImage = data.data.rightImage;
-      this.checkImagesSelected()
+      this.checkImagesSelected();
       this.modelOpened = true;
     });
     return await modal.present();
@@ -420,21 +430,21 @@ export class MyVehiclesPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: VehicleBrandModal,
       componentProps: {
-        "vehicleBrand": this.vehicleBrand,
-        "vehicleTypeId": this.vehicleTypeId,
-        "vehicleNameId": this.vehicleNameId,
-        "vehicleName": this.vehicleName
+        'vehicleBrand': this.vehicleBrand,
+        'vehicleTypeId': this.vehicleTypeId,
+        'vehicleNameId': this.vehicleNameId,
+        'vehicleName': this.vehicleName
       }
     });
 
     modal.onWillDismiss().then((data) => {
-      if(data.data) {
+      if (data.data) {
         this.vehicleBrand = data.data.vehicleBrand;
         this.vehicleTypeId = data.data.vehicleTypeId;
         this.vehicleNameId = data.data.vehicleNameId;
         this.vehicleName = data.data.vehicleName;
       }
-      this.checkVehicleSelected()
+      this.checkVehicleSelected();
       this.modelOpenedBrand = true;
     });
     return await modal.present();

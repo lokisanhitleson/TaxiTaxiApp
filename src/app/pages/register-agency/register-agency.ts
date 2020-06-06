@@ -109,7 +109,6 @@ export class RegisterAgencyPage implements OnInit {
           
           if(!response)
           this.toastCtrl.create({
-            showCloseButton: true,
             message: 'Connection failed! try again',
             duration: 3000,
             position: 'bottom'
@@ -118,7 +117,6 @@ export class RegisterAgencyPage implements OnInit {
       },   err => {
         loading.then( loading => loading.dismiss());
         this.toastCtrl.create({
-        showCloseButton: true,
         message: 'Connection failed! try again',
         duration: 3000,
         position: 'bottom'

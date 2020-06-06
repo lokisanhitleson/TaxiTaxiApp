@@ -70,7 +70,7 @@ export class LoginPage implements OnInit {
       inputs: [
         {
           name: 'mobileNum',
-          type: 'number',
+          type: 'tel',
           placeholder: 'Enter Mobile Number'
            //this.ismobbilenumberunique.bind(this)
         }
@@ -90,7 +90,6 @@ export class LoginPage implements OnInit {
           this.loginService.CheckExists({ value: value.mobileNum }).subscribe(data => {
               if (!data || (data && (data.status != "SUCCESS" || data.data.length < 1 ))) {
                 this.toastCtrl.create({
-                  showCloseButton: true,
                   message: 'Mobile number not registered!',
                   duration: 3000,
                   position: 'bottom'
@@ -171,7 +170,6 @@ export class LoginPage implements OnInit {
                   this.passwordErr = true;
               } else
                 this.toastCtrl.create({
-                  showCloseButton: true,
                   message: 'Connection failed! try again',
                   duration: 3000,
                   position: 'bottom'
@@ -180,7 +178,6 @@ export class LoginPage implements OnInit {
           }, async err => {
             loading.then(loading => loading.dismiss());
             let toast = await this.toastCtrl.create({
-              showCloseButton: true,
               message: 'Connection failed! try again',
               duration: 3000,
               position: 'bottom'

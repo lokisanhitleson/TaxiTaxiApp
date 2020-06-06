@@ -37,9 +37,7 @@
       "id": "cordova-plugin-ionic-webview@^2.0.0"
     },
     "is_top_level": true,
-    "variables": {
-      "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
-    }
+    "variables": {}
   },
   "cordova-plugin-ionic-keyboard": {
     "source": {
@@ -52,7 +50,7 @@
   "cordova-plugin-datepicker": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-datepicker"
+      "id": "cordova-plugin-datepicker@^0.9.3"
     },
     "is_top_level": true,
     "variables": {}
@@ -60,17 +58,19 @@
   "cordova-plugin-media": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-media@5.0.3"
+      "id": "cordova-plugin-media@^5.0.3"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE": "NO"
+    }
   },
   "cordova-plugin-file": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-file@^6.0.2"
+      "id": "cordova-plugin-file@^6.0.0"
     },
-    "is_top_level": true,
+    "is_top_level": false,
     "variables": {}
   },
   "cordova-plugin-telerik-imagepicker": {
@@ -79,7 +79,9 @@
       "id": "cordova-plugin-telerik-imagepicker@^2.3.3"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "PHOTO_LIBRARY_USAGE_DESCRIPTION": " "
+    }
   },
   "cordova-plugin-crop": {
     "source": {
@@ -95,7 +97,9 @@
       "id": "cordova-plugin-camera@^4.1.0"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+"
+    }
   },
   "cordova-plugin-file-transfer": {
     "source": {

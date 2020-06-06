@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router ,NavigationExtras } from '@angular/router'
+import { Router, NavigationExtras } from '@angular/router';
 import { IonSlides, LoadingController } from '@ionic/angular';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HomeResultsService } from './home-results.page.service';
-import { vechicleTypes } from '../../models/VechileTypesmodel';    
+import { vechicleTypes } from '../../models/VechileTypesmodel';
 import {
   NavController,
   AlertController,
@@ -19,7 +19,6 @@ import { ImagePage } from './../modal/image/image.page';
 // Call notifications test by Popover and Custom Component.
 import { NotificationsComponent } from './../../components/notifications/notifications.component';
 import { SelectRegionModal } from '../select-region/select-region';
-import { createChangeDetectorRef } from '@angular/core/src/view/refs';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -28,12 +27,6 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['./home-results.page.scss']
 })
 export class HomeResultsPage implements OnInit {
-  searchKey = '';
-  yourLocation: string;
-  placeId: string;
-  lang: any;
-  isAnnouncement: boolean = false;
-  vehicles: [vechicleTypes];
   // themeCover = [
   //   {car:'assets/svg/car.svg'},
   //   {car1:'assets/svg/car1.svg'},
@@ -49,23 +42,42 @@ export class HomeResultsPage implements OnInit {
     public loadingCtrl: LoadingController,
     public translate: TranslateService,
     public homeResultsService: HomeResultsService,
-    public TranslateModule: TranslateModule,
+    public translateModule: TranslateModule,
     private storage: Storage
   ) {
-      this.vechileTypes();
-      
+    this.vechileTypes();
+
     // this.lang = 'en';
     // this.translate.setDefaultLang('en');
     // this.translate.use('en');
   }
+  searchKey = '';
+  yourLocation: string;
+  placeId: string;
+  lang: any;
+  isAnnouncement = false;
+  vehicles: [vechicleTypes];
+
+  ads = [
+    { img: 'assets/img/announce1.jpg' },
+    { img: 'assets/img/announce2.jpg' }
+  ];
+  announcement = [
+    { img: 'assets/img/ad1.jpg' },
+    { img: 'assets/img/ad2.jpg' }
+  ];
+  slideOptions = {
+    initialSlide: 1,
+    speed: 400,
+  };
 
   async ngOnInit() {
     try {
       const uData = await this.storage.get('userData');
-        this.yourLocation = uData.agencyRegion;
-        this.placeId = uData.placeId;
-    } catch(err) {
-      console.log("something went wrong: ", err);
+      this.yourLocation = uData.agencyRegion;
+      this.placeId = uData.placeId;
+    } catch (err) {
+      console.log('something went wrong: ', err);
     }
   }
   // switch Language() {
@@ -73,30 +85,16 @@ export class HomeResultsPage implements OnInit {
   // }
   vechileTypes() {
     this.homeResultsService.getVechileTypes().subscribe(data => {
-      if (data && data.status === "SUCCESS") {
-          console.log(data, "datas")
-          this.vehicles=data.data;
-      } 
-      else {
-          console.log(null + "s");
-          console.log(data+"datas")        
-          
+      if (data && data.status === 'SUCCESS') {
+        console.log(data, 'datas');
+        this.vehicles = data.data;
+      } else {
+        console.log(null + 's');
+        console.log(data + 'datas');
+
       }
-  });
+    });
   }
-  
-  ads = [
-    { img: "assets/img/announce1.jpg" },
-    { img: "assets/img/announce2.jpg" }
-  ];
-  announcement = [
-    { img: "assets/img/ad1.jpg" },
-    { img: "assets/img/ad2.jpg" }
-  ];
-  slideOptions = {
-    initialSlide: 1,
-    speed: 400,
-  }; 
 
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
@@ -135,9 +133,7 @@ export class HomeResultsPage implements OnInit {
             const toast = await this.toastCtrl.create({
               message: 'Location was change successfully',
               duration: 3000,
-              position: 'top',
-              closeButtonText: 'OK',
-              showCloseButton: true
+              position: 'top'
             });
 
             toast.present();
@@ -153,7 +149,7 @@ export class HomeResultsPage implements OnInit {
     });
 
     modal.onWillDismiss().then((data) => {
-      if(data.data) {
+      if (data.data) {
         this.yourLocation = data.data.placeName;
         this.placeId = data.data.placeId;
       }
@@ -196,11 +192,11 @@ export class HomeResultsPage implements OnInit {
     console.log('Loading dismissed!');
   }
 
-  goToCars(vehicleTypeId) {    
+  goToCars(vehicleTypeId: number) {
     this.presentLoading();
-    //this.navCtrl.navigateRoot('/home/tabs/cars');
-     console.log("clicked");
-     let navigationExtras: NavigationExtras = {
+    // this.navCtrl.navigateRoot('/home/tabs/cars');
+    console.log('clicked');
+    const navigationExtras: NavigationExtras = {
       queryParams: {
         special: JSON.stringify(vehicleTypeId)
       }
@@ -208,7 +204,7 @@ export class HomeResultsPage implements OnInit {
     this.router.navigate(['/home/tabs/cars'], navigationExtras);
   }
   goToViewRequest() {
-    this.navCtrl.navigateRoot('home/tabs/view-request')
+    this.navCtrl.navigateRoot('home/tabs/view-request');
   }
   goAddVehicle() {
     this.navCtrl.navigateRoot('/my-vehicles');

@@ -16,13 +16,12 @@
     "fetchSpec": "^2.0.0"
   },
   "_requiredBy": [
-    "#DEV:/",
-    "#USER"
+    "#DEV:/"
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-ionic-webview/-/cordova-plugin-ionic-webview-2.5.3.tgz",
   "_shasum": "2d3be2a53485410bb5ece2f9fce09f6c4099a7a3",
   "_spec": "cordova-plugin-ionic-webview@^2.0.0",
-  "_where": "D:\\ionic4-theme-master",
+  "_where": "/Users/mazelon/Workarea/taxi-app",
   "author": {
     "name": "Ionic Team"
   },

@@ -1,5 +1,5 @@
 {
-  "_from": "cordova-plugin-file@^6.0.0",
+  "_from": "cordova-plugin-file@^6.0.2",
   "_id": "cordova-plugin-file@6.0.2",
   "_inBundle": false,
   "_integrity": "sha512-m7cughw327CjONN/qjzsTpSesLaeybksQh420/gRuSXJX5Zt9NfgsSbqqKDon6jnQ9Mm7h7imgyO2uJ34XMBtA==",
@@ -8,21 +8,20 @@
   "_requested": {
     "type": "range",
     "registry": true,
-    "raw": "cordova-plugin-file@^6.0.0",
+    "raw": "cordova-plugin-file@^6.0.2",
     "name": "cordova-plugin-file",
     "escapedName": "cordova-plugin-file",
-    "rawSpec": "^6.0.0",
+    "rawSpec": "^6.0.2",
     "saveSpec": null,
-    "fetchSpec": "^6.0.0"
+    "fetchSpec": "^6.0.2"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-file/-/cordova-plugin-file-6.0.2.tgz",
   "_shasum": "f3911479f8357e9aacb5576674f8d95b31a1fb20",
-  "_spec": "cordova-plugin-file@^6.0.0",
-  "_where": "D:\\taxi-app",
+  "_spec": "cordova-plugin-file@^6.0.2",
+  "_where": "/Users/mazelon/Workarea/taxi-app",
   "author": {
     "name": "Apache Software Foundation"
   },

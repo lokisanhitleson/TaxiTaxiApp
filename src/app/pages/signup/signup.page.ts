@@ -11,22 +11,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnInit {
-  public onSignUpForm: FormGroup;
-  public onOtpForm: FormGroup;
-  otp: number;
-  showOtpComponent = true;
-  @ViewChild('ngOtpInput') ngOtpInput: any;
-
-  lang:any;
-  showOtp: boolean = false;
-  showErr: boolean;
-  exist: boolean;
-  otpresendmessage: boolean;
-  accountcreated: string;
-  resendOtpEnable: boolean;
-  formSubmitted:boolean;
-
-
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -36,17 +20,48 @@ export class SignupPage implements OnInit {
     private formBuilder: FormBuilder,
     private SignUpService: SignUpService,
     private storage: Storage,
-    public translate: TranslateService, 
-    public TranslateModule : TranslateModule
+    public translate: TranslateService,
+    public TranslateModule: TranslateModule
   ) {
     this.lang = 'en';
     this.translate.setDefaultLang('en');
     this.translate.use('en');
    }
+
+  public onSignUpForm: FormGroup;
+  public onOtpForm: FormGroup;
+  otp: number;
+  showOtpComponent = true;
+  @ViewChild('ngOtpInput') ngOtpInput: any;
+
+  lang: any;
+  showOtp = false;
+  showErr: boolean;
+  exist: boolean;
+  otpresendmessage: boolean;
+  accountcreated: string;
+  resendOtpEnable: boolean;
+  formSubmitted: boolean;
+
+  // OTP timer model
+  timeLeft = 10;
+  interval;
+  // OTP Input
+  config = {
+    allowNumbersOnly: true,
+    length: 4,
+    isPasswordInput: false,
+    disableAutoFocus: false,
+    placeholder: '',
+    inputStyles: {
+      'width': '100px',
+      'height': '100px'
+    }
+  };
   switchLanguage() {
     this.translate.use(this.lang);
   }
-  
+
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
   }
@@ -95,7 +110,6 @@ export class SignupPage implements OnInit {
             loader.present();
             loader.onWillDismiss().then(async l => {
               const toast = await this.toastCtrl.create({
-                showCloseButton: true,
                 message: 'OTP was sent successfully.',
                 duration: 3000,
                 position: 'bottom'
@@ -111,46 +125,30 @@ export class SignupPage implements OnInit {
     await alert.present();
   }
 
-  //OTP timer model
-  timeLeft: number = 10;
-  interval;
-
   startTimer() {
   this.interval = setInterval(() => {
-    if(this.timeLeft > 0) {
+    if (this.timeLeft > 0) {
       this.timeLeft--;
-     
+
     } else {
       this.pauseTimer();
-      this.resendOtpEnable= true
+      this.resendOtpEnable = true;
     }
-  
-    
-  },1000)
-  
+
+
+  }, 1000);
+
 }
 
 pauseTimer() {
   clearInterval(this.interval);
 }
-  //OTP Input
-  config = {
-    allowNumbersOnly: true,
-    length: 4,
-    isPasswordInput: false,
-    disableAutoFocus: false,
-    placeholder:'',
-    inputStyles: {
-      'width': '100px',
-      'height': '100px'
-    }
-  };
   onOtpChange(otp) {
-    this.otp = otp;    
+    this.otp = otp;
   }
 
   setVal(val) {
-    this.ngOtpInput.setValue(val);   
+    this.ngOtpInput.setValue(val);
   }
 
   onConfigChange() {
@@ -161,20 +159,19 @@ pauseTimer() {
     }, 0);
   }
 
-  ismobbilenumberunique(control: FormGroup) {        
+  ismobbilenumberunique(control: FormGroup) {
     const q = new Promise((resolve, reject) => {
         setTimeout(() => {
             this.SignUpService.CheckExists({ value: control.value }).subscribe(data => {
-                if (data && data.status != "SUCCESS" ||data.data[0] != null ) {
+                if (data && data.status != 'SUCCESS' || data.data[0] != null ) {
                     console.log({ 'ismobilenumber': true });
                     resolve({ 'ismobilenumber': true });
-                    this.exist= true;
-                    console.log('no')
-                } 
-                else {
-                    console.log(null + "s");
+                    this.exist = true;
+                    console.log('no');
+                } else {
+                    console.log(null + 's');
                     resolve(null);
-                    this.exist= false;
+                    this.exist = false;
                   }
             });
         }, 100);
@@ -187,16 +184,16 @@ pauseTimer() {
     console.log(this.onSignUpForm);
     if (this.onSignUpForm.invalid) {
         return;
-    }       
+    }
     this.showOtp = true;
-    this.startTimer();    
-       const mobileNumber =this.onSignUpForm.value.mobileNumber;
-       this.storage.set('mobilenumber', mobileNumber);       
+    this.startTimer();
+       const mobileNumber = this.onSignUpForm.value.mobileNumber;
+       this.storage.set('mobilenumber', mobileNumber);
        this.SignUpService.createAccount(mobileNumber)
        .subscribe(
         data => {
-            if (data && data.status == "SUCCESS") {
-                let accountid =data.data.accountId;
+            if (data && data.status == 'SUCCESS') {
+                const accountid = data.data.accountId;
                 this.storage.set('accountid', accountid);
                 this.onSignUpForm.reset();
                 Object.keys(this.onSignUpForm.controls).forEach(key => {
@@ -206,91 +203,86 @@ pauseTimer() {
                     }
                 });
                 this.accountcreated  = '';
-              }
-            else {
+              } else {
                 this.accountcreated = 'Account Creation Failed';
-                if(!data)
+                if (!data) {
                   this.toastCtrl.create({
-                    showCloseButton: true,
                     message: 'Connection failed! try again',
                     duration: 3000,
                     position: 'bottom'
-                  }).then(toast => toast.present())  
-            } 
+                  }).then(toast => toast.present());
+                }
+            }
       },
        error => this.toastCtrl.create({
-        showCloseButton: true,
         message: 'Connection failed! try again',
         duration: 3000,
         position: 'bottom'
       }).then(toast => toast.present())
-    );       
+    );
   }
- 
+
   goToRegisterAgency() {
     this.formSubmitted = true;
         if (this.onOtpForm.invalid) {
         return;
-    }      
+    }
     const loading = this.loadingCtrl.create();
     loading.then( loading => loading.present());
     this.storage.get('mobilenumber').then((val) => {
-      console.log('Your mobilenumber is', val);     
-      var mobilenumber = val;
-      var OTP = this.otp;
-      this.SignUpService.otpauth(OTP,val)
-      .subscribe(      
-          (data) => {  
-            loading.then( loading => loading.dismiss());       
-          if (data && data.status == "SUCCESS" ){
-            this.navCtrl.navigateRoot('/register-agency');           
+      console.log('Your mobilenumber is', val);
+      const mobilenumber = val;
+      const OTP = this.otp;
+      this.SignUpService.otpauth(OTP, val)
+      .subscribe(
+          (data) => {
+            loading.then( loading => loading.dismiss());
+          if (data && data.status == 'SUCCESS' ) {
+            this.navCtrl.navigateRoot('/register-agency');
               this.showErr = false;
-      }     
-      else {       
+      } else {
              this.showErr = true ;
-             if(!data)
+             if (!data) {
                this.toastCtrl.create({
-                 showCloseButton: true,
                  message: 'Connection failed! try again',
                  duration: 3000,
                  position: 'bottom'
-               }).then(toast => toast.present())  
+               }).then(toast => toast.present());
+             }
       }},  err => {
         loading.then( loading => loading.dismiss());
         this.toastCtrl.create({
-        showCloseButton: true,
         message: 'Connection failed! try again',
         duration: 3000,
         position: 'bottom'
-      }).then(toast => toast.present())    
-    } 
+      }).then(toast => toast.present());
+    }
     );
   });
   }
 
-  resend(){
-    this.timeLeft= 10;
+  resend() {
+    this.timeLeft = 10;
     this.startTimer();
-    this.resendOtpEnable= false;
-    console.log ("otpresend starts")
+    this.resendOtpEnable = false;
+    console.log ('otpresend starts');
     this.storage.get('mobilenumber').then((val) => {
     console.log('Your mobilenumber is', val);
-       var resendOtpNumber = val;     
+       const resendOtpNumber = val;
       this.SignUpService.otpresend(resendOtpNumber)
-      .subscribe(      
-       (response) => {             
-     if (response &&response.status == "SUCCESS" ){
-       this.otpresendmessage = true        
-     }     
-     else {     
+      .subscribe(
+       (response) => {
+     if (response && response.status == 'SUCCESS' ) {
+       this.otpresendmessage = true;
+     } else {
           this.showErr = false ;
-     }      
-   },       
-     function(error) { 
-       console.log("Error happened" + error)         
-   },);
- });}
-  
+     }
+   },
+     function(error) {
+       console.log('Error happened' + error);
+   }, );
+ }); }
+
   goToLogin() {
     this.navCtrl.navigateRoot('/login');
   }

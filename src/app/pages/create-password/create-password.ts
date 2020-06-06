@@ -184,7 +184,6 @@ export class CreatePasswordPage implements OnInit {
                   this.incorrectpassword = true;   
                   if(!response) {
                     let toast = await this.toastCtrl.create({
-                      showCloseButton: true,
                       message: 'Connection failed! try again',
                       duration: 3000,
                       position: 'bottom'
@@ -196,7 +195,6 @@ export class CreatePasswordPage implements OnInit {
               (error) => { 
                 loading.then( loading => loading.dismiss());
                 this.toastCtrl.create({
-                  showCloseButton: true,
                   message: 'Connection failed! try again',
                   duration: 3000,
                   position: 'bottom'

@@ -82,7 +82,6 @@ export class OtpPage implements OnInit {
             loader.present();
             loader.onWillDismiss().then(async l => {
               const toast = await this.toastCtrl.create({
-                showCloseButton: true,
                 message: 'OTP was sent successfully.',
                 duration: 3000,
                 position: 'bottom'
