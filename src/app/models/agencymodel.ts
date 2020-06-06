@@ -6,3 +6,15 @@ export class agencyProfileImage {
     firstName : any;
 
 }
+
+export class editProfile {
+
+    agencyId : number;
+    agencyName : string;
+    email : string;
+    agencyLogoURL : string;
+    firstName : string;
+    agencyRegisterNumber :string;
+    agencyAddress :string;
+    agencyRegion :string;
+}
