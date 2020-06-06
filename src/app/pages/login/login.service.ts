@@ -30,7 +30,7 @@ export class LoginService{
 
         //  this. = values.value;
  
-       return this.http.get<{ data: [checkExistnumber], status: string }>(`${environment.apiUrl}accounts?mobilenumber=${values.value}`)
+       return this.http.get<{ data: [checkExistnumber], status: string }>(`${environment.apiUrl}accounts?signupFlag=1&mobilenumber=${values.value}`)
          .pipe(
            tap(_ => console.log(`mobilenumbers exist ${values}`, _)),
            catchError(this.handleError<{ data: [checkExistnumber], status: string }>('mobilenumber exist'))

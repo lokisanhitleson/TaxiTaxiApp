@@ -67,7 +67,7 @@ export class UploadVehicle implements OnInit {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
       // let base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.cropImage(imageData, n)
+      this.cropImage(imageData, n) 
     }, (err) => {
       // Handle error
     });
