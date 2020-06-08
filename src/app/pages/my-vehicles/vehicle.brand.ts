@@ -42,36 +42,36 @@ export class VehicleBrandModal implements OnInit {
     if (val && val.trim() != '') {
       this.vehicleNames = this.vehicleNames.filter((car) => {
         return (car.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
+      });
     }
   }
   getVehicleNamesByBrand() {
     return new Promise((res, rej) => {
       this.addVehicleService.getVehicleNamesByBrand(this.vehicleBrandId).subscribe(data => {
         res(true);
-        if (data && data.status == "SUCCESS") {
+        if (data && data.status == 'SUCCESS') {
           this.vehicleNames = this.vehicleNamesAll = data.data;
         } else {
           this.toast.showToast();
         }
       }, async err => {
         rej(err);
-      })
-    })
+      });
+    });
   }
   getVehicleBrands() {
     return new Promise((res, rej) => {
       this.addVehicleService.getVehicleBrands().subscribe(data => {
         res(true);
-        if (data && data.status == "SUCCESS") {
+        if (data && data.status == 'SUCCESS') {
           this.brands = data.data;
         } else {
           this.toast.showToast();
         }
       }, async err => {
         rej(err);
-      })
-    })
+      });
+    });
   }
 
   async onClickBrand(brand: VehicleBrand) {
@@ -82,7 +82,7 @@ export class VehicleBrandModal implements OnInit {
       this.currentBrand = brand;
       await this.getVehicleNamesByBrand();
       loading.dismiss();
-    } catch(err) {
+    } catch (err) {
       loading.dismiss();
       this.toast.showToast();
     }
