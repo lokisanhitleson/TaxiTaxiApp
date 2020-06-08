@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, LoadingController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { HomeResultsService } from '../home-results/home-results.page.service';
 import { ToastService } from '../services/toast.service';
+import { Place } from '../models/places.model';
 
 @Component({
   selector: 'select-region',
@@ -17,8 +18,7 @@ export class SelectRegionModal implements OnInit {
   constructor(
     private modalController: ModalController,
     private homeResultsService: HomeResultsService,
-    private toast: ToastService,
-    private loadingCtrl: LoadingController
+    private toast: ToastService
   ) { }
 
   ngOnInit() { }
@@ -30,31 +30,33 @@ export class SelectRegionModal implements OnInit {
   filterRegions(ev: any) {
     this.regions = this.regionsAll;
     const val = ev.target.value;
-    if (val && val.trim() != '') {
+    if (val && val.trim() !== '') {
       this.getRegionsByKeyword(val);
       // this.getRegionsByKeyword(val);
-    } else this.regions = [];
+    } else { this.regions = []; }
   }
 
   getRegionsByKeyword(keyword: string) {
     return new Promise((res, rej) => {
       this.homeResultsService.getRegionsByKeyword(keyword).subscribe(data => {
         res(true);
-        if (data && data.status == "SUCCESS") {
+        if (data && data.status === 'SUCCESS') {
           this.regions = this.regionsAll = data.data;
         } else {
           this.toast.showToast();
         }
       }, async err => {
         rej(err);
-      })
-    })
+      });
+    });
   }
 
-  async regionSelected(vehicle) {
+  async regionSelected(vehicle: Place) {
     await this.modalController.dismiss({
       placeName: vehicle.placeName,
-      placeId: vehicle.eLoc
+      placeId: vehicle.eLoc,
+      latitude: vehicle.latitude,
+      longitude: vehicle.longitude
     });
   }
 }

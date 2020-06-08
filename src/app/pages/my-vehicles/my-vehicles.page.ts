@@ -124,7 +124,7 @@ export class MyVehiclesPage implements OnInit {
   }
   createForm2(): FormGroup {
     return this.formBuilder.group({
-      vehicleConditionId: ['', Validators.required],
+      // vehicleConditionId: ['', Validators.required],
       accidentHistory: ['', Validators.required],
       chassisNo: [''],
       fcYear: ['', Validators.required],
@@ -138,7 +138,7 @@ export class MyVehiclesPage implements OnInit {
       insuranceTypeId: ['', Validators.required],
       insuranceCompanyId: ['', Validators.required],
       insuranceNo: ['', Validators.required],
-      startDate: ['', Validators.required],
+      // startDate: ['', Validators.required],
       expiryDate: ['', Validators.required]
     });
   }
@@ -192,7 +192,7 @@ export class MyVehiclesPage implements OnInit {
   getVehicleVariants(vehicleNameId: number) {
     return new Promise((res, rej) => {
       this.addVehicleService.getVehicleVariants(vehicleNameId).subscribe(data => {
-        if (data && data.status == 'SUCCESS') {
+        if (data && data.status === 'SUCCESS') {
           res(true);
           this.vehicleVariants = data.data;
         } else {
@@ -207,7 +207,7 @@ export class MyVehiclesPage implements OnInit {
   getVehicleFuelTypes(vehicleNameId: number) {
     return new Promise((res, rej) => {
       this.addVehicleService.getVehicleFuelTypes(vehicleNameId).subscribe(data => {
-        if (data && data.status == 'SUCCESS') {
+        if (data && data.status === 'SUCCESS') {
           res(true);
           this.vehicleFuelTypes = data.data;
         } else {
@@ -223,7 +223,7 @@ export class MyVehiclesPage implements OnInit {
     return new Promise((res, rej) => {
       this.addVehicleService.getVehicleConditions().subscribe(data => {
         res(true);
-        if (data && data.status == 'SUCCESS') {
+        if (data && data.status === 'SUCCESS') {
           this.vehicleConditions = data.data;
         } else {
           if (!data) {
@@ -239,7 +239,7 @@ export class MyVehiclesPage implements OnInit {
   getVehicleWheelTypes(vehicleNameId: number) {
     return new Promise((res, rej) => {
       this.addVehicleService.getVehicleWheelTypes(vehicleNameId).subscribe(data => {
-        if (data && data.status == 'SUCCESS') {
+        if (data && data.status === 'SUCCESS') {
           res(true);
           this.vehicleWheelTypes = data.data;
         } else {
@@ -254,7 +254,7 @@ export class MyVehiclesPage implements OnInit {
   getVehicleBreakingSystems(vehicleNameId: number) {
     return new Promise((res, rej) => {
       this.addVehicleService.getVehicleBreakingSystems(vehicleNameId).subscribe(data => {
-        if (data && data.status == 'SUCCESS') {
+        if (data && data.status === 'SUCCESS') {
           res(true);
           this.vehicleBreakingSystems = data.data;
         } else {
@@ -270,7 +270,7 @@ export class MyVehiclesPage implements OnInit {
     return new Promise((res, rej) => {
       this.addVehicleService.getInsuranceCompanies().subscribe(data => {
         res(true);
-        if (data && data.status == 'SUCCESS') {
+        if (data && data.status === 'SUCCESS') {
           this.insuranceCompanies = data.data;
         } else {
           if (!data) {
@@ -287,7 +287,7 @@ export class MyVehiclesPage implements OnInit {
     return new Promise((res, rej) => {
       this.addVehicleService.getInsuranceTypes().subscribe(data => {
         res(true);
-        if (data && data.status == 'SUCCESS') {
+        if (data && data.status === 'SUCCESS') {
           this.insuranceTypes = data.data;
         } else {
           if (!data) {
@@ -346,10 +346,11 @@ export class MyVehiclesPage implements OnInit {
       formData.leftImage = this.leftImage;
       formData.rightImage = this.rightImage;
       formData.vehicleNameId = this.vehicleNameId;
+      formData.vehicleConditionId = (new Date().getFullYear() - this.vehicleForm.form1.value.manufactureYear) > 4 ? 1 : 2;
       console.log(formData);
       this.addVehicleService.insertAgencyVehicle(formData).subscribe(data => {
         loading.then(l => l.dismiss());
-        if (data && data.status == 'SUCCESS') {
+        if (data && data.status === 'SUCCESS') {
           this.navCtrl.navigateRoot('/my-vehicle-list');
         } else {
           if (!data) {

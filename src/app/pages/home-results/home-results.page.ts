@@ -54,6 +54,8 @@ export class HomeResultsPage implements OnInit {
   searchKey = '';
   yourLocation: string;
   placeId: string;
+  latitude: number;
+  longitude: number;
   lang: any;
   isAnnouncement = false;
   vehicles: [vechicleTypes];
@@ -76,6 +78,8 @@ export class HomeResultsPage implements OnInit {
       const uData = await this.storage.get('userData');
       this.yourLocation = uData.agencyRegion;
       this.placeId = uData.placeId;
+      this.latitude = uData.latitude;
+      this.longitude = uData.longitude;
     } catch (err) {
       console.log('something went wrong: ', err);
     }
@@ -152,6 +156,8 @@ export class HomeResultsPage implements OnInit {
       if (data.data) {
         this.yourLocation = data.data.placeName;
         this.placeId = data.data.placeId;
+        this.latitude = data.data.latitude;
+        this.longitude = data.data.longitude;
       }
     });
     return await modal.present();

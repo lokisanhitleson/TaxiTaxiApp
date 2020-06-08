@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController, MenuController, LoadingController,AlertController, ToastController, ModalController } from '@ionic/angular';
-import {RegisterService} from "./register.service";
+import { NavController, MenuController, LoadingController, AlertController, ToastController, ModalController } from '@ionic/angular';
+import { RegisterService } from './register.service';
 import { Storage } from '@ionic/storage';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SelectRegionModal } from '../select-region/select-region';
@@ -13,10 +13,12 @@ import { SelectRegionModal } from '../select-region/select-region';
 })
 export class RegisterAgencyPage implements OnInit {
   public onAgencyRegistrationForm: FormGroup;
-  formSubmitted :boolean;
+  formSubmitted: boolean;
   region: string;
   placeId: string;
-  regionOpened :boolean;
+  latitude: number;
+  longitude: number;
+  regionOpened: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -24,11 +26,11 @@ export class RegisterAgencyPage implements OnInit {
     public loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
     public alertController: AlertController,
-    public RegisterService:RegisterService,
-    public Storage:Storage,
-    public translate: TranslateService, 
+    public registerService: RegisterService,
+    public storage: Storage,
+    public translate: TranslateService,
     public toastCtrl: ToastController,
-    public TranslateModule: TranslateModule,
+    public translateModule: TranslateModule,
     private modalCtrl: ModalController
   ) { }
 
@@ -64,14 +66,16 @@ export class RegisterAgencyPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: SelectRegionModal,
       componentProps: {
-        "key": "val"
+        'key': 'val'
       }
     });
 
     modal.onWillDismiss().then((data) => {
-      if(data.data) {
+      if (data.data) {
         this.region = data.data.placeName;
         this.placeId = data.data.placeId;
+        this.latitude = data.data.latitude;
+        this.longitude = data.data.longitude;
       }
       this.regionOpened = true;
     });
@@ -83,46 +87,49 @@ export class RegisterAgencyPage implements OnInit {
   }
   goToCreatePassword() {
     this.formSubmitted = true;
-   console.log(this.onAgencyRegistrationForm);
+    console.log(this.onAgencyRegistrationForm);
     if (this.onAgencyRegistrationForm.invalid || !this.placeId) {
-        return;
-    }   
-    const loading = this.loadingCtrl.create();
-    loading.then( loading => loading.present());
-    this.Storage.get('accountid').then((val) => {
-      console.log('Your accountid is', val);    
-      var AgencyName = this.onAgencyRegistrationForm.value.agencyName;
-      var AgencyRegisterationNumber = this.onAgencyRegistrationForm.value.agencyRegNum;
-      var ContactName = this.onAgencyRegistrationForm.value.contactName;  
-      var Region = this.region;
-      let placeId = this.placeId;
-      var email = this.onAgencyRegistrationForm.value.email;
-      var accountid = val;
-      this.RegisterService.registeragency(AgencyName,AgencyRegisterationNumber,ContactName,Region,placeId,email,accountid)
-      .subscribe(      
-        (response) => { 
-          loading.then( loading => loading.dismiss());         
-        if (response && response.status =="SUCCESS" ){
-          this.navCtrl.navigateRoot('/create-password');
-          console.log(response);    
-        }  else {
-          
-          if(!response)
-          this.toastCtrl.create({
-            message: 'Connection failed! try again',
-            duration: 3000,
-            position: 'bottom'
-          }).then(toast => toast.present())  
-        }           
-      },   err => {
-        loading.then( loading => loading.dismiss());
-        this.toastCtrl.create({
-        message: 'Connection failed! try again',
-        duration: 3000,
-        position: 'bottom'
-      }).then(toast => toast.present()) 
+      return;
     }
-      );
+    const loading = this.loadingCtrl.create();
+    loading.then(l => l.present());
+    this.storage.get('accountid').then((val) => {
+      console.log('Your accountid is', val);
+      const AgencyName = this.onAgencyRegistrationForm.value.agencyName;
+      const AgencyRegisterationNumber = this.onAgencyRegistrationForm.value.agencyRegNum;
+      const ContactName = this.onAgencyRegistrationForm.value.contactName;
+      const Region = this.region;
+      const placeId = this.placeId;
+      const latitude = this.latitude;
+      const longitude = this.longitude;
+      const email = this.onAgencyRegistrationForm.value.email;
+      const accountid = val;
+      this.registerService.registeragency(AgencyName, AgencyRegisterationNumber, ContactName, Region, placeId, latitude, longitude, email, accountid)
+        .subscribe(
+          (response) => {
+            loading.then(l => l.dismiss());
+            if (response && response.status === 'SUCCESS') {
+              this.navCtrl.navigateRoot('/create-password');
+              console.log(response);
+            } else {
+
+              if (!response) {
+                this.toastCtrl.create({
+                  message: 'Connection failed! try again',
+                  duration: 3000,
+                  position: 'bottom'
+                }).then(toast => toast.present());
+              }
+            }
+          }, err => {
+            loading.then(l => l.dismiss());
+            this.toastCtrl.create({
+              message: 'Connection failed! try again',
+              duration: 3000,
+              position: 'bottom'
+            }).then(toast => toast.present());
+          }
+        );
     });
   }
 }

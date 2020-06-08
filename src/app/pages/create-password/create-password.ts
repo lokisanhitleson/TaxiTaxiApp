@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, MenuController, LoadingController, AlertController, ModalController, ToastController } from '@ionic/angular';
-import { PasswordService } from './create-passwordservice'
+import { PasswordService } from './create-passwordservice';
 import { Storage } from '@ionic/storage';
 import { SharedService } from '../sharedService/shared.service';
 import { AuthService } from '../services/auth.service';
@@ -18,8 +18,8 @@ import { error } from 'util';
 export class CreatePasswordPage implements OnInit {
   public onCreatePasswordForm: FormGroup;
   isTextFieldType: boolean;
-  incorrectpassword : boolean;
-  formSubmitted:boolean;
+  incorrectpassword: boolean;
+  formSubmitted: boolean;
 
 
   constructor(
@@ -28,18 +28,18 @@ export class CreatePasswordPage implements OnInit {
     public loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
     public alertController: AlertController,
-    public PasswordService:PasswordService,
+    public passwordService: PasswordService,
     private sharedService: SharedService,
     private storage: Storage,
     private authService: AuthService,
-    public translate: TranslateService, 
-    public TranslateModule : TranslateModule,
+    public translate: TranslateService,
+    public translateModule: TranslateModule,
     public toastCtrl: ToastController,
     public modalCtrl: ModalController
   ) {
   }
 
-  togglePasswordFieldType(){
+  togglePasswordFieldType() {
     this.isTextFieldType = !this.isTextFieldType;
   }
 
@@ -53,7 +53,7 @@ export class CreatePasswordPage implements OnInit {
         null,
         Validators.compose([
           Validators.required,
-          //check whether the entered password has a number and6 charcterlong
+          // check whether the entered password has a number and6 charcterlong
           Validators.pattern(/(?=.*?)(?=.*?[a-z])(?=.*?[0-9])(?=.*?).{6,}/),
           // check whether the entered password has a number
           // CustomValidators.patternValidator(/\d/, {
@@ -91,7 +91,7 @@ export class CreatePasswordPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Welcome!',
       subHeader: 'Get ride in seconds',
-      cssClass:'welcomeAlert',
+      cssClass: 'welcomeAlert',
       message: 'Thank You!!! We are super excited to have you on board!',
       buttons: ['OK']
     });
@@ -103,10 +103,10 @@ export class CreatePasswordPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: WelcomeModal,
       componentProps: {
-        "Title": "Welcome"
+        'Title': 'Welcome'
       }
     });
- 
+
     modal.onDidDismiss();
     return await modal.present();
   }
@@ -121,8 +121,8 @@ export class CreatePasswordPage implements OnInit {
     loader.onWillDismiss().then(() => {
       this.navCtrl.navigateRoot('/home/tabs/home-results');
     });
-  } 
- 
+  }
+
   goToLogin() {
     this.navCtrl.navigateRoot('/');
   }
@@ -132,76 +132,74 @@ export class CreatePasswordPage implements OnInit {
     this.formSubmitted = true;
     console.log(this.onCreatePasswordForm);
     if (this.onCreatePasswordForm.invalid) {
-        return;
+      return;
     }
 
-    var crp =this.onCreatePasswordForm.value.createpassword;
-    var cp = this.onCreatePasswordForm.value.confirmpassword;
+    const crp = this.onCreatePasswordForm.value.createpassword;
+    const cp = this.onCreatePasswordForm.value.confirmpassword;
 
-     if (crp !== cp) {
-        this.incorrectpassword = true;     
-      }
-     else {
-        const loading = this.loadingCtrl.create();
-        loading.then( loading => loading.present());
-        this.incorrectpassword = false;
-        this.storage.get('accountid').then((val) => {//ionicstorage 
-        console.log('Your accountid is', val);    
-        var accountid = val;
-        this.PasswordService.createpassword(crp,accountid)
-          .subscribe(      
-              async (response) => {            
-                loading.then( loading => loading.dismiss());
-                if (response && response.status == "SUCCESS" ){          
-                  this.incorrectpassword = false;
-                  this.storage.get('mobilenumber').then((mobilenumber) => {
+    if (crp !== cp) {
+      this.incorrectpassword = true;
+    } else {
+      const loading = this.loadingCtrl.create();
+      loading.then(l => l.present());
+      this.incorrectpassword = false;
+      this.storage.get('accountid').then((val) => {// ionicstorage
+        console.log('Your accountid is', val);
+        const accountid = val;
+        this.passwordService.createpassword(crp, accountid)
+          .subscribe(
+            async (response) => {
+              loading.then(l => l.dismiss());
+              if (response && response.status == 'SUCCESS') {
+                this.incorrectpassword = false;
+                this.storage.get('mobilenumber').then((mobilenumber) => {
                   this.authService.login(mobilenumber, cp)
-                  .subscribe(
-                    async (response) => {
-                     if (response && response.status === "SUCCESS") {  
-                        this.sharedService.changeAuthTokenCheck(response.data.accessToken);
-                        await this.storage.set('accessToken', response.data.accessToken);
-                        const authVal = await this.authService.isLoggedIn();
-                        this.PasswordService.userData().subscribe( async data => {           
-                          if (response && response.status === "SUCCESS") {
-                           await this.storage.set('userData', data.data);      
-                           this.sharedService.changeLoginCheck(authVal);
-                           this.navCtrl.navigateRoot('/home/tabs/home-results');
+                    .subscribe(
+                      async (response) => {
+                        if (response && response.status === 'SUCCESS') {
+                          this.sharedService.changeAuthTokenCheck(response.data.accessToken);
+                          await this.storage.set('accessToken', response.data.accessToken);
+                          const authVal = await this.authService.isLoggedIn();
+                          this.passwordService.userData().subscribe(async data => {
+                            if (response && response.status === 'SUCCESS') {
+                              await this.storage.set('userData', data.data);
+                              this.sharedService.changeLoginCheck(authVal);
+                              this.navCtrl.navigateRoot('/home/tabs/home-results');
+                            }
+                          });
+                          const fogotPasswordNumber = await this.storage.get('forgetPassNum');
+                          if (!fogotPasswordNumber) {
+                            this.openWelcomeModal();
+                          } else {
+                            this.storage.remove('forgetPassNum');
                           }
-                        });     
-                        const fogotPasswordNumber = await this.storage.get('forgetPassNum');
-                        if(!fogotPasswordNumber){
-                          this.openWelcomeModal();
-                        } else {
-                          this.storage.remove('forgetPassNum'); 
-                        } 
-                    }       
-                 }
-                );              
-            });
+                        }
+                      }
+                    );
+                });
+              } else {
+                this.incorrectpassword = true;
+                if (!response) {
+                  const toast = await this.toastCtrl.create({
+                    message: 'Connection failed! try again',
+                    duration: 3000,
+                    position: 'bottom'
+                  });
+                  toast.present();
+                }
               }
-                else {
-                  this.incorrectpassword = true;   
-                  if(!response) {
-                    let toast = await this.toastCtrl.create({
-                      message: 'Connection failed! try again',
-                      duration: 3000,
-                      position: 'bottom'
-                    });   
-                    toast.present();  
-                  }
-                }      
-              },       
-              (error) => { 
-                loading.then( loading => loading.dismiss());
-                this.toastCtrl.create({
-                  message: 'Connection failed! try again',
-                  duration: 3000,
-                  position: 'bottom'
-                }).then(toast => toast.present());
-            },  
+            },
+            () => {
+              loading.then(l => l.dismiss());
+              this.toastCtrl.create({
+                message: 'Connection failed! try again',
+                duration: 3000,
+                position: 'bottom'
+              }).then(toast => toast.present());
+            },
           );
-      });  
+      });
     }
   }
 }
