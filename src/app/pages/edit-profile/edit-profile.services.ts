@@ -24,8 +24,8 @@ const httpOptions = {
             );               
         }     
 
-        setEditProfile(AgencyName,AgencyRegisterationNumber,ContactName,Region,email,address) {
-          return this.http.post<{  data :editProfile, status: string }>(`${environment.apiUrl}setEditProfile`, {"agencyName":AgencyName , "agecncyRegisterNumber":AgencyRegisterationNumber ,"contactName":ContactName , "email":email ,"region":Region,"address": address }, httpOptions)
+        setEditProfile(AgencyName,AgencyRegisterationNumber,ContactName,Region,email,address,profileData) {
+          return this.http.post<{  data :editProfile, status: string }>(`${environment.apiUrl}setEditProfile`, {"agencyName":AgencyName , "agecncyRegisterNumber":AgencyRegisterationNumber ,"contactName":ContactName , "email":email ,"region":Region,"address": address,"profileData":profileData }, httpOptions)
             .pipe(
               tap(_ => console.log('crated setEditProfile', _)),
               catchError(this.handleError<{  data : editProfile, status: string }>('setEditProfile'))
