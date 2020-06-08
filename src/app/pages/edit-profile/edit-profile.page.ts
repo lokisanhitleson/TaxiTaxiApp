@@ -208,8 +208,8 @@ export class EditProfilePage implements OnInit {
       var email = this.onAgencyeditProfileForm.value.email;
       var address = this.onAgencyeditProfileForm.value.Address;
       let profileData = this.agencyUrl;
-      console.log(AgencyName,AgencyRegisterationNumber,ContactName,Region,email,address);
-      this.editProfiles.setEditProfile(AgencyName,AgencyRegisterationNumber,ContactName,Region,email,address)
+      console.log(AgencyName,AgencyRegisterationNumber,ContactName,Region,email,address,profileData);
+      this.editProfiles.setEditProfile(AgencyName,AgencyRegisterationNumber,ContactName,Region,email,address,profileData)
       .subscribe(      
         (response) => { 
           loading.then( loading => loading.dismiss());         
