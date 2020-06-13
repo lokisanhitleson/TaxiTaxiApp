@@ -1,40 +1,24 @@
-<!-- <ion-header>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-button (click)="previous()">
-                <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-        <ion-title>{{'HOME_ITEMS.AGENT_PROFILE' | translate}}</ion-title>
-    </ion-toolbar>
-</ion-header> -->
+<div class="agent-card">
+    <div class="agnet-container">
+        <ion-avatar>
+            <img class="avatar" src="assets/img/user-default.png" alt="Agency">
+        </ion-avatar>
+        <h2 class="ion-no-margin">Satheesh Kumar</h2>
+        <p class="title">S.A. Agency, Chennai</p>
+    </div>
 
-<div class="agent-title" slot="fixed">
-    <ion-item>
-        <ion-thumbnail slot="start">
-            <img src="assets/img/user-default.png">
-        </ion-thumbnail>
-        <ion-label>
-            <h1 class="fw500">Satheesh Kumar</h1>
-            <h2 color="light" margin-bottom>S.A. Agency Chennai</h2>
+    <div class="divider"></div>
+    <div>
+        <a href="#"><i class="fa fa-dribbble"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-linkedin"></i></a>
+        <a href="#"><i class="fa fa-facebook"></i></a>
+    </div>
+
+    <ion-item *ngFor="let info of agentInfo">
+        <ion-label class="ion-text-wrap">
+            <span class="info-label">{{info.label}} :</span> <br>
+            <span class="info">{{info.value}}</span>
         </ion-label>
     </ion-item>
-
-    <ion-list-header color="light">
-        <ion-label color="dark"><strong> <ion-icon name="information-circle"></ion-icon> {{'HOME_ITEMS.AGENCY_INFORMATION' | translate}}</strong> </ion-label>
-    </ion-list-header>
 </div>
-
-<ion-card no-margin>
-    <ion-card class="bg-white" no-margin>
-        <ion-card-content no-padding>
-
-            <ion-item *ngFor="let info of agentInfo">
-                <ion-label class="ion-text-wrap">
-                    <span class="info-label">{{info.label}} :</span> <span class="info">{{info.value}}</span>
-                </ion-label>
-            </ion-item>
-        </ion-card-content>
-    </ion-card>
-
-</ion-card>

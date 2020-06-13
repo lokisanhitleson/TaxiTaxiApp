@@ -11,17 +11,10 @@
 <ion-toolbar color="light" slot="fixed">
     <ion-item lines="none" class="date-filter">
         <ion-label>
-            <ion-icon name="calendar" color="medium"></ion-icon>
+            <ion-icon name="calendar" color="medium" class="dateicon"></ion-icon>
         </ion-label>
         <ion-input clearInput type="text" placeholder="Search by date"></ion-input>
     </ion-item>
-
-    <!-- <ion-item>
-        <ion-label class="date-label">{{'COMMON.SELECT_DATE' | translate}} :</ion-label>
-        <ion-icon name="calendar" class="calendar-icon"></ion-icon>
-        <ion-datetime [(ngModel)]="selectedDate" placeholder="24/03/2020" displayFormat="DD/MM/YYYY" min="{{today}}" max="{{nextThirty}}" value="{{today}}">
-        </ion-datetime>
-    </ion-item> -->
 </ion-toolbar>
 <ion-content>
     <div class="car-profile" *ngFor="let car of cars">

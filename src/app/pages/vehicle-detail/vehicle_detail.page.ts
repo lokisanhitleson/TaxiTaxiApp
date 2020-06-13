@@ -31,7 +31,7 @@ export class VehicleDetailPage implements OnInit {
     { label: "Chasis Number", value: "755111000" },
     { label: "Seating Capacity", value: "7" },
     { label: "F.C", value: "March 2028" },
-    { label: "Insurance", value: "20/08/2019 - 19/08/2020" },
+    { label: "Insurance Expiry", value: "19/08/2020" },
   ];
   slideOptions = {
     initialSlide: 0,

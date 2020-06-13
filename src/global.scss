@@ -138,6 +138,11 @@
         }
     }
     
+    ion-button {
+        text-transform: capitalize;
+        --box-shadow: none;
+    }
+    
     // Android card shadow
     ion-card {
         &.sc-ion-card-md-h {
@@ -322,6 +327,7 @@
         --border-radius: 0px !important;
         --box-shadow: none!important;
         -webkit-box-shadow: none!important;
+        box-shadow: none!important;
     }
     
     .searchbar-input-container.sc-ion-searchbar-ios {
@@ -329,4 +335,50 @@
         background: transparent;
         top: 6px;
         contain: strict;
+    }
+    
+    .font-10 {
+        font-size: 10px;
+    }
+    
+    .font-12 {
+        font-size: 12px;
+    }
+    
+    .font-14 {
+        font-size: 14px;
+    }
+    
+    .font-16 {
+        font-size: 16px;
+    }
+    
+    .font-18 {
+        font-size: 18px;
+    }
+    
+    .font-20 {
+        font-size: 20px;
+    }
+    
+    .bold {
+        font-weight: 600;
+    }
+    
+    .swiper-container-horizontal>.swiper-pagination-bullets,
+    .swiper-pagination-custom,
+    .swiper-pagination-fraction {
+        bottom: 1px;
+        left: 0;
+        width: 100%;
+    }
+    
+    .divider {
+        width: 100%;
+        height: 1px;
+        background: #a2a4ab;
+    }
+    
+    .border {
+        border: 1px solid #ddd;
     }
