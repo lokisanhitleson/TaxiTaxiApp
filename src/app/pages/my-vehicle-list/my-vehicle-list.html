@@ -28,15 +28,25 @@
           />
         </div>
         <ion-card-header>
-          <ion-card-title>{{car.brandName+' '+car.vehicleName}}</ion-card-title>
+          <ion-card-title class="ion-text-start font-20 fcolor-medium"
+            >{{car.brandName+' '+car.vehicleName}}</ion-card-title
+          >
         </ion-card-header>
         <ion-card-content>
           <ion-row>
             <ion-col class="ion-no-padding">
-              Reg No : {{car.registrationNo}}
+              <div class="ion-text-start">
+                <span class="info-label"> Reg No : </span>
+                <span class="info"> {{car.registrationNo}}</span>
+              </div>
             </ion-col>
             <ion-col class="ion-no-padding">
-              Person : {{car.vehicleType}}
+              <div class="ion-text-end">
+                <span class="info-label"
+                  ><span class="icon icon-user"></span>
+                </span>
+                <span class="info"> {{car.vehicleType}}</span>
+              </div>
             </ion-col>
           </ion-row>
         </ion-card-content>
