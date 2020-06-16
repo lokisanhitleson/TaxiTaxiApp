@@ -39,7 +39,7 @@ export class AgencyVehicleDetails {
   fuelTypeId: number;
   vehicleVariantId: number;
   wheelTypeId: number;
-  breakingSystemId: number;
+  brakingSystemId: number;
   chassisNo: string;
   manufactureYear: number;
   vehicleConditionId: number;

@@ -67,8 +67,8 @@ export class CarsPage implements OnInit {
     { carname: 'Ford Figo', agentname: 'P Yogaraj', location: 'Porur', seater: '4 Seater', fuel: 'Diesel', mobilenumber: '8798875679', img: 'assets/img/figo.jpg' },
     { carname: 'Hyundai i10', agentname: 'M Rajesh Kumar', location: 'T.Nagar', seater: '4 Petrol', fuel: 'Diesel', mobilenumber: '998875659', img: 'assets/img/i10.jpg' }
   ];
-  openWhatsApp() {
-    window.open(`https://api.whatsapp.com/send?phone=${this.mobilenumber}`);
+  openWhatsApp(mob) {
+    window.open(`https://api.whatsapp.com/send?phone=${mob}`);
   }
 
   async ngOnInit() {
@@ -165,6 +165,14 @@ export class CarsPage implements OnInit {
   }
 
 
+  generateThumbnail(url: string) {
+    if (url) {
+      const split = url.split('/');
+      const last = split.pop();
+      const first = split.join('/');
+      return `${first}/thumbnails/${last}`;
+    } else { return url; }
+  }
 
   toVehicleInfo() {
     this.navCtrl.navigateRoot('/home/tabs/vehicle-info');

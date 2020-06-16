@@ -10,7 +10,7 @@ import { VariantOfVehicle } from '../models/vehicle-variant.model';
 import { FuelTypeOfVehicle } from '../models/fuel-type.model';
 import { VehicleCondition } from '../models/vehicle-condition.model';
 import { WheelTypeOfVehicle } from '../models/wheel-type.model';
-import { BreakingSystemOfVehicle } from '../models/breaking-system.model';
+import { BrakingSystemOfVehicle } from '../models/braking-system.model';
 import { InsuranceCompany } from '../models/insurance-company.model';
 import { InsuranceType } from '../models/insurance-type.model';
 import { VehicleBrand } from '../models/vehicle-brand.model';
@@ -82,11 +82,11 @@ export class AddVehicleService {
         catchError(this.handleError<{ data: [WheelTypeOfVehicle], status: string }>('get wheelTypesOfVehicle'))
       );
   }
-  getVehicleBreakingSystems(vehicleNameId) {
-    return this.http.get<{ data: [BreakingSystemOfVehicle], status: string }>(`${environment.apiUrl}breakingSystemsOfVehicle/${vehicleNameId}`)
+  getVehicleBrakingSystems(vehicleNameId) {
+    return this.http.get<{ data: [BrakingSystemOfVehicle], status: string }>(`${environment.apiUrl}brakingSystemsOfVehicle/${vehicleNameId}`)
       .pipe(
-        tap(_ => console.log(`breakingSystemsOfVehicle: `, _)),
-        catchError(this.handleError<{ data: [BreakingSystemOfVehicle], status: string }>('get breakingSystemsOfVehicle'))
+        tap(_ => console.log(`brakingSystemsOfVehicle: `, _)),
+        catchError(this.handleError<{ data: [BrakingSystemOfVehicle], status: string }>('get brakingSystemsOfVehicle'))
       );
   }
   getInsuranceCompanies() {

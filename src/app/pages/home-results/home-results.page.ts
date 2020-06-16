@@ -201,7 +201,6 @@ export class HomeResultsPage implements OnInit {
   }
 
   goToCars(vehicleTypeId: number) {
-    this.presentLoading();
     this.router.navigate(['/home/tabs/cars', vehicleTypeId]);
   }
   goToViewRequest() {
