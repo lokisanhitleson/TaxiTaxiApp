@@ -7,7 +7,7 @@ import { IonicRatingModule } from "ionic4-rating";
 import { IonicModule } from '@ionic/angular';
 
 import { MyVehicleList } from './my-vehicle-list';
-import { myVehicleListService } from './my-vehicle-list.service';
+import { MyVehicleListService } from './my-vehicle-list.service';
 
 const routes: Routes = [
   {
@@ -22,12 +22,12 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    IonicRatingModule ,
+    IonicRatingModule,
     RouterModule.forChild(routes)
   ],
   declarations: [MyVehicleList],
   providers: [
-    myVehicleListService
+    MyVehicleListService
   ]
 })
-export class MyVehicleListModule {}
+export class MyVehicleListModule { }

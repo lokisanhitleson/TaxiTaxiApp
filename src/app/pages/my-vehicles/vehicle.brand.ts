@@ -39,7 +39,7 @@ export class VehicleBrandModal implements OnInit {
   filterVehicles(ev: any) {
     this.vehicleNames = this.vehicleNamesAll;
     const val = ev.target.value;
-    if (val && val.trim() != '') {
+    if (val && val.trim() !== '') {
       this.vehicleNames = this.vehicleNames.filter((car) => {
         return (car.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       });
@@ -49,7 +49,7 @@ export class VehicleBrandModal implements OnInit {
     return new Promise((res, rej) => {
       this.addVehicleService.getVehicleNamesByBrand(this.vehicleBrandId).subscribe(data => {
         res(true);
-        if (data && data.status == 'SUCCESS') {
+        if (data && data.status === 'SUCCESS') {
           this.vehicleNames = this.vehicleNamesAll = data.data;
         } else {
           this.toast.showToast();
@@ -63,7 +63,7 @@ export class VehicleBrandModal implements OnInit {
     return new Promise((res, rej) => {
       this.addVehicleService.getVehicleBrands().subscribe(data => {
         res(true);
-        if (data && data.status == 'SUCCESS') {
+        if (data && data.status === 'SUCCESS') {
           this.brands = data.data;
         } else {
           this.toast.showToast();

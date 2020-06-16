@@ -1,12 +1,12 @@
 <ion-header>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-button (click)="previous()">
-                <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-        <ion-title>{{'HOME_ITEMS.AVAILABLE_VEHICLE' | translate}}</ion-title>
-    </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="previous()">
+        <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{'HOME_ITEMS.AVAILABLE_VEHICLE' | translate}}</ion-title>
+  </ion-toolbar>
 </ion-header>
 <ion-toolbar color="light" slot="fixed">
     <ion-item lines="none" class="date-filter">
@@ -17,83 +17,73 @@
     </ion-item>
 </ion-toolbar>
 <ion-content>
-    <div class="car-profile" *ngFor="let car of cars">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div>
+    <div class="car-profile" *ngFor="let car of showData">
+      <ion-card>
+        <div class="image-holder">
+          <div class="image-inner">
+            <img class="cover" [src]="car.img" />
+          </div>
+        </div>
+        <ion-card-header>
+          <ion-card-title>
+            <ion-text class="ion-text-left car-name">
+              {{car.carname}}
+            </ion-text>
+            <ion-text class="agent-name">
+              {{car.agentname}}
+            </ion-text>
+          </ion-card-title>
+          <ion-card-subtitle>
+            <span class="icon icon-location2"></span> {{car.location}} |
+            <span class="icon icon-user"></span> {{car.seater}} |
+            <span class="icon icon-fuel-dispenser"></span> {{car.fuel}}
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-row>
+            <ion-col class="ion-no-padding">
+              <ion-text class="rating-star-box" (click)="openRating()">
+                <ion-label>
+                  <rating [rate]="givenStar" readonly="true"> </rating>
+                </ion-label>
+              </ion-text>
+            </ion-col>
+            <ion-col class="ion-no-padding ion-text-end">
+              <ion-text class="">+91 {{car.mobilenumber}}</ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
 
-        <ion-card>
-            <div class="image-holder">
-                <div class="image-inner">
-                    <img class="cover" [src]="car.img">
-                </div>
-            </div>
-            <ion-card-header>
-                <ion-card-title>
-                    <ion-text class="ion-text-left car-name">
-                        {{car.carname}}
-                    </ion-text>
-                    <ion-text class="agent-name">
-                        {{car.agentname}}
-                    </ion-text>
-                </ion-card-title>
-                <ion-card-subtitle>
-                    <span class="icon icon-location2"></span> {{car.location}} |
-                    <span class="icon icon-user"></span> {{car.seater}} |
-                    <span class="icon icon-fuel-dispenser"></span> {{car.fuel}}
-                </ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content>
-                <ion-row>
-                    <ion-col class="ion-no-padding">
-                        <ion-text class="rating-star-box" (click)="openRating()">
-                            <ion-label>
-                                <rating [rate]="givenStar" readonly="true">
-                                </rating>
-                            </ion-label>
-                        </ion-text>
-                    </ion-col>
-                    <ion-col class="ion-no-padding ion-text-end">
-                        <ion-text class="">+91 {{car.mobilenumber}}</ion-text>
-                    </ion-col>
-                </ion-row>
-            </ion-card-content>
+        <ion-footer>
+          <ion-row>
+            <ion-col center class="ion-text-center">
+              <ion-text
+                class="view-text ion-text-end"
+                (click)="toVehicleInfo()"
+              >
+                <ion-icon name="eye"></ion-icon> {{'COMMON.VIEW_DETAILS' |
+                translate}}
+              </ion-text>
+            </ion-col>
+            <ion-col center class="ion-text-center">
+              <a href="tel:{{car.mobilenumber}}">
+                <ion-button size="small" color="success">
+                  <span class="icon-phone"></span>
+                </ion-button>
+              </a>
+              <ion-button size="small" color="success" (click)="openWhatsApp()">
+                <ion-icon name="logo-whatsapp"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-footer>
+      </ion-card>
 
-            <ion-footer>
-                <ion-row>
-                    <ion-col center class="ion-text-center">
-                        <ion-text class="view-text ion-text-end" (click)="toVehicleInfo()">
-                            <ion-icon name="eye"></ion-icon> {{'COMMON.VIEW_DETAILS' | translate}}
-                        </ion-text>
-
-                    </ion-col>
-                    <ion-col center class="ion-text-center">
-                        <a href="tel:{{car.mobilenumber}}">
-                            <ion-button size="small" color="success">
-                                <span class="icon-phone"></span>
-                            </ion-button>
-                        </a>
-                        <ion-button size="small" color="success" (click)="openWhatsApp()">
-                            <ion-icon name="logo-whatsapp"></ion-icon>
-                        </ion-button>
-                    </ion-col>
-
-
-                </ion-row>
-            </ion-footer>
-        </ion-card>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- <ion-card class="bg-white" no-margin>
+      <!-- <ion-card class="bg-white" no-margin>
             <ion-card-content no-padding>
                 <ion-row>
                     <ion-col>
@@ -167,4 +157,5 @@
             </ion-card-content>
         </ion-card> -->
     </div>
+  </div>
 </ion-content>
