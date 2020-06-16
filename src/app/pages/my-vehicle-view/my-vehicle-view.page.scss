@@ -5,7 +5,6 @@
     .slide-container {
         height: 250px;
         background: #c5c4c5;
-        padding-bottom: 5px;
         // border-bottom: 1px dashed #ffce00;
     }
     ion-slides {
@@ -18,9 +17,7 @@
         margin-top: 2.8rem;
     }
     .swiper-slide img {
-        width: 100%;
-        max-width: 98%;
-        margin: 10px 0 10px;
+        max-width: 100%;
         pointer-events: none;
     }
     b {
@@ -45,11 +42,10 @@
     }
     .vehicle-title {
         padding: 5px;
-        margin: 0 13px;
+        margin: 13px 13px;
         font-size: 20px;
         color: #636262;
         margin-bottom: 10px;
-        border-bottom: 1px solid #a2a4ab;
     }
     .info-card {
         border: 1px solid var(--ion-color-primary);
