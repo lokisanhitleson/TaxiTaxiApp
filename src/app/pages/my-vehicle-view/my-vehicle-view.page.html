@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-button (click)="previous()">
-        <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>{{'HOME_ITEMS.VEHICLE_OVERVIEW' | translate}}</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="previous()">
+                <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>{{'HOME_ITEMS.VEHICLE_OVERVIEW' | translate}}</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <!-- <div slot="fixed" class="vehicle-title">
@@ -15,31 +15,23 @@
     </div>
 </div> -->
 <ion-content>
-  <div class="slide-container">
-    <ion-slides
-      *ngIf="vehicleImages"
-      [options]="slideOptions"
-      pager="true"
-      #slider
-      (ionSlidesDidLoad)="slidesDidLoad(slider)"
-    >
-      <ion-slide *ngFor="let vehicle of vehicleImages">
-        <div class="image-holder">
-          <div class="image-inner">
-            <img [src]="vehicle.img" />
-          </div>
-        </div>
-      </ion-slide>
-    </ion-slides>
-  </div>
+    <div class="slide-container">
+        <ion-slides *ngIf="vehicleImages" [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
+            <ion-slide *ngFor="let vehicle of vehicleImages">
+                <div class="image-holder">
+                    <div class="image-inner">
+                        <img [src]="vehicle.img" />
+                    </div>
+                </div>
+            </ion-slide>
+        </ion-slides>
+    </div>
 
-  <ion-card class="bg-white vehicle-info" no-margin>
-    <ion-card-content *ngIf="vehicleInfo" class="ion-no-padding">
-      <div class="vehicle-title" *ngIf="vehicleInfo">
-        <div no-margin>
-          <ion-text
-            ><strong
-              >{{vehicleInfo.brandName+' '+vehicleInfo.vehicleName}}</strong
+    <ion-card class="bg-white vehicle-info" no-margin>
+        <ion-card-content *ngIf="vehicleInfo" class="ion-no-padding">
+            <div class="vehicle-title" *ngIf="vehicleInfo">
+                <div no-margin>
+                    <ion-text><strong>{{vehicleInfo.brandName+' '+vehicleInfo.vehicleName}}</strong
             ></ion-text
           >
         </div>

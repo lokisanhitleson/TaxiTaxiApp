@@ -1,83 +1,72 @@
 <ion-header translucent>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-button (click)="previous()">
-        <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="primary" class="toolbar-btn">
-      <ion-button color="light" (click)="goAddVehicle()">
-        <span class="icon-add-car" slot="end"></span>
-        <!-- <ion-icon  name="car"></ion-icon> -->
-      </ion-button>
-    </ion-buttons>
-    <ion-title>Vehicle List</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="previous()">
+                <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="primary" class="toolbar-btn">
+            <ion-button color="light" (click)="goAddVehicle()">
+                <span class="icon-add-car" slot="end"></span>
+                <!-- <ion-icon  name="car"></ion-icon> -->
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Vehicle List</ion-title>
+    </ion-toolbar>
 </ion-header>
 <ion-content color="light">
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
 
-  <ng-container *ngIf="newData">
-    <div class="car-profile" *ngFor="let car of newData; let i = index">
-      <ion-card>
-        <div class="image-holder">
-          <img [src]="generateThumbnail(car.displayImage)" />
-        </div>
-        <ion-card-header>
-          <ion-card-title>{{car.brandName+' '+car.vehicleName}}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-row>
-            <ion-col class="ion-no-padding">
-              Reg No : {{car.registrationNo}}
-            </ion-col>
-            <ion-col class="ion-no-padding">
-              Person : {{car.vehicleType}}
-            </ion-col>
-          </ion-row>
-        </ion-card-content>
+    <ng-container *ngIf="newData">
+        <div class="car-profile" *ngFor="let car of newData; let i = index">
+            <ion-card>
+                <div class="image-holder">
+                    <img [src]="generateThumbnail(car.displayImage)" />
+                </div>
+                <ion-card-header>
+                    <ion-card-title class="ion-text-start font-20 fcolor-medium">{{car.brandName+' '+car.vehicleName}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-row>
+                        <ion-col class="ion-no-padding">
+                            <div class="ion-text-start"><span class="info-label"> Reg No : </span>
+                                <span class="info"> {{car.registrationNo}}</span></div>
 
-        <ion-footer>
-          <ion-row>
-            <ion-col center class="ion-text-center">
-              <ion-button
-                no-shadow
-                color="light"
-                size="small"
-                class="action-btn"
-                (click)="goAddVehicle()"
-              >
-                <ion-icon name="create"></ion-icon> Edit
-              </ion-button>
-            </ion-col>
-            <ion-col center class="ion-text-center">
-              <ion-button
-                color="light"
-                size="small"
-                class="action-btn"
-                (click)="deleteVehicle(i)"
-              >
-                <ion-icon name="trash"></ion-icon> Delete
-              </ion-button>
-            </ion-col>
-            <ion-col center class="ion-text-center">
-              <ion-button
-                no-shadow
-                color="light"
-                size="small"
-                class="action-btn"
-                (click)="viewVehicle(car.agencyVehicleId)"
-              >
-                <ion-icon name="eye"></ion-icon> View
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-footer>
-      </ion-card>
+                        </ion-col>
+                        <ion-col class="ion-no-padding">
+                            <div class="ion-text-end">
+                                <span class="info-label"><span class="icon icon-user"></span> </span>
+                                <span class="info"> {{car.vehicleType}}</span>
+                            </div>
 
-      <!-- <ion-card class="bg-white" no-margin>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+
+                <ion-footer>
+                    <ion-row>
+                        <ion-col center class="ion-text-center">
+                            <ion-button no-shadow color="light" size="small" class="action-btn" (click)="goAddVehicle()">
+                                <ion-icon name="create"></ion-icon> Edit
+                            </ion-button>
+                        </ion-col>
+                        <ion-col center class="ion-text-center">
+                            <ion-button color="light" size="small" class="action-btn" (click)="deleteVehicle(i)">
+                                <ion-icon name="trash"></ion-icon> Delete
+                            </ion-button>
+                        </ion-col>
+                        <ion-col center class="ion-text-center">
+                            <ion-button no-shadow color="light" size="small" class="action-btn" (click)="viewVehicle(car.agencyVehicleId)">
+                                <ion-icon name="eye"></ion-icon> View
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-footer>
+            </ion-card>
+
+            <!-- <ion-card class="bg-white" no-margin>
                 <ion-card-content no-padding>
                     <ion-row>
                         <ion-col>
@@ -115,24 +104,17 @@
 
                 </ion-card-content>
             </ion-card> -->
+        </div>
+    </ng-container>
+    <div *ngIf="errorMessage!=undefined" text-center>
+        <ion-card class="error-card">
+            <p style="font-size: 20px;" text-wrap>
+                {{errorMessage}}
+            </p>
+        </ion-card>
     </div>
-  </ng-container>
-  <div *ngIf="errorMessage!=undefined" text-center>
-    <ion-card class="error-card">
-      <p style="font-size: 20px;" text-wrap>
-        {{errorMessage}}
-      </p>
-    </ion-card>
-  </div>
-  <ion-infinite-scroll
-    *ngIf="page < totalPage"
-    threshold="100px"
-    (ionInfinite)="loadMoreData($event)"
-  >
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading..."
-    >
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+    <ion-infinite-scroll *ngIf="page < totalPage" threshold="100px" (ionInfinite)="loadMoreData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

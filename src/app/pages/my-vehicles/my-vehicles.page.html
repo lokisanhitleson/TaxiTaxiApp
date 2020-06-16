@@ -1,58 +1,38 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-button (click)="previous()">
-        <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>My Vehicles</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="previous()">
+                <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>My Vehicles</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content color="light" class="my-vehicles">
-  <ion-card class="ion-padding ion-no-margin" no-shadow>
-    <ion-card-content class="ion-no-padding">
-      <wizard>
-        <wizard-step
-          stepTitle="Vehicle Info"
-          [canExit]="vehicleForm.form1.valid && picturesSelected && vehicleSelected"
-        >
-          <form
-            [formGroup]="vehicleForm.form1"
-            (submit)="form1Submit()"
-            class="form-list"
-          >
-            <ion-list class="myvehicle-form">
-              <ion-button
-                expand="full"
-                color="medium"
-                (click)="openUploadPhoto()"
-              >
-                <ion-icon name="camera"></ion-icon> Upload Vehicle Photos
-              </ion-button>
+    <ion-card class="ion-padding ion-no-margin" no-shadow>
+        <ion-card-content class="ion-no-padding">
+            <wizard>
+                <wizard-step stepTitle="Vehicle Info" [canExit]="vehicleForm.form1.valid && picturesSelected && vehicleSelected">
+                    <form [formGroup]="vehicleForm.form1" (submit)="form1Submit()" class="form-list">
+                        <ion-list class="myvehicle-form">
+                            <ion-button expand="full" color="medium" (click)="openUploadPhoto()">
+                                <ion-icon name="camera"></ion-icon> Upload Vehicle Photos
+                            </ion-button>
 
-              <ion-chip
-                ion-text
-                class="warning-msg"
-                *ngIf="(form1Submitted || modelOpened) && picturesSelected === undefined"
-              >
-                <ion-label color="danger">
-                  {{'Please upload vehicle pictures'}}
-                </ion-label>
-              </ion-chip>
-              <ion-chip
-                ion-text
-                class="warning-msg"
-                *ngIf="(form1Submitted || modelOpened) && picturesSelected === false"
-              >
-                <ion-label color="danger">
-                  {{'Please upload all vehicle pictures'}}
-                </ion-label>
-              </ion-chip>
-              <ion-item lines="none" (click)="openSelectBrand()">
-                <ion-label slot="start">Model:</ion-label>
-                <span *ngIf="!vehicleNameId" class="text-mute"
-                  >Select Vehicle Model</span
+                            <ion-chip ion-text class="warning-msg" *ngIf="(form1Submitted || modelOpened) && picturesSelected === undefined">
+                                <ion-label color="danger">
+                                    {{'Please upload vehicle pictures'}}
+                                </ion-label>
+                            </ion-chip>
+                            <ion-chip ion-text class="warning-msg" *ngIf="(form1Submitted || modelOpened) && picturesSelected === false">
+                                <ion-label color="danger">
+                                    {{'Please upload all vehicle pictures'}}
+                                </ion-label>
+                            </ion-chip>
+                            <ion-item lines="none" (click)="openSelectBrand()">
+                                <ion-label slot="start">Model:</ion-label>
+                                <span *ngIf="!vehicleNameId" class="text-mute">Select Vehicle Model</span
                 >
                 <span class="ion-text-end"
                   >{{vehicleNameId ? vehicleBrand + ' ' + vehicleName :
