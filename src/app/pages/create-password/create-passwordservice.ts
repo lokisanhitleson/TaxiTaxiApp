@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { agencyProfileImage } from '../../models/agencymodel';
+import { AgencyProfileImage } from '../../models/agencymodel';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
@@ -24,10 +24,10 @@ export class PasswordService {
   }
 
   userData() {
-    return this.http.get<{ data: agencyProfileImage, status: string }>(`${environment.apiUrl}agencyProfileImage`)
+    return this.http.get<{ data: AgencyProfileImage, status: string }>(`${environment.apiUrl}agencyProfileImage`)
       .pipe(
         tap(_ => console.log(`imageget: `, _)),
-        catchError(this.handleError<{ data: agencyProfileImage, status: string }>('get agencyProfileImage'))
+        catchError(this.handleError<{ data: AgencyProfileImage, status: string }>('get agencyProfileImage'))
       );
   }
 

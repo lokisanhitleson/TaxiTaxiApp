@@ -1,74 +1,155 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { NavController, LoadingController, ModalController } from "@ionic/angular";
+import { NavController, LoadingController, ModalController } from '@ionic/angular';
 import { RatingModalPage } from '../../pages/modal/rating-modal/rating-modal';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { DateService } from '../services/date.service';
+import { CarsService } from './cars.service';
+import { Storage } from '@ionic/storage';
+import { ToastService } from '../services/toast.service';
+import { AvailableVehicle } from '../models/agency-vehicle.model';
 @Component({
   selector: 'app-cars',
   templateUrl: './cars.page.html',
   styleUrls: ['./cars.page.scss'],
 })
 export class CarsPage implements OnInit {
+  public onlineOffline = navigator.onLine;
   mobilenumber: any;
-
-  givenStar: number = 0;
+  givenStar = 0;
   today;
   nextThirty;
   selectedDate;
   vehiclesId;
   data: any;
+  paramSubscription: Subscription;
+  vehicleTypeId: number;
+  searchDate: string;
+  location: { region: string, latitude: number, longitude: number };
+  newData: [AvailableVehicle];
+  showData: AvailableVehicle[];
+  errorMessage: string;
+  page: number;
+  perPage = 10;
+  totalData = 0;
+  totalPage = 0;
   constructor(private _location: Location,
     private navCtrl: NavController,
     public loadingCtrl: LoadingController,
     public modalCtrl: ModalController,
     public translate: TranslateService,
     public route: ActivatedRoute,
-    public Router: Router,
-    public TranslateModule: TranslateModule
+    public router: Router,
+    public translateModule: TranslateModule,
+    public dateService: DateService,
+    private carsService: CarsService,
+    private storage: Storage,
+    private toast: ToastService
   ) {
-
-    this.route.queryParams.subscribe(params => {
-      if (params && params.special) {
-        this.data = JSON.parse(params.special);
-        console.log(this.data, "valuesinc");
-      }
-
-    });
-
+    document.addEventListener('online', () => { this.onlineOffline = true; });
+    document.addEventListener('offline', () => { this.onlineOffline = false; });
+    if (!this.onlineOffline) {
+      this.toast.showToast('No Internet Connection');
+    }
     this.today = new Date().toISOString();
-    let now = new Date();
+    const now = new Date();
     now.setDate(now.getDate() + 30);
     this.nextThirty = now.toISOString();
 
   }
 
   cars = [
-    { carname: "Toyota Innova", agentname: "R Satheesh Kumar", location: "Chennai", seater: "7 Seater", fuel: "Diesel", mobilenumber: "9884420042", img: "assets/img/innova.jpg" },
-    { carname: "Indica v2", agentname: "S Mahalingam", location: "Avadi", seater: "4 Seater", fuel: "Petrol", mobilenumber: "8754491205", img: "assets/img/indica-v2.jpg" },
-    { carname: "Xylo", agentname: "A Paneer Selvam", location: "Tambaram", seater: "7 Seater", fuel: "Diesel", mobilenumber: "8988756523", img: "assets/img/xylo.jpg" },
-    { carname: "Ford Figo", agentname: "P Yogaraj", location: "Porur", seater: "4 Seater", fuel: "Diesel", mobilenumber: "8798875679", img: "assets/img/figo.jpg" },
-    { carname: "Hyundai i10", agentname: "M Rajesh Kumar", location: "T.Nagar", seater: "4 Petrol", fuel: "Diesel", mobilenumber: "998875659", img: "assets/img/i10.jpg" }
+    { carname: 'Toyota Innova', agentname: 'R Satheesh Kumar', location: 'Chennai', seater: '7 Seater', fuel: 'Diesel', mobilenumber: '9884420042', img: 'assets/img/innova.jpg' },
+    { carname: 'Indica v2', agentname: 'S Mahalingam', location: 'Avadi', seater: '4 Seater', fuel: 'Petrol', mobilenumber: '8754491205', img: 'assets/img/indica-v2.jpg' },
+    { carname: 'Xylo', agentname: 'A Paneer Selvam', location: 'Tambaram', seater: '7 Seater', fuel: 'Diesel', mobilenumber: '8988756523', img: 'assets/img/xylo.jpg' },
+    { carname: 'Ford Figo', agentname: 'P Yogaraj', location: 'Porur', seater: '4 Seater', fuel: 'Diesel', mobilenumber: '8798875679', img: 'assets/img/figo.jpg' },
+    { carname: 'Hyundai i10', agentname: 'M Rajesh Kumar', location: 'T.Nagar', seater: '4 Petrol', fuel: 'Diesel', mobilenumber: '998875659', img: 'assets/img/i10.jpg' }
   ];
   openWhatsApp() {
     window.open(`https://api.whatsapp.com/send?phone=${this.mobilenumber}`);
   }
 
-  async presentLoading() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Please wait...',
-      duration: 2000,
+  async ngOnInit() {
+    try {
+      this.location = await this.storage.get('currentLocation');
+      this.paramSubscription = this.route.params.subscribe(
+        async (params: Params) => {
+          this.vehicleTypeId = params['vehicleTypeId'];
+          const l = await this.loadingCtrl.create();
+          l.present();
+          this.getCurrentDate();
+          await this.getAvailableVehicles();
+          this.loadInitial();
+          l.dismiss();
+        }
+      );
+    } catch (err) {
+      console.log('something went wrong: ', err);
+    }
+  }
+  getCurrentDate() {
+    this.searchDate = this.dateService.Date_toYMD();
+  }
+
+  getAvailableVehicles() {
+    return new Promise((resolve, reject) => {
+      const data = { vehicleTypeId: this.vehicleTypeId, latitude: this.location.latitude, longitude: this.location.longitude, searchDate: this.searchDate, page: this.page };
+      this.carsService.getAvailableAgencyVehicles(data).subscribe(d => {
+        if (d && d.status === 'SUCCESS') {
+          this.newData = d.data;
+        } else {
+          this.newData = undefined;
+        }
+        resolve(1);
+      }, error => {
+        console.log(error);
+        this.newData = undefined;
+        reject(error);
+      });
     });
-    await loading.present();
-
-    const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed!');
   }
-
-
-  ngOnInit() {
+  loadInitial() {
+    this.page = 1;
+    const data = { vehicleTypeId: this.vehicleTypeId, latitude: this.location.latitude, longitude: this.location.longitude, searchDate: this.searchDate, page: this.page };
+    this.errorMessage = undefined;
+    if (this.newData && this.newData.length > 0) {
+      this.totalData = this.newData.length;
+      this.totalPage = Math.ceil(this.newData.length / this.perPage);
+      this.showData = this.loadPartial();
+    } else {
+      this.errorMessage = 'Sorry, No vehicles for this location';
+      this.newData = undefined;
+    }
   }
-
+  loadMoreData(infiniteScroll) {
+    if (this.showData.length >= this.totalData) {
+      infiniteScroll.target.disabled = true;
+    }
+    this.page = this.page + 1;
+    this.showData.push(...this.loadPartial());
+    if (this.showData.length >= this.totalData) {
+      infiniteScroll.target.disabled = true;
+    }
+  }
+  loadPartial() {
+    const start = this.perPage * (Number(this.page) - 1);
+    const end = this.perPage + start;
+    return this.newData.slice(start, end);
+  }
+  doRefresh(refresher) {
+    this.getAvailableVehicles().then(data => {
+      this.loadInitial();
+      refresher.target.complete();
+    }).catch(err => {
+      refresher.target.complete();
+    });
+  }
+  // tslint:disable-next-line: use-life-cycle-interface
+  ngOnDestroy(): void {
+    this.paramSubscription.unsubscribe();
+  }
   async openRating() {
     const modal = await this.modalCtrl.create({
       component: RatingModalPage,
