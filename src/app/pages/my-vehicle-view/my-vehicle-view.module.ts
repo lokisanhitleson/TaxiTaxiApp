@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IonicModule } from '@ionic/angular';
 
 import { MyVehicleViewPage } from './my-vehicle-view.page';
-import { myVehicleViewService } from './my-vehicle-view.service';
+import { MyVehicleViewService } from './my-vehicle-view.service';
 
 const routes: Routes = [
   {
@@ -26,7 +26,7 @@ const routes: Routes = [
   ],
   declarations: [MyVehicleViewPage],
   providers: [
-    myVehicleViewService
+    MyVehicleViewService
   ]
 })
-export class MyVehicleViewModule {}
+export class MyVehicleViewModule { }

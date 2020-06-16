@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
-import { myVehicleViewService } from './my-vehicle-view.service';
+import { MyVehicleViewService } from './my-vehicle-view.service';
 import { ToastService } from '../services/toast.service';
 import { VehicleNameDetails } from '../models/vehicle-name.model';
 import { InsuranceDetails } from '../models/insurance-detail.model';
@@ -32,9 +32,9 @@ export class MyVehicleViewPage implements OnInit {
     private route: ActivatedRoute,
     private _location: Location,
     public translate: TranslateService,
-    public TranslateModule: TranslateModule,
+    public translateModule: TranslateModule,
     private loadingCtrl: LoadingController,
-    private myVehicleViewService: myVehicleViewService,
+    private myVehicleViewService: MyVehicleViewService,
     private toast: ToastService
   ) { }
 
@@ -82,11 +82,11 @@ export class MyVehicleViewPage implements OnInit {
               this.vehicleInfo.insuranceType = allArr[9];
 
               // Checking images
-              if (this.vehicleInfo.displayImage) { if (this.vehicleImages) this.vehicleImages.push({ img: this.vehicleInfo.displayImage }); else this.vehicleImages = [{ img: this.vehicleInfo.displayImage }]; }
-              if (this.vehicleInfo.frontImage) { if (this.vehicleImages) this.vehicleImages.push({ img: this.vehicleInfo.frontImage }); else this.vehicleImages = [{ img: this.vehicleInfo.frontImage }]; }
-              if (this.vehicleInfo.backImage) { if (this.vehicleImages) this.vehicleImages.push({ img: this.vehicleInfo.backImage }); else this.vehicleImages = [{ img: this.vehicleInfo.backImage }]; }
-              if (this.vehicleInfo.leftImage) { if (this.vehicleImages) this.vehicleImages.push({ img: this.vehicleInfo.leftImage }); else this.vehicleImages = [{ img: this.vehicleInfo.leftImage }]; }
-              if (this.vehicleInfo.rightImage) { if (this.vehicleImages) this.vehicleImages.push({ img: this.vehicleInfo.rightImage }); else this.vehicleImages = [{ img: this.vehicleInfo.rightImage }]; }
+              if (this.vehicleInfo.displayImage) { if (this.vehicleImages) { this.vehicleImages.push({ img: this.vehicleInfo.displayImage }); } else { this.vehicleImages = [{ img: this.vehicleInfo.displayImage }]; } }
+              if (this.vehicleInfo.frontImage) { if (this.vehicleImages) { this.vehicleImages.push({ img: this.vehicleInfo.frontImage }); } else { this.vehicleImages = [{ img: this.vehicleInfo.frontImage }]; } }
+              if (this.vehicleInfo.backImage) { if (this.vehicleImages) { this.vehicleImages.push({ img: this.vehicleInfo.backImage }); } else { this.vehicleImages = [{ img: this.vehicleInfo.backImage }]; } }
+              if (this.vehicleInfo.leftImage) { if (this.vehicleImages) { this.vehicleImages.push({ img: this.vehicleInfo.leftImage }); } else { this.vehicleImages = [{ img: this.vehicleInfo.leftImage }]; } }
+              if (this.vehicleInfo.rightImage) { if (this.vehicleImages) { this.vehicleImages.push({ img: this.vehicleInfo.rightImage }); } else { this.vehicleImages = [{ img: this.vehicleInfo.rightImage }]; } }
 
               loading.dismiss();
             } catch (err) {
@@ -160,7 +160,7 @@ export class MyVehicleViewPage implements OnInit {
   getVehicleType(vehicleTypeId: number) {
     return new Promise((res, rej) => {
       this.myVehicleViewService.getVehicleType(vehicleTypeId).subscribe(data => {
-        if (data && data.status == 'SUCCESS' && data.data.type) {
+        if (data && data.status === 'SUCCESS' && data.data.type) {
           res(data.data.type);
         } else {
           rej(true);
@@ -173,7 +173,7 @@ export class MyVehicleViewPage implements OnInit {
   getVehicleColor(vehicleColorId: number) {
     return new Promise((res, rej) => {
       this.myVehicleViewService.getVehicleColor(vehicleColorId).subscribe(data => {
-        if (data && data.status == 'SUCCESS' && data.data.color) {
+        if (data && data.status === 'SUCCESS' && data.data.color) {
           res(data.data.color);
         } else {
           rej(true);
@@ -186,7 +186,7 @@ export class MyVehicleViewPage implements OnInit {
   getVehicleVariant(vehicleVariantId: number) {
     return new Promise((res, rej) => {
       this.myVehicleViewService.getVehicleVariant(vehicleVariantId).subscribe(data => {
-        if (data && data.status == 'SUCCESS' && data.data.variant) {
+        if (data && data.status === 'SUCCESS' && data.data.variant) {
           res(data.data.variant);
         } else {
           rej(true);
@@ -199,7 +199,7 @@ export class MyVehicleViewPage implements OnInit {
   getVehicleFuelType(vehicleFuelTypeId: number) {
     return new Promise((res, rej) => {
       this.myVehicleViewService.getVehicleFuelType(vehicleFuelTypeId).subscribe(data => {
-        if (data && data.status == 'SUCCESS' && data.data.type) {
+        if (data && data.status === 'SUCCESS' && data.data.type) {
           res(data.data.type);
         } else {
           rej(true);
@@ -212,7 +212,7 @@ export class MyVehicleViewPage implements OnInit {
   getVehicleWheelType(vehicleWheelTypeId: number) {
     return new Promise((res, rej) => {
       this.myVehicleViewService.getVehicleWheelType(vehicleWheelTypeId).subscribe(data => {
-        if (data && data.status == 'SUCCESS' && data.data.type) {
+        if (data && data.status === 'SUCCESS' && data.data.type) {
           res(data.data.type);
         } else {
           rej(true);
@@ -225,7 +225,7 @@ export class MyVehicleViewPage implements OnInit {
   getVehicleBrakingSystem(vehicleBrakingSystemId: number) {
     return new Promise((res, rej) => {
       this.myVehicleViewService.getVehicleBrakingSystem(vehicleBrakingSystemId).subscribe(data => {
-        if (data && data.status == 'SUCCESS' && data.data.name) {
+        if (data && data.status === 'SUCCESS' && data.data.name) {
           res(data.data.name);
         } else {
           rej(true);
@@ -238,7 +238,7 @@ export class MyVehicleViewPage implements OnInit {
   getVehicleCondition(vehicleConditionId: number) {
     return new Promise((res, rej) => {
       this.myVehicleViewService.getVehicleCondition(vehicleConditionId).subscribe(data => {
-        if (data && data.status == 'SUCCESS' && data.data.condition) {
+        if (data && data.status === 'SUCCESS' && data.data.condition) {
           res(data.data.condition);
         } else {
           rej(true);
@@ -251,7 +251,7 @@ export class MyVehicleViewPage implements OnInit {
   getInsuranceCompany(insuranceCompanyId: number) {
     return new Promise((res, rej) => {
       this.myVehicleViewService.getInsuranceCompany(insuranceCompanyId).subscribe(data => {
-        if (data && data.status == 'SUCCESS' && data.data.name) {
+        if (data && data.status === 'SUCCESS' && data.data.name) {
           res(data.data.name);
         } else {
           rej(true);
@@ -264,7 +264,7 @@ export class MyVehicleViewPage implements OnInit {
   getInsuranceType(insuranceTypeId: number) {
     return new Promise((res, rej) => {
       this.myVehicleViewService.getInsuranceType(insuranceTypeId).subscribe(data => {
-        if (data && data.status == 'SUCCESS' && data.data.type) {
+        if (data && data.status === 'SUCCESS' && data.data.type) {
           res(data.data.type);
         } else {
           rej(true);

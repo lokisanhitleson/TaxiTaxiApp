@@ -334,17 +334,18 @@ export class MyVehiclesPage implements OnInit {
   }
   form3Submit() {
     this.form3Submitted = true;
-    if (this.vehicleForm.form1.valid && this.vehicleForm.form2.valid && this.vehicleForm.form3.valid && this.picturesSelected) {
+    // if (this.vehicleForm.form1.valid && this.vehicleForm.form2.valid && this.vehicleForm.form3.valid && this.picturesSelected) {
+    if (this.vehicleForm.form1.valid && this.vehicleForm.form2.valid && this.vehicleForm.form3.valid) {
       const loading = this.loadingCtrl.create();
       loading.then(l => l.present());
       const formData = this.vehicleForm.form1.value;
       Object.assign(formData, this.vehicleForm.form2.value);
       Object.assign(formData, this.vehicleForm.form3.value);
-      formData.displayImage = this.displayImage;
-      formData.frontImage = this.frontImage;
-      formData.backImage = this.backImage;
-      formData.leftImage = this.leftImage;
-      formData.rightImage = this.rightImage;
+      formData.displayImage = this.displayImage.includes('assets/img') ? null : this.displayImage;
+      formData.frontImage = this.frontImage.includes('assets/img') ? null : this.frontImage;
+      formData.backImage = this.backImage.includes('assets/img') ? null : this.backImage;
+      formData.leftImage = this.leftImage.includes('assets/img') ? null : this.leftImage;
+      formData.rightImage = this.rightImage.includes('assets/img') ? null : this.rightImage;
       formData.vehicleNameId = this.vehicleNameId;
       formData.vehicleConditionId = (new Date().getFullYear() - this.vehicleForm.form1.value.manufactureYear) > 4 ? 1 : 2;
       console.log(formData);

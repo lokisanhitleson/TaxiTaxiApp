@@ -23,7 +23,9 @@
     <div class="car-profile" *ngFor="let car of newData; let i = index">
       <ion-card>
         <div class="image-holder">
-          <img [src]="generateThumbnail(car.displayImage)" />
+          <img
+            [src]="car.displayImage?generateThumbnail(car.displayImage):defaultThumbnail"
+          />
         </div>
         <ion-card-header>
           <ion-card-title>{{car.brandName+' '+car.vehicleName}}</ion-card-title>

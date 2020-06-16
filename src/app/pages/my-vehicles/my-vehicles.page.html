@@ -13,9 +13,13 @@
   <ion-card class="ion-padding ion-no-margin" no-shadow>
     <ion-card-content class="ion-no-padding">
       <wizard>
-        <wizard-step
+        <!-- <wizard-step
           stepTitle="Vehicle Info"
           [canExit]="vehicleForm.form1.valid && picturesSelected && vehicleSelected"
+        > -->
+        <wizard-step
+          stepTitle="Vehicle Info"
+          [canExit]="vehicleForm.form1.valid && vehicleSelected"
         >
           <form
             [formGroup]="vehicleForm.form1"
@@ -31,7 +35,7 @@
                 <ion-icon name="camera"></ion-icon> Upload Vehicle Photos
               </ion-button>
 
-              <ion-chip
+              <!-- <ion-chip
                 ion-text
                 class="warning-msg"
                 *ngIf="(form1Submitted || modelOpened) && picturesSelected === undefined"
@@ -48,7 +52,7 @@
                 <ion-label color="danger">
                   {{'Please upload all vehicle pictures'}}
                 </ion-label>
-              </ion-chip>
+              </ion-chip> -->
               <ion-item lines="none" (click)="openSelectBrand()">
                 <ion-label slot="start">Model:</ion-label>
                 <span *ngIf="!vehicleNameId" class="text-mute"

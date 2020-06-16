@@ -13,7 +13,14 @@
     <ion-label>
       <ion-icon name="calendar" color="medium" class="dateicon"></ion-icon>
     </ion-label>
-    <ion-input clearInput type="text" placeholder="Search by date"></ion-input>
+    <ion-input
+      clearInput
+      type="text"
+      placeholder="Search by date (Default Today)"
+      [(ngModel)]="today"
+      readonly="readonly"
+      (click)="openCalendar()"
+    ></ion-input>
   </ion-item>
 </ion-toolbar>
 <ion-content>
@@ -63,7 +70,7 @@
             <ion-col center class="ion-text-center">
               <ion-text
                 class="view-text ion-text-end"
-                (click)="toVehicleInfo()"
+                (click)="viewVehicle(car.agencyVehicleId)"
               >
                 <ion-icon name="eye"></ion-icon> {{'COMMON.VIEW_DETAILS' |
                 translate}}

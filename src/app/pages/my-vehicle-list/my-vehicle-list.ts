@@ -30,6 +30,8 @@ export class MyVehicleList implements OnInit {
   totalData = 0;
   totalPage = 0;
 
+  defaultThumbnail = 'assets/img/displayview.jpg';
+
   constructor(private _location: Location,
     private navCtrl: NavController,
     public loadingCtrl: LoadingController,
@@ -57,7 +59,7 @@ export class MyVehicleList implements OnInit {
       this.errorMessage = undefined;
       this.myVehicleListService.getAgencyVehicles({ page: this.page }).subscribe(data => {
         // console.log(data);
-        if (data && data.status == 'SUCCESS') {
+        if (data && data.status === 'SUCCESS') {
           this.newData = data.data;
           this.perPage = data.perPage;
           this.totalData = data.totalCount;
@@ -83,7 +85,7 @@ export class MyVehicleList implements OnInit {
         data => {
           console.log('Async operation has ended');
           infiniteScroll.target.complete();
-          if (data && data.status == 'SUCCESS') {
+          if (data && data.status === 'SUCCESS') {
             this.perPage = data.perPage;
             this.totalData = data.totalCount;
             this.totalPage = data.totalPages;

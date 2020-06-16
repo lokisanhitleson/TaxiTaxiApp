@@ -1,24 +1,51 @@
 <div class="agent-card">
-    <div class="agnet-container">
-        <ion-avatar>
-            <img class="avatar" src="assets/img/user-default.png" alt="Agency">
-        </ion-avatar>
-        <h2 class="ion-no-margin">Satheesh Kumar</h2>
-        <p class="title">S.A. Agency, Chennai</p>
-    </div>
+  <div class="agnet-container" *ngIf="agentDetails">
+    <ion-avatar>
+      <img class="avatar" [src]="agentDetails.agencyLogoUrl" alt="Agency" />
+    </ion-avatar>
+    <h2 class="ion-no-margin">{{agentDetails.firstName}}</h2>
+    <p class="title">
+      {{agentDetails.agencyName}}, {{agentDetails.agencyRegion}}
+    </p>
+  </div>
 
-    <div class="divider"></div>
-    <div>
-        <a href="#"><i class="fa fa-dribbble"></i></a>
-        <a href="#"><i class="fa fa-twitter"></i></a>
-        <a href="#"><i class="fa fa-linkedin"></i></a>
-        <a href="#"><i class="fa fa-facebook"></i></a>
-    </div>
-
-    <ion-item *ngFor="let info of agentInfo">
-        <ion-label class="ion-text-wrap">
-            <span class="info-label">{{info.label}} :</span> <br>
-            <span class="info">{{info.value}}</span>
-        </ion-label>
+  <div class="divider"></div>
+  <div>
+    <a href="#"><i class="fa fa-dribbble"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+  </div>
+  <ng-container *ngIf="agentDetails">
+    <ion-item>
+      <ion-label class="ion-text-wrap">
+        <span class="info-label">Agency Name :</span> <br />
+        <span class="info">{{agentDetails.agencyName}}</span>
+      </ion-label>
     </ion-item>
+    <ion-item>
+      <ion-label class="ion-text-wrap">
+        <span class="info-label">Mobile Number :</span> <br />
+        <span class="info">{{agentDetails.mobileNo}}</span>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-text-wrap">
+        <span class="info-label">Email :</span> <br />
+        <span class="info">{{agentDetails.email}}</span>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-text-wrap">
+        <span class="info-label">Region :</span> <br />
+        <span class="info">{{agentDetails.agencyRegion}}</span>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-text-wrap">
+        <span class="info-label">Establishment From :</span> <br />
+        <span class="info">{{agentDetails.establishmentYear}}</span>
+      </ion-label>
+    </ion-item>
+  </ng-container>
 </div>

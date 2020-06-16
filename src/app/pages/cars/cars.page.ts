@@ -10,6 +10,8 @@ import { CarsService } from './cars.service';
 import { Storage } from '@ionic/storage';
 import { ToastService } from '../services/toast.service';
 import { AvailableVehicle } from '../models/agency-vehicle.model';
+import { CalendarModal, CalendarModalOptions } from 'ion2-calendar';
+import * as moment from 'moment';
 @Component({
   selector: 'app-cars',
   templateUrl: './cars.page.html',
@@ -19,10 +21,7 @@ export class CarsPage implements OnInit {
   public onlineOffline = navigator.onLine;
   mobilenumber: any;
   givenStar = 0;
-  today;
-  nextThirty;
-  selectedDate;
-  vehiclesId;
+  today: string;
   data: any;
   paramSubscription: Subscription;
   vehicleTypeId: number;
@@ -53,11 +52,6 @@ export class CarsPage implements OnInit {
     if (!this.onlineOffline) {
       this.toast.showToast('No Internet Connection');
     }
-    this.today = new Date().toISOString();
-    const now = new Date();
-    now.setDate(now.getDate() + 30);
-    this.nextThirty = now.toISOString();
-
   }
 
   cars = [
@@ -174,6 +168,35 @@ export class CarsPage implements OnInit {
     } else { return url; }
   }
 
+  // Calendar Picker
+  async openCalendar() {
+    const options: CalendarModalOptions = {
+      pickMode: 'single',
+      title: 'Calendar',
+    };
+
+    const myCalendar = await this.modalCtrl.create({
+      component: CalendarModal,
+      componentProps: { options }
+    });
+
+    myCalendar.present();
+    const event: any = await myCalendar.onDidDismiss();
+    const newFormat = moment(event.data.dateObj).format('YYYY-MM-DD');
+    this.today = newFormat; // to show date to users
+    this.searchDate = newFormat; // to send date to database
+    // Load vehicles
+    const l = await this.loadingCtrl.create();
+    l.present();
+    this.getCurrentDate();
+    await this.getAvailableVehicles();
+    this.loadInitial();
+    l.dismiss();
+  }
+
+  viewVehicle(id) {
+    this.router.navigate(['home', 'tabs', 'vehicle-info', id]);
+  }
   toVehicleInfo() {
     this.navCtrl.navigateRoot('/home/tabs/vehicle-info');
   }

@@ -9,39 +9,133 @@
     </ion-toolbar>
 </ion-header> -->
 <div class="slide-container">
-
-    <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
-        <ion-slide *ngFor="let vehicle of vehicles">
-            <div class="image-holder">
-                <div class="image-inner">
-                    <img [src]="vehicle.img">
-                </div>
-            </div>
-
-        </ion-slide>
-    </ion-slides>
+  <ion-slides
+    *ngIf="vehicleImages"
+    [options]="slideOptions"
+    pager="true"
+    #slider
+    (ionSlidesDidLoad)="slidesDidLoad(slider)"
+  >
+    <ion-slide *ngFor="let vehicle of vehicleImages">
+      <div class="image-holder">
+        <div class="image-inner">
+          <img [src]="vehicle.img" />
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
 </div>
-<div class="vehicle-title">
-    <div no-margin>
-        <ion-text><strong>Toyota Innova</strong></ion-text>
-    </div>
+<div class="vehicle-title" *ngIf="vehicleDetails">
+  <div no-margin>
+    <ion-text
+      ><strong
+        >{{vehicleDetails.brandName+' '+vehicleDetails.vehicleName}}</strong
+      ></ion-text
+    >
+  </div>
 </div>
 
 <ion-card class="bg-white vehicle-info" no-margin>
-    <ion-card-content class="ion-no-padding">
-        <ion-grid>
-            <ion-row>
-                <ion-col size="6" *ngFor="let info of vehicleInfo">
-                    <div lines="none" class="info-card">
-                        <ion-label class="ion-text-wrap text-overflow">
-                            <span class="info-label">{{info.label}}</span> <br>
-                            <span class="info">{{info.value}}</span>
-                        </ion-label>
-                    </div>
-
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-
-    </ion-card-content>
+  <ion-card-content class="ion-no-padding" *ngIf="vehicleDetails">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <div lines="none" class="info-card">
+            <ion-label class="ion-text-wrap text-overflow">
+              <span class="info-label">Registration Number :</span> <br />
+              <span class="info">{{vehicleDetails.registrationNo}}</span>
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div lines="none" class="info-card">
+            <ion-label class="ion-text-wrap text-overflow">
+              <span class="info-label">Seating Capacity :</span> <br />
+              <span class="info">{{vehicleDetails.vehicleType}}</span>
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div lines="none" class="info-card">
+            <ion-label class="ion-text-wrap text-overflow">
+              <span class="info-label">Color :</span> <br />
+              <span class="info">{{vehicleDetails.vehicleColor}}</span>
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div lines="none" class="info-card">
+            <ion-label class="ion-text-wrap text-overflow">
+              <span class="info-label">Year of Manufacture :</span> <br />
+              <span class="info">{{vehicleDetails.manufactureYear}}</span>
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div lines="none" class="info-card">
+            <ion-label class="ion-text-wrap text-overflow">
+              <span class="info-label">Variant :</span> <br />
+              <span class="info">{{vehicleDetails.vehicleVariant}}</span>
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div lines="none" class="info-card">
+            <ion-label class="ion-text-wrap text-overflow">
+              <span class="info-label">Fuel Type :</span> <br />
+              <span class="info">{{vehicleDetails.fuelType}}</span>
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div lines="none" class="info-card">
+            <ion-label class="ion-text-wrap text-overflow">
+              <span class="info-label">Vehicle Condition :</span> <br />
+              <span class="info">{{vehicleDetails.vehicleCondition}}</span>
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div lines="none" class="info-card">
+            <ion-label class="ion-text-wrap text-overflow">
+              <span class="info-label">F.C Year :</span> <br />
+              <span class="info">{{vehicleDetails.fcYear}}</span>
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div lines="none" class="info-card">
+            <ion-label class="ion-text-wrap text-overflow">
+              <span class="info-label">Air Bag :</span> <br />
+              <span class="info">{{vehicleDetails.airBag}}</span>
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div lines="none" class="info-card">
+            <ion-label class="ion-text-wrap text-overflow">
+              <span class="info-label">Wheel Type :</span> <br />
+              <span class="info">{{vehicleDetails.wheelType}}</span>
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div lines="none" class="info-card">
+            <ion-label class="ion-text-wrap text-overflow">
+              <span class="info-label">Braking System :</span> <br />
+              <span class="info">{{vehicleDetails.brakingSystem}}</span>
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div lines="none" class="info-card">
+            <ion-label class="ion-text-wrap text-overflow">
+              <span class="info-label">Insurance Expiry :</span> <br />
+              <span class="info">{{vehicleDetails.expiryDate}}</span>
+            </ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
 </ion-card>

@@ -211,7 +211,7 @@ export class EditProfilePage implements OnInit {
       .subscribe(
         (response) => {
           loading.then(l => l.dismiss());
-          if (response && response.status == 'SUCCESS') {
+          if (response && response.status === 'SUCCESS') {
             this.toastCtrl.create({
               showCloseButton: true,
               message: 'Sucessfully updated',

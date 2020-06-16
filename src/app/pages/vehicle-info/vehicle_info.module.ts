@@ -7,8 +7,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IonicModule } from '@ionic/angular';
 
 import { VehicleInfo } from './vehicle_info.page';
-import { VehicleDetailPage } from "../vehicle-detail/vehicle_detail.page";
-import { AgentProfilePage } from "../agent-profile/agent-profile.page";
+import { VehicleDetailPage } from '../vehicle-detail/vehicle_detail.page';
+import { AgentProfilePage } from '../agent-profile/agent-profile.page';
+import { VehicleInfoService } from './vehicle_info.service';
 const routes: Routes = [
   {
     path: '',
@@ -28,6 +29,7 @@ const routes: Routes = [
   exports: [
     VehicleInfo
   ],
-  declarations: [VehicleInfo, VehicleDetailPage, AgentProfilePage]
+  declarations: [VehicleInfo, VehicleDetailPage, AgentProfilePage],
+  providers: [VehicleInfoService]
 })
 export class VehicleInfoModule { }
