@@ -21,7 +21,7 @@
                 </ion-col>
             </ion-row>
             <ion-list class="request-form">
-                <ion-item color="secondary">
+                <ion-item color="light" lines="none" class="border">
                     <!-- <ion-label>&nbsp;</ion-label> -->
                     <ion-select class="myCustomSelect ion-text-center" placeholder="--Select Available Vehicles--" ok-text="Okay" cancel-text="Dismiss">
                         <ion-select-option *ngFor="let car of carModels">{{car}}</ion-select-option>
@@ -41,7 +41,7 @@
                     </ion-select>
                 </ion-item> -->
                 <div margin-top>
-                    <ion-button icon-left size="medium" expand="full" routerLink="/home/home-results" shape="round" color="warning" tappable>
+                    <ion-button icon-left size="medium" expand="full" routerLink="/home/home-results" color="warning" tappable>
                         <ion-icon name="paper-plane"></ion-icon>
                         Submit
                     </ion-button>

@@ -3,7 +3,6 @@
         --background: var(--ion-color-light);
     }
     .slide-container {
-        height: 150px;
         background: #fff;
         padding-bottom: 5px;
         // border-bottom: 1px dashed #ffce00;
@@ -18,9 +17,7 @@
         margin-top: 2.8rem;
     }
     .swiper-slide img {
-        width: 100%;
         max-width: 98%;
-        margin: 10px 0 10px;
         pointer-events: none;
     }
     b {
@@ -50,5 +47,8 @@
         padding: 5px;
         background: #f9dc61;
         font-size: 16px;
+    }
+    ion-segment-button {
+        text-transform: capitalize;
     }
 }

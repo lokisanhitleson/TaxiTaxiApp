@@ -32,21 +32,21 @@
     </ion-toolbar> -->
 </ion-header>
 <ion-card no-margin class="no-radius" slot="fixed">
-    <ion-item lines="none" color="secondary">
-        <ion-label>
-            <h2 no-margin class="fw500 no-margin">
-                <ion-text color="medium">{{'HOME_ITEMS.LOCATION' | translate}} : </ion-text>
-                <ion-text color="medium" class="location-text">{{yourLocation}}</ion-text>
+    <ion-item lines="none">
+        <ion-label class="ion-text-wrap">
+            <h2 no-margin class="fw500 no-margin" (click)="openSelectRegion()">
+                <ion-text color="dark" class="location-label">
+                    <span class="icon-location2 orange-text font-16"></span> {{'HOME_ITEMS.LOCATION' | translate}} : </ion-text>
+                <ion-text color="dark" class="location-text">{{yourLocation}} <span class="icon-circle-down bold orange-text"></span></ion-text>
             </h2>
 
             <!-- <p class="text-11x no-margin">
 
             </p> -->
         </ion-label>
-        <ion-button shape="round" fill="outline" size="small" color="medium" (click)="openSelectRegion()">
+        <!-- <ion-button size="small" color="medium" >
             {{'HOME_ITEMS.CHANGE' | translate}}
-            <ion-icon name="locate"></ion-icon>
-        </ion-button>
+        </ion-button> -->
     </ion-item>
 </ion-card>
 <ion-content>

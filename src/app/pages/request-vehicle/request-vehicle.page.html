@@ -16,7 +16,7 @@
         </ion-item>
     </ion-row> -->
     <div>
-        <ion-toolbar class="tripSelect" color="warning">
+        <ion-toolbar class="tripSelect">
             <ion-segment [(ngModel)]="tripSelector" mode="md" value="oneWay" (ionChange)="segmentChanged($event)">
                 <ion-segment-button value="oneWay" checked>
                     <ion-icon name="return-right"></ion-icon>
@@ -37,7 +37,7 @@
         <ion-grid *ngIf="tripSelector === 'oneWay'" class="animated fadeInLeft">
             <ion-row class="grid-btns">
                 <ion-col size="6">
-                    <ion-item (click)="openPlacesModal()">
+                    <ion-item (click)="openPlacesModal()" text-wrap lines="none">
                         <ion-icon name="ios-navigate" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">From:<br>
                             <p *ngIf="!selectedCity">Select a place</p>
@@ -46,7 +46,7 @@
                     </ion-item>
                 </ion-col>
                 <ion-col size="6">
-                    <ion-item (click)="openPlacesModal()">
+                    <ion-item (click)="openPlacesModal()" lines="none">
                         <ion-icon name="ios-pin" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">To:<br>
                             <p *ngIf="!selectedCity">Select a place</p>
@@ -57,45 +57,47 @@
             </ion-row>
             <ion-row class="grid-btns">
                 <ion-col size="6">
-                    <ion-item (click)="openCalendar()">
+                    <ion-item (click)="openCalendar()" lines="none">
                         <ion-icon name="ios-calendar" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">Start Date:<br>
+                            <p *ngIf="!startDate" class="date-placeholder">Select date</p>
                             <strong class="selectedText">{{startDate}}</strong>
-                            <p *ngIf="!startDate">Select date</p>
                         </ion-label>
                     </ion-item>
                 </ion-col>
                 <ion-col size="6">
-                    <ion-item (click)="openCalendar()">
+                    <ion-item (click)="openCalendar()" lines="none">
                         <ion-icon name="calendar" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">End Date:<br>
+                            <p *ngIf="!endDate" class="date-placeholder">No date</p>
                             <strong class="selectedText">{{endDate}}</strong>
-                            <p *ngIf="!endDate">No date</p>
                         </ion-label>
                     </ion-item>
                 </ion-col>
             </ion-row>
             <ion-row class="grid-btns">
-                <ion-col size="6">
-                    <ion-item>
+                <ion-col size="6" class="vtype-col">
+                    <ion-item lines="none">
                         <ion-icon name="ios-car" slot="end"></ion-icon>
                         <!-- <ion-label class="ion-text-wrap">Vehicle Type:<br>
                             <strong class="selectedText">Prime</strong>
                         </ion-label> -->
 
                         <label class="item item-input item-select">
-                                <ion-label>Vehicle Type</ion-label>
-                            <ion-select class="myCustomSelect" placeholder="Select Vehicle Type">
-                                <ion-select-option class="selectedText" *ngFor="let type of carType">{{type}}</ion-select-option>
+                                <ion-label class="vehicletype-label">Vehicle Type</ion-label>
+                            <ion-select class="myCustomSelect" placeholder="Select Type">
+                                <ion-select-option *ngFor="let type of carType">
+                                    <span class="selectedText">{{type}}</span> 
+                                </ion-select-option>
                             </ion-select>
                         </label>
                     </ion-item>
                 </ion-col>
                 <ion-col size="6">
-                    <ion-item (click)="openVehiclesModal()">
+                    <ion-item (click)="openVehiclesModal()" lines="none">
                         <ion-icon name="car" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">Model:<br>
-                            <p *ngIf="!selectedVehicle">Select Vehicle Model</p>
+                            <p *ngIf="!selectedVehicle">Select Model</p>
                             <strong class="selectedText" *ngIf="selectedVehicle">{{selectedVehicle}}</strong>
                         </ion-label>
                     </ion-item>
@@ -107,7 +109,7 @@
         <ion-grid *ngIf="tripSelector === 'roundTrip'" class="animated fadeInRight">
             <ion-row class="grid-btns">
                 <ion-col size="6">
-                    <ion-item (click)="openPlacesModal()">
+                    <ion-item (click)="openPlacesModal()" lines="none">
                         <ion-icon name="ios-navigate" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap" no-padding>From:<br>
                             <p *ngIf="!selectedCity">Select a place</p>
@@ -116,7 +118,7 @@
                     </ion-item>
                 </ion-col>
                 <ion-col size="6">
-                    <ion-item (click)="openPlacesModal()">
+                    <ion-item (click)="openPlacesModal()" lines="none">
                         <ion-icon name="ios-pin" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">To:<br>
                             <p *ngIf="!selectedCity">Select a place</p>
@@ -127,45 +129,47 @@
             </ion-row>
             <ion-row class="grid-btns">
                 <ion-col size="6">
-                    <ion-item (click)="openCalendar()">
+                    <ion-item (click)="openCalendar()" lines="none">
                         <ion-icon name="ios-calendar" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">Start Date:<br>
+                            <p *ngIf="!startDate" class="date-placeholder">Select date</p>
                             <strong class="selectedText">{{startDate}}</strong>
-                            <p *ngIf="!startDate">Select date</p>
                         </ion-label>
                     </ion-item>
                 </ion-col>
                 <ion-col size="6">
-                    <ion-item (click)="openCalendar()">
+                    <ion-item (click)="openCalendar()" lines="none">
                         <ion-icon name="calendar" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">End Date:<br>
+                            <p *ngIf="!endDate" class="date-placeholder">Select date</p>
                             <strong class="selectedText">{{endDate}}</strong>
-                            <p *ngIf="!endDate">Select date</p>
                         </ion-label>
                     </ion-item>
                 </ion-col>
             </ion-row>
             <ion-row class="grid-btns">
-                <ion-col size="6">
-                    <ion-item>
+                <ion-col size="6" class="vtype-col">
+                    <ion-item lines="none">
                         <ion-icon name="ios-car" slot="end"></ion-icon>
                         <!-- <ion-label class="ion-text-wrap">Vehicle Type:<br>
                             <strong class="selectedText">Prime</strong>
                         </ion-label> -->
 
                         <label class="item item-input item-select">
-                                <ion-label>Vehicle Type</ion-label>
-                            <ion-select class="myCustomSelect" placeholder="Select Vehicle Type">
-                                <ion-select-option class="selectedText" *ngFor="let type of carType">{{type}}</ion-select-option>
+                                <ion-label class="vehicletype-label">Vehicle Type</ion-label>
+                            <ion-select class="myCustomSelect" placeholder="Select Type">
+                                <ion-select-option *ngFor="let type of carType">
+                                   <span class="selectedText">{{type}}</span> 
+                                </ion-select-option>
                             </ion-select>
                         </label>
                     </ion-item>
                 </ion-col>
                 <ion-col size="6">
-                    <ion-item (click)="openVehiclesModal()">
+                    <ion-item (click)="openVehiclesModal()" lines="none">
                         <ion-icon name="car" slot="end"></ion-icon>
                         <ion-label class="ion-text-wrap">Model:<br>
-                            <p *ngIf="!selectedVehicle">Select Vehicle Model</p>
+                            <p *ngIf="!selectedVehicle">Select Model</p>
                             <strong class="selectedText" *ngIf="selectedVehicle">{{selectedVehicle}}</strong>
                         </ion-label>
                     </ion-item>
@@ -176,7 +180,7 @@
             <ion-list>
                 <ion-item lines="none">
                     <ion-label>Comments :</ion-label>
-                    <ion-textarea rows="3" cols="20" placeholder="Enter any comments here..."></ion-textarea>
+                    <ion-textarea rows="2" cols="20" placeholder="Enter any comments here..."></ion-textarea>
                 </ion-item>
             </ion-list>
         </div>
@@ -220,11 +224,11 @@
 
 </ion-content>
 <div class="ion-text-center animated fadeInUp" margin-bottom padding-top>
-    <ion-button slot="start" (click)="goToHome()" icon-left size="medium" shape="round" color="medium" tappable>
+    <ion-button slot="start" (click)="goToHome()" icon-left size="medium" color="medium" tappable>
         Cancel
     </ion-button>
 
-    <ion-button slot="end" (click)="goToHome()" icon-left size="medium" shape="round" color="warning" tappable>
+    <ion-button slot="end" (click)="goToHome()" icon-left size="medium" color="warning" tappable>
         Submit
     </ion-button>
 </div>
