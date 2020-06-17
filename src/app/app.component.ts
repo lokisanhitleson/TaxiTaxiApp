@@ -85,8 +85,8 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     public navCtrl: NavController,
     public translate: TranslateService,
-    public Storage: Storage,
-    public TranslateModule: TranslateModule,
+    public storage: Storage,
+    public sranslateModule: TranslateModule,
     public alertController: AlertController,
     private authService: AuthService,
     private sharedService: SharedService
@@ -96,11 +96,11 @@ export class AppComponent implements OnInit {
     this.translate.use('en');
     this.sharedService.currentLoginCheck.subscribe(async data => {
       if (data) {
-        this.Storage.get('userData').then((val) => { // ionicstorage
+        this.storage.get('userData').then((val) => { // ionicstorage
           console.log('Your userData is', val);
           this.agencyName = val.agencyName;
           if (val.agencyLogoURL !== null) {
-            this.agencyUrl = val.agencyLogoURL;
+            this.agencyUrl = this.generateThumbnail(val.agencyLogoURL);
           } else {
             this.agencyUrl = 'assets/img/user-default.png';
           }
@@ -164,6 +164,15 @@ export class AppComponent implements OnInit {
   }
   ngOnInit() {
     // this.presentAlertConfirm();
+  }
+
+  generateThumbnail(url: string) {
+    if (url) {
+      const split = url.split('/');
+      const last = split.pop();
+      const first = split.join('/');
+      return `${first}/thumbnails/${last}`;
+    } else { return url; }
   }
 
   goToEditProgile() {
