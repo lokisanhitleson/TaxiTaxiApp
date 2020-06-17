@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NavController, MenuController, LoadingController, AlertController, ToastController } from '@ionic/angular';
+import { Component, OnInit ,Input} from '@angular/core';
+import { NavController, MenuController, LoadingController,AlertController, ToastController,ModalController } from '@ionic/angular';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Crop } from '@ionic-native/crop/ngx';
@@ -11,25 +11,32 @@ import { EditProfiles } from './edit-profile.services';
 import { EditProfile } from '../../models/agencymodel';
 import { Storage } from '@ionic/storage';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { SelectRegionModal } from '../select-region/select-region';
+import { SharedService } from '../sharedService/shared.service';
 @Component({
   selector: 'app-edit-profile',
-  templateUrl: './edit-profile.page.html',
+  templateUrl: './edit-profile.page.html', 
   styleUrls: ['./edit-profile.page.scss'],
 })
 export class EditProfilePage implements OnInit {
-  public onAgencyeditProfileForm: FormGroup;
-  formSubmitted: boolean;
-  croppedImagepath = 'assets/img/user-default.png';
+  public onAgencyeditProfileForm: FormGroup; 
+  formSubmitted :boolean;
   isLoading = false;
   agencyName: string;
   agencyemail: string;
   agencyRegisterNumber: string;
   firstName: string;
-  agencyAddress: string;
-  agencyRegion: string;
-  @Input() agencyUrl: string;
-  // agencyUrl = "assets/img/user-default.png";
-  editProfileDatas: [EditProfile];
+  agencyAddress:string;
+  agencyRegion:string;
+  @Input() agencyUrl = "assets/img/user-default.png";
+  region: string;
+  placeId: string;
+  agencyUrlForm:string;
+  latitude: number;
+  longitude: number;
+  regionOpened: boolean;
+  //agencyUrl = "assets/img/user-default.png";
+  editProfileDatas:[editProfile];
   imagePickerOptions = {
     maximumImagesCount: 1,
     quality: 50
@@ -46,6 +53,9 @@ export class EditProfilePage implements OnInit {
     private imagePicker: ImagePicker,
     private formBuilder: FormBuilder,
     private editProfiles: EditProfiles,
+    private modalCtrl: ModalController,
+    private sharedService:SharedService,
+    public storage:Storage,
     private crop: Crop,
     private camera: Camera,
     public actionSheetController: ActionSheetController,
@@ -80,10 +90,7 @@ export class EditProfilePage implements OnInit {
       'agencyRegNum': [null, Validators.compose([
         Validators.pattern(/^[a-zA-Z0-9]{0,30}$/)
       ])],
-      'region': [null, Validators.compose([
-        Validators.required
-      ])],
-      'contactName': [null, Validators.compose([
+       'contactName': [null, Validators.compose([
         Validators.required,
         Validators.pattern(/^([\w\-][a-zA-Z0-9_ ]{0,30})$/)
       ])],
@@ -96,7 +103,25 @@ export class EditProfilePage implements OnInit {
       ])]
     });
   }
+  async openSelectRegion() {
+    const modal = await this.modalCtrl.create({
+      component: SelectRegionModal,
+      componentProps: {
+        'key': 'val'
+      }
+    });
 
+    modal.onWillDismiss().then((data) => {
+      if (data.data) {
+        this.region = data.data.placeName;
+        this.placeId = data.data.placeId;
+        this.latitude = data.data.latitude;
+        this.longitude = data.data.longitude;
+      }
+      this.regionOpened = true;
+    });
+    return await modal.present();
+  }
   async sendData() {
     const loader = await this.loadingCtrl.create({
       duration: 2000
@@ -183,6 +208,7 @@ export class EditProfilePage implements OnInit {
 
     this.file.readAsDataURL(filePath, imageName).then(base64 => {
       this.agencyUrl = base64;
+      this.agencyUrlForm = base64;
       this.isLoading = false;
     }, error => {
       alert('Error in showing image' + error);
@@ -193,45 +219,41 @@ export class EditProfilePage implements OnInit {
 
   editProfilesave() {
     this.formSubmitted = true;
-    console.log(this.onAgencyeditProfileForm);
-    if (this.onAgencyeditProfileForm.invalid) {
-      return;
-    }
+   console.log(this.onAgencyeditProfileForm);
+    if (this.onAgencyeditProfileForm.invalid || !this.placeId ) {
+        return;
+    }   
     const loading = this.loadingCtrl.create();
-    loading.then(l => l.present());
-    const AgencyName = this.onAgencyeditProfileForm.value.agencyName;
-    const AgencyRegisterationNumber = this.onAgencyeditProfileForm.value.agencyRegNum;
-    const ContactName = this.onAgencyeditProfileForm.value.contactName;
-    const Region = this.onAgencyeditProfileForm.value.region;
-    const email = this.onAgencyeditProfileForm.value.email;
-    const address = this.onAgencyeditProfileForm.value.Address;
-    const profileData = this.agencyUrl;
-    console.log(AgencyName, AgencyRegisterationNumber, ContactName, Region, email, address, profileData);
-    this.editProfiles.setEditProfile(AgencyName, AgencyRegisterationNumber, ContactName, Region, email, address, profileData)
-      .subscribe(
-        (response) => {
-          loading.then(l => l.dismiss());
-          if (response && response.status === 'SUCCESS') {
-            this.toastCtrl.create({
-              showCloseButton: true,
-              message: 'Sucessfully updated',
-              duration: 3000,
-              position: 'bottom'
-            }).then(toast => toast.present());
-            console.log(response);
-          } else {
+    loading.then( loading => loading.present()); 
+      let formData: any = {};    
+      formData.agencyName = this.onAgencyeditProfileForm.value.agencyName;
+      formData.agecncyRegisterNumber = this.onAgencyeditProfileForm.value.agencyRegNum;
+      formData.contactName = this.onAgencyeditProfileForm.value.contactName;  
+      formData.email = this.onAgencyeditProfileForm.value.email;
+      formData.address = this.onAgencyeditProfileForm.value.Address;
+      if(this.agencyUrlForm)
+        formData.profileData = this.agencyUrlForm;
+      formData.region = this.region;
+      formData.placeId = this.placeId;
+      formData.latitude = this.latitude;
+      formData.longitude = this.longitude;
 
-            if (!response) {
-              this.toastCtrl.create({
-                showCloseButton: true,
-                message: 'Connection failed! try again',
-                duration: 3000,
-                position: 'bottom'
-              }).then(toast => toast.present());
-            }
-          }
-        }, err => {
-          loading.then(l => l.dismiss());
+      this.editProfiles.setEditProfile(formData)
+      .subscribe(      
+        (response) => { 
+          loading.then( loading => loading.dismiss());         
+        if (response && response.status =="SUCCESS" ){
+          // this.sharedService.changeProfileCheck("id");
+          this.toastCtrl.create({
+            showCloseButton: true,
+            message: 'Sucessfully updated',
+            duration: 3000,
+            position: 'bottom'
+          }).then(toast => toast.present())  
+          console.log(response);    
+        }  else {
+          
+          if(!response)
           this.toastCtrl.create({
             showCloseButton: true,
             message: 'Connection failed! try again',

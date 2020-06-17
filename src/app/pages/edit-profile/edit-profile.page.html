@@ -155,33 +155,35 @@
                                 <ion-select-option value="nes">Chennai</ion-select-option>
                             </ion-select>
                         </ion-item>                    -->
+              
+                   
+                        <!-- <ion-item no-padding>
+                            <ion-label   color="dark" position="stacked">{{'LOGIN_ITEMS.REGION' | translate}} <span class="required">*</span></ion-label>
+                            <ion-select formControlName="region" value="{{agencyRegion}}" class="myCustomSelect" ok-text="Okay" cancel-text="Dismiss">
+                                <ion-select-option>Chennai</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-chip class="warning-msg" *ngIf="( formSubmitted ||onAgencyeditProfileForm.get('region').touched ) && onAgencyeditProfileForm.get('region').hasError('required')">
+                            <ion-label color="danger">
+                                {{'ERROR_MSG.REGION_REQ' | translate}}
+                            </ion-label>
+                        </ion-chip> -->
 
-              <ion-item no-padding>
-                <ion-label color="dark" position="stacked"
-                  >{{'LOGIN_ITEMS.REGION' | translate}}
-                  <span class="required">*</span></ion-label
-                >
-                <ion-select
-                  formControlName="region"
-                  value="{{agencyRegion}}"
-                  class="myCustomSelect"
-                  ok-text="Okay"
-                  cancel-text="Dismiss"
-                >
-                  <ion-select-option>Chennai</ion-select-option>
-                </ion-select>
-              </ion-item>
-              <ion-chip
-                class="warning-msg"
-                *ngIf="( formSubmitted ||onAgencyeditProfileForm.get('region').touched ) && onAgencyeditProfileForm.get('region').hasError('required')"
-              >
-                <ion-label color="danger">
-                  {{'ERROR_MSG.REGION_REQ' | translate}}
-                </ion-label>
-              </ion-chip>
-            </ion-list>
+                        <ion-item no-padding (click)="openSelectRegion()">
+                            <ion-label>{{'LOGIN_ITEMS.REGION' | translate}} <span class="required">*</span></ion-label>
+                            <span *ngIf="!placeId" class="text-mute">Select region</span> {{region}}
+                        </ion-item>
+                        <ion-chip class="warning-msg" *ngIf="( formSubmitted || regionOpened ) && !placeId">
+                            <ion-label color="danger">
+                                {{'ERROR_MSG.REGION_REQ' | translate}}
+                            </ion-label>
+                        </ion-chip>
 
-            <!-- <ion-list>
+                   
+                    </ion-list>
+                
+                    <!-- <ion-list>
+
                         <ion-radio-group>
                             <ion-list-header color="light">
                                 <ion-label class="fw700">User Type</ion-label>

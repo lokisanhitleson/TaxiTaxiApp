@@ -111,6 +111,24 @@ export class AppComponent implements OnInit {
         });
       }
     });
+    this.sharedService.currentProfileCheck.subscribe(async data => {
+      if(data) {
+        this.Storage.get('userData').then((val) => { //ionicstorage 
+          console.log('Your userData is', val);
+          this.agencyName = val.agencyName           
+          if(val.agencyLogoURL !== null){
+            this.agencyUrl = val.agencyLogoURL 
+          }
+          else{
+            this.agencyUrl = "assets/img/user-default.png";
+          }
+          console.log(this.agencyName,"values");
+      
+        // this.agencyProfileImagedatas =this.agencyName;
+        // console.log(this.agencyProfileImagedatas[0].agencyLogoURL,"logo")
+        });
+      }
+    });
 
     this.initializeApp();
   }
