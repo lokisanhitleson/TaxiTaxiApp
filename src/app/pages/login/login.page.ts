@@ -15,14 +15,14 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 export class LoginPage implements OnInit {
   public onLoginForm: FormGroup;
   isTextFieldType: boolean;
-  invalidpassword : boolean;
-  exist:boolean;
+  invalidpassword: boolean;
+  exist: boolean;
 
   mobileNumErr: boolean;
   activeErr: boolean;
   passwordErr: boolean;
   formSubmitted: boolean;
-  
+
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -35,14 +35,15 @@ export class LoginPage implements OnInit {
     private storage: Storage,
     private authService: AuthService,
     public translate: TranslateService,
-    public TranslateModule: TranslateModule
+    public translateModule: TranslateModule
   ) {
 
     this.menuCtrl.enable(false);
     this.authService.isLoggedIn().then(x => {
-      if(x)
+      if (x) {
         this.navCtrl.navigateRoot('/home/tabs/home-results');
-    })
+      }
+    });
   }
 
   togglePasswordFieldType() {
@@ -72,7 +73,7 @@ export class LoginPage implements OnInit {
           name: 'mobileNum',
           type: 'tel',
           placeholder: 'Enter Mobile Number'
-           //this.ismobbilenumberunique.bind(this)
+          // this.ismobbilenumberunique.bind(this)
         }
       ],
       buttons: [
@@ -85,26 +86,25 @@ export class LoginPage implements OnInit {
           }
         }, {
           text: 'Confirm',
-          cssClass: 'primary',          
-          handler: value => {    
-          this.loginService.CheckExists({ value: value.mobileNum }).subscribe(data => {
-              if (!data || (data && (data.status != "SUCCESS" || data.data.length < 1 ))) {
+          cssClass: 'primary',
+          handler: value => {
+            this.loginService.CheckExists({ value: value.mobileNum }).subscribe(data => {
+              if (!data || (data && (data.status !== 'SUCCESS' || data.data.length < 1))) {
                 this.toastCtrl.create({
                   message: 'Mobile number not registered!',
                   duration: 3000,
                   position: 'bottom'
-                }).then(toast => toast.present())  
-                } 
-              else {
-                  var mobileNumber =value.mobileNum;
-                  this.storage.set('forgetPassNum', mobileNumber);
-                  this.storage.set('accountid', data.data[0].accountId);
-                  this.loginService.forgetpassword(mobileNumber)
+                }).then(toast => toast.present());
+              } else {
+                const mobileNumber = value.mobileNum;
+                this.storage.set('forgetPassNum', mobileNumber);
+                this.storage.set('accountid', data.data[0].accountId);
+                this.loginService.forgetpassword(mobileNumber)
                   .subscribe(
-                    data => {
-                        if (data && data.status == "SUCCESS") {
-                          this.navCtrl.navigateRoot('/otp');
-                          }   
+                    d => {
+                      if (d && d.status === 'SUCCESS') {
+                        this.navCtrl.navigateRoot('/otp');
+                      }
                     });
               }
             });
@@ -115,8 +115,8 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 
-  typeChange(field) {
-    if (field === "mobileNum") {
+  typeChange(field: string) {
+    if (field === 'mobileNum') {
       this.mobileNumErr = false;
       this.activeErr = false;
     }
@@ -133,24 +133,29 @@ export class LoginPage implements OnInit {
     if (this.onLoginForm.valid) {
 
       const loading = this.loadingCtrl.create();
-      loading.then(loading => loading.present());
-      var mobilenum = this.onLoginForm.value.mobileNum;
-      var password = this.onLoginForm.value.password;
+      loading.then(l => l.present());
+      const mobilenum = this.onLoginForm.value.mobileNum;
+      const password = this.onLoginForm.value.password;
       console.log(mobilenum, password);
 
       this.authService.login(mobilenum, password)
         .subscribe(
           async (response) => {
 
-            if (response && response.status === "SUCCESS") {
+            if (response && response.status === 'SUCCESS') {
               this.sharedService.changeAuthTokenCheck(response.data.accessToken);
               await this.storage.set('accessToken', response.data.accessToken);
               const authVal = await this.authService.isLoggedIn();
-              this.loginService.userData().subscribe( async data => {             
-                if (response && response.status === "SUCCESS") {
+              this.loginService.userData().subscribe(async data => {
+                if (response && response.status === 'SUCCESS') {
                   await this.storage.set('userData', data.data);
+                  await this.storage.set('currentLocation', {
+                    region: data.data.agencyRegion,
+                    latitude: data.data.latitude,
+                    longitude: data.data.longitude
+                  });
                   this.sharedService.changeLoginCheck(authVal);
-                  loading.then(loading => loading.dismiss());
+                  loading.then(l => l.dismiss());
                   this.navCtrl.navigateRoot('/home/tabs/home-results');
                 }
               });
@@ -158,26 +163,28 @@ export class LoginPage implements OnInit {
               this.activeErr = false;
               this.passwordErr = false;
             } else {
-              loading.then(loading => loading.dismiss());
+              loading.then(l => l.dismiss());
               if (response) {
-                if (response.data.username)
+                if (response.data.username) {
                   this.mobileNumErr = true;
-                else if (response.data.signupFlag)
+                } else if (response.data.signupFlag) {
                   this.partialSignupPrompt();
-                else if (response.data.activeFlag)
+                } else if (response.data.activeFlag) {
                   this.activeErr = true;
-                else if (response.data.password)
+                } else if (response.data.password) {
                   this.passwordErr = true;
-              } else
+                }
+              } else {
                 this.toastCtrl.create({
                   message: 'Connection failed! try again',
                   duration: 3000,
                   position: 'bottom'
                 }).then(toast => toast.present());
+              }
             }
           }, async err => {
-            loading.then(loading => loading.dismiss());
-            let toast = await this.toastCtrl.create({
+            loading.then(l => l.dismiss());
+            const toast = await this.toastCtrl.create({
               message: 'Connection failed! try again',
               duration: 3000,
               position: 'bottom'

@@ -3,7 +3,7 @@ import { Storage } from '@ionic/storage';
 import { Platform, NavController, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { agencyProfileImage } from '../app/models/agencymodel';
+import { AgencyProfileImage } from '../app/models/agencymodel';
 import { Pages } from './interfaces/pages';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from './pages/services/auth.service';
@@ -73,20 +73,20 @@ export class AppComponent implements OnInit {
         }
       ]
     }
-  ]
+  ];
 
   lang: any;
   agencyName: string;
-  agencyUrl = "assets/img/user-default.png";
-  agencyProfileImagedatas:[agencyProfileImage];
+  agencyUrl = 'assets/img/user-default.png';
+  agencyProfileImagedatas: [AgencyProfileImage];
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public navCtrl: NavController,
     public translate: TranslateService,
-    public Storage:Storage,
-    public TranslateModule: TranslateModule,
+    public storage: Storage,
+    public sranslateModule: TranslateModule,
     public alertController: AlertController,
     private authService: AuthService,
     private sharedService: SharedService
@@ -95,20 +95,19 @@ export class AppComponent implements OnInit {
     this.translate.setDefaultLang('en');
     this.translate.use('en');
     this.sharedService.currentLoginCheck.subscribe(async data => {
-      if(data) {
-        this.Storage.get('userData').then((val) => { //ionicstorage 
+      if (data) {
+        this.storage.get('userData').then((val) => { // ionicstorage
           console.log('Your userData is', val);
-          this.agencyName = val.agencyName           
-          if(val.agencyLogoURL !== null){
-            this.agencyUrl = val.agencyLogoURL 
+          this.agencyName = val.agencyName;
+          if (val.agencyLogoURL !== null) {
+            this.agencyUrl = this.generateThumbnail(val.agencyLogoURL);
+          } else {
+            this.agencyUrl = 'assets/img/user-default.png';
           }
-          else{
-            this.agencyUrl = "assets/img/user-default.png";
-          }
-          console.log(this.agencyName,"values");
-      
-        // this.agencyProfileImagedatas =this.agencyName;
-        // console.log(this.agencyProfileImagedatas[0].agencyLogoURL,"logo")
+          console.log(this.agencyName, 'values');
+
+          // this.agencyProfileImagedatas =this.agencyName;
+          // console.log(this.agencyProfileImagedatas[0].agencyLogoURL,"logo")
         });
       }
     });
@@ -154,12 +153,12 @@ export class AppComponent implements OnInit {
     }).catch(() => { });
   }
 
-  //App Update Alert
+  // App Update Alert
   async presentAlertConfirm() {
     const alert = await this.alertController.create({
       header: 'Update getRide!',
       cssClass: 'AppUpdateAlert',
-      message: "This app won't run unless you update.",
+      message: 'This app won\'t run unless you update.',
       backdropDismiss: false,
       buttons: [
         {
@@ -183,6 +182,15 @@ export class AppComponent implements OnInit {
   }
   ngOnInit() {
     // this.presentAlertConfirm();
+  }
+
+  generateThumbnail(url: string) {
+    if (url) {
+      const split = url.split('/');
+      const last = split.pop();
+      const first = split.join('/');
+      return `${first}/thumbnails/${last}`;
+    } else { return url; }
   }
 
   goToEditProgile() {

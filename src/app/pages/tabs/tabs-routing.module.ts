@@ -9,12 +9,12 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       { path: 'home-results', loadChildren: '../home-results/home-results.module#HomeResultsPageModule' },
-      { path: 'cars', loadChildren: '../cars/cars.module#CarsPageModule' },
+      { path: 'cars/:vehicleTypeId', loadChildren: '../cars/cars.module#CarsPageModule' },
       { path: 'schedule-vehicle', loadChildren: '../add-vehicle/add-vehicle.module#AddVehiclePageModule' },
       { path: 'view-request', loadChildren: '../view-request/view-request.module#ViewRequestPageModule' },
       { path: 'request-detail', loadChildren: '../view-request/detail-request.module#DetailRequestPageModule' },
       { path: 'request-vehicle', loadChildren: '../request-vehicle/request-vehicle.module#RequestVehiclePageModule' },
-      { path: 'vehicle-info', loadChildren: '../vehicle-info/vehicle_info.module#VehicleInfoModule' }
+      { path: 'vehicle-info/:agencyVehicleId', loadChildren: '../vehicle-info/vehicle_info.module#VehicleInfoModule' }
 
     ]
   },

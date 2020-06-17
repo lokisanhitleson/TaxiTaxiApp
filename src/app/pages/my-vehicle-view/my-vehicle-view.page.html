@@ -1,12 +1,12 @@
 <ion-header>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-button (click)="previous()">
-                <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-        <ion-title>{{'HOME_ITEMS.VEHICLE_OVERVIEW' | translate}}</ion-title>
-    </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="previous()">
+        <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{'HOME_ITEMS.VEHICLE_OVERVIEW' | translate}}</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <!-- <div slot="fixed" class="vehicle-title">
@@ -15,112 +15,176 @@
     </div>
 </div> -->
 <ion-content>
-    <div class="slide-container">
-        <ion-slides *ngIf="vehicleImages" [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
-            <ion-slide *ngFor="let vehicle of vehicleImages">
-                <img [src]="vehicle.img">
-            </ion-slide>
-        </ion-slides>
-    </div>
-    <ion-card class="bg-white vehicle-info" no-margin>
-        <ion-card-content *ngIf="vehicleInfo" class="ion-no-padding">
-            <ion-item *ngIf="vehicleInfo" lines="none">
-                <span class="vehicle-name">{{vehicleInfo.brandName+' '+vehicleInfo.vehicleName}}</span>
-            </ion-item>
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>Maker :</span>
-                </ion-label>
-                <label class="info">{{vehicleInfo.brandName}}</label>
-            </ion-item>
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>Registration Number :</span> <span class="info">{{vehicleInfo.registrationNo}}</span>
-                </ion-label>
-            </ion-item>
+  <div class="slide-container">
+    <ion-slides
+      *ngIf="vehicleImages"
+      [options]="slideOptions"
+      pager="true"
+      #slider
+      (ionSlidesDidLoad)="slidesDidLoad(slider)"
+    >
+      <ion-slide *ngFor="let vehicle of vehicleImages">
+        <div class="image-holder">
+          <div class="image-inner">
+            <img [src]="vehicle.img" />
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
 
+  <ion-card class="bg-white vehicle-info" no-margin>
+    <ion-card-content *ngIf="vehicleInfo" class="ion-no-padding">
+      <div class="vehicle-title" *ngIf="vehicleInfo.brandName">
+        <div no-margin>
+          <ion-text
+            ><strong
+              >{{vehicleInfo.brandName+' '+vehicleInfo.vehicleName}}</strong
+            ></ion-text
+          >
+        </div>
+      </div>
 
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>Vehicle Type :</span> <span class="info">{{vehicleInfo.vehicleType}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>Vechicle Color :</span> <span class="info">{{vehicleInfo.vehicleColor}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>Year of Manufacture :</span> <span class="info">{{vehicleInfo.manufactureYear}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>Vehicle Variant :</span> <span class="info">{{vehicleInfo.vehicleVariant}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>Fuel Type :</span> <span class="info">{{vehicleInfo.fuelType}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>Vehicle Condition :</span> <span class="info">{{vehicleInfo.vehicleCondition}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>Chassis Number :</span> <span class="info">{{vehicleInfo.chassisNo}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>F.C Year :</span> <span class="info">{{vehicleInfo.fcYear}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>Air Bag :</span> <span class="info">{{vehicleInfo.airBag}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>Wheel Type :</span> <span class="info">{{vehicleInfo.wheelType}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>Breaking System :</span> <span class="info">{{vehicleInfo.breakingSystem}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>Insurance Type :</span> <span class="info">{{vehicleInfo.insuranceType}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>Insurance Company :</span> <span class="info">{{vehicleInfo.insuranceCompany}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>Insurance Number :</span> <span class="info">{{vehicleInfo.insuranceNo}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>Insurance Start Date :</span> <span class="info">{{vehicleInfo.startDate}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                    <span>Insurance Expiry Date :</span> <span class="info">{{vehicleInfo.expiryDate}}</span>
-                </ion-label>
-            </ion-item>
-        </ion-card-content>
-    </ion-card>
-
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <div lines="none" class="info-card">
+              <ion-label class="ion-text-wrap text-overflow">
+                <span class="info-label">Maker</span> <br />
+                <span class="info">{{vehicleInfo.brandName}}</span>
+              </ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div lines="none" class="info-card">
+              <ion-label class="ion-text-wrap text-overflow">
+                <span class="info-label">Registration Number :</span> <br />
+                <span class="info">{{vehicleInfo.registrationNo}}</span>
+              </ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div lines="none" class="info-card">
+              <ion-label class="ion-text-wrap text-overflow">
+                <span class="info-label">Vehicle Type :</span> <br />
+                <span class="info">{{vehicleInfo.vehicleType}}</span>
+              </ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div lines="none" class="info-card">
+              <ion-label class="ion-text-wrap text-overflow">
+                <span class="info-label">Vechicle Color :</span> <br />
+                <span class="info">{{vehicleInfo.vehicleColor}}</span>
+              </ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div lines="none" class="info-card">
+              <ion-label class="ion-text-wrap text-overflow">
+                <span class="info-label">Year of Manufacture :</span> <br />
+                <span class="info">{{vehicleInfo.manufactureYear}}</span>
+              </ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div lines="none" class="info-card">
+              <ion-label class="ion-text-wrap text-overflow">
+                <span class="info-label">Vehicle Variant :</span> <br />
+                <span class="info">{{vehicleInfo.vehicleVariant}}</span>
+              </ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div lines="none" class="info-card">
+              <ion-label class="ion-text-wrap text-overflow">
+                <span class="info-label">Fuel Type :</span> <br />
+                <span class="info">{{vehicleInfo.fuelType}}</span>
+              </ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div lines="none" class="info-card">
+              <ion-label class="ion-text-wrap text-overflow">
+                <span class="info-label">Vehicle Condition :</span> <br />
+                <span class="info">{{vehicleInfo.vehicleCondition}}</span>
+              </ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div lines="none" class="info-card">
+              <ion-label class="ion-text-wrap text-overflow">
+                <span class="info-label">Chassis Number :</span> <br />
+                <span class="info">{{vehicleInfo.chassisNo}}</span>
+              </ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div lines="none" class="info-card">
+              <ion-label class="ion-text-wrap text-overflow">
+                <span class="info-label">F.C Year :</span> <br />
+                <span class="info">{{vehicleInfo.fcYear}}</span>
+              </ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div lines="none" class="info-card">
+              <ion-label class="ion-text-wrap text-overflow">
+                <span class="info-label">Air Bag :</span> <br />
+                <span class="info">{{vehicleInfo.airBag}}</span>
+              </ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div lines="none" class="info-card">
+              <ion-label class="ion-text-wrap text-overflow">
+                <span class="info-label">Wheel Type :</span> <br />
+                <span class="info">{{vehicleInfo.wheelType}}</span>
+              </ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div lines="none" class="info-card">
+              <ion-label class="ion-text-wrap text-overflow">
+                <span class="info-label">Braking System :</span> <br />
+                <span class="info">{{vehicleInfo.brakingSystem}}</span>
+              </ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div lines="none" class="info-card">
+              <ion-label class="ion-text-wrap text-overflow">
+                <span class="info-label">Insurance Type :</span> <br />
+                <span class="info">{{vehicleInfo.brakingSystem}}</span>
+              </ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div lines="none" class="info-card">
+              <ion-label class="ion-text-wrap text-overflow">
+                <span class="info-label">Insurance Company :</span> <br />
+                <span class="info">{{vehicleInfo.insuranceCompany}}</span>
+              </ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div lines="none" class="info-card">
+              <ion-label class="ion-text-wrap text-overflow">
+                <span class="info-label">Insurance Number :</span> <br />
+                <span class="info">{{vehicleInfo.insuranceNo}}</span>
+              </ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div lines="none" class="info-card">
+              <ion-label class="ion-text-wrap text-overflow">
+                <span class="info-label">Insurance Expiry Date :</span> <br />
+                <span class="info">{{vehicleInfo.expiryDate}}</span>
+              </ion-label>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

@@ -1,105 +1,161 @@
 <ion-header>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-button (click)="previous()">
-                <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-        <ion-title>Edit Profile</ion-title>
-    </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="previous()">
+        <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Edit Profile</ion-title>
+  </ion-toolbar>
 </ion-header>
 
-
 <ion-content class="profile">
-    <form [formGroup]="onAgencyeditProfileForm" (submit)="editProfilesave()" class="list-form">
+  <form
+    [formGroup]="onAgencyeditProfileForm"
+    (submit)="editProfilesave()"
+    class="list-form"
+  >
     <ion-card no-margin>
-        <ion-card-content class="bg-profile">
-            <p *ngIf="isLoading">Loading ...</p>
-            <img  [src]="agencyUrl" />
-            <h1 class="fw500">{{firstName}}</h1>
-            <h2 color="light" margin-bottom>{{agencyName}}</h2>
-            <ion-button icon-left color="primary" (click)="selectImage()">
-                <ion-icon name="photos"></ion-icon>
-                Edit / Add Picture
-            </ion-button>
-        </ion-card-content>
-     
-        <ion-grid fixed no-padding>
-            <ion-row>
-                <ion-col size="12" padding>
+      <ion-card-content class="bg-profile">
+        <p *ngIf="isLoading">Loading ...</p>
+        <img [src]="agencyUrl" />
+        <h1 class="fw500">{{firstName}}</h1>
+        <h2 color="light" margin-bottom>{{agencyName}}</h2>
+        <ion-button icon-left color="primary" (click)="selectImage()">
+          <ion-icon name="photos"></ion-icon>
+          Edit / Add Picture
+        </ion-button>
+      </ion-card-content>
 
-                    <ion-list margin-bottom>
-                     
-                        <ion-item>
-                            <ion-label color="dark" position="stacked">Full Name:</ion-label>
-                            <ion-input inputmode="text" placeholder="Ex..: Sunu" formControlName="contactName" value={{firstName}}></ion-input>
-                        </ion-item>
-                        <ion-chip class="warning-msg" *ngIf="( formSubmitted ||onAgencyeditProfileForm.get('contactName').dirty )&& onAgencyeditProfileForm.get('contactName').hasError('required')">
-                            <ion-label color="danger">
-                                {{'ERROR_MSG.CONTACT_NAME_REQ' | translate}}
-                            </ion-label>
-                        </ion-chip>
-                        <ion-chip class="warning-msg" *ngIf="onAgencyeditProfileForm.get('contactName').dirty && onAgencyeditProfileForm.get('contactName').hasError('pattern')">
-                            <ion-label color="danger">
-                                please check the contact name
-                            </ion-label>
-                        </ion-chip>
+      <ion-grid fixed no-padding>
+        <ion-row>
+          <ion-col size="12" padding>
+            <ion-list margin-bottom>
+              <ion-item>
+                <ion-label color="dark" position="stacked"
+                  >Full Name:</ion-label
+                >
+                <ion-input
+                  inputmode="text"
+                  placeholder="Ex..: Sunu"
+                  formControlName="contactName"
+                  value="{{firstName}}"
+                ></ion-input>
+              </ion-item>
+              <ion-chip
+                class="warning-msg"
+                *ngIf="( formSubmitted ||onAgencyeditProfileForm.get('contactName').dirty )&& onAgencyeditProfileForm.get('contactName').hasError('required')"
+              >
+                <ion-label color="danger">
+                  {{'ERROR_MSG.CONTACT_NAME_REQ' | translate}}
+                </ion-label>
+              </ion-chip>
+              <ion-chip
+                class="warning-msg"
+                *ngIf="onAgencyeditProfileForm.get('contactName').dirty && onAgencyeditProfileForm.get('contactName').hasError('pattern')"
+              >
+                <ion-label color="danger">
+                  please check the contact name
+                </ion-label>
+              </ion-chip>
 
-                        <ion-item>
-                            <ion-label color="dark" position="stacked">Agency Name</ion-label>
-                            <ion-input inputmode="text" placeholder="Ex..: Sunu"  formControlName="agencyName" value={{agencyName}}></ion-input>
-                        </ion-item>
-                        <ion-chip class="warning-msg" *ngIf="( formSubmitted ||onAgencyeditProfileForm.get('agencyName').dirty ) && onAgencyeditProfileForm.get('agencyName').hasError('required')">
-                            <ion-label color="danger">
-                                {{'ERROR_MSG.AGENCY_NAME_REQ' | translate}}
-                            </ion-label>
-                        </ion-chip>
-                        <ion-chip class="warning-msg" *ngIf="onAgencyeditProfileForm.get('agencyName').dirty && onAgencyeditProfileForm.get('agencyName').hasError('pattern')">
-                            <ion-label color="danger">
-                                {{'ERROR_MSG.CHECK_AGENCY_NAME' | translate}}
-                            </ion-label>
-                        </ion-chip>
-                        <ion-item>
-                            <ion-label color="dark" position="stacked">agency Register Number:</ion-label>
-                            <ion-input inputmode="text" placeholder="Ex..: ram2918" formControlName="agencyRegNum" value={{agencyRegisterNumber}}></ion-input>
-                        </ion-item>
-                        <ion-chip class="warning-msg" *ngIf="( formSubmitted ||onAgencyeditProfileForm.get('agencyRegNum').dirty )&& onAgencyeditProfileForm.get('agencyRegNum').hasError('required')">
-                            <ion-label color="danger">
-                                {{'ERROR_MSG.AGENCY_REG_NUM_REQ' | translate}}
-                            </ion-label>
-                        </ion-chip>
-                        <ion-chip class="warning-msg" *ngIf="onAgencyeditProfileForm.get('agencyRegNum').dirty && onAgencyeditProfileForm.get('agencyRegNum').hasError('pattern')">
-                            <ion-label color="danger">
-                                please check the agency registernumber
-                            </ion-label>
-                        </ion-chip>
-                        <ion-item>
-                            <ion-label color="dark" position="stacked">Email:</ion-label>
-                            <ion-input inputmode="email"  formControlName="email" placeholder="Ex.: june@sunu.com" value="{{agencyemail}}"></ion-input>
-                        </ion-item>
-                        <ion-chip class="warning-msg" *ngIf="( formSubmitted ||onAgencyeditProfileForm.get('email').dirty )&& onAgencyeditProfileForm.get('email').hasError('required')">
-                            <ion-label color="danger">
-                                {{'ERROR_MSG.EMAIL_REQ' | translate}}
-                            </ion-label>
-                        </ion-chip>
-                        <ion-chip class="warning-msg" *ngIf="( formSubmitted || onAgencyeditProfileForm.get('email').dirty )&& onAgencyeditProfileForm.get('email').hasError('pattern')">
-                            <ion-label color="danger">
-                                {{'ERROR_MSG.EMAIL_INCORRECT' | translate}}
-                            </ion-label>
-                        </ion-chip>
+              <ion-item>
+                <ion-label color="dark" position="stacked"
+                  >Agency Name</ion-label
+                >
+                <ion-input
+                  inputmode="text"
+                  placeholder="Ex..: Sunu"
+                  formControlName="agencyName"
+                  value="{{agencyName}}"
+                ></ion-input>
+              </ion-item>
+              <ion-chip
+                class="warning-msg"
+                *ngIf="( formSubmitted ||onAgencyeditProfileForm.get('agencyName').dirty ) && onAgencyeditProfileForm.get('agencyName').hasError('required')"
+              >
+                <ion-label color="danger">
+                  {{'ERROR_MSG.AGENCY_NAME_REQ' | translate}}
+                </ion-label>
+              </ion-chip>
+              <ion-chip
+                class="warning-msg"
+                *ngIf="onAgencyeditProfileForm.get('agencyName').dirty && onAgencyeditProfileForm.get('agencyName').hasError('pattern')"
+              >
+                <ion-label color="danger">
+                  {{'ERROR_MSG.CHECK_AGENCY_NAME' | translate}}
+                </ion-label>
+              </ion-chip>
+              <ion-item>
+                <ion-label color="dark" position="stacked"
+                  >agency Register Number:</ion-label
+                >
+                <ion-input
+                  inputmode="text"
+                  placeholder="Ex..: ram2918"
+                  formControlName="agencyRegNum"
+                  value="{{agencyRegisterNumber}}"
+                ></ion-input>
+              </ion-item>
+              <ion-chip
+                class="warning-msg"
+                *ngIf="( formSubmitted ||onAgencyeditProfileForm.get('agencyRegNum').dirty )&& onAgencyeditProfileForm.get('agencyRegNum').hasError('required')"
+              >
+                <ion-label color="danger">
+                  {{'ERROR_MSG.AGENCY_REG_NUM_REQ' | translate}}
+                </ion-label>
+              </ion-chip>
+              <ion-chip
+                class="warning-msg"
+                *ngIf="onAgencyeditProfileForm.get('agencyRegNum').dirty && onAgencyeditProfileForm.get('agencyRegNum').hasError('pattern')"
+              >
+                <ion-label color="danger">
+                  please check the agency registernumber
+                </ion-label>
+              </ion-chip>
+              <ion-item>
+                <ion-label color="dark" position="stacked">Email:</ion-label>
+                <ion-input
+                  inputmode="email"
+                  formControlName="email"
+                  placeholder="Ex.: june@sunu.com"
+                  value="{{agencyemail}}"
+                ></ion-input>
+              </ion-item>
+              <ion-chip
+                class="warning-msg"
+                *ngIf="( formSubmitted ||onAgencyeditProfileForm.get('email').dirty )&& onAgencyeditProfileForm.get('email').hasError('required')"
+              >
+                <ion-label color="danger">
+                  {{'ERROR_MSG.EMAIL_REQ' | translate}}
+                </ion-label>
+              </ion-chip>
+              <ion-chip
+                class="warning-msg"
+                *ngIf="( formSubmitted || onAgencyeditProfileForm.get('email').dirty )&& onAgencyeditProfileForm.get('email').hasError('pattern')"
+              >
+                <ion-label color="danger">
+                  {{'ERROR_MSG.EMAIL_INCORRECT' | translate}}
+                </ion-label>
+              </ion-chip>
 
-                        <ion-item>
-                            <ion-label color="dark" position="stacked">Address:</ion-label>
-                            <ion-input inputmode="text"  formControlName="Address" placeholder="Ex.: june@sunu.com" value="{{agencyAddress}}"></ion-input>
-                        </ion-item>
-                       
-                       
-                        <!-- <ion-item>
+              <ion-item>
+                <ion-label color="dark" position="stacked">Address:</ion-label>
+                <ion-input
+                  inputmode="text"
+                  formControlName="Address"
+                  placeholder="Ex.: june@sunu.com"
+                  value="{{agencyAddress}}"
+                ></ion-input>
+              </ion-item>
+
+              <!-- <ion-item>
                             <ion-label color="dark">{{'LOGIN_ITEMS.REGION' | translate}}</ion-label>
                             <ion-select formControlName="region">
                                 <ion-select-option value="nes">Chennai</ion-select-option>
                             </ion-select>
                         </ion-item>                    -->
+              
                    
                         <!-- <ion-item no-padding>
                             <ion-label   color="dark" position="stacked">{{'LOGIN_ITEMS.REGION' | translate}} <span class="required">*</span></ion-label>
@@ -127,6 +183,7 @@
                     </ion-list>
                 
                     <!-- <ion-list>
+
                         <ion-radio-group>
                             <ion-list-header color="light">
                                 <ion-label class="fw700">User Type</ion-label>
@@ -149,15 +206,20 @@
                         </ion-item>
                   
                     </ion-list> -->
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-
-        <ion-button size="large" expand="full" color="secondary" type="submit" tappable no-margin> Save</ion-button>
+      <ion-button
+        size="large"
+        expand="full"
+        color="secondary"
+        type="submit"
+        tappable
+        no-margin
+      >
+        Save</ion-button
+      >
     </ion-card>
-
-</form>
+  </form>
 </ion-content>
-
-                  

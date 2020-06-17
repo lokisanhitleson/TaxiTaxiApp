@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { environment } from "../../../environments/environment";
+import { environment } from '../../../environments/environment';
 import { checkExistnumber } from '../../models/checknumberexistmodel';
-import { editProfile } from '../../models/agencymodel';     
+import { EditProfile } from '../../models/agencymodel';
 const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
  @Injectable({ providedIn: 'root' }) 
 
  export class editProfiles{
@@ -49,5 +49,5 @@ const httpOptions = {
         }        
 }
 
- 
+
 

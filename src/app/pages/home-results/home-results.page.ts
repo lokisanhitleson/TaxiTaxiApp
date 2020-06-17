@@ -53,7 +53,6 @@ export class HomeResultsPage implements OnInit {
   }
   searchKey = '';
   yourLocation: string;
-  placeId: string;
   latitude: number;
   longitude: number;
   lang: any;
@@ -75,11 +74,10 @@ export class HomeResultsPage implements OnInit {
 
   async ngOnInit() {
     try {
-      const uData = await this.storage.get('userData');
-      this.yourLocation = uData.agencyRegion;
-      this.placeId = uData.placeId;
-      this.latitude = uData.latitude;
-      this.longitude = uData.longitude;
+      const loc = await this.storage.get('currentLocation');
+      this.yourLocation = loc.region;
+      this.latitude = loc.latitude;
+      this.longitude = loc.longitude;
     } catch (err) {
       console.log('something went wrong: ', err);
     }
@@ -155,9 +153,13 @@ export class HomeResultsPage implements OnInit {
     modal.onWillDismiss().then((data) => {
       if (data.data) {
         this.yourLocation = data.data.placeName;
-        this.placeId = data.data.placeId;
         this.latitude = data.data.latitude;
         this.longitude = data.data.longitude;
+        this.storage.set('currentLocation', {
+          region: this.yourLocation,
+          latitude: this.latitude,
+          longitude: this.longitude
+        });
       }
     });
     return await modal.present();
@@ -199,15 +201,7 @@ export class HomeResultsPage implements OnInit {
   }
 
   goToCars(vehicleTypeId: number) {
-    this.presentLoading();
-    // this.navCtrl.navigateRoot('/home/tabs/cars');
-    console.log('clicked');
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
-        special: JSON.stringify(vehicleTypeId)
-      }
-    };
-    this.router.navigate(['/home/tabs/cars'], navigationExtras);
+    this.router.navigate(['/home/tabs/cars', vehicleTypeId]);
   }
   goToViewRequest() {
     this.navCtrl.navigateRoot('home/tabs/view-request');

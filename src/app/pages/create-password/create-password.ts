@@ -151,19 +151,24 @@ export class CreatePasswordPage implements OnInit {
           .subscribe(
             async (response) => {
               loading.then(l => l.dismiss());
-              if (response && response.status == 'SUCCESS') {
+              if (response && response.status === 'SUCCESS') {
                 this.incorrectpassword = false;
                 this.storage.get('mobilenumber').then((mobilenumber) => {
                   this.authService.login(mobilenumber, cp)
                     .subscribe(
-                      async (response) => {
-                        if (response && response.status === 'SUCCESS') {
-                          this.sharedService.changeAuthTokenCheck(response.data.accessToken);
-                          await this.storage.set('accessToken', response.data.accessToken);
+                      async (res) => {
+                        if (res && res.status === 'SUCCESS') {
+                          this.sharedService.changeAuthTokenCheck(res.data.accessToken);
+                          await this.storage.set('accessToken', res.data.accessToken);
                           const authVal = await this.authService.isLoggedIn();
                           this.passwordService.userData().subscribe(async data => {
-                            if (response && response.status === 'SUCCESS') {
+                            if (data && data.status === 'SUCCESS') {
                               await this.storage.set('userData', data.data);
+                              await this.storage.set('currentLocation', {
+                                region: data.data.agencyRegion,
+                                latitude: data.data.latitude,
+                                longitude: data.data.longitude
+                              });
                               this.sharedService.changeLoginCheck(authVal);
                               this.navCtrl.navigateRoot('/home/tabs/home-results');
                             }

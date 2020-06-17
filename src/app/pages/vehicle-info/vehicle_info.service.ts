@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { AgencyVehicleDetails } from '../models/agency-vehicle.model';
+import { AvailableVehicleDetails, AvailableAgencyDetails } from '../models/agency-vehicle.model';
 import { VehicleNameDetails } from '../models/vehicle-name.model';
 import { VehicleBrandDetails } from '../models/vehicle-brand.model';
 import { VehicleTypeDetails } from '../models/vehicle-type.model';
@@ -13,9 +13,7 @@ import { FuelTypeDetails } from '../models/fuel-type.model';
 import { WheelTypeDetails } from '../models/wheel-type.model';
 import { BrakingSystemDetails } from '../models/braking-system.model';
 import { VehicleConditionDetails } from '../models/vehicle-condition.model';
-import { InsuranceDetails } from '../models/insurance-detail.model';
-import { InsuranceCompanyDetails } from '../models/insurance-company.model';
-import { InsuranceTypeDetails } from '../models/insurance-type.model';
+import { InsuranceAvailableDetails } from '../models/insurance-detail.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -24,15 +22,15 @@ const httpOptions = {
 };
 
 @Injectable()
-export class MyVehicleViewService {
+export class VehicleInfoService {
 
   constructor(private http: HttpClient) { }
 
   getAgencyVehicleDetails(id: number) {
-    return this.http.get<{ data: AgencyVehicleDetails, status: string }>(`${environment.apiUrl}agencyVehicles/${id}`)
+    return this.http.get<{ data: AvailableVehicleDetails, status: string }>(`${environment.apiUrl}availableAgencyVehicles/${id}`)
       .pipe(
-        tap(_ => console.log(`getSingleAgencyVehicles: `, _)),
-        catchError(this.handleError<{ data: AgencyVehicleDetails, status: string }>('get single agencyVehicles'))
+        tap(_ => console.log(`getAvailableSingleAgencyVehicle: `, _)),
+        catchError(this.handleError<{ data: AvailableVehicleDetails, status: string }>('getAvailableSingleAgencyVehicle'))
       );
   }
   getVehicleName(id: number) {
@@ -43,10 +41,10 @@ export class MyVehicleViewService {
       );
   }
   getInsuranceDetail(id: number) {
-    return this.http.get<{ data: InsuranceDetails, status: string }>(`${environment.apiUrl}insuranceDetails/${id}`)
+    return this.http.get<{ data: InsuranceAvailableDetails, status: string }>(`${environment.apiUrl}insuranceAvailableDetails/${id}`)
       .pipe(
         tap(_ => console.log(`InsuranceDetails: `, _)),
-        catchError(this.handleError<{ data: InsuranceDetails, status: string }>('get single InsuranceDetails'))
+        catchError(this.handleError<{ data: InsuranceAvailableDetails, status: string }>('get single InsuranceDetails'))
       );
   }
   getVehicleBrand(id: number) {
@@ -105,18 +103,11 @@ export class MyVehicleViewService {
         catchError(this.handleError<{ data: VehicleConditionDetails, status: string }>('get single vehicleConditions'))
       );
   }
-  getInsuranceCompany(id: number) {
-    return this.http.get<{ data: InsuranceCompanyDetails, status: string }>(`${environment.apiUrl}insuranceCompanies/${id}`)
+  getAgencyDetails(id: number) {
+    return this.http.get<{ data: AvailableAgencyDetails, status: string }>(`${environment.apiUrl}availableAgencies/${id}`)
       .pipe(
-        tap(_ => console.log(`insuranceCompanies: `, _)),
-        catchError(this.handleError<{ data: InsuranceCompanyDetails, status: string }>('get single insuranceCompanies'))
-      );
-  }
-  getInsuranceType(id: number) {
-    return this.http.get<{ data: InsuranceTypeDetails, status: string }>(`${environment.apiUrl}insuranceTypes/${id}`)
-      .pipe(
-        tap(_ => console.log(`insuranceTypes: `, _)),
-        catchError(this.handleError<{ data: InsuranceTypeDetails, status: string }>('get single insuranceTypes'))
+        tap(_ => console.log(`availableAgencies: `, _)),
+        catchError(this.handleError<{ data: AvailableAgencyDetails, status: string }>('get availableAgencies'))
       );
   }
 

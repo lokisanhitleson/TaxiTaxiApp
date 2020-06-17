@@ -1,11 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { NavController, LoadingController, ModalController, IonInfiniteScroll, ToastController, AlertController } from "@ionic/angular";
-import { myVehicleListService } from './my-vehicle-list.service';
+import { NavController, LoadingController, ModalController, IonInfiniteScroll, AlertController } from '@ionic/angular';
+import { MyVehicleListService } from './my-vehicle-list.service';
 import { AgencyVehicle } from '../models/agency-vehicle.model';
 import { ToastService } from '../services/toast.service';
 import { Router } from '@angular/router';
-
+const n = [
+  {
+    vehicleName: 'Tata',
+    fuelType: 'Petrol'
+  }
+];
 @Component({
   selector: 'app-my-vehicle-list',
   templateUrl: './my-vehicle-list.html',
@@ -17,8 +22,7 @@ export class MyVehicleList implements OnInit {
 
   public onlineOffline = navigator.onLine;
   mobilenumber: any;
-  givenStar: number = 0;
-  myNewdealsInitial = []; //initialize your countriesInitial array empty
+  givenStar = 0;
   newData: [AgencyVehicle];
   errorMessage: string;
   page: number;
@@ -26,18 +30,20 @@ export class MyVehicleList implements OnInit {
   totalData = 0;
   totalPage = 0;
 
+  defaultThumbnail = 'assets/img/displayview.jpg';
+
   constructor(private _location: Location,
     private navCtrl: NavController,
     public loadingCtrl: LoadingController,
     public modalCtrl: ModalController,
-    private myVehicleListService: myVehicleListService,
+    private myVehicleListService: MyVehicleListService,
     private toast: ToastService,
     private alertController: AlertController,
     public router: Router
   ) {
 
-    document.addEventListener('online', () => { this.onlineOffline = true });
-    document.addEventListener('offline', () => { this.onlineOffline = false });
+    document.addEventListener('online', () => { this.onlineOffline = true; });
+    document.addEventListener('offline', () => { this.onlineOffline = false; });
     (async () => {
       if (this.onlineOffline) {
         await this.getMyVehicles();
@@ -53,13 +59,13 @@ export class MyVehicleList implements OnInit {
       this.errorMessage = undefined;
       this.myVehicleListService.getAgencyVehicles({ page: this.page }).subscribe(data => {
         // console.log(data);
-        if (data && data.status == "SUCCESS") {
+        if (data && data.status === 'SUCCESS') {
           this.newData = data.data;
           this.perPage = data.perPage;
           this.totalData = data.totalCount;
           this.totalPage = data.totalPages;
         } else {
-          this.errorMessage = "Failed to load data";
+          this.errorMessage = 'Failed to load data';
           this.newData = undefined;
         }
         resolve(1);
@@ -79,22 +85,23 @@ export class MyVehicleList implements OnInit {
         data => {
           console.log('Async operation has ended');
           infiniteScroll.target.complete();
-          if (data && data.status == "SUCCESS") {
+          if (data && data.status === 'SUCCESS') {
             this.perPage = data.perPage;
             this.totalData = data.totalCount;
             this.totalPage = data.totalPages;
             this.newData.push(...data.data);
             this.errorMessage = undefined;
-            if (this.newData.length >= this.totalData)
+            if (this.newData.length >= this.totalData) {
               infiniteScroll.target.disabled = true;
+            }
           } else {
-            this.errorMessage = "Failed to load data";
+            this.errorMessage = 'Failed to load data';
           }
         },
         error => {
           console.log('Async operation has ended');
           infiniteScroll.target.complete();
-          this.errorMessage = <any>error
+          this.errorMessage = <any>error;
         }
       );
   }
@@ -138,7 +145,7 @@ export class MyVehicleList implements OnInit {
               .subscribe(
                 async data => {
                   loading.dismiss();
-                  if (data && data.status === "SUCCESS") {
+                  if (data && data.status === 'SUCCESS') {
                     this.newData.splice(index, 1);
                   } else {
                     this.toast.showToast();
@@ -147,7 +154,7 @@ export class MyVehicleList implements OnInit {
                   loading.dismiss();
                   this.toast.showToast();
                 }
-              )
+              );
           }
         }
       ]
@@ -174,6 +181,6 @@ export class MyVehicleList implements OnInit {
       const last = split.pop();
       const first = split.join('/');
       return `${first}/thumbnails/${last}`;
-    } else return url;
+    } else { return url; }
   }
 }

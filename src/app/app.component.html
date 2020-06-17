@@ -6,10 +6,10 @@
 
                     <ion-item margin-bottom lines="none">
                         <ion-avatar slot="start" class="user-avatar">
-                            <img  [src]="agencyUrl" />
+                            <img [src]="agencyUrl" />
                         </ion-avatar>
                         <ion-label>
-                            <ion-text color="light" >
+                            <ion-text color="light">
                                 <h2><strong>{{agencyName}}</strong></h2>
                             </ion-text>
                             <ion-text color="medium">
@@ -40,20 +40,20 @@
 
             <ion-content class="bg-profile">
 
-                <div *ngFor="let page of pages">
+                <div *ngFor="let page of pages" class="side-menu-list">
                     <ion-menu-toggle *ngIf="page.url">
                         <ng-container *ngIf="page.url !== '/login'; else logoutMenu">
-                            <ion-item lines="none" [routerLink]="page.url" routerDirection="root" routerLinkActive="active" detail="false">
-                                <span slot="start" class="{{page.icon}}" color="dark" class=""></span>
-                                <ion-label>
+                            <ion-item lines="none" [routerLink]="page.url" routerDirection="root" routerLinkActive="active" detail="true">
+                                <span slot="start" class="{{page.icon}} side-menu-icon" color="dark"></span>
+                                <ion-label class="side-menu-title">
                                     {{page.title | translate}}
                                 </ion-label>
                             </ion-item>
                         </ng-container>
                         <ng-template #logoutMenu>
-                            <ion-item lines="none" (click)="logout()" detail="false">
-                                <span slot="start" class="{{page.icon}}" color="dark" class=""></span>
-                                <ion-label>
+                            <ion-item lines="none" (click)="logout()" detail="true">
+                                <span slot="start" class="{{page.icon}} side-menu-icon" color="dark"></span>
+                                <ion-label class="side-menu-title">
                                     {{page.title | translate}}
                                 </ion-label>
                             </ion-item>
@@ -61,10 +61,10 @@
                     </ion-menu-toggle>
 
                     <ion-item lines="none" class="lang-bg" button *ngIf="page.children?.length > 0" (click)="page.open = !page.open" [class.active-parent]="page.open" detail="false">
-                        <ion-icon slot="end" name="ios-arrow-forward" *ngIf="!page.open"></ion-icon>
-                        <ion-icon slot="end" name="ios-arrow-down" *ngIf="page.open"></ion-icon>
-                        <span slot="start" class="icon-language"></span>
-                        <ion-label class="language">
+                        <ion-icon slot="end" name="ios-arrow-forward" *ngIf="!page.open" class="toggle-arrow"></ion-icon>
+                        <ion-icon slot="end" name="ios-arrow-down" *ngIf="page.open" class="toggle-arrow"></ion-icon>
+                        <span slot="start" class="icon-language side-menu-icon"></span>
+                        <ion-label class="language side-menu-title">
                             <span>{{page.title | translate}}</span>
                         </ion-label>
                     </ion-item>
@@ -72,8 +72,8 @@
                         <ion-menu-toggle>
                             <ion-list>
                                 <ion-radio-group [value]="en" [(ngModel)]="lang" (ionChange)="switchLanguage()">
-                                    <ion-item *ngFor="let sub of page.children" (click)="page.open = !page.open">
-                                        <ion-label>{{sub.title}}</ion-label>
+                                    <ion-item *ngFor="let sub of page.children" (click)="page.open = !page.open" lines="none">
+                                        <ion-label class="side-menu-title">{{sub.title}}</ion-label>
                                         <ion-radio slot="start" [value]="sub.value"></ion-radio>
                                     </ion-item>
                                 </ion-radio-group>
@@ -82,23 +82,7 @@
                     </ion-list>
 
                 </div>
-
-
-
-
                 <ion-list>
-                    <!-- <ion-list-header color="medium">
-                        <ion-label>Menu</ion-label>
-                    </ion-list-header> -->
-
-                    <!-- <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-                        <ion-item [routerLink]="[p.url]" color="light">
-                            <ion-icon slot="start" [name]="p.icon" color="dark"></ion-icon>
-                            <ion-label>
-                                {{p.title | translate}}
-                            </ion-label>
-                        </ion-item>
-                    </ion-menu-toggle> -->
                 </ion-list>
             </ion-content>
         </ion-menu>

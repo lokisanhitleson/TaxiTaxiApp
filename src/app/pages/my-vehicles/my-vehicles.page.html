@@ -13,9 +13,13 @@
   <ion-card class="ion-padding ion-no-margin" no-shadow>
     <ion-card-content class="ion-no-padding">
       <wizard>
-        <wizard-step
+        <!-- <wizard-step
           stepTitle="Vehicle Info"
           [canExit]="vehicleForm.form1.valid && picturesSelected && vehicleSelected"
+        > -->
+        <wizard-step
+          stepTitle="Vehicle Info"
+          [canExit]="vehicleForm.form1.valid && vehicleSelected"
         >
           <form
             [formGroup]="vehicleForm.form1"
@@ -31,7 +35,7 @@
                 <ion-icon name="camera"></ion-icon> Upload Vehicle Photos
               </ion-button>
 
-              <ion-chip
+              <!-- <ion-chip
                 ion-text
                 class="warning-msg"
                 *ngIf="(form1Submitted || modelOpened) && picturesSelected === undefined"
@@ -48,13 +52,16 @@
                 <ion-label color="danger">
                   {{'Please upload all vehicle pictures'}}
                 </ion-label>
-              </ion-chip>
+              </ion-chip> -->
               <ion-item lines="none" (click)="openSelectBrand()">
                 <ion-label slot="start">Model:</ion-label>
                 <span *ngIf="!vehicleNameId" class="text-mute"
                   >Select Vehicle Model</span
                 >
-                {{vehicleNameId ? vehicleBrand + ' ' + vehicleName : ''}}
+                <span class="ion-text-end"
+                  >{{vehicleNameId ? vehicleBrand + ' ' + vehicleName :
+                  ''}}</span
+                >
               </ion-item>
               <ion-chip
                 ion-text
@@ -69,6 +76,7 @@
               <ion-item lines="none">
                 <ion-label>Brand:</ion-label>
                 <ion-input
+                  class="ion-text-end"
                   type="text"
                   [value]="vehicleBrand"
                   readonly="readonly"
@@ -79,6 +87,7 @@
                   Registration No:
                 </ion-label>
                 <ion-input
+                  class="ion-text-end"
                   type="text"
                   placeholder="Registration no"
                   formControlName="registrationNo"
@@ -97,6 +106,7 @@
               <ion-item lines="none">
                 <ion-label>Vehicle Type:</ion-label>
                 <ion-input
+                  class="ion-text-right"
                   type="text"
                   [value]="vehicleType"
                   readonly="readonly"
@@ -368,17 +378,17 @@
               </ion-chip>
 
               <ion-item>
-                <ion-label>Breaking System</ion-label>
+                <ion-label>Braking System</ion-label>
                 <ion-select
                   class="myCustomSelect"
                   placeholder="-Select-"
                   ok-text="Okay"
                   cancel-text="Dismiss"
-                  formControlName="breakingSystemId"
+                  formControlName="brakingSystemId"
                 >
                   <ion-select-option
-                    *ngFor="let type of vehicleBreakingSystems"
-                    [value]="type.breakingSystemId"
+                    *ngFor="let type of vehicleBrakingSystems"
+                    [value]="type.brakingSystemId"
                   >
                     {{type.name}}</ion-select-option
                   >
@@ -387,10 +397,10 @@
               <ion-chip
                 ion-text
                 class="warning-msg"
-                *ngIf="(form2Submitted ||vehicleForm.form2.get('breakingSystemId').touched) && vehicleForm.form2.get('breakingSystemId').hasError('required')"
+                *ngIf="(form2Submitted ||vehicleForm.form2.get('brakingSystemId').touched) && vehicleForm.form2.get('brakingSystemId').hasError('required')"
               >
                 <ion-label color="danger">
-                  {{'Breaking System required'}}
+                  {{'Braking System required'}}
                 </ion-label>
               </ion-chip>
             </ion-list>

@@ -1,54 +1,57 @@
 :host {
-    ion-content {
-        --background: var(--ion-color-light);
+  ion-content {
+    --background: var(--ion-color-light);
+  }
+  .slide-container {
+    background: #fff;
+    padding-bottom: 5px;
+    // border-bottom: 1px dashed #ffce00;
+  }
+  ion-slides {
+    height: 100%;
+  }
+  .swiper-slide {
+    display: block;
+  }
+  .swiper-slide h2 {
+    margin-top: 2.8rem;
+  }
+  .swiper-slide img {
+    max-width: 98%;
+    pointer-events: none;
+  }
+  b {
+    font-weight: 500;
+  }
+  p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ion-color-step-600, #60646b);
+  }
+  p b {
+    color: var(--ion-text-color, #000000);
+  }
+  // ion-item:nth-child(even) {
+  //     background: #f2eff5
+  // }
+  // ion-item:nth-child(odd) {
+  //     background: #fdfdfd
+  // }
+  .vehicle-info {
+    span.info {
+      font-weight: 500;
+      float: right;
     }
-    .slide-container {
-        height: 150px;
-        background: #fff;
-        padding-bottom: 5px;
-        // border-bottom: 1px dashed #ffce00;
-    }
-    ion-slides {
-        height: 100%;
-    }
-    .swiper-slide {
-        display: block;
-    }
-    .swiper-slide h2 {
-        margin-top: 2.8rem;
-    }
-    .swiper-slide img {
-        width: 100%;
-        max-width: 98%;
-        margin: 10px 0 10px;
-        pointer-events: none;
-    }
-    b {
-        font-weight: 500;
-    }
-    p {
-        font-size: 14px;
-        line-height: 1.5;
-        color: var(--ion-color-step-600, #60646b);
-    }
-    p b {
-        color: var(--ion-text-color, #000000);
-    }
-    // ion-item:nth-child(even) {
-    //     background: #f2eff5
-    // }
-    // ion-item:nth-child(odd) {
-    //     background: #fdfdfd
-    // }
-    .vehicle-info {
-        span.info {
-            font-weight: 500;
-            float: right;
-        }
-    }
-    .vehicle-title {
-        padding: 5px;
-        background: #f9dc61;
-        font-size: 16px;
-    }
+  }
+  .vehicle-title {
+    padding: 5px;
+    background: #f9dc61;
+    font-size: 16px;
+  }
+  ion-segment-button {
+    text-transform: capitalize;
+  }
+  .min-ht-agt {
+    height: 100%;
+  }
 }

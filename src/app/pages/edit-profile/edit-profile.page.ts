@@ -7,8 +7,8 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { Camera, CameraOptions } from '@ionic-native/Camera/ngx';
 import { ActionSheetController } from '@ionic/angular';
 import { File } from '@ionic-native/file/ngx';
-import { editProfiles } from './edit-profile.services';
-import { editProfile } from '../../models/agencymodel'; 
+import { EditProfiles } from './edit-profile.services';
+import { EditProfile } from '../../models/agencymodel';
 import { Storage } from '@ionic/storage';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SelectRegionModal } from '../select-region/select-region';
@@ -24,7 +24,7 @@ export class EditProfilePage implements OnInit {
   isLoading = false;
   agencyName: string;
   agencyemail: string;
-  agencyRegisterNumber:string;
+  agencyRegisterNumber: string;
   firstName: string;
   agencyAddress:string;
   agencyRegion:string;
@@ -48,39 +48,38 @@ export class EditProfilePage implements OnInit {
     private _location: Location,
     public menuCtrl: MenuController,
     public alertController: AlertController,
-    public translate: TranslateService,     
-    public TranslateModule: TranslateModule,
+    public translate: TranslateService,
+    public translateModule: TranslateModule,
     private imagePicker: ImagePicker,
     private formBuilder: FormBuilder,
-    private editProfiles: editProfiles,
+    private editProfiles: EditProfiles,
     private modalCtrl: ModalController,
     private sharedService:SharedService,
-    public Storage:Storage,
+    public storage:Storage,
     private crop: Crop,
     private camera: Camera,
     public actionSheetController: ActionSheetController,
     private file: File
-    ) {
-      this.editProfiles.editProfileData().subscribe( async data => {             
-        if (data && data.status === "SUCCESS") {
-          console.log(data,"editprofilevalues")
-          this.agencyName = data.data.agencyName;
-          this.agencyemail =data.data.email;
-          this.firstName = data.data.firstName;
-          this.agencyRegisterNumber =data.data.agencyRegisterNumber;
-          this.agencyAddress = data.data.agencyAddress;
-          this.agencyRegion =data.data.agencyRegion;
-          if(data.data.agencyLogoURL !== null){
-            this.agencyUrl = data.data.agencyLogoURL 
-          }
-          else{
-            this.agencyUrl = "assets/img/user-default.png";
-          }
+  ) {
+    this.editProfiles.editProfileData().subscribe(async data => {
+      if (data && data.status === 'SUCCESS') {
+        console.log(data, 'editprofilevalues');
+        this.agencyName = data.data.agencyName;
+        this.agencyemail = data.data.email;
+        this.firstName = data.data.firstName;
+        this.agencyRegisterNumber = data.data.agencyRegisterNumber;
+        this.agencyAddress = data.data.agencyAddress;
+        this.agencyRegion = data.data.agencyRegion;
+        if (data.data.agencyLogoURL !== null) {
+          this.agencyUrl = data.data.agencyLogoURL;
+        } else {
+          this.agencyUrl = 'assets/img/user-default.png';
         }
-      });
-      
-     
-     }
+      }
+    });
+
+
+  }
 
   ngOnInit() {
     this.onAgencyeditProfileForm = this.formBuilder.group({
@@ -95,7 +94,7 @@ export class EditProfilePage implements OnInit {
         Validators.required,
         Validators.pattern(/^([\w\-][a-zA-Z0-9_ ]{0,30})$/)
       ])],
-       'email': [null, Validators.compose([
+      'email': [null, Validators.compose([
         Validators.required,
         Validators.pattern(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)
       ])],
@@ -142,7 +141,7 @@ export class EditProfilePage implements OnInit {
     });
   }
 
-  //Image Crop and Upload
+  // Image Crop and Upload
   pickImage(sourceType) {
     const options: CameraOptions = {
       quality: 50,
@@ -152,13 +151,13 @@ export class EditProfilePage implements OnInit {
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
-    }
-    
+    };
+
     this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
       // let base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.cropImage(imageData)
+      this.cropImage(imageData);
     }, (err) => {
       // Handle error
     });
@@ -166,7 +165,7 @@ export class EditProfilePage implements OnInit {
 
   async selectImage() {
     const actionSheet = await this.actionSheetController.create({
-      header: "Select Image source",
+      header: 'Select Image source',
       buttons: [{
         text: 'Load from Library',
         handler: () => {
@@ -192,7 +191,7 @@ export class EditProfilePage implements OnInit {
     this.crop.crop(fileUrl, { quality: 50 })
       .then(
         newPath => {
-          this.showCroppedImage(newPath.split('?')[0])
+          this.showCroppedImage(newPath.split('?')[0]);
         },
         error => {
           alert('Error cropping image' + error);
@@ -202,10 +201,10 @@ export class EditProfilePage implements OnInit {
 
   showCroppedImage(ImagePath) {
     this.isLoading = true;
-    var copyPath = ImagePath;
-    var splitPath = copyPath.split('/');
-    var imageName = splitPath[splitPath.length - 1];
-    var filePath = ImagePath.split(imageName)[0];
+    const copyPath = ImagePath;
+    const splitPath = copyPath.split('/');
+    const imageName = splitPath[splitPath.length - 1];
+    const filePath = ImagePath.split(imageName)[0];
 
     this.file.readAsDataURL(filePath, imageName).then(base64 => {
       this.agencyUrl = base64;
@@ -260,23 +259,13 @@ export class EditProfilePage implements OnInit {
             message: 'Connection failed! try again',
             duration: 3000,
             position: 'bottom'
-          }).then(toast => toast.present())  
-        }           
-      },   err => {
-        loading.then( loading => loading.dismiss());
-        this.toastCtrl.create({
-        showCloseButton: true,
-        message: 'Connection failed! try again',
-        duration: 3000,
-        position: 'bottom'
-      }).then(toast => toast.present()) 
-    }
+          }).then(toast => toast.present());
+        }
       );
-   
+
   }
-//Back btn
-  previous() 
-  { 
-    this._location.back(); 
+  // Back btn
+  previous() {
+    this._location.back();
   }
 }

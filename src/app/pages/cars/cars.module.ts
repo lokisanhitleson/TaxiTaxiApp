@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { IonicRatingModule } from "ionic4-rating";
+import { IonicRatingModule } from 'ionic4-rating';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { IonicModule } from '@ionic/angular';
 
 import { CarsPage } from './cars.page';
 import { RatingModalPage } from '../../pages/modal/rating-modal/rating-modal';
+import { CarsService } from './cars.service';
 
 const routes: Routes = [
   {
@@ -27,10 +28,11 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    IonicRatingModule ,
+    IonicRatingModule,
     TranslateModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [CarsPage, RatingModalPage]
+  declarations: [CarsPage, RatingModalPage],
+  providers: [CarsService]
 })
-export class CarsPageModule {}
+export class CarsPageModule { }

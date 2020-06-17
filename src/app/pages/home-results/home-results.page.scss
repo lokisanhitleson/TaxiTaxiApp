@@ -28,7 +28,12 @@
         }
     }
     .location-text {
+        font-size: 12px;
+    }
+    .location-label {
         font-size: 14px;
+        font-weight: 600;
+        color: #444;
     }
     .slide-container {
         height: 120px;
@@ -68,5 +73,23 @@
         span {
             font-size: 1.5rem;
         }
+    }
+    .orange-text {
+        color: #ff8100;
+    }
+    .notify-badge {
+        position: absolute;
+        left: 16px;
+        width: 17px;
+        height: 17px;
+        top: 2px;
+        font-size: 11px;
+        border-radius: 50%;
+    }
+    ion-badge.ios {
+        position: absolute;
+        left: 8px;
+        height: auto;
+        width: auto;
     }
 }

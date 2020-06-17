@@ -9,7 +9,7 @@ import { ActionSheetController, LoadingController, ModalController, NavControlle
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CalendarModal, CalendarModalOptions } from 'ion2-calendar';
 import * as moment from 'moment';
-import { BreakingSystemOfVehicle } from '../models/breaking-system.model';
+import { BrakingSystemOfVehicle } from '../models/braking-system.model';
 import { FuelTypeOfVehicle } from '../models/fuel-type.model';
 import { InsuranceCompany } from '../models/insurance-company.model';
 import { InsuranceType } from '../models/insurance-type.model';
@@ -61,7 +61,7 @@ export class MyVehiclesPage implements OnInit {
   vehicleFuelTypes: [FuelTypeOfVehicle];
   vehicleConditions: [VehicleCondition];
   vehicleWheelTypes: [WheelTypeOfVehicle];
-  vehicleBreakingSystems: [BreakingSystemOfVehicle];
+  vehicleBrakingSystems: [BrakingSystemOfVehicle];
   insuranceTypes: [InsuranceType];
   insuranceCompanies: [InsuranceCompany];
 
@@ -130,7 +130,7 @@ export class MyVehiclesPage implements OnInit {
       fcYear: ['', Validators.required],
       airBag: ['', Validators.required],
       wheelTypeId: ['', Validators.required],
-      breakingSystemId: ['', Validators.required]
+      brakingSystemId: ['', Validators.required]
     });
   }
   createForm3(): FormGroup {
@@ -251,12 +251,12 @@ export class MyVehiclesPage implements OnInit {
     });
   }
 
-  getVehicleBreakingSystems(vehicleNameId: number) {
+  getVehicleBrakingSystems(vehicleNameId: number) {
     return new Promise((res, rej) => {
-      this.addVehicleService.getVehicleBreakingSystems(vehicleNameId).subscribe(data => {
+      this.addVehicleService.getVehicleBrakingSystems(vehicleNameId).subscribe(data => {
         if (data && data.status === 'SUCCESS') {
           res(true);
-          this.vehicleBreakingSystems = data.data;
+          this.vehicleBrakingSystems = data.data;
         } else {
           rej(true);
         }
@@ -309,14 +309,14 @@ export class MyVehiclesPage implements OnInit {
       this.vehicleForm.form1.controls['fuelTypeId'].setValue(null);
       this.vehicleForm.form1.controls['registrationNo'].setValue(null);
       this.vehicleForm.form2.controls['wheelTypeId'].setValue(null);
-      this.vehicleForm.form2.controls['breakingSystemId'].setValue(null);
+      this.vehicleForm.form2.controls['brakingSystemId'].setValue(null);
 
       await this.getVehicleType(vehicleTypeId);
       await this.getVehicleColors(vehicleNameId);
       await this.getVehicleVariants(vehicleNameId);
       await this.getVehicleFuelTypes(vehicleNameId);
       await this.getVehicleWheelTypes(vehicleNameId);
-      await this.getVehicleBreakingSystems(vehicleNameId);
+      await this.getVehicleBrakingSystems(vehicleNameId);
       loading.dismiss();
     } catch (err) {
       loading.dismiss();
@@ -334,17 +334,18 @@ export class MyVehiclesPage implements OnInit {
   }
   form3Submit() {
     this.form3Submitted = true;
-    if (this.vehicleForm.form1.valid && this.vehicleForm.form2.valid && this.vehicleForm.form3.valid && this.picturesSelected) {
+    // if (this.vehicleForm.form1.valid && this.vehicleForm.form2.valid && this.vehicleForm.form3.valid && this.picturesSelected) {
+    if (this.vehicleForm.form1.valid && this.vehicleForm.form2.valid && this.vehicleForm.form3.valid) {
       const loading = this.loadingCtrl.create();
       loading.then(l => l.present());
       const formData = this.vehicleForm.form1.value;
       Object.assign(formData, this.vehicleForm.form2.value);
       Object.assign(formData, this.vehicleForm.form3.value);
-      formData.displayImage = this.displayImage;
-      formData.frontImage = this.frontImage;
-      formData.backImage = this.backImage;
-      formData.leftImage = this.leftImage;
-      formData.rightImage = this.rightImage;
+      formData.displayImage = this.displayImage.includes('assets/img') ? null : this.displayImage;
+      formData.frontImage = this.frontImage.includes('assets/img') ? null : this.frontImage;
+      formData.backImage = this.backImage.includes('assets/img') ? null : this.backImage;
+      formData.leftImage = this.leftImage.includes('assets/img') ? null : this.leftImage;
+      formData.rightImage = this.rightImage.includes('assets/img') ? null : this.rightImage;
       formData.vehicleNameId = this.vehicleNameId;
       formData.vehicleConditionId = (new Date().getFullYear() - this.vehicleForm.form1.value.manufactureYear) > 4 ? 1 : 2;
       console.log(formData);
