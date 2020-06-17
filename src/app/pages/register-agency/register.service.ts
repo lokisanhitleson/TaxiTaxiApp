@@ -16,7 +16,7 @@ const httpOptions = {
 
 export class RegisterService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { } 
 
   registeragency(AgencyName: string, AgencyRegisterationNumber: string, ContactName: string, Region: string, placeId: string, latitude: number, longitude: number, email: string, accountid) {
     return this.http.post<{ data: { accountId: number }, status: string }>(`${environment.apiUrl}registerAgency`, { 'agencyName': AgencyName, 'agecncyRegisterNumber': AgencyRegisterationNumber, 'contactName': ContactName, 'email': email, 'region': Region, 'placeId': placeId, 'latitude': latitude, 'longitude': longitude, 'accountId': accountid }, httpOptions)

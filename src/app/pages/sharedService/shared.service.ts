@@ -14,6 +14,9 @@ export class SharedService {
   private authTokenCheckSource = new BehaviorSubject(null);
   currentAuthTokenCheck = this.authTokenCheckSource.asObservable();
 
+  private profileCheckSource = new BehaviorSubject(null);
+  currentProfileCheck = this.profileCheckSource.asObservable();
+
   constructor(private authService: AuthService, private storage: Storage) {
     this.authService.isLoggedIn().then(x => this.loginCheckSource.next(x))
     this.storage.get('accessToken').then(x => this.authTokenCheckSource.next(x))
@@ -25,5 +28,7 @@ export class SharedService {
   changeAuthTokenCheck(message: string) {
     this.authTokenCheckSource.next(message)
   }
-
+  changeProfileCheck(message: number) {
+    this.profileCheckSource.next(message)
+  }
 }
