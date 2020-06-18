@@ -5,14 +5,14 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Token } from '../models/login.model';
-import { environment } from "../../../environments/environment";
+import { environment } from '../../../environments/environment';
 // const environment = {
 //   apiUrl: "http://13.234.111.199:8000/"
 // }
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json'
+    'Content-Type': 'application/json'
   })
 };
 @Injectable({
@@ -24,16 +24,16 @@ export class AuthService {
     public navCtrl: NavController,
     private storage: Storage) { }
 
-  login(username: string, password: string): Observable<{data: any, status: string}> {
-    return this.http.post<{data: any, status: string}>(`${environment.apiUrl}login/`, {type: 'USER', username, password}, httpOptions)
+  login(username: string, password: string): Observable<{ data: any, status: string }> {
+    return this.http.post<{ data: any, status: string }>(`${environment.apiUrl}login/`, { type: 'USER', username, password }, httpOptions)
       .pipe(
         tap(_ => {
           console.log('Authenticating', _);
         }),
-        catchError(this.handleError<{data: any, status: string}>('Login Authenticate'))
+        catchError(this.handleError<{ data: any, status: string }>('Login Authenticate'))
       );
   }
-  
+
   getAccount(): Observable<{ data: Account, status: string }> {
     return this.http.get<{ data: Account, status: string }>(`${environment.apiUrl}currentAccount`)
       .pipe(
@@ -43,17 +43,18 @@ export class AuthService {
   }
 
   logout() {
-      this.storage.remove("accessToken");
-      this.storage.remove("mobileNo");
-      this.storage.remove("userData");
-      this.storage.remove("roleName");
+    this.storage.remove('accessToken');
+    this.storage.remove('mobilenumber');
+    this.storage.remove('accountid');
+    this.storage.remove('userData');
+    this.storage.remove('currentLocation');
   }
   public async isLoggedIn() {
-      return await this.storage.get('accessToken') != null;
+    return await this.storage.get('accessToken') != null;
   }
 
   isLoggedOut() {
-      return !this.isLoggedIn();
+    return !this.isLoggedIn();
   }
 
 

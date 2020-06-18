@@ -10,7 +10,7 @@ const routes: Routes = [
     children: [
       { path: 'home-results', loadChildren: '../home-results/home-results.module#HomeResultsPageModule' },
       { path: 'cars/:vehicleTypeId', loadChildren: '../cars/cars.module#CarsPageModule' },
-      { path: 'schedule-vehicle', loadChildren: '../add-vehicle/add-vehicle.module#AddVehiclePageModule' },
+      { path: 'schedule-vehicle', loadChildren: '../schedule-vehicle/add-vehicle.module#AddVehiclePageModule' },
       { path: 'view-request', loadChildren: '../view-request/view-request.module#ViewRequestPageModule' },
       { path: 'request-detail', loadChildren: '../view-request/detail-request.module#DetailRequestPageModule' },
       { path: 'request-vehicle', loadChildren: '../request-vehicle/request-vehicle.module#RequestVehiclePageModule' },

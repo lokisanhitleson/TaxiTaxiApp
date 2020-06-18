@@ -18,4 +18,7 @@ export class EditProfile {
   agencyRegisterNumber: string;
   agencyAddress: string;
   agencyRegion: string;
+  placeId: string;
+  latitude: number;
+  longitude: number;
 }

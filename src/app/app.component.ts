@@ -77,6 +77,7 @@ export class AppComponent implements OnInit {
 
   lang: any;
   agencyName: string;
+  region: string;
   agencyUrl = 'assets/img/user-default.png';
   agencyProfileImagedatas: [AgencyProfileImage];
   constructor(
@@ -94,45 +95,29 @@ export class AppComponent implements OnInit {
     this.lang = 'en';
     this.translate.setDefaultLang('en');
     this.translate.use('en');
-    this.sharedService.currentLoginCheck.subscribe(async data => {
-      if (data) {
-        this.storage.get('userData').then((val) => { // ionicstorage
-          console.log('Your userData is', val);
-          this.agencyName = val.agencyName;
-          if (val.agencyLogoURL !== null) {
-            this.agencyUrl = this.generateThumbnail(val.agencyLogoURL);
-          } else {
-            this.agencyUrl = 'assets/img/user-default.png';
-          }
-          console.log(this.agencyName, 'values');
 
-          // this.agencyProfileImagedatas =this.agencyName;
-          // console.log(this.agencyProfileImagedatas[0].agencyLogoURL,"logo")
-        });
-      }
-    });
+    this.setProfileData();
     this.sharedService.currentProfileCheck.subscribe(async data => {
-      if(data) {
-        this.Storage.get('userData').then((val) => { //ionicstorage 
-          console.log('Your userData is', val);
-          this.agencyName = val.agencyName           
-          if(val.agencyLogoURL !== null){
-            this.agencyUrl = val.agencyLogoURL 
-          }
-          else{
-            this.agencyUrl = "assets/img/user-default.png";
-          }
-          console.log(this.agencyName,"values");
-      
-        // this.agencyProfileImagedatas =this.agencyName;
-        // console.log(this.agencyProfileImagedatas[0].agencyLogoURL,"logo")
-        });
+      if (data) {
+        this.setProfileData();
       }
     });
 
     this.initializeApp();
   }
-
+  setProfileData() {
+    this.storage.get('userData').then((val) => { // ionicstorage
+      if (val) {
+        this.agencyName = val.agencyName;
+        this.region = val.agencyRegion;
+        if (val.agencyLogoURL !== null) {
+          this.agencyUrl = this.generateThumbnail(val.agencyLogoURL);
+        } else {
+          this.agencyUrl = 'assets/img/user-default.png';
+        }
+      }
+    });
+  }
 
   switchLanguage() {
     this.translate.use(this.lang);

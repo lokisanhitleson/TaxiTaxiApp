@@ -170,6 +170,7 @@ export class CreatePasswordPage implements OnInit {
                                 longitude: data.data.longitude
                               });
                               this.sharedService.changeLoginCheck(authVal);
+                              this.sharedService.changeProfileCheck(1);
                               this.navCtrl.navigateRoot('/home/tabs/home-results');
                             }
                           });

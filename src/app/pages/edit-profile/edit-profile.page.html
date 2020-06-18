@@ -39,7 +39,6 @@
                   inputmode="text"
                   placeholder="Ex..: Sunu"
                   formControlName="contactName"
-                  value="{{firstName}}"
                 ></ion-input>
               </ion-item>
               <ion-chip
@@ -67,7 +66,6 @@
                   inputmode="text"
                   placeholder="Ex..: Sunu"
                   formControlName="agencyName"
-                  value="{{agencyName}}"
                 ></ion-input>
               </ion-item>
               <ion-chip
@@ -94,7 +92,6 @@
                   inputmode="text"
                   placeholder="Ex..: ram2918"
                   formControlName="agencyRegNum"
-                  value="{{agencyRegisterNumber}}"
                 ></ion-input>
               </ion-item>
               <ion-chip
@@ -119,7 +116,6 @@
                   inputmode="email"
                   formControlName="email"
                   placeholder="Ex.: june@sunu.com"
-                  value="{{agencyemail}}"
                 ></ion-input>
               </ion-item>
               <ion-chip
@@ -145,44 +141,28 @@
                   inputmode="text"
                   formControlName="Address"
                   placeholder="Ex.: june@sunu.com"
-                  value="{{agencyAddress}}"
                 ></ion-input>
               </ion-item>
 
-              <!-- <ion-item>
-                            <ion-label color="dark">{{'LOGIN_ITEMS.REGION' | translate}}</ion-label>
-                            <ion-select formControlName="region">
-                                <ion-select-option value="nes">Chennai</ion-select-option>
-                            </ion-select>
-                        </ion-item>                    -->
-              
-                   
-                        <!-- <ion-item no-padding>
-                            <ion-label   color="dark" position="stacked">{{'LOGIN_ITEMS.REGION' | translate}} <span class="required">*</span></ion-label>
-                            <ion-select formControlName="region" value="{{agencyRegion}}" class="myCustomSelect" ok-text="Okay" cancel-text="Dismiss">
-                                <ion-select-option>Chennai</ion-select-option>
-                            </ion-select>
-                        </ion-item>
-                        <ion-chip class="warning-msg" *ngIf="( formSubmitted ||onAgencyeditProfileForm.get('region').touched ) && onAgencyeditProfileForm.get('region').hasError('required')">
-                            <ion-label color="danger">
-                                {{'ERROR_MSG.REGION_REQ' | translate}}
-                            </ion-label>
-                        </ion-chip> -->
+              <ion-item no-padding (click)="openSelectRegion()">
+                <ion-label
+                  >{{'LOGIN_ITEMS.REGION' | translate}}
+                  <span class="required">*</span></ion-label
+                >
+                <span *ngIf="!placeId" class="text-mute">Select region</span>
+                {{region}}
+              </ion-item>
+              <ion-chip
+                class="warning-msg"
+                *ngIf="( formSubmitted || regionOpened ) && !placeId"
+              >
+                <ion-label color="danger">
+                  {{'ERROR_MSG.REGION_REQ' | translate}}
+                </ion-label>
+              </ion-chip>
+            </ion-list>
 
-                        <ion-item no-padding (click)="openSelectRegion()">
-                            <ion-label>{{'LOGIN_ITEMS.REGION' | translate}} <span class="required">*</span></ion-label>
-                            <span *ngIf="!placeId" class="text-mute">Select region</span> {{region}}
-                        </ion-item>
-                        <ion-chip class="warning-msg" *ngIf="( formSubmitted || regionOpened ) && !placeId">
-                            <ion-label color="danger">
-                                {{'ERROR_MSG.REGION_REQ' | translate}}
-                            </ion-label>
-                        </ion-chip>
-
-                   
-                    </ion-list>
-                
-                    <!-- <ion-list>
+            <!-- <ion-list>
 
                         <ion-radio-group>
                             <ion-list-header color="light">
@@ -204,7 +184,7 @@
                             <ion-label class="text-1x">Checkbox test</ion-label>
                             <ion-checkbox></ion-checkbox>
                         </ion-item>
-                  
+
                     </ion-list> -->
           </ion-col>
         </ion-row>

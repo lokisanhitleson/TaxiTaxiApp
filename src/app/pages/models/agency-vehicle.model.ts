@@ -88,3 +88,8 @@ export class AvailableAgencyDetails {
   email: string;
   firstName: string;
 }
+export class AgencyVehicleSelect {
+  agencyVehicleId: number;
+  vehicleName: string;
+  brandName: string;
+}

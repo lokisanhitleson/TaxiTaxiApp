@@ -155,6 +155,7 @@ export class LoginPage implements OnInit {
                     longitude: data.data.longitude
                   });
                   this.sharedService.changeLoginCheck(authVal);
+                  this.sharedService.changeProfileCheck(1);
                   loading.then(l => l.dismiss());
                   this.navCtrl.navigateRoot('/home/tabs/home-results');
                 }

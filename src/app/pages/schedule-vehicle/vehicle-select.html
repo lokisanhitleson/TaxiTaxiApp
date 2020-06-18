@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="primary" text-center>
+    <ion-title> <span class="icon-front-car"></span> Select Vehicle</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="light" class="brand-search">
+    <ion-searchbar
+      placeholder="Filter Vehicle"
+      (ionInput)="filterVehicles($event)"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div>
+    <ion-list *ngIf="vehicleNames">
+      <ion-item
+        *ngFor="let vehicle of vehicleNames"
+        (click)="vehicleSelected(vehicle)"
+      >
+        {{vehicle.brandName + " " + vehicle.vehicleName}}
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-footer no-shadow>
+    <ion-toolbar position="bottom">
+      <ion-row>
+        <ion-col text-center>
+          <ion-button color="medium" shape="round" (click)="cancelModal()"
+            >Cancel</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>

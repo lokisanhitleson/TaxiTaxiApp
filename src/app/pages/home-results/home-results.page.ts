@@ -20,6 +20,7 @@ import { ImagePage } from './../modal/image/image.page';
 import { NotificationsComponent } from './../../components/notifications/notifications.component';
 import { SelectRegionModal } from '../select-region/select-region';
 import { Storage } from '@ionic/storage';
+import { SharedService } from '../sharedService/shared.service';
 
 @Component({
   selector: 'app-home-results',
@@ -43,7 +44,8 @@ export class HomeResultsPage implements OnInit {
     public translate: TranslateService,
     public homeResultsService: HomeResultsService,
     public translateModule: TranslateModule,
-    private storage: Storage
+    private storage: Storage,
+    private sharedService: SharedService
   ) {
     this.vechileTypes();
 
@@ -74,17 +76,22 @@ export class HomeResultsPage implements OnInit {
 
   async ngOnInit() {
     try {
-      const loc = await this.storage.get('currentLocation');
-      this.yourLocation = loc.region;
-      this.latitude = loc.latitude;
-      this.longitude = loc.longitude;
+      await this.setCurrentLoc();
+      this.sharedService.currentProfileCheck.subscribe(async data => {
+        if (data) {
+          await this.setCurrentLoc();
+        }
+      });
     } catch (err) {
       console.log('something went wrong: ', err);
     }
   }
-  // switch Language() {
-  //   this.translate.use(this.lang);
-  // }
+  async setCurrentLoc() {
+    const loc = await this.storage.get('currentLocation');
+    this.yourLocation = loc.region;
+    this.latitude = loc.latitude;
+    this.longitude = loc.longitude;
+  }
   vechileTypes() {
     this.homeResultsService.getVechileTypes().subscribe(data => {
       if (data && data.status === 'SUCCESS') {

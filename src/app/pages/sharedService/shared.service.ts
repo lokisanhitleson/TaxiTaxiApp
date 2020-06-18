@@ -18,17 +18,17 @@ export class SharedService {
   currentProfileCheck = this.profileCheckSource.asObservable();
 
   constructor(private authService: AuthService, private storage: Storage) {
-    this.authService.isLoggedIn().then(x => this.loginCheckSource.next(x))
-    this.storage.get('accessToken').then(x => this.authTokenCheckSource.next(x))
+    this.authService.isLoggedIn().then(x => this.loginCheckSource.next(x));
+    this.storage.get('accessToken').then(x => this.authTokenCheckSource.next(x));
   }
-  
+
   changeLoginCheck(message: boolean) {
-    this.loginCheckSource.next(message)
-  }  
+    this.loginCheckSource.next(message);
+  }
   changeAuthTokenCheck(message: string) {
-    this.authTokenCheckSource.next(message)
+    this.authTokenCheckSource.next(message);
   }
   changeProfileCheck(message: number) {
-    this.profileCheckSource.next(message)
+    this.profileCheckSource.next(message);
   }
 }

@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="previous()">
+        <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{'TAB_MENU_ITEMS.SCHEDULE_VEHICLE' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="animated bounceInUp">
+  <ion-card class="bg-white" no-margin>
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+          <p>
+            <ion-icon name="alert"></ion-icon>
+            {{'TAB_MENU_ITEMS.SHEDULE_VEHICLE_SUBTITLE' | translate}}
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-list class="request-form">
+        <ion-item lines="none" (click)="openSelectVehicle()">
+          <ion-label slot="start">Vehicle:</ion-label>
+          <span *ngIf="!agencyVehicleId" class="text-mute"
+            >Select Your Vehicle</span
+          >
+          <span class="ion-text-end"
+            >{{agencyVehicleId ? vehicleBrand + ' ' + vehicleName : ''}}</span
+          >
+        </ion-item>
+
+        <ion-card class="calendar-card" margin-top>
+          <ion-card-content>
+            <ion-calendar
+              [(ngModel)]="bookedDates"
+              [options]="optionsMulti"
+              [type]="type"
+              [format]="'YYYY-MM-DD'"
+              (onSelect)="onCalendarSelect($event)"
+            >
+            </ion-calendar>
+          </ion-card-content>
+        </ion-card>
+        <!-- <ion-item>
+                    <ion-label>Vehicle Type</ion-label>
+                    <ion-select class="myCustomSelect" placeholder="-Select-" ok-text="Okay" cancel-text="Dismiss">
+                        <ion-select-option *ngFor="let type of carType">{{type}}</ion-select-option>
+                    </ion-select>
+                </ion-item> -->
+        <div margin-top>
+          <ion-button
+            icon-left
+            size="medium"
+            expand="full"
+            (click)="updateBookings()"
+            color="warning"
+            tappable
+          >
+            <ion-icon name="paper-plane"></ion-icon>
+            Submit
+          </ion-button>
+        </div>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

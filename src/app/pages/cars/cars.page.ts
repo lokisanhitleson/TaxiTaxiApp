@@ -62,7 +62,7 @@ export class CarsPage implements OnInit {
     { carname: 'Hyundai i10', agentname: 'M Rajesh Kumar', location: 'T.Nagar', seater: '4 Petrol', fuel: 'Diesel', mobilenumber: '998875659', img: 'assets/img/i10.jpg' }
   ];
   openWhatsApp(mob) {
-    window.open(`https://api.whatsapp.com/send?phone=${mob}`);
+    window.open(`https://api.whatsapp.com/send?phone=+91${mob}`);
   }
 
   async ngOnInit() {
