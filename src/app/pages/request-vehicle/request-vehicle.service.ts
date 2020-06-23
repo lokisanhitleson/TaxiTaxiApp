@@ -4,6 +4,8 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { AgencyVehicleSelect } from '../models/agency-vehicle.model';
+import { VehicleBrand } from '../models/vehicle-brand.model';
+import { VehicleName } from '../models/vehicle-name.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -12,10 +14,24 @@ const httpOptions = {
 };
 
 @Injectable()
-export class AddVehicleService {
+export class RequestVehicleService {
 
   constructor(private http: HttpClient) { }
 
+  getVehicleBrands() {
+    return this.http.get<{ data: [VehicleBrand], status: string }>(`${environment.apiUrl}vehicleBrands?sort=popularity:asc`)
+      .pipe(
+        tap(_ => console.log(`vehicleBrands: `, _)),
+        catchError(this.handleError<{ data: [VehicleBrand], status: string }>('get vehicleBrands'))
+      );
+  }
+  getVehicleNamesByBrand(vehicleBrandId: number) {
+    return this.http.get<{ data: [VehicleName], status: string }>(`${environment.apiUrl}vehicleNames?vehicleBrandId=${vehicleBrandId}`)
+      .pipe(
+        tap(_ => console.log(`VehicleNamesByBrand: `, _)),
+        catchError(this.handleError<{ data: [VehicleName], status: string }>('get VehicleNamesByBrand'))
+      );
+  }
   getAgencyVehicles() {
     return this.http.get<{ data: [AgencyVehicleSelect], status: string }>(`${environment.apiUrl}selectAgencyVehicles`)
       .pipe(

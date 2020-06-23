@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar color="primary" text-center>
+        <ion-title>
+            <span class="icon-front-car"></span> Select Vehicle</ion-title>
+    </ion-toolbar>
+    <ion-toolbar *ngIf="vehicleBrandId" color="light" class="brand-search">
+        <ion-button expand="full" color="medium" (click)="backToBrands()">
+            <ion-icon name="arrow-back"></ion-icon>&nbsp; Back to Brands
+        </ion-button>
+        <ion-searchbar placeholder="Search Model" [(ngModel)]="BrandNames" (ionInput)="filterVehicles($event)"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div *ngIf="vehicleBrandId">
+        <!-- <ion-item>
+            <ion-label position="floating">Vehicle Brand</ion-label>
+            <ion-input [(ngModel)]="VehicleNames" (ionInput)="getVehicles($event)"></ion-input>
+        </ion-item> -->
+        <ion-list *ngIf="vehicleNames">
+            <ion-item *ngFor="let vehicle of vehicleNames" (click)="vehicleSelected(vehicle)">{{vehicle.name}}</ion-item>
+        </ion-list>
+    </div>
+    <ion-grid *ngIf="!vehicleBrandId">
+        <ion-row *ngIf="brands">
+            <div color="medium" class="brand-header">
+                <ion-label>Popular Brands</ion-label>
+            </div>
+            <ion-col size="4" *ngFor="let brand of brands">
+                <div class="img-container" (click)="onClickBrand(brand)">
+                    <img [src]="brand.logoUrl">
+
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-footer no-shadow>
+        <ion-toolbar position="bottom">
+            <ion-row>
+                <ion-col text-center>
+                    <ion-button color="medium" shape="round" (click)="cancelModal()">Cancel</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-toolbar>
+    </ion-footer>
+</ion-content>

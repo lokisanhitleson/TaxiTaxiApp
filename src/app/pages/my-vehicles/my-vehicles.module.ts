@@ -8,9 +8,9 @@ import { IonicModule } from '@ionic/angular';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { MyVehiclesPage } from './my-vehicles.page';
-import { UploadVehicle } from "./upload-vehicle";
+import { UploadVehicle } from './upload-vehicle';
 import { AddVehicleService } from './add-vehicle.service';
-import { VehicleBrandModal } from "./vehicle.brand";
+import { VehicleBrandModal } from './vehicle.brand';
 
 const routes: Routes = [
   {

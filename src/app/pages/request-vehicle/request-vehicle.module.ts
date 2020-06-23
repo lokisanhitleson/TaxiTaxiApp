@@ -5,10 +5,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { RequestVehiclePage } from './request-vehicle.page';
-import { PlacesModalPage } from "./places.page";
-import { VehicleModalPage } from "./vehicle.model";
+import { VehicleBrandModal } from './vehicle.brand';
 import { CalendarModule } from 'ion2-calendar';
 import { TranslateModule } from '@ngx-translate/core';
+import { RequestVehicleService } from './request-vehicle.service';
+
 
 const routes: Routes = [
   {
@@ -16,12 +17,8 @@ const routes: Routes = [
     component: RequestVehiclePage
   },
   {
-    path: 'places-modal',
-    component: PlacesModalPage
-  },
-  {
     path: 'vehicle-model',
-    component: VehicleModalPage
+    component: VehicleBrandModal
   }
 ];
 
@@ -34,6 +31,7 @@ const routes: Routes = [
     CalendarModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [RequestVehiclePage,PlacesModalPage, VehicleModalPage]
+  declarations: [RequestVehiclePage, VehicleBrandModal],
+  providers: [RequestVehicleService]
 })
-export class RequestVehiclePageModule {}
+export class RequestVehiclePageModule { }

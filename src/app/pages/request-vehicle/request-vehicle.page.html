@@ -1,191 +1,227 @@
 <ion-header>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-button (click)="previous()">
-                <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-        <ion-title>{{'TAB_MENU_ITEMS.ASK_VEHICLE' | translate}}</ion-title>
-    </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="previous()">
+        <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{'TAB_MENU_ITEMS.ASK_VEHICLE' | translate}}</ion-title>
+  </ion-toolbar>
 </ion-header>
 <ion-content color="light">
-    <!-- <ion-row>
+  <!-- <ion-row>
         <ion-item>
             <p class="info-text">
                 <ion-icon name="alert"></ion-icon> Please fill the requested details</p>
         </ion-item>
     </ion-row> -->
-    <div>
-        <ion-toolbar class="tripSelect">
-            <ion-segment [(ngModel)]="tripSelector" mode="md" value="oneWay" (ionChange)="segmentChanged($event)">
-                <ion-segment-button value="oneWay" checked>
-                    <ion-icon name="return-right"></ion-icon>
-                    <span>One Way</span>
-                </ion-segment-button>
-                <ion-segment-button value="roundTrip">
-                    <ion-icon name="repeat"></ion-icon>
-                    <span>Round Trip</span>
-                </ion-segment-button>
-                <!-- <ion-segment-button value="multiCity">
+  <div>
+    <ion-toolbar class="tripSelect">
+      <ion-segment
+        [(ngModel)]="tripSelector"
+        mode="md"
+        value="oneWay"
+        (ionChange)="segmentChanged($event)"
+      >
+        <ion-segment-button value="oneWay" checked>
+          <ion-icon name="return-right"></ion-icon>
+          <span>One Way</span>
+        </ion-segment-button>
+        <ion-segment-button value="roundTrip">
+          <ion-icon name="repeat"></ion-icon>
+          <span>Round Trip</span>
+        </ion-segment-button>
+        <!-- <ion-segment-button value="multiCity">
                     <ion-icon name="shuffle"></ion-icon>
                     <span>Multi City</span>
                 </ion-segment-button> -->
-            </ion-segment>
-
-        </ion-toolbar>
-        <!--Grid 1-->
-        <ion-grid *ngIf="tripSelector === 'oneWay'" class="animated fadeInLeft">
-            <ion-row class="grid-btns">
-                <ion-col size="6">
-                    <ion-item (click)="openPlacesModal()" text-wrap lines="none">
-                        <ion-icon name="ios-navigate" slot="end"></ion-icon>
-                        <ion-label class="ion-text-wrap">From:<br>
-                            <p *ngIf="!selectedCity">Select a place</p>
-                            <strong class="selectedText" *ngIf="selectedCity">{{selectedCity}}</strong>
-                        </ion-label>
-                    </ion-item>
-                </ion-col>
-                <ion-col size="6">
-                    <ion-item (click)="openPlacesModal()" lines="none">
-                        <ion-icon name="ios-pin" slot="end"></ion-icon>
-                        <ion-label class="ion-text-wrap">To:<br>
-                            <p *ngIf="!selectedCity">Select a place</p>
-                            <strong class="selectedText" *ngIf="selectedCity">{{selectedCity}}</strong>
-                        </ion-label>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row class="grid-btns">
-                <ion-col size="6">
-                    <ion-item (click)="openCalendar()" lines="none">
-                        <ion-icon name="ios-calendar" slot="end"></ion-icon>
-                        <ion-label class="ion-text-wrap">Start Date:<br>
-                            <p *ngIf="!startDate" class="date-placeholder">Select date</p>
-                            <strong class="selectedText">{{startDate}}</strong>
-                        </ion-label>
-                    </ion-item>
-                </ion-col>
-                <ion-col size="6">
-                    <ion-item (click)="openCalendar()" lines="none">
-                        <ion-icon name="calendar" slot="end"></ion-icon>
-                        <ion-label class="ion-text-wrap">End Date:<br>
-                            <p *ngIf="!endDate" class="date-placeholder">No date</p>
-                            <strong class="selectedText">{{endDate}}</strong>
-                        </ion-label>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row class="grid-btns">
-                <ion-col size="6" class="vtype-col">
-                    <ion-item lines="none">
-                        <ion-icon name="ios-car" slot="end"></ion-icon>
-                        <!-- <ion-label class="ion-text-wrap">Vehicle Type:<br>
+      </ion-segment>
+    </ion-toolbar>
+    <!--Grid 1-->
+    <ion-grid *ngIf="tripSelector === 'oneWay'" class="animated fadeInLeft">
+      <ion-row class="grid-btns">
+        <ion-col size="6">
+          <ion-item (click)="openPlacesModal('SOURCE')" text-wrap lines="none">
+            <ion-icon name="ios-navigate" slot="end"></ion-icon>
+            <ion-label class="ion-text-wrap"
+              >From:<br />
+              <p *ngIf="!sourcePlaceId">Select a place</p>
+              <strong class="selectedText" *ngIf="sourcePlaceId"
+                >{{source}}</strong
+              >
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item (click)="openPlacesModal('DESTINATION')" lines="none">
+            <ion-icon name="ios-pin" slot="end"></ion-icon>
+            <ion-label class="ion-text-wrap"
+              >To:<br />
+              <p *ngIf="!destinationPlaceId">Select a place</p>
+              <strong class="selectedText" *ngIf="destinationPlaceId"
+                >{{destination}}</strong
+              >
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="grid-btns">
+        <ion-col size="6">
+          <ion-item (click)="openCalendar('START')" lines="none">
+            <ion-icon name="ios-calendar" slot="end"></ion-icon>
+            <ion-label class="ion-text-wrap"
+              >Start Date:<br />
+              <p *ngIf="!startDate" class="date-placeholder">Select date</p>
+              <strong class="selectedText">{{startDate}}</strong>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item (click)="openCalendar('END')" lines="none">
+            <ion-icon name="calendar" slot="end"></ion-icon>
+            <ion-label class="ion-text-wrap"
+              >End Date:<br />
+              <p *ngIf="!endDate" class="date-placeholder">No date</p>
+              <strong class="selectedText">{{endDate}}</strong>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="grid-btns">
+        <ion-col size="6" class="vtype-col">
+          <ion-item lines="none">
+            <ion-icon name="ios-car" slot="end"></ion-icon>
+            <!-- <ion-label class="ion-text-wrap">Vehicle Type:<br>
                             <strong class="selectedText">Prime</strong>
                         </ion-label> -->
 
-                        <label class="item item-input item-select">
-                                <ion-label class="vehicletype-label">Vehicle Type</ion-label>
-                            <ion-select class="myCustomSelect" placeholder="Select Type">
-                                <ion-select-option *ngFor="let type of carType">
-                                    <span class="selectedText">{{type}}</span> 
-                                </ion-select-option>
-                            </ion-select>
-                        </label>
-                    </ion-item>
-                </ion-col>
-                <ion-col size="6">
-                    <ion-item (click)="openVehiclesModal()" lines="none">
-                        <ion-icon name="car" slot="end"></ion-icon>
-                        <ion-label class="ion-text-wrap">Model:<br>
-                            <p *ngIf="!selectedVehicle">Select Model</p>
-                            <strong class="selectedText" *ngIf="selectedVehicle">{{selectedVehicle}}</strong>
-                        </ion-label>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
+            <label class="item item-input item-select">
+              <ion-label class="vehicletype-label">Vehicle Type</ion-label>
+              <ion-select class="myCustomSelect" placeholder="Select Type">
+                <ion-select-option *ngFor="let type of carType">
+                  <span class="selectedText">{{type}}</span>
+                </ion-select-option>
+              </ion-select>
+            </label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item (click)="openVehiclesModal()" lines="none">
+            <ion-icon name="car" slot="end"></ion-icon>
+            <ion-label class="ion-text-wrap"
+              >Model:<br />
+              <p *ngIf="!vehicleNameId">Select Model</p>
+              <strong class="selectedText" *ngIf="vehicleNameId"
+                >{{vehicleBrand + " " + vehicleName}}</strong
+              >
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-        <!--Grid 2-->
-        <ion-grid *ngIf="tripSelector === 'roundTrip'" class="animated fadeInRight">
-            <ion-row class="grid-btns">
-                <ion-col size="6">
-                    <ion-item (click)="openPlacesModal()" lines="none">
-                        <ion-icon name="ios-navigate" slot="end"></ion-icon>
-                        <ion-label class="ion-text-wrap" no-padding>From:<br>
-                            <p *ngIf="!selectedCity">Select a place</p>
-                            <strong class="selectedText" *ngIf="selectedCity">{{selectedCity}}</strong>
-                        </ion-label>
-                    </ion-item>
-                </ion-col>
-                <ion-col size="6">
-                    <ion-item (click)="openPlacesModal()" lines="none">
-                        <ion-icon name="ios-pin" slot="end"></ion-icon>
-                        <ion-label class="ion-text-wrap">To:<br>
-                            <p *ngIf="!selectedCity">Select a place</p>
-                            <strong class="selectedText" *ngIf="selectedCity">{{selectedCity}}</strong>
-                        </ion-label>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row class="grid-btns">
-                <ion-col size="6">
-                    <ion-item (click)="openCalendar()" lines="none">
-                        <ion-icon name="ios-calendar" slot="end"></ion-icon>
-                        <ion-label class="ion-text-wrap">Start Date:<br>
-                            <p *ngIf="!startDate" class="date-placeholder">Select date</p>
-                            <strong class="selectedText">{{startDate}}</strong>
-                        </ion-label>
-                    </ion-item>
-                </ion-col>
-                <ion-col size="6">
-                    <ion-item (click)="openCalendar()" lines="none">
-                        <ion-icon name="calendar" slot="end"></ion-icon>
-                        <ion-label class="ion-text-wrap">End Date:<br>
-                            <p *ngIf="!endDate" class="date-placeholder">Select date</p>
-                            <strong class="selectedText">{{endDate}}</strong>
-                        </ion-label>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row class="grid-btns">
-                <ion-col size="6" class="vtype-col">
-                    <ion-item lines="none">
-                        <ion-icon name="ios-car" slot="end"></ion-icon>
-                        <!-- <ion-label class="ion-text-wrap">Vehicle Type:<br>
+    <!--Grid 2-->
+    <ion-grid *ngIf="tripSelector === 'roundTrip'" class="animated fadeInRight">
+      <ion-row class="grid-btns">
+        <ion-col size="6">
+          <ion-item (click)="openPlacesModal('SOURCE')" text-wrap lines="none">
+            <ion-icon name="ios-navigate" slot="end"></ion-icon>
+            <ion-label class="ion-text-wrap"
+              >From:<br />
+              <p *ngIf="!sourcePlaceId">Select a place</p>
+              <strong class="selectedText" *ngIf="sourcePlaceId"
+                >{{source}}</strong
+              >
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item (click)="openPlacesModal('DESTINATION')" lines="none">
+            <ion-icon name="ios-pin" slot="end"></ion-icon>
+            <ion-label class="ion-text-wrap"
+              >To:<br />
+              <p *ngIf="!destinationPlaceId">Select a place</p>
+              <strong class="selectedText" *ngIf="destinationPlaceId"
+                >{{destination}}</strong
+              >
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="grid-btns">
+        <ion-col size="6">
+          <ion-item (click)="openCalendar('START')" lines="none">
+            <ion-icon name="ios-calendar" slot="end"></ion-icon>
+            <ion-label class="ion-text-wrap"
+              >Start Date:<br />
+              <p *ngIf="!startDate" class="date-placeholder">Select date</p>
+              <strong class="selectedText">{{startDate}}</strong>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item (click)="openCalendar('END')" lines="none">
+            <ion-icon name="calendar" slot="end"></ion-icon>
+            <ion-label class="ion-text-wrap"
+              >End Date:<br />
+              <p *ngIf="!endDate" class="date-placeholder">Select date</p>
+              <strong class="selectedText">{{endDate}}</strong>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="grid-btns">
+        <ion-col size="6" class="vtype-col">
+          <ion-item lines="none">
+            <ion-icon name="ios-car" slot="end"></ion-icon>
+            <!-- <ion-label class="ion-text-wrap">Vehicle Type:<br>
                             <strong class="selectedText">Prime</strong>
                         </ion-label> -->
 
-                        <label class="item item-input item-select">
-                                <ion-label class="vehicletype-label">Vehicle Type</ion-label>
-                            <ion-select class="myCustomSelect" placeholder="Select Type">
-                                <ion-select-option *ngFor="let type of carType">
-                                   <span class="selectedText">{{type}}</span> 
-                                </ion-select-option>
-                            </ion-select>
-                        </label>
-                    </ion-item>
-                </ion-col>
-                <ion-col size="6">
-                    <ion-item (click)="openVehiclesModal()" lines="none">
-                        <ion-icon name="car" slot="end"></ion-icon>
-                        <ion-label class="ion-text-wrap">Model:<br>
-                            <p *ngIf="!selectedVehicle">Select Model</p>
-                            <strong class="selectedText" *ngIf="selectedVehicle">{{selectedVehicle}}</strong>
-                        </ion-label>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-        <div class="comments-container">
-            <ion-list>
-                <ion-item lines="none">
-                    <ion-label>Comments :</ion-label>
-                    <ion-textarea rows="2" cols="20" placeholder="Enter any comments here..."></ion-textarea>
-                </ion-item>
-            </ion-list>
-        </div>
+            <label class="item item-input item-select">
+              <ion-label class="vehicletype-label">Vehicle Type</ion-label>
+              <ion-select class="myCustomSelect" placeholder="Select Type">
+                <ion-select-option *ngFor="let type of carType">
+                  <span class="selectedText">{{type}}</span>
+                </ion-select-option>
+              </ion-select>
+            </label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item (click)="openVehiclesModal()" lines="none">
+            <ion-icon name="car" slot="end"></ion-icon>
+            <ion-label class="ion-text-wrap"
+              >Model:<br />
+              <p *ngIf="!vehicleNameId">Select Model</p>
+              <strong class="selectedText" *ngIf="vehicleNameId"
+                >{{vehicleBrand + " " + vehicleName}}</strong
+              >
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="comments-container">
+      <ion-list>
+        <ion-item lines="none">
+          <ion-label>Comments :</ion-label>
+          <ion-textarea
+            rows="2"
+            cols="20"
+            placeholder="Enter any comments here..."
+            [(ngModel)]="comments"
+          ></ion-textarea>
+        </ion-item>
+      </ion-list>
+    </div>
 
-        <!-- <h5 class="ion-text-center">(OR)</h5>
+    <ion-chip class="warning-msg" *ngIf="errorDiv">
+      <ion-label color="danger">
+        {{currentError}}
+      </ion-label>
+    </ion-chip>
+    <!-- <h5 class="ion-text-center">(OR)</h5>
         <ion-card color="light" class="voicenote-card">
             <ion-card-content class="ion-text-center">
                 <ion-icon class="megaphone" name="megaphone"></ion-icon>
@@ -219,16 +255,28 @@
                 </ion-item-options>
             </ion-item-sliding>
         </ion-list> -->
-
-    </div>
-
+  </div>
 </ion-content>
 <div class="ion-text-center animated fadeInUp" margin-bottom padding-top>
-    <ion-button slot="start" (click)="goToHome()" icon-left size="medium" color="medium" tappable>
-        Cancel
-    </ion-button>
+  <ion-button
+    slot="start"
+    (click)="goToHome()"
+    icon-left
+    size="medium"
+    color="medium"
+    tappable
+  >
+    Cancel
+  </ion-button>
 
-    <ion-button slot="end" (click)="goToHome()" icon-left size="medium" color="warning" tappable>
-        Submit
-    </ion-button>
+  <ion-button
+    slot="end"
+    (click)="requestSubmit()"
+    icon-left
+    size="medium"
+    color="warning"
+    tappable
+  >
+    Submit
+  </ion-button>
 </div>

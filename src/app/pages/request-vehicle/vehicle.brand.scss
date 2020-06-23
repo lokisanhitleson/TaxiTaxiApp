@@ -1,0 +1,34 @@
+:host {
+    ion-footer {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .img-container {
+        border: 1px solid #ddd;
+        margin: 0 auto;
+        width: 100%;
+        border-radius: 12px;
+        transition: .5s;
+        img {
+            padding: 8px;
+        }
+    }
+    .img-container:hover {
+        border: 2px solid red;
+    }
+    .brand-header {
+        background: #ececec;
+        margin: 0 7px;
+        color: #444;
+        padding: 5px;
+        width: 100%;
+        ion-label {
+            margin: 0 7px;
+        }
+    }
+    .pb-40 {
+        padding-bottom: 40px;
+    }
+}

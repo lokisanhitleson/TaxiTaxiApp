@@ -257,7 +257,7 @@ export class EditProfilePage implements OnInit {
             };
             await this.storage.set('userData', userData);
             await this.storage.set('currentLocation', {
-              agencyRegion: formData.region,
+              region: formData.region,
               latitude: formData.latitude,
               longitude: formData.longitude
             });
