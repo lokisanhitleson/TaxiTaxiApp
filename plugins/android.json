@@ -44,6 +44,9 @@
     },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.mazelon.taxitaxi"
+    },
+    "cordova-plugin-firebase": {
+      "PACKAGE_NAME": "com.mazelon.taxitaxi"
     }
   },
   "dependent_plugins": {

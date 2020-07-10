@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, NavParams, LoadingController } from '@ionic/angular';
 import { RequestVehicleService } from './request-vehicle.service';
 import { ToastService } from '../services/toast.service';
-import { VehicleBrand, VehicleBrandDetails } from '../models/vehicle-brand.model';
+import { BrandOfVehicleType } from '../models/vehicle-brand.model';
 import { VehicleName } from '../models/vehicle-name.model';
 
 @Component({
@@ -12,11 +12,13 @@ import { VehicleName } from '../models/vehicle-name.model';
 })
 export class VehicleBrandModal implements OnInit {
 
+  @Input() vehicleTypeId: number;
+
   isVehicleAvailable = false;
   carModels: any;
   vehicleBrandId: number;
-  brands: [VehicleBrand];
-  currentBrand: VehicleBrand;
+  brands: [BrandOfVehicleType];
+  currentBrand: BrandOfVehicleType;
   vehicleNamesAll: VehicleName[];
   vehicleNames: VehicleName[];
   constructor(
@@ -47,7 +49,7 @@ export class VehicleBrandModal implements OnInit {
   }
   getVehicleNamesByBrand() {
     return new Promise((res, rej) => {
-      this.requestVehicleService.getVehicleNamesByBrand(this.vehicleBrandId).subscribe(data => {
+      this.requestVehicleService.getVehicleNamesByBrand(this.vehicleBrandId, this.vehicleTypeId).subscribe(data => {
         res(true);
         if (data && data.status === 'SUCCESS') {
           this.vehicleNames = this.vehicleNamesAll = data.data;
@@ -61,7 +63,7 @@ export class VehicleBrandModal implements OnInit {
   }
   getVehicleBrands() {
     return new Promise((res, rej) => {
-      this.requestVehicleService.getVehicleBrands().subscribe(data => {
+      this.requestVehicleService.getVehicleBrands(this.vehicleTypeId).subscribe(data => {
         res(true);
         if (data && data.status === 'SUCCESS') {
           this.brands = data.data;
@@ -74,7 +76,7 @@ export class VehicleBrandModal implements OnInit {
     });
   }
 
-  async onClickBrand(brand: VehicleBrand) {
+  async onClickBrand(brand: BrandOfVehicleType) {
     const loading = await this.loadingCtrl.create();
     try {
       loading.present();

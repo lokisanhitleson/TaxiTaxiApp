@@ -18,3 +18,9 @@ export class VehicleBrandDetails {
     createdBy: number;
     updatedBy: number;
 }
+export class BrandOfVehicleType {
+    vehicleBrandId: number;
+    brandName: string;
+    logoUrl: string;
+    popularity: string;
+}

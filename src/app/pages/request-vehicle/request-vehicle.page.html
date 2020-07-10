@@ -23,11 +23,11 @@
         value="oneWay"
         (ionChange)="segmentChanged($event)"
       >
-        <ion-segment-button value="oneWay" checked>
+        <ion-segment-button value="ONE_WAY" checked>
           <ion-icon name="return-right"></ion-icon>
           <span>One Way</span>
         </ion-segment-button>
-        <ion-segment-button value="roundTrip">
+        <ion-segment-button value="ROUND_TRIP">
           <ion-icon name="repeat"></ion-icon>
           <span>Round Trip</span>
         </ion-segment-button>
@@ -72,7 +72,7 @@
             <ion-label class="ion-text-wrap"
               >Start Date:<br />
               <p *ngIf="!startDate" class="date-placeholder">Select date</p>
-              <strong class="selectedText">{{startDate}}</strong>
+              <strong class="selectedText">{{startDateShow}}</strong>
             </ion-label>
           </ion-item>
         </ion-col>
@@ -82,7 +82,7 @@
             <ion-label class="ion-text-wrap"
               >End Date:<br />
               <p *ngIf="!endDate" class="date-placeholder">No date</p>
-              <strong class="selectedText">{{endDate}}</strong>
+              <strong class="selectedText">{{endDateShow}}</strong>
             </ion-label>
           </ion-item>
         </ion-col>
@@ -97,9 +97,16 @@
 
             <label class="item item-input item-select">
               <ion-label class="vehicletype-label">Vehicle Type</ion-label>
-              <ion-select class="myCustomSelect" placeholder="Select Type">
-                <ion-select-option *ngFor="let type of carType">
-                  <span class="selectedText">{{type}}</span>
+              <ion-select
+                class="myCustomSelect"
+                (ionChange)="vehicleTypeChanged($event)"
+                placeholder="Select Type"
+              >
+                <ion-select-option
+                  *ngFor="let type of carType"
+                  [value]="type.vehicleTypeId"
+                >
+                  <span class="selectedText">{{type.type}}</span>
                 </ion-select-option>
               </ion-select>
             </label>
@@ -155,7 +162,7 @@
             <ion-label class="ion-text-wrap"
               >Start Date:<br />
               <p *ngIf="!startDate" class="date-placeholder">Select date</p>
-              <strong class="selectedText">{{startDate}}</strong>
+              <strong class="selectedText">{{startDateShow}}</strong>
             </ion-label>
           </ion-item>
         </ion-col>
@@ -165,7 +172,7 @@
             <ion-label class="ion-text-wrap"
               >End Date:<br />
               <p *ngIf="!endDate" class="date-placeholder">Select date</p>
-              <strong class="selectedText">{{endDate}}</strong>
+              <strong class="selectedText">{{endDateShow}}</strong>
             </ion-label>
           </ion-item>
         </ion-col>

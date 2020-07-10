@@ -4,7 +4,8 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { AgencyVehicleSelect } from '../models/agency-vehicle.model';
-import { VehicleBrand } from '../models/vehicle-brand.model';
+import { VehicleType } from '../models/vehicle-type.model';
+import { BrandOfVehicleType } from '../models/vehicle-brand.model';
 import { VehicleName } from '../models/vehicle-name.model';
 
 const httpOptions = {
@@ -18,15 +19,22 @@ export class RequestVehicleService {
 
   constructor(private http: HttpClient) { }
 
-  getVehicleBrands() {
-    return this.http.get<{ data: [VehicleBrand], status: string }>(`${environment.apiUrl}vehicleBrands?sort=popularity:asc`)
+  getVehicleTypes() {
+    return this.http.get<{ data: [VehicleType], status: string }>(`${environment.apiUrl}vehicleTypes?active=Y&sort=type:asc`)
       .pipe(
-        tap(_ => console.log(`vehicleBrands: `, _)),
-        catchError(this.handleError<{ data: [VehicleBrand], status: string }>('get vehicleBrands'))
+        tap(_ => console.log(`vehicleTypes: `, _)),
+        catchError(this.handleError<{ data: [VehicleType], status: string }>('get vehicleTypes'))
       );
   }
-  getVehicleNamesByBrand(vehicleBrandId: number) {
-    return this.http.get<{ data: [VehicleName], status: string }>(`${environment.apiUrl}vehicleNames?vehicleBrandId=${vehicleBrandId}`)
+  getVehicleBrands(vehicleTypeId) {
+    return this.http.get<{ data: [BrandOfVehicleType], status: string }>(`${environment.apiUrl}brandsOfVehicleType/${vehicleTypeId}`)
+      .pipe(
+        tap(_ => console.log(`vehicleBrands: `, _)),
+        catchError(this.handleError<{ data: [BrandOfVehicleType], status: string }>('get vehicleBrands'))
+      );
+  }
+  getVehicleNamesByBrand(vehicleBrandId: number, vehicleTypeId) {
+    return this.http.get<{ data: [VehicleName], status: string }>(`${environment.apiUrl}vehicleNames?vehicleBrandId=${vehicleBrandId}&vehicleTypeId=${vehicleTypeId}&active=Y`)
       .pipe(
         tap(_ => console.log(`VehicleNamesByBrand: `, _)),
         catchError(this.handleError<{ data: [VehicleName], status: string }>('get VehicleNamesByBrand'))
@@ -46,11 +54,11 @@ export class RequestVehicleService {
         catchError(this.handleError<{ data: [{ date: string }], status: string }>('get vehicleBookedDates'))
       );
   }
-  saveBookings(data: { agencyVehicleId: number, dates: string[] }) {
-    return this.http.post<{ data: [], status: string }>(`${environment.apiUrl}vehicleBookedDates`, data)
+  saveRequest(data) {
+    return this.http.post<{ data: [], status: string }>(`${environment.apiUrl}vehicleRequests`, data)
       .pipe(
-        tap(_ => console.log(`saveVehicleBookedDates: `, _)),
-        catchError(this.handleError<{ data: [], status: string }>('save vehicleBookedDates'))
+        tap(_ => console.log(`vehicleRequests: `, _)),
+        catchError(this.handleError<{ data: [], status: string }>('save vehicleRequests'))
       );
   }
   private handleError<T>(operation = 'operation', result?: T) {
