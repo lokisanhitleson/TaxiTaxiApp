@@ -8,6 +8,8 @@ import { Pages } from './interfaces/pages';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from './pages/services/auth.service';
 import { SharedService } from './pages/sharedService/shared.service';
+import { FcmService } from './pages/services/fcm.service';
+import { ToastService } from './pages/services/toast.service';
 
 @Component({
   selector: 'app-root',
@@ -90,7 +92,9 @@ export class AppComponent implements OnInit {
     public sranslateModule: TranslateModule,
     public alertController: AlertController,
     private authService: AuthService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private fcm: FcmService,
+    private toast: ToastService
   ) {
     this.lang = 'en';
     this.translate.setDefaultLang('en');
@@ -105,6 +109,20 @@ export class AppComponent implements OnInit {
 
     this.initializeApp();
   }
+
+
+  private notificationSetup() {
+    this.fcm.getToken();
+    this.fcm.onNotifications().subscribe(
+      (msg) => {
+        if (this.platform.is('ios')) {
+          this.toast.showToast(msg.aps.alert);
+        } else {
+          this.toast.showToast(msg.body);
+        }
+      });
+  }
+
   setProfileData() {
     this.storage.get('userData').then((val) => { // ionicstorage
       if (val) {
@@ -135,6 +153,7 @@ export class AppComponent implements OnInit {
       setTimeout(() => {
         this.splashScreen.hide();
       }, 1000);
+      this.notificationSetup();
     }).catch(() => { });
   }
 

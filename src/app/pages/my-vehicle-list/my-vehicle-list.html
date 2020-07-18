@@ -22,7 +22,10 @@
   <ng-container *ngIf="newData">
     <div class="car-profile" *ngFor="let car of newData; let i = index">
       <ion-card>
-        <div class="image-holder">
+        <div
+          class="image-holder"
+          [style.background]="'url(' + (car.displayImage?generateThumbnail(car.displayImage):defaultThumbnail) + ')'"
+        >
           <img
             [src]="car.displayImage?generateThumbnail(car.displayImage):defaultThumbnail"
           />

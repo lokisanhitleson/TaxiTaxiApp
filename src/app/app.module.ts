@@ -37,9 +37,25 @@ import { ToastService } from './pages/services/toast.service';
 import { DateService } from './pages/services/date.service';
 import { SelectRegionModal } from './pages/select-region/select-region';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { Firebase } from '@ionic-native/firebase/ngx';
+import { FcmService } from './pages/services/fcm.service';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyD4bpkohnNCqZWoh5xszLk_0vp_nzvMS5A',
+  authDomain: 'taxi-app-mazelon.firebaseapp.com',
+  databaseURL: 'https://taxi-app-mazelon.firebaseio.com',
+  projectId: 'taxi-app-mazelon',
+  storageBucket: 'taxi-app-mazelon.appspot.com',
+  messagingSenderId: '1040474063041',
+  appId: '1:1040474063041:web:af276480a56baf7f961440',
+  measurementId: 'G-8FYTZFT6SM'
+};
 
 @NgModule({
   declarations: [AppComponent, NotificationsComponent, SelectRegionModal],
@@ -62,7 +78,9 @@ export function createTranslateLoader(http: HttpClient) {
         useFactory: createTranslateLoader,
         deps: [HttpClient]
       }
-    })
+    }),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule
   ],
   entryComponents: [NotificationsComponent],
   providers: [
@@ -79,10 +97,13 @@ export function createTranslateLoader(http: HttpClient) {
     File,
     ImagePicker,
     Crop,
+    // tslint:disable-next-line: deprecation
     FileTransfer,
     Camera,
     ToastService,
-    DateService
+    DateService,
+    Firebase,
+    FcmService
   ],
   bootstrap: [AppComponent]
 })

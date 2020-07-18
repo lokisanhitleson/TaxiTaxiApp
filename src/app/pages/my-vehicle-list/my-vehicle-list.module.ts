@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { IonicRatingModule } from "ionic4-rating";
+import { IonicRatingModule } from 'ionic4-rating';
 
 import { IonicModule } from '@ionic/angular';
 
 import { MyVehicleList } from './my-vehicle-list';
 import { MyVehicleListService } from './my-vehicle-list.service';
+
+// import { ColorThief } from 'color-thief';
 
 const routes: Routes = [
   {
@@ -23,7 +25,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     IonicRatingModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    // ColorThief
   ],
   declarations: [MyVehicleList],
   providers: [

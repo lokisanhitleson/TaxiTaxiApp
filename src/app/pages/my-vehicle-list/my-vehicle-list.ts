@@ -39,7 +39,7 @@ export class MyVehicleList implements OnInit {
     private myVehicleListService: MyVehicleListService,
     private toast: ToastService,
     private alertController: AlertController,
-    public router: Router
+    public router: Router,
   ) {
 
     document.addEventListener('online', () => { this.onlineOffline = true; });
@@ -113,6 +113,7 @@ export class MyVehicleList implements OnInit {
       refresher.target.complete();
     });
   }
+
   async presentLoading() {
     const loading = await this.loadingCtrl.create({
       message: 'Please wait...',
