@@ -1,388 +1,399 @@
-    // http://ionicframework.com/docs/theming/
-    @import '~@ionic/angular/css/core.css';
-    @import '~@ionic/angular/css/normalize.css';
-    @import '~@ionic/angular/css/structure.css';
-    @import '~@ionic/angular/css/typography.css';
-    @import '~@ionic/angular/css/padding.css';
-    @import '~@ionic/angular/css/float-elements.css';
-    @import '~@ionic/angular/css/text-alignment.css';
-    @import '~@ionic/angular/css/text-transformation.css';
-    @import '~@ionic/angular/css/flex-utils.css';
-    ion-item {
-        --ion-item-background: transparent;
+// http://ionicframework.com/docs/theming/
+@import "~@ionic/angular/css/core.css";
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+ion-item {
+  --ion-item-background: transparent;
+}
+
+* {
+  outline: none !important;
+}
+ion-content {
+  --background: #f5f5f5 !important;
+}
+
+// .modal-wrapper.sc-ion-modal-md {
+//     -webkit-transform: translate3d(0, 40px, 0);
+//     transform: translate3d(0, 40px, 0);
+//     opacity: .01;
+//     width: 90%!important;
+//     height: 90%!important;
+// }
+// backgrounds //
+.bg-white {
+  background-color: #fff !important;
+}
+
+.bg-light {
+  background-color: var(--ion-color-light);
+}
+
+.bg-dark {
+  background-color: var(--ion-color-dark);
+}
+
+.bg-primary {
+  background-color: var(--ion-color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--ion-color-secondary);
+}
+
+.bg-tertiary {
+  background-color: var(--ion-color-tertiary);
+}
+
+.bg-profile {
+  background-image: var(--ion-color-primary);
+}
+
+.bg-main {
+  background-image: linear-gradient(
+    -135deg,
+    var(--ion-color-medium),
+    var(--ion-color-light)
+  );
+}
+
+.text-gray {
+  color: gray;
+}
+
+// Helpers //
+.w100 {
+  width: 100%;
+}
+
+// form {
+//     ion-item {
+//         --border-color: var(--ion-color-dark);
+//     }
+// }
+.bold,
+.fw500 {
+  font-weight: 500 !important;
+}
+
+.fw700 {
+  font-weight: 700 !important;
+}
+
+.text08 {
+  font-size: 0.8rem;
+}
+
+.text1 {
+  font-size: 1rem !important;
+}
+
+.text12 {
+  font-size: 1.2rem;
+}
+
+.text15 {
+  font-size: 1.5rem;
+}
+
+.text20 {
+  font-size: 2rem;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.text-primary {
+  color: var(--ion-color-primary);
+}
+
+.text-secondary {
+  color: var(--ion-color-secondary);
+}
+
+.text-dark {
+  color: var(--ion-color-dark);
+}
+
+.back-btn-size {
+  font-size: 24px;
+}
+
+// menu //
+// Menu user profile
+ion-toolbar.user-profile {
+  .user-avatar {
+    width: 68px;
+    height: 68px;
+  }
+  .item-inner {
+    border-width: 0;
+  }
+}
+
+// Custom toolbar (overriding Shadow DOM)
+ion-toolbar {
+  &.ion-color-primary {
+    --ion-color-base: var(--ion-color-primary) !important;
+  }
+}
+
+ion-button {
+  text-transform: capitalize;
+  --box-shadow: none;
+}
+
+// Android card shadow
+ion-card {
+  &.sc-ion-card-md-h {
+    box-shadow: 0 2px 4px rgba(var(--ion-color-dark-rgb), 0.24);
+  }
+}
+
+// style for auth pages
+.auth-page {
+  .otp-input {
+    width: 40px !important;
+    height: 40px !important;
+    margin: 5px 0;
+  }
+  // background-image: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary));
+  .grid {
+    padding: 0;
+    .col {
+      padding: 0;
     }
-    
-    * {
-        outline: none!important;
+  }
+  .btn-group {
+    .button-ios,
+    .button-md {
+      border-radius: 0;
+      &:first-of-type {
+        border-radius: 2px 0 0 2px;
+      }
+      &:last-of-type {
+        border-radius: 0 2px 2px 0;
+      }
     }
-    
-    // .modal-wrapper.sc-ion-modal-md {
-    //     -webkit-transform: translate3d(0, 40px, 0);
-    //     transform: translate3d(0, 40px, 0);
-    //     opacity: .01;
-    //     width: 90%!important;
-    //     height: 90%!important;
-    // }
-    // backgrounds //
-    .bg-white {
-        background-color: #fff!important;
+  }
+  ion-button.button-disabled {
+    --opacity: 0.7;
+    --background-color: #ddd;
+  }
+  .auth-content {
+    margin: 15% 0;
+    position: relative;
+    z-index: 2;
+    .logo {
+      width: 220px;
+      height: 60px;
+      margin: 0 auto;
+      border-radius: 10%;
+      background: url("/assets/img/taxi-logo1.png") no-repeat;
+      background-size: 100%;
     }
-    
-    .bg-light {
-        background-color: var(--ion-color-light);
+    .center-content {
+      margin: 1% auto 0;
     }
-    
-    .bg-dark {
-        background-color: var(--ion-color-dark);
-    }
-    
-    .bg-primary {
-        background-color: var(--ion-color-primary);
-    }
-    
-    .bg-secondary {
-        background-color: var(--ion-color-secondary);
-    }
-    
-    .bg-tertiary {
-        background-color: var(--ion-color-tertiary);
-    }
-    
-    .bg-profile {
-        background-image: var(--ion-color-primary);
-    }
-    
-    .bg-main {
-        background-image: linear-gradient(-135deg, var(--ion-color-medium), var(--ion-color-light))
-    }
-    
-    .text-gray {
-        color: gray;
-    }
-    
-    // Helpers //
-    .w100 {
-        width: 100%;
-    }
-    
-    // form {
-    //     ion-item {
-    //         --border-color: var(--ion-color-dark);
-    //     }
-    // }
-    .bold,
-    .fw500 {
-        font-weight: 500 !important;
-    }
-    
-    .fw700 {
-        font-weight: 700 !important;
-    }
-    
-    .text08 {
-        font-size: .8rem;
-    }
-    
-    .text1 {
-        font-size: 1rem !important;
-    }
-    
-    .text12 {
-        font-size: 1.2rem;
-    }
-    
-    .text15 {
-        font-size: 1.5rem;
-    }
-    
-    .text20 {
-        font-size: 2rem;
-    }
-    
-    .text-white {
-        color: #fff;
-    }
-    
-    .text-primary {
-        color: var(--ion-color-primary);
-    }
-    
-    .text-secondary {
-        color: var(--ion-color-secondary);
-    }
-    
-    .text-dark {
-        color: var(--ion-color-dark);
-    }
-    
-    .back-btn-size {
-        font-size: 24px;
-    }
-    
-    // menu //
-    // Menu user profile
-    ion-toolbar.user-profile {
-        .user-avatar {
-            width: 68px;
-            height: 68px;
+    .list-form {
+      padding: 0;
+      margin-bottom: 0;
+      ion-item {
+        background: none;
+        padding: 0;
+        &:first-child {
+          border-top: none;
         }
-        .item-inner {
-            border-width: 0;
+        &:after {
+          display: none;
         }
+        ion-label {
+          font-size: 14px;
+          color: var(--ion-color-dark);
+        }
+        // ion-input {
+        //     border-bottom: 1px solid var(--ion-color-light);
+        // }
+        ion-input {
+          max-width: 100% !important;
+        }
+      }
+      ion-icon {
+        font-size: 25px;
+        margin: 0 -3px -2px;
+        padding-right: 5px;
+        color: #13a738;
+      }
     }
-    
-    // Custom toolbar (overriding Shadow DOM)
+  }
+}
+
+// Custom Menu styles (overriding Shadow DOM)
+ion-menu {
+  ion-header {
     ion-toolbar {
-        &.ion-color-primary {
-            --ion-color-base: var(--ion-color-primary)!important;
-        }
+      &.ion-color-dark {
+        --ion-color-base: linear-gradient(
+          135deg,
+          var(--ion-color-dark),
+          var(--ion-color-primary)
+        ) !important;
+      }
     }
-    
-    ion-button {
-        text-transform: capitalize;
-        --box-shadow: none;
+  }
+}
+
+.mto {
+  margin-top: 12px;
+  ion-icon {
+    margin-bottom: -2px;
+  }
+}
+
+.picker-wrapper {
+  background: #171718 !important;
+}
+
+.picker-opt {
+  color: #e4c7fa;
+}
+
+.picker-toolbar {
+  background: #0a0a0a !important;
+}
+
+.picker-opt.picker-opt-selected,
+.picker-prefix,
+.picker-suffix {
+  color: #7c0ad2 !important;
+}
+
+.picker-button.sc-ion-picker-md,
+.picker-button.activated.sc-ion-picker-md {
+  color: #7c0ad2 !important;
+}
+
+rating {
+  .sc-ion-buttons-md-s .button-has-icon-only.button-clear {
+    --padding-top: 12px;
+    --padding-end: 0px !important;
+    --padding-bottom: 12px;
+    --padding-start: 0px !important;
+    --border-radius: 50%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+rating {
+  .sc-ion-buttons-ios-s ion-icon[slot="icon-only"] {
+    font-size: 20px !important;
+  }
+}
+
+.font-ta {
+  font-family: "MuktaMalar-Regular" !important;
+}
+
+.home-header-text {
+  .font-ta {
+    font-size: 1.2rem !important;
+  }
+}
+
+ion-tabs {
+  .font-ta {
+    ion-tab-button {
+      font-size: 0.8rem !important;
     }
-    
-    // Android card shadow
-    ion-card {
-        &.sc-ion-card-md-h {
-            box-shadow: 0 2px 4px rgba(var(--ion-color-dark-rgb), .24);
-        }
-    }
-    
-    // style for auth pages
-    .auth-page {
-        .otp-input {
-            width: 40px!important;
-            height: 40px!important;
-            margin: 5px 0;
-        }
-        // background-image: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary));
-        .grid {
-            padding: 0;
-            .col {
-                padding: 0;
-            }
-        }
-        .btn-group {
-            .button-ios,
-            .button-md {
-                border-radius: 0;
-                &:first-of-type {
-                    border-radius: 2px 0 0 2px;
-                }
-                &:last-of-type {
-                    border-radius: 0 2px 2px 0;
-                }
-            }
-        }
-        ion-button.button-disabled {
-            --opacity: .7;
-            --background-color: #ddd;
-        }
-        .auth-content {
-            margin: 15% 0;
-            position: relative;
-            z-index: 2;
-            .logo {
-                width: 220px;
-                height: 60px;
-                margin: 0 auto;
-                border-radius: 10%;
-                background: url("/assets/img/taxi-logo1.png") no-repeat;
-                background-size: 100%;
-            }
-            .center-content {
-                margin: 1% auto 0;
-            }
-            .list-form {
-                padding: 0;
-                margin-bottom: 0;
-                ion-item {
-                    background: none;
-                    padding: 0;
-                    &:first-child {
-                        border-top: none;
-                    }
-                    &:after {
-                        display: none;
-                    }
-                    ion-label {
-                        font-size: 14px;
-                        color: var(--ion-color-dark);
-                    }
-                    // ion-input {
-                    //     border-bottom: 1px solid var(--ion-color-light);
-                    // }
-                    ion-input {
-                        max-width: 100%!important;
-                    }
-                }
-                ion-icon {
-                    font-size: 25px;
-                    margin: 0 -3px -2px;
-                    padding-right: 5px;
-                    color: #13a738;
-                }
-            }
-        }
-    }
-    
-    // Custom Menu styles (overriding Shadow DOM)
-    ion-menu {
-        ion-header {
-            ion-toolbar {
-                &.ion-color-dark {
-                    --ion-color-base: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary)) !important;
-                }
-            }
-        }
-    }
-    
-    .mto {
-        margin-top: 12px;
-        ion-icon {
-            margin-bottom: -2px;
-        }
-    }
-    
-    .picker-wrapper {
-        background: #171718!important;
-    }
-    
-    .picker-opt {
-        color: #e4c7fa;
-    }
-    
-    .picker-toolbar {
-        background: #0a0a0a!important;
-    }
-    
-    .picker-opt.picker-opt-selected,
-    .picker-prefix,
-    .picker-suffix {
-        color: #7c0ad2!important;
-    }
-    
-    .picker-button.sc-ion-picker-md,
-    .picker-button.activated.sc-ion-picker-md {
-        color: #7c0ad2!important;
-    }
-    
-    rating {
-        .sc-ion-buttons-md-s .button-has-icon-only.button-clear {
-            --padding-top: 12px;
-            --padding-end: 0px!important;
-            --padding-bottom: 12px;
-            --padding-start: 0px!important;
-            --border-radius: 50%;
-            margin-left: 0;
-            margin-right: 0;
-            margin-top: 0;
-            margin-bottom: 0;
-            width: 20px!important;
-            height: 20px!important;
-        }
-    }
-    
-    rating {
-        .sc-ion-buttons-ios-s ion-icon[slot=icon-only] {
-            font-size: 20px!important;
-        }
-    }
-    
-    .font-ta {
-        font-family: 'MuktaMalar-Regular'!important;
-    }
-    
-    .home-header-text {
-        .font-ta {
-            font-size: 1.2rem!important;
-        }
-    }
-    
-    ion-tabs {
-        .font-ta {
-            ion-tab-button {
-                font-size: 0.8rem!important;
-            }
-        }
-    }
-    
-    .warning-msg {
-        .font-ta {
-            font-size: 1rem!important;
-        }
-    }
-    
-    .my-vehicles {
-        ion-card.sc-ion-card-md-h {
-            box-shadow: none!important;
-            --box-shadow: none!important;
-            -webkit-box-shadow: none!important;
-        }
-    }
-    
-    .searchbar-input.sc-ion-searchbar-md {
-        --border-radius: 0px !important;
-        --box-shadow: none!important;
-        -webkit-box-shadow: none!important;
-        box-shadow: none!important;
-    }
-    
-    .searchbar-input-container.sc-ion-searchbar-ios {
-        height: 40px;
-        background: transparent;
-        top: 6px;
-        contain: strict;
-    }
-    
-    .font-10 {
-        font-size: 10px;
-    }
-    
-    .font-12 {
-        font-size: 12px;
-    }
-    
-    .font-14 {
-        font-size: 14px;
-    }
-    
-    .font-16 {
-        font-size: 16px;
-    }
-    
-    .font-18 {
-        font-size: 18px;
-    }
-    
-    .font-20 {
-        font-size: 20px;
-    }
-    
-    .fcolor-medium {
-        color: #444;
-    }
-    
-    .bold {
-        font-weight: 600;
-    }
-    
-    .swiper-container-horizontal>.swiper-pagination-bullets,
-    .swiper-pagination-custom,
-    .swiper-pagination-fraction {
-        bottom: 1px;
-        left: 0;
-        width: 100%;
-    }
-    
-    .divider {
-        width: 100%;
-        height: 1px;
-        background: #a2a4ab;
-    }
-    
-    .border {
-        border: 1px solid #ddd;
-    }
+  }
+}
+
+.warning-msg {
+  .font-ta {
+    font-size: 1rem !important;
+  }
+}
+
+.my-vehicles {
+  ion-card.sc-ion-card-md-h {
+    box-shadow: none !important;
+    --box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+  }
+}
+
+.searchbar-input.sc-ion-searchbar-md {
+  --border-radius: 0px !important;
+  --box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.searchbar-input-container.sc-ion-searchbar-ios {
+  height: 40px;
+  background: transparent;
+  top: 6px;
+  contain: strict;
+}
+
+.font-10 {
+  font-size: 10px;
+}
+
+.font-12 {
+  font-size: 12px;
+}
+
+.font-14 {
+  font-size: 14px;
+}
+
+.font-16 {
+  font-size: 16px;
+}
+
+.font-18 {
+  font-size: 18px;
+}
+
+.font-20 {
+  font-size: 20px;
+}
+
+.fcolor-medium {
+  color: #444;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.swiper-container-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+  bottom: 1px;
+  left: 0;
+  width: 100%;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: #a2a4ab;
+}
+
+.border {
+  border: 1px solid #ddd;
+}

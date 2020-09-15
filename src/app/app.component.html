@@ -3,43 +3,39 @@
     <ion-menu>
       <ion-header>
         <ion-toolbar color="primary" class="user-profile">
-          <ion-item margin-bottom lines="none">
-            <ion-avatar slot="start" class="user-avatar">
-              <img [src]="agencyUrl" />
-            </ion-avatar>
-            <ion-label>
-              <ion-text color="light">
-                <h2>
-                  <strong>{{ agencyName }}</strong>
-                </h2>
-              </ion-text>
-              <ion-text color="medium">
-                <h3>
-                  {{ region }}
-                </h3>
-              </ion-text>
-              <ion-menu-toggle class="mto" auto-hide="false">
-                <a class="text08" tappable (click)="goToEditProgile()">
+          <ion-menu-toggle class="mto" auto-hide="false">
+            <ion-item
+              margin-bottom
+              lines="none"
+              detail="true"
+              (click)="goToEditProgile()"
+            >
+              <ion-avatar slot="start" class="user-avatar">
+                <img [src]="agencyUrl" />
+              </ion-avatar>
+
+              <ion-label>
+                <ion-text color="light">
+                  <h2>
+                    <strong>{{ agencyName }}</strong>
+                  </h2>
+                </ion-text>
+                <ion-text color="medium">
+                  <h3>
+                    {{ region }}
+                  </h3>
+                </ion-text>
+
+                <!-- <a class="text08" tappable>
                   <ion-text color="medium">
                     <strong
-                      >{{
-                        "SIDE_MENU_ITEMS.EDIT_PROFILE" | translate
-                      }}
-                      |</strong
-                    >
-                    <ion-icon name="create"></ion-icon>
+                      >{{ "SIDE_MENU_ITEMS.EDIT_PROFILE" | translate }}
+                    </strong>
                   </ion-text>
-                </a>
-                <!-- <ion-text color="secondary"> | </ion-text>
-                                <a class="text08" tappable (click)="logout()">
-                                    <ion-text color="medium">
-                                        <ion-icon name="log-out"></ion-icon>
-                                        <strong>logout</strong>
-                                    </ion-text>
-                                </a> -->
-              </ion-menu-toggle>
-            </ion-label>
-          </ion-item>
+                </a> -->
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
         </ion-toolbar>
       </ion-header>
 

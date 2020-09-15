@@ -4,154 +4,154 @@
 /** Ionic CSS Variables **/
 
 :root {
-    /** primary **/
-    --ion-color-primary: #662D91;
-    --ion-color-primary-rgb: 47, 50, 160;
-    --ion-color-primary-contrast: #ffffff;
-    --ion-color-primary-contrast-rgb: 255, 255, 255;
-    --ion-color-primary-shade: #272983;
-    --ion-color-primary-tint: #5457B1;
-    /** secondary **/
-    --ion-color-secondary: #8548b3;
-    --ion-color-secondary-rgb: 91, 95, 222;
-    --ion-color-secondary-contrast: #ffffff;
-    --ion-color-secondary-contrast-rgb: 255, 255, 255;
-    --ion-color-secondary-shade: #4B4EB6;
-    --ion-color-secondary-tint: #787CE4;
-    /** tertiary **/
-    --ion-color-tertiary: #f4a942;
-    --ion-color-tertiary-rgb: 244, 169, 66;
-    --ion-color-tertiary-contrast: #fff;
-    --ion-color-tertiary-contrast-rgb: 255, 255, 255;
-    --ion-color-tertiary-shade: #d7953a;
-    --ion-color-tertiary-tint: #f5b255;
-    /** success **/
-    --ion-color-success: #10dc60;
-    --ion-color-success-rgb: 16, 220, 96;
-    --ion-color-success-contrast: #fff;
-    --ion-color-success-contrast-rgb: 255, 255, 255;
-    --ion-color-success-shade: #0ec254;
-    --ion-color-success-tint: #28e070;
-    /** warning **/
-    --ion-color-warning: #ffce00;
-    --ion-color-warning-rgb: 255, 206, 0;
-    --ion-color-warning-contrast: #000;
-    --ion-color-warning-contrast-rgb: 0, 0, 0;
-    --ion-color-warning-shade: #e0b500;
-    --ion-color-warning-tint: #ffd31a;
-    /** danger **/
-    --ion-color-danger: #f53d3d;
-    --ion-color-danger-rgb: 245, 61, 61;
-    --ion-color-danger-contrast: #fff;
-    --ion-color-danger-contrast-rgb: 255, 255, 255;
-    --ion-color-danger-shade: #d83636;
-    --ion-color-danger-tint: #f65050;
-    /** light **/
-    --ion-color-light: #fff;
-    --ion-color-light-rgb: 244, 244, 244;
-    --ion-color-light-contrast: #000;
-    --ion-color-light-contrast-rgb: 0, 0, 0;
-    --ion-color-light-shade: #8290e0;
-    --ion-color-light-tint: #f5f5f5;
-    /** medium **/
-    --ion-color-medium: #ccd1e1;
-    --ion-color-medium-rgb: 152, 154, 162;
-    --ion-color-medium-contrast: #000;
-    --ion-color-medium-contrast-rgb: 0, 0, 0;
-    --ion-color-medium-shade: #86888f;
-    --ion-color-medium-tint: #a2a4ab;
-    /** dark **/
-    --ion-color-dark: #252425;
-    --ion-color-dark-rgb: 34, 34, 34;
-    --ion-color-dark-contrast: #fff;
-    --ion-color-dark-contrast-rgb: 255, 255, 255;
-    --ion-color-dark-shade: #190e60;
-    --ion-color-dark-tint: #2e256d;
-    .forgotPasswordAlert .alert-title {
-        text-align: center !important;
-        color: #fff!important;
-    }
-    .forgotPasswordAlert .alert-message {
-        text-align: center !important;
-        margin: 20px auto;
-    }
-    .forgotPasswordAlert .alert-head {
-        background: #7c0ad2!important;
-        text-align: center!important;
-        border-bottom: 2px solid #ffce00;
-    }
-    .forgotPasswordAlert button.primary {
-        background: #ffce00!important;
-        text-align: center!important;
-        color: #444;
-    }
-    .forgotPasswordAlert button.secondary {
-        background: #c2c2c1!important;
-        text-align: center!important;
-        color: #444;
-    }
-    .AppUpdateAlert .alert-head {
-        background: #4b4a4c!important;
-        text-align: center!important;
-        border-bottom: 1px solid #ffce00;
-    }
-    .AppUpdateAlert button.primary {
-        background: #ffce00!important;
-        text-align: center!important;
-        color: #444;
-        font-weight: 600;
-        margin: 0 auto;
-    }
-    .AppUpdateAlert button.secondary {
-        background: #c2c2c1!important;
-        text-align: center!important;
-        color: #444;
-        margin: 0 auto;
-    }
-    .AppUpdateAlert .alert-title {
-        text-align: center !important;
-        color: #fff!important;
-    }
-    .AppUpdateAlert .alert-message {
-        text-align: center !important;
-        margin: 30px 5px;
-        font-size: 18px;
-        padding: 0px;
-        color: #000;
-    }
-    .rating-modal-css .modal-wrapper {
-        transform: translate3d(0, 40px, 0);
-        opacity: .01;
-        width: 90% !important;
-        height: 30% !important;
-    }
-    .rating-modal-css rating {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        top: 0;
-        left: 0;
-    }
-    .rating-modal-css .sc-ion-buttons-md-s .button-has-icon-only.button-clear {
-        width: 44px !important;
-        height: 44px !important;
-        font-size: 18px;
-    }
-    --ion-font-family: 'MuktaMalar-Regular';
-    --ion-font-family: 'Roboto-Regular';
+  /** primary **/
+  --ion-color-primary: #662d91;
+  --ion-color-primary-rgb: 47, 50, 160;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #272983;
+  --ion-color-primary-tint: #5457b1;
+  /** secondary **/
+  --ion-color-secondary: #8548b3;
+  --ion-color-secondary-rgb: 91, 95, 222;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #4b4eb6;
+  --ion-color-secondary-tint: #787ce4;
+  /** tertiary **/
+  --ion-color-tertiary: #f4a942;
+  --ion-color-tertiary-rgb: 244, 169, 66;
+  --ion-color-tertiary-contrast: #fff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #d7953a;
+  --ion-color-tertiary-tint: #f5b255;
+  /** success **/
+  --ion-color-success: #10dc60;
+  --ion-color-success-rgb: 16, 220, 96;
+  --ion-color-success-contrast: #fff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #0ec254;
+  --ion-color-success-tint: #28e070;
+  /** warning **/
+  --ion-color-warning: #ffce00;
+  --ion-color-warning-rgb: 255, 206, 0;
+  --ion-color-warning-contrast: #000;
+  --ion-color-warning-contrast-rgb: 0, 0, 0;
+  --ion-color-warning-shade: #e0b500;
+  --ion-color-warning-tint: #ffd31a;
+  /** danger **/
+  --ion-color-danger: #f53d3d;
+  --ion-color-danger-rgb: 245, 61, 61;
+  --ion-color-danger-contrast: #fff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #d83636;
+  --ion-color-danger-tint: #f65050;
+  /** light **/
+  --ion-color-light: #fff;
+  --ion-color-light-rgb: 244, 244, 244;
+  --ion-color-light-contrast: #000;
+  --ion-color-light-contrast-rgb: 0, 0, 0;
+  --ion-color-light-shade: #8290e0;
+  --ion-color-light-tint: #f5f5f5;
+  /** medium **/
+  --ion-color-medium: #eeecec;
+  --ion-color-medium-rgb: 152, 154, 162;
+  --ion-color-medium-contrast: #000;
+  --ion-color-medium-contrast-rgb: 0, 0, 0;
+  --ion-color-medium-shade: #86888f;
+  --ion-color-medium-tint: #a2a4ab;
+  /** dark **/
+  --ion-color-dark: #252425;
+  --ion-color-dark-rgb: 34, 34, 34;
+  --ion-color-dark-contrast: #fff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade: #190e60;
+  --ion-color-dark-tint: #2e256d;
+  .forgotPasswordAlert .alert-title {
+    text-align: center !important;
+    color: #fff !important;
+  }
+  .forgotPasswordAlert .alert-message {
+    text-align: center !important;
+    margin: 20px auto;
+  }
+  .forgotPasswordAlert .alert-head {
+    background: #7c0ad2 !important;
+    text-align: center !important;
+    border-bottom: 2px solid #ffce00;
+  }
+  .forgotPasswordAlert button.primary {
+    background: #ffce00 !important;
+    text-align: center !important;
+    color: #444;
+  }
+  .forgotPasswordAlert button.secondary {
+    background: #c2c2c1 !important;
+    text-align: center !important;
+    color: #444;
+  }
+  .AppUpdateAlert .alert-head {
+    background: #4b4a4c !important;
+    text-align: center !important;
+    border-bottom: 1px solid #ffce00;
+  }
+  .AppUpdateAlert button.primary {
+    background: #ffce00 !important;
+    text-align: center !important;
+    color: #444;
+    font-weight: 600;
+    margin: 0 auto;
+  }
+  .AppUpdateAlert button.secondary {
+    background: #c2c2c1 !important;
+    text-align: center !important;
+    color: #444;
+    margin: 0 auto;
+  }
+  .AppUpdateAlert .alert-title {
+    text-align: center !important;
+    color: #fff !important;
+  }
+  .AppUpdateAlert .alert-message {
+    text-align: center !important;
+    margin: 30px 5px;
+    font-size: 18px;
+    padding: 0px;
+    color: #000;
+  }
+  .rating-modal-css .modal-wrapper {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0.01;
+    width: 90% !important;
+    height: 30% !important;
+  }
+  .rating-modal-css rating {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    left: 0;
+  }
+  .rating-modal-css .sc-ion-buttons-md-s .button-has-icon-only.button-clear {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 18px;
+  }
+  --ion-font-family: "MuktaMalar-Regular";
+  --ion-font-family: "Roboto-Regular";
 }
 
 @font-face {
-    font-family: 'Roboto-Regular';
-    src: url('../assets/fonts/Roboto-Regular.ttf');
+  font-family: "Roboto-Regular";
+  src: url("../assets/fonts/Roboto-Regular.ttf");
 }
 
 @font-face {
-    font-family: 'MuktaMalar-Regular';
-    src: url('../assets/fonts/MuktaMalar-Regular.ttf');
+  font-family: "MuktaMalar-Regular";
+  src: url("../assets/fonts/MuktaMalar-Regular.ttf");
 }
 
 .item-highlight {
-    height: 0px!important;
-    display: none!important;
+  height: 0px !important;
+  display: none !important;
 }

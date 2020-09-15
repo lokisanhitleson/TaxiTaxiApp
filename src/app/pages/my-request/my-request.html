@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="previous()">
+        <ion-icon class="back-btn-size" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>My Request</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-card class="bg-white" *ngFor="let request of myrequest">
+    <ion-card-content>
+      <h2 margin-bottom>
+        <ion-text color="primary"
+          ><strong>{{request.vehicle}}</strong></ion-text
+        >
+      </h2>
+
+      <p>{{request.from}} to {{request.to}}</p>
+      <p>{{request.dateon}}</p>
+    </ion-card-content>
+    <ion-list>
+      <ion-radio-group [(ngModel)]="requestUpdate">
+        <ion-row>
+          <ion-col size="6">
+            <ion-item lines="none" color="medium" (click)="requestDone()">
+              <ion-label>Completed</ion-label>
+              <ion-radio item-left value="0"></ion-radio>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6">
+            <ion-item lines="none" color="medium">
+              <ion-label>Cancel</ion-label>
+              <ion-radio item-left value="1"></ion-radio>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-radio-group>
+    </ion-list>
+  </ion-card>
+</ion-content>
