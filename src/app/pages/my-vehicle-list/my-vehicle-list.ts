@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { NavController, LoadingController, ModalController, IonInfiniteScroll, AlertController } from '@ionic/angular';
+import { SharedService } from '../sharedService/shared.service';
 import { MyVehicleListService } from './my-vehicle-list.service';
 import { AgencyVehicle } from '../models/agency-vehicle.model';
 import { ToastService } from '../services/toast.service';
@@ -38,6 +39,7 @@ export class MyVehicleList implements OnInit {
     public modalCtrl: ModalController,
     private myVehicleListService: MyVehicleListService,
     private toast: ToastService,
+    private sharedService: SharedService,
     private alertController: AlertController,
     public router: Router,
   ) {
@@ -113,6 +115,16 @@ export class MyVehicleList implements OnInit {
       refresher.target.complete();
     });
   }
+  async manualRefresh(){
+    const loading = await this.loadingCtrl.create();
+    loading.present();
+      this.getMyVehicles().then(data => {
+        loading.dismiss();
+      }).catch(err => {
+        loading.dismiss();
+      });
+    
+  }
 
   async presentLoading() {
     const loading = await this.loadingCtrl.create({
@@ -148,6 +160,7 @@ export class MyVehicleList implements OnInit {
                   loading.dismiss();
                   if (data && data.status === 'SUCCESS') {
                     this.newData.splice(index, 1);
+                    this.toast.showToast("Deleted vehicle Sucessfully");
                   } else {
                     this.toast.showToast();
                   }
@@ -163,10 +176,19 @@ export class MyVehicleList implements OnInit {
     await alert.present();
   }
   ngOnInit() {
+    this.sharedService.currentAgencyManualRefresh.subscribe(async data => {
+      if (data) {
+        this.manualRefresh();
+      }
+    });
+    
   }
 
   viewVehicle(id) {
     this.router.navigate(['/my-vehicle-view', id]);
+  }
+  Editvehicle(id){
+    this.router.navigate(['/my-vehicles', id]);
   }
 
   previous() {
@@ -174,7 +196,8 @@ export class MyVehicleList implements OnInit {
   }
 
   goAddVehicle() {
-    this.navCtrl.navigateRoot('/my-vehicles');
+    this.router.navigate(['/my-vehicles', '']);
+
   }
   generateThumbnail(url: string) {
     if (url) {

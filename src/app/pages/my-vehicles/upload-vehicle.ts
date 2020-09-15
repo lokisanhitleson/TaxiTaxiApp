@@ -26,7 +26,7 @@ export class UploadVehicle implements OnInit {
     maximumImagesCount: 1,
     quality: 50
   };
-
+ 
 
   constructor(
     private modalController: ModalController,

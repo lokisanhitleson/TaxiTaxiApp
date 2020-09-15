@@ -11,6 +11,7 @@ import { MyVehiclesPage } from './my-vehicles.page';
 import { UploadVehicle } from './upload-vehicle';
 import { AddVehicleService } from './add-vehicle.service';
 import { VehicleBrandModal } from './vehicle.brand';
+import { MyVehicleViewService } from '../my-vehicle-view/my-vehicle-view.service';
 
 const routes: Routes = [
   {
@@ -39,7 +40,8 @@ const routes: Routes = [
   ],
   declarations: [MyVehiclesPage, UploadVehicle, VehicleBrandModal],
   providers: [
-    AddVehicleService
+    AddVehicleService,
+    MyVehicleViewService
   ]
 })
 export class MyVehiclesPageModule { }

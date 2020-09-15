@@ -21,7 +21,11 @@ export class MyVehicleViewPage implements OnInit {
   myDateNTime: string;
   paramSubscription: Subscription;
   public onlineOffline = navigator.onLine;
-
+  displayImage = 'assets/img/displayview.jpg';
+  frontImage = 'assets/img/frontview.jpg';
+  backImage = 'assets/img/backview.jpg';
+  leftImage = 'assets/img/leftview.jpg';
+  rightImage = 'assets/img/rightview.jpg';
   vehicleImages: Array<{ img: string }>;
   vehicleInfo: any;
   slideOptions = {
@@ -81,13 +85,42 @@ export class MyVehicleViewPage implements OnInit {
               this.vehicleInfo.insuranceCompany = allArr[8];
               this.vehicleInfo.insuranceType = allArr[9];
 
-              // Checking images
-              if (this.vehicleInfo.displayImage) { if (this.vehicleImages) { this.vehicleImages.push({ img: this.vehicleInfo.displayImage }); } else { this.vehicleImages = [{ img: this.vehicleInfo.displayImage }]; } }
-              if (this.vehicleInfo.frontImage) { if (this.vehicleImages) { this.vehicleImages.push({ img: this.vehicleInfo.frontImage }); } else { this.vehicleImages = [{ img: this.vehicleInfo.frontImage }]; } }
-              if (this.vehicleInfo.backImage) { if (this.vehicleImages) { this.vehicleImages.push({ img: this.vehicleInfo.backImage }); } else { this.vehicleImages = [{ img: this.vehicleInfo.backImage }]; } }
-              if (this.vehicleInfo.leftImage) { if (this.vehicleImages) { this.vehicleImages.push({ img: this.vehicleInfo.leftImage }); } else { this.vehicleImages = [{ img: this.vehicleInfo.leftImage }]; } }
-              if (this.vehicleInfo.rightImage) { if (this.vehicleImages) { this.vehicleImages.push({ img: this.vehicleInfo.rightImage }); } else { this.vehicleImages = [{ img: this.vehicleInfo.rightImage }]; } }
+              if (this.vehicleInfo.displayImage == null || this.vehicleInfo.displayImage == undefined ) {               
+                this.displayImage = 'assets/img/displayview.jpg';  
+                console.log(this.vehicleInfo.displayImage,"null");
+              }
+              else{
+                console.log(this.vehicleInfo.displayImage,"notnull");
+                if (this.vehicleImages) { this.vehicleImages.push({ img: this.vehicleInfo.displayImage }); } else { this.vehicleImages = [{ img: this.vehicleInfo.displayImage }]; } 
 
+         
+              }
+              if (this.vehicleInfo.frontImage || this.vehicleInfo.frontImage == undefined) { 
+                this.frontImage = 'assets/img/frontview.jpg';
+              }else{
+                if (this.vehicleImages) { this.vehicleImages.push({ img: this.vehicleInfo.frontImage }); } else { this.vehicleImages = [{ img: this.vehicleInfo.frontImage }]; }
+
+               }
+              if (this.vehicleInfo.backImage|| this.vehicleInfo.backImage == undefined) 
+              {  this.backImage = 'assets/img/backview.jpg';            }
+              else{
+                if (this.vehicleImages) { this.vehicleImages.push({ img: this.vehicleInfo.backImage }); } else { this.vehicleImages = [{ img: this.vehicleInfo.backImage }]; } 
+             
+              }
+              if (this.vehicleInfo.leftImage|| this.vehicleInfo.leftImage == undefined) 
+              {
+                 
+                 this.leftImage = 'assets/img/leftview.jpg';
+              }
+              else{
+                if (this.vehicleImages) { this.vehicleImages.push({ img: this.vehicleInfo.leftImage }); } else { this.vehicleImages = [{ img: this.vehicleInfo.leftImage }]; } 
+              }
+              if (this.vehicleInfo.rightImage|| this.vehicleInfo.rightImage == undefined) {
+                this.rightImage = 'assets/img/rightview.jpg';
+              }
+              else{
+                if (this.vehicleImages) { this.vehicleImages.push({ img: this.vehicleInfo.rightImage }); } else { this.vehicleImages = [{ img: this.vehicleInfo.rightImage }]; } 
+              }
               loading.dismiss();
             } catch (err) {
               loading.dismiss();

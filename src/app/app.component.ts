@@ -112,15 +112,15 @@ export class AppComponent implements OnInit {
 
 
   private notificationSetup() {
-    this.fcm.getToken();
-    this.fcm.onNotifications().subscribe(
-      (msg) => {
-        if (this.platform.is('ios')) {
-          this.toast.showToast(msg.aps.alert);
-        } else {
-          this.toast.showToast(msg.body);
-        }
-      });
+    // this.fcm.getToken();
+    // this.fcm.onNotifications().subscribe(
+      // (msg) => {
+      //   if (this.platform.is('ios')) {
+      //     this.toast.showToast(msg.aps.alert);
+      //   } else {
+      //     this.toast.showToast(msg.body);
+      //   }
+      // });
   }
 
   setProfileData() {

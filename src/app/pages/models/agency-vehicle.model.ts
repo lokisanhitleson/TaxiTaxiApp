@@ -12,6 +12,51 @@ export class AgencyVehicle {
   updatedAt: string;
 }
 export class AgencyVehicleDetails {
+//   VehicleNameDetails: {
+//     vehicleName: string;
+//     vehicleNameId: number;
+//     vehicleBrandId: number;
+//     vehicleTypeId: number;
+//     name: string;
+//     description: string;
+//     airBag: string;
+//     safety: number;
+//     active: string;
+//     createdAt: string;
+//     updatedAt: string;
+//     createdBy: number;
+//     updatedBy: number;
+// }
+// InsuranceDetails: {
+//   agencyVehicleId: number;
+//   insuranceNo: string;
+//   expiryDate: string;
+//   insuranceTypeId: number;
+//   insuranceCompanyId: number;
+//   startDate: string;
+//   attachmentUrl: string;
+// }
+// VehicleBrand: {
+//   vehicleBrandId: number;
+//   brandName: string;
+//   description: string;
+//   logoUrl: string;
+//   active: string;
+//   createdAt: string;
+//   updatedAt: string;
+// }
+vehicleName:any;
+airBag:any;
+brandName : any;
+vehicleType : any;
+vehicleColor: any;
+vehicleVariant: any;
+fuelType : any;
+wheelType: any;
+brakingSystem : any;
+vehicleCondition: any;
+insuranceCompany: any;
+insuranceType : any;
   agencyVehicleId: number;
   agencyId: number;
   vehicleNameId: number;
@@ -24,7 +69,11 @@ export class AgencyVehicleDetails {
   manufactureYear: number;
   vehicleConditionId: number;
   accidentHistory: string;
-  registrationNo: string;
+  registrationNo: number;
+  insuranceNo:number;
+  expiryDate:number;
+  insuranceTypeId:number;
+  insuranceCompanyId:number;
   fcYear: number;
   displayImage: string;
   frontImage: string;
@@ -38,9 +87,13 @@ export class AgencyVehicleDetails {
   createdByRole: string;
   updatedBy: number;
   updatedByRole: string;
+  
 }
 
 export class AvailableVehicle {
+
+
+
   active: string;
   agencyId: number;
   agencyName: string;

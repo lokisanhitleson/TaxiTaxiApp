@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'signup', loadChildren: './pages/signup/signup.module#SignupPageModule' },
   { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
   { path: 'edit-profile', loadChildren: './pages/edit-profile/edit-profile.module#EditProfilePageModule' },
-  { path: 'my-vehicles', loadChildren: './pages/my-vehicles/my-vehicles.module#MyVehiclesPageModule' },
+  { path: 'my-vehicles/:agencyVehicleId', loadChildren: './pages/my-vehicles/my-vehicles.module#MyVehiclesPageModule' },
   { path: 'my-vehicle-list', loadChildren: './pages/my-vehicle-list/my-vehicle-list.module#MyVehicleListModule' },
   { path: 'my-vehicle-view/:agencyVehicleId', loadChildren: './pages/my-vehicle-view/my-vehicle-view.module#MyVehicleViewModule' },
   { path: 'register-agency', loadChildren: './pages/register-agency/register-agency.module#RegisterAgencyPageModule' },

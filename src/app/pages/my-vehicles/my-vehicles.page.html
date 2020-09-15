@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content color="light" class="my-vehicles">
+<ion-content color="light" class="my-vehicles"   *ngIf="vehicleForm">
   <ion-card class="ion-padding ion-no-margin" no-shadow>
     <ion-card-content class="ion-no-padding">
       <wizard>
@@ -20,6 +20,7 @@
         <wizard-step
           stepTitle="Vehicle Info"
           [canExit]="vehicleForm.form1.valid && vehicleSelected"
+          [navigationSymbol]="{ symbol: '1' }"
         >
           <form
             [formGroup]="vehicleForm.form1"
@@ -145,10 +146,10 @@
                   class="myCustomSelect"
                   placeholder="-Select-"
                   ok-text="Okay"
-                  cancel-text="Dismiss"
+                  cancel-text="Dismiss"                
                   formControlName="manufactureYear"
                 >
-                  <ion-select-option *ngFor="let year of years"
+                  <ion-select-option *ngFor="let year of years" [value]="year"
                     >{{year}}</ion-select-option
                   >
                 </ion-select>
@@ -313,7 +314,7 @@
                   cancel-text="Dismiss"
                   formControlName="fcYear"
                 >
-                  <ion-select-option *ngFor="let year of yearsFc"
+                  <ion-select-option *ngFor="let year of yearsFc" [value]="year"
                     >{{year}}</ion-select-option
                   >
                 </ion-select>

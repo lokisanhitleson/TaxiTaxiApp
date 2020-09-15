@@ -113,6 +113,14 @@ export class AddVehicleService {
         catchError(this.handleError<{ data: number, status: string }>('Insert Agency Vehicle'))
       );
   }
+  updateAgencyVehicle(formData,id) {
+    return this.http.put<{ data: number, status: string }>(`${environment.apiUrl}agencyVehicles/${id}`, formData, httpOptions)
+      .pipe(
+        tap(_ => console.log('Insert Agency Vehicle: ', _)),
+        catchError(this.handleError<{ data: number, status: string }>('Insert Agency Vehicle'))
+      );
+  }
+  
 
 
   private handleError<T>(operation = 'operation', result?: T) {

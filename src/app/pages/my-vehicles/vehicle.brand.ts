@@ -4,14 +4,15 @@ import { AddVehicleService } from './add-vehicle.service';
 import { ToastService } from '../services/toast.service';
 import { VehicleBrand, VehicleBrandDetails } from '../models/vehicle-brand.model';
 import { VehicleName } from '../models/vehicle-name.model';
-
+import { Subscription } from "rxjs";
+import { Router, Params, ActivatedRoute } from "@angular/router";
 @Component({
   selector: 'vehicle-brand',
   templateUrl: './vehicle.brand.html',
   styleUrls: ['./vehicle.brand.scss'],
 })
 export class VehicleBrandModal implements OnInit {
-
+  paramSubscription: Subscription;
   isVehicleAvailable = false;
   carModels: any;
   vehicleBrandId: number;
@@ -23,11 +24,21 @@ export class VehicleBrandModal implements OnInit {
     private modalController: ModalController,
     private addVehicleService: AddVehicleService,
     private toast: ToastService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    public route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.getVehicleBrands();
+    this.paramSubscription = this.route.params.subscribe(
+      async (params: Params) => {
+    if (params["agencyVehicleId"]) {
+      this.getVehicleBrands();
+    }else{
+      this.getVehicleBrands();
+    }
+  }
+  );
+   
   }
   async cancelModal() {
     this.modalController.dismiss();

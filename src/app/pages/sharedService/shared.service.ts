@@ -17,6 +17,9 @@ export class SharedService {
   private profileCheckSource = new BehaviorSubject(null);
   currentProfileCheck = this.profileCheckSource.asObservable();
 
+  private agencyManualRefresh = new BehaviorSubject(null);
+  currentAgencyManualRefresh = this.agencyManualRefresh.asObservable();
+
   constructor(private authService: AuthService, private storage: Storage) {
     this.authService.isLoggedIn().then(x => this.loginCheckSource.next(x));
     this.storage.get('accessToken').then(x => this.authTokenCheckSource.next(x));
@@ -30,5 +33,8 @@ export class SharedService {
   }
   changeProfileCheck(message: number) {
     this.profileCheckSource.next(message);
+  }
+  changeagencyManualRefresh(message: number) {
+    this.agencyManualRefresh.next(message);
   }
 }
