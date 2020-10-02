@@ -10,26 +10,30 @@
 </ion-header>
 
 <ion-content fullscreen class="animated fadeInDown">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+    
     <ion-list>
         <ion-list-header color="medium">
             Recent Request
         </ion-list-header>
 
-        <ion-item *ngFor="let req of request" class="ion-no-padding">
+        <ion-item *ngFor="let req of newData" class="ion-no-padding">
             <ion-avatar slot="start" class="ion-no-margin">
                 <ion-icon name="{{req.icon}}" color="primary"></ion-icon>
                 <!-- <img [src]="req.img"> -->
             </ion-avatar>
 
             <ion-label>
-                <h4><strong>{{req.agentname}}</strong>, {{req.location}}
-                    <span class="time-text">{{req.time}}</span></h4>
-                <h3>{{req.carname}}</h3>
+                <h4><strong>{{req.agencyName}}</strong>, {{req.source}}
+                    <!-- <span class="time-text">{{req.startDate}}/span>--></h4> 
+                <h3>{{req.brandName}} {{req.vehicleName}}</h3> 
                 <audio *ngIf="req.voicenote" controls [src]="req.voicenote" controlsList="nodownload"></audio>
-                <p *ngIf="!req.voicenote">{{req.description}}</p>
+                <p *ngIf="!req.voicenote">{{req.comments}}</p>
             </ion-label>
 
-            <ion-icon no-margin name="eye" class="view-icon" slot="end" (click)="goToDetailReuest()"></ion-icon>
+            <ion-icon no-margin name="eye" class="view-icon" slot="end" (click)="goToDetailReuest(req.vehicleRequestId)"></ion-icon>
 
         </ion-item>
     </ion-list>
@@ -37,23 +41,43 @@
 
     <ion-list>
         <ion-list-header color="medium">
-            Yesterday
+            Older Request
         </ion-list-header>
 
-        <ion-item *ngFor="let req of oldrequest" class="ion-no-padding">
+        <ion-item *ngFor="let req of oldrequests" class="ion-no-padding">
             <ion-avatar slot="start" class="ion-no-margin">
                 <ion-icon name="{{req.icon}}" color="primary" class="ion-no-margin"></ion-icon>
                 <!-- <img [src]="req.img"> -->
             </ion-avatar>
             <ion-label>
-                <h4><strong>{{req.agentname}}</strong>, {{req.location}}
-                </h4>
-                <h3>{{req.carname}}</h3>
-                <p>{{req.description}}</p>
+                <h4><strong>{{req.agencyName}}</strong>, {{req.source}}
+                    <!-- <span class="time-text">{{req.startDate}}/span>--></h4> 
+                <h3>{{req.brandName}} {{req.vehicleName}}</h3> 
+                <audio *ngIf="req.voicenote" controls [src]="req.voicenote" controlsList="nodownload"></audio>
+                <p *ngIf="!req.voicenote">{{req.comments}}</p>
             </ion-label>
 
-            <ion-icon no-margin name="eye" slot="end" class="view-icon"></ion-icon>
+
+            <ion-icon no-margin name="eye" class="view-icon" slot="end" (click)="goToDetailReuest(req.vehicleRequestId)"></ion-icon>
 
         </ion-item>
     </ion-list>
+    <div *ngIf="errorMessage!=undefined" text-center>
+        <ion-card class="error-card">
+          <p style="font-size: 20px;" text-wrap>
+            {{errorMessage}}
+          </p>
+        </ion-card>
+      </div>
+    <ion-infinite-scroll
+    *ngIf="page < totalPage"
+    threshold="100px"
+    (ionInfinite)="loadMoreData($event)"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

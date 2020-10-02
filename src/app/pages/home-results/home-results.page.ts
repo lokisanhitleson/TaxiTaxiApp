@@ -48,7 +48,7 @@ export class HomeResultsPage implements OnInit {
     private sharedService: SharedService
   ) {
     this.vechileTypes();
-
+  
     // this.lang = 'en';
     // this.translate.setDefaultLang('en');
     // this.translate.use('en');
@@ -59,6 +59,7 @@ export class HomeResultsPage implements OnInit {
   longitude: number;
   lang: any;
   isAnnouncement = false;
+  count:number;
   vehicles: [vechicleTypes];
 
   ads = [
@@ -76,10 +77,17 @@ export class HomeResultsPage implements OnInit {
 
   async ngOnInit() {
     try {
+      await this.notficationCount();
       await this.setCurrentLoc();
       this.sharedService.currentProfileCheck.subscribe(async data => {
         if (data) {
           await this.setCurrentLoc();
+        }
+      });
+
+      await this.sharedService.currentAgencyManualRefresh.subscribe(async data => {
+        if (data) {
+          this.notficationCount();
         }
       });
     } catch (err) {
@@ -104,7 +112,19 @@ export class HomeResultsPage implements OnInit {
       }
     });
   }
+  notficationCount() {
+    this.homeResultsService.getNotficationCount().subscribe(data => {
+      if (data && data.status === 'SUCCESS') {
+       
+        this.count = data.data[0].count;
+       
+      } else {
+        console.log(null + 's');
+        console.log(data + 'datas');
 
+      }
+    });
+  }
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
   }

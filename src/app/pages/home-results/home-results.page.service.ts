@@ -32,7 +32,13 @@ export class HomeResultsService {
       )
     );
   }
-  
+  getNotficationCount() {
+    return this.http.get<{  status: string,  data: number }>(`${environment.apiUrl}notficationCount`)
+      .pipe(
+        tap(_ => console.log(`getNotficationCount: `, _)),
+        catchError(this.handleError<{status: string,  data: number }>('get getNotficationCount'))
+      );
+  }
   getRegionsByKeyword(keyword: string): Observable<{  data: [Place], status: string }> {
     let url = `${environment.apiUrl}searchPlaces/${keyword}`;
     return (

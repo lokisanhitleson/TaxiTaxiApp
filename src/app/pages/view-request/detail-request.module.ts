@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { viewRequestsService } from './view-request.service';
 import { IonicModule } from '@ionic/angular';
 import { DetailRequestPage } from "./detail-request.page";
 
@@ -22,6 +22,10 @@ const routes: Routes = [
     TranslateModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [DetailRequestPage]
+  declarations: [DetailRequestPage],
+  providers: [
+    viewRequestsService,
+    
+  ]
 })
 export class DetailRequestPageModule {}

@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'my-vehicles/:agencyVehicleId', loadChildren: './pages/my-vehicles/my-vehicles.module#MyVehiclesPageModule' },
   { path: 'my-vehicle-list', loadChildren: './pages/my-vehicle-list/my-vehicle-list.module#MyVehicleListModule' },
   { path: 'my-vehicle-view/:agencyVehicleId', loadChildren: './pages/my-vehicle-view/my-vehicle-view.module#MyVehicleViewModule' },
+  { path: 'request-detail/:vehicleRequestId', loadChildren: './pages/view-request/detail-request.module#DetailRequestPageModule' },
   { path: 'register-agency', loadChildren: './pages/register-agency/register-agency.module#RegisterAgencyPageModule' },
   {
     path: 'select-region',

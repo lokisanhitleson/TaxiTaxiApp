@@ -20,6 +20,9 @@ export class SharedService {
   private agencyManualRefresh = new BehaviorSubject(null);
   currentAgencyManualRefresh = this.agencyManualRefresh.asObservable();
 
+  private notificationbellRefresh = new BehaviorSubject(null);
+  currentNotficationBellRefresh = this.notificationbellRefresh.asObservable();
+
   constructor(private authService: AuthService, private storage: Storage) {
     this.authService.isLoggedIn().then(x => this.loginCheckSource.next(x));
     this.storage.get('accessToken').then(x => this.authTokenCheckSource.next(x));
@@ -36,5 +39,8 @@ export class SharedService {
   }
   changeagencyManualRefresh(message: number) {
     this.agencyManualRefresh.next(message);
+  }
+  changeNotficaitonbellRefresh(message: number) {
+    this.notificationbellRefresh.next(message);
   }
 }

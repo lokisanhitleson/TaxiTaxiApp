@@ -9,18 +9,18 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen *ngFor="let req of request" color="light" class="animated fadeInRight">
+<ion-content fullscreen  color="light"  *ngIf="request" class="animated fadeInRight">
     <ion-card class="ion-text-center ion-padding destination-card" color="light">
         <ion-card-content>
             <ion-row>
                 <ion-col size="5" class="ion-text-wrap">
-                    From :<br> <strong color="danger">{{req.from}}</strong>
+                    From :<br> <strong color="danger">{{request.source}}</strong>
                 </ion-col>
                 <ion-col size="2" class="ion-text-center swap-icon">
                     <ion-icon name="swap" color="success"></ion-icon>
                 </ion-col>
                 <ion-col size="5" class="ion-text-wrap">
-                    To :<br> <strong>{{req.to}}</strong>
+                    To :<br> <strong>{{request.destination}}</strong>
                 </ion-col>
             </ion-row>
         </ion-card-content>
@@ -28,36 +28,36 @@
     <ion-list>
         <ion-item>
             <ion-label class="ion-text-wrap">
-                <span class="info-label">Agent Name :</span> <span class="info">{{req.agentname}}</span>
+                <span class="info-label">Agent Name :</span> <span class="info">{{request.agencyName}}</span>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label class="ion-text-wrap">
-                <span class="info-label">Vehicle Name :</span> <span class="info">{{req.vehiclename}}</span>
+                <span class="info-label">Vehicle Name :</span> <span class="info">{{request.vehicleName}}</span>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label class="ion-text-wrap">
-                <span class="info-label">Vehicle Type :</span> <span class="info">{{req.vehicletype}}</span>
+                <span class="info-label">Vehicle Type :</span> <span class="info">{{request.type}}</span>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label class="ion-text-wrap">
-                <span class="info-label">Mobile Number :</span> <span class="info">{{req.mobilenumber}}</span>
+                <span class="info-label">Mobile Number :</span> <span class="info">{{request.mobileNumber}}</span>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label class="ion-text-wrap">
                 <span class="info-label">Comments :<br></span>
-                <strong>{{req.description}}</strong>
+                <strong>{{request.comments}}</strong>
             </ion-label>
         </ion-item>
         <div class="ion-text-center ion-margin-top call-button" lines="none">
-            <ion-button color="success" shape="round">
-                <ion-icon name="ios-call"></ion-icon>
-                <ion-label class="ion-padding">
-                    Call</ion-label>
-            </ion-button>
+            <a href="tel:{{request.mobileNumber}}">
+                <ion-button size="small" color="success">
+                  <span class="icon-phone"></span>
+                </ion-button>
+              </a>
         </div>
 
 

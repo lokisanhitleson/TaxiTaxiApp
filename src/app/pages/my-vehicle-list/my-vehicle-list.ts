@@ -68,7 +68,7 @@ export class MyVehicleList implements OnInit {
           this.totalPage = data.totalPages;
         } else {
           this.errorMessage = 'Failed to load data';
-          this.newData = undefined;
+          this.newData = undefined; 
         }
         resolve(1);
       }, error => {
